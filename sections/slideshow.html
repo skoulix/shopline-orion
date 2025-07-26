@@ -42,13 +42,13 @@
                 {{/if}}
                 
                 {{#if button_label}}
-                  <a 
+                  <orion-button 
                     href="{{button_link}}" 
-                    class="slideshow-button inline-block px-8 py-3 font-semibold transition-colors {{#if button_style == 'solid'}}slideshow-button-solid{{else}}slideshow-button-outline{{/if}}"
-                    style="border-radius: var(--button-radius, 6px);"
+                    variant="{{#if button_style == 'solid'}}primary{{else}}outline{{/if}}"
+                    class="slideshow-button"
                   >
                     {{button_label}}
-                  </a>
+                  </orion-button>
                 {{/if}}
               </div>
             </div>
@@ -240,22 +240,21 @@
 {{/schema}}
 
 <style>
-  .slideshow-button-solid {
-    background-color: white;
-    color: #111827;
+  /* Override button colors for slideshow context */
+  .slideshow-button[variant="primary"] {
+    --button-primary-bg: white;
+    --button-primary-bg-hover: #f3f4f6;
+    --button-primary-text: #111827;
   }
   
-  .slideshow-button-solid:hover {
-    background-color: #f3f4f6;
+  .slideshow-button[variant="outline"] {
+    background: transparent !important;
+    border: 2px solid white !important;
+    color: white !important;
   }
   
-  .slideshow-button-outline {
-    border: 2px solid white;
-    color: white;
-  }
-  
-  .slideshow-button-outline:hover {
-    background-color: white;
-    color: #111827;
+  .slideshow-button[variant="outline"]:hover {
+    background-color: white !important;
+    color: #111827 !important;
   }
 </style>

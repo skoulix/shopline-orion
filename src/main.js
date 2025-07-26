@@ -19,8 +19,46 @@ import TestimonialsCarousel from './components/TestimonialsCarousel.vue'
 import VideoPlayer from './components/VideoPlayer.vue'
 import PasswordModal from './components/PasswordModal.vue'
 
-// Define custom elements
-const ButtonElement = defineCustomElement(Button)
+// Define custom elements with global button settings
+const ButtonElement = defineCustomElement({
+  ...Button,
+  props: {
+    ...Button.props,
+    // Inject global settings as default props
+    buttonRadius: {
+      type: [String, Number],
+      default: () => window.themeSettings?.buttonRadius || 6
+    },
+    primaryBg: {
+      type: String,
+      default: () => window.themeSettings?.buttonPrimaryBg || '#dc2626'
+    },
+    primaryBgHover: {
+      type: String,
+      default: () => window.themeSettings?.buttonPrimaryBgHover || '#b91c1c'
+    },
+    primaryText: {
+      type: String,
+      default: () => window.themeSettings?.buttonPrimaryText || '#ffffff'
+    },
+    secondaryBg: {
+      type: String,
+      default: () => window.themeSettings?.buttonSecondaryBg || '#ffffff'
+    },
+    secondaryBgHover: {
+      type: String,
+      default: () => window.themeSettings?.buttonSecondaryBgHover || '#f9fafb'
+    },
+    secondaryText: {
+      type: String,
+      default: () => window.themeSettings?.buttonSecondaryText || '#374151'
+    },
+    secondaryBorder: {
+      type: String,
+      default: () => window.themeSettings?.buttonSecondaryBorder || '#d1d5db'
+    }
+  }
+})
 const CartDrawerElement = defineCustomElement(CartDrawer)
 const MobileMenuElement = defineCustomElement(MobileMenu)
 const ProductVariantPickerElement = defineCustomElement(ProductVariantPicker)
@@ -63,6 +101,18 @@ customElements.define('password-modal', PasswordModalElement)
 
 // Mount Vue components on regular HTML elements
 document.addEventListener('DOMContentLoaded', () => {
+  // Make button settings globally available
+  window.OrionButtonSettings = {
+    radius: document.documentElement.style.getPropertyValue('--button-radius') || '6px',
+    primaryBg: document.documentElement.style.getPropertyValue('--button-primary-bg') || '#dc2626',
+    primaryBgHover: document.documentElement.style.getPropertyValue('--button-primary-bg-hover') || '#b91c1c',
+    primaryText: document.documentElement.style.getPropertyValue('--button-primary-text') || '#ffffff',
+    secondaryBg: document.documentElement.style.getPropertyValue('--button-secondary-bg') || '#ffffff',
+    secondaryBgHover: document.documentElement.style.getPropertyValue('--button-secondary-bg-hover') || '#f9fafb',
+    secondaryText: document.documentElement.style.getPropertyValue('--button-secondary-text') || '#374151',
+    secondaryBorder: document.documentElement.style.getPropertyValue('--button-secondary-border') || '#d1d5db'
+  }
+  
   // Mount MainHeader components
   const mainHeaderMounts = document.querySelectorAll('.main-header-mount')
   mainHeaderMounts.forEach(mount => {

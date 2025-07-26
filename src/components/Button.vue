@@ -5,7 +5,10 @@
     :type="type"
     :disabled="disabled || loading"
     :class="buttonClasses"
+    :style="buttonStyles"
     @click="handleClick"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
   >
     <svg
       v-if="loading"
@@ -33,7 +36,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps({
   variant: {
@@ -70,12 +73,79 @@ const props = defineProps({
     type: String,
     default: 'default',
     validator: (value) => ['default', 'full', 'none'].includes(value)
+  },
+  // Global button settings can be passed as props
+  buttonRadius: {
+    type: [String, Number],
+    default: null
+  },
+  primaryBg: {
+    type: String,
+    default: null
+  },
+  primaryBgHover: {
+    type: String,
+    default: null
+  },
+  primaryText: {
+    type: String,
+    default: null
+  },
+  secondaryBg: {
+    type: String,
+    default: null
+  },
+  secondaryBgHover: {
+    type: String,
+    default: null
+  },
+  secondaryText: {
+    type: String,
+    default: null
+  },
+  secondaryBorder: {
+    type: String,
+    default: null
   }
 })
 
 const emit = defineEmits(['click'])
 
+const isHovered = ref(false)
 const tag = computed(() => props.href ? 'a' : 'button')
+
+const buttonStyles = computed(() => {
+  const styles = {}
+  
+  // Apply border radius
+  if (props.rounded === 'full') {
+    styles.borderRadius = '9999px'
+  } else if (props.rounded === 'none') {
+    styles.borderRadius = '0'
+  } else if (props.buttonRadius !== null) {
+    // Use the passed prop value
+    styles.borderRadius = typeof props.buttonRadius === 'number' 
+      ? `${props.buttonRadius}px` 
+      : props.buttonRadius
+  } else {
+    // Fall back to CSS variable
+    styles.borderRadius = 'var(--button-radius, 6px)'
+  }
+  
+  // Apply variant-specific colors if provided
+  if (props.variant === 'primary') {
+    const bgColor = isHovered.value && props.primaryBgHover ? props.primaryBgHover : props.primaryBg
+    if (bgColor) styles.backgroundColor = bgColor
+    if (props.primaryText) styles.color = props.primaryText
+  } else if (props.variant === 'secondary') {
+    const bgColor = isHovered.value && props.secondaryBgHover ? props.secondaryBgHover : props.secondaryBg
+    if (bgColor) styles.backgroundColor = bgColor
+    if (props.secondaryText) styles.color = props.secondaryText
+    if (props.secondaryBorder) styles.borderColor = props.secondaryBorder
+  }
+  
+  return styles
+})
 
 const buttonClasses = computed(() => {
   const classes = [
@@ -97,14 +167,7 @@ const buttonClasses = computed(() => {
   }
   classes.push(sizeClasses[props.size])
 
-  // Border radius
-  if (props.rounded === 'full') {
-    classes.push('rounded-full')
-  } else if (props.rounded === 'none') {
-    classes.push('rounded-none')
-  } else {
-    classes.push('rounded-[var(--button-radius,6px)]')
-  }
+  // Border radius is handled in buttonStyles computed property
 
   // Variant styles
   if (props.variant === 'primary') {

@@ -1,0 +1,30 @@
+{{comment}}
+  Button Snippet
+  Usage: render 'button' text='Click me' variant='primary' href='/products'
+  
+  Parameters:
+  - text: Button text (required)
+  - variant: primary, secondary, outline, ghost, link (default: primary)
+  - size: small, medium, large (default: medium)
+  - href: Link URL (optional, creates an anchor instead of button)
+  - type: Button type (default: button)
+  - full_width: Boolean (default: false)
+  - disabled: Boolean (default: false)
+  - loading: Boolean (default: false)
+  - rounded: default, full, none (default: default)
+  - class: Additional CSS classes (optional)
+{{/comment}}
+
+<orion-button
+  {{#if variant}}variant="{{variant}}"{{/if}}
+  {{#if size}}size="{{size}}"{{/if}}
+  {{#if href}}href="{{href}}"{{/if}}
+  {{#if type}}type="{{type}}"{{/if}}
+  {{#if full_width}}:full-width="true"{{/if}}
+  {{#if disabled}}:disabled="true"{{/if}}
+  {{#if loading}}:loading="true"{{/if}}
+  {{#if rounded}}rounded="{{rounded}}"{{/if}}
+  {{#if class}}class="{{class}}"{{/if}}
+>
+  {{text}}
+</orion-button>

@@ -2761,6 +2761,11 @@ select {
   border-color: var(--button-secondary-border,#d1d5db);
 }
 
+.\!border-white {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity, 1)) !important;
+}
+
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
@@ -3343,6 +3348,11 @@ select {
   color: var(--button-secondary-text,#374151);
 }
 
+.\!text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -3890,6 +3900,11 @@ sticky-header.sticky-header-wrapper.not-sticky {
   background-color: var(--button-secondary-bg-hover,#f9fafb);
 }
 
+.hover\:\!bg-white:hover {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)) !important;
+}
+
 .hover\:bg-opacity-100:hover {
   --tw-bg-opacity: 1;
 }
@@ -3985,6 +4000,11 @@ sticky-header.sticky-header-wrapper.not-sticky {
 
 .hover\:text-\[var\(--button-primary-bg-hover\2c \#b91c1c\)\]:hover {
   color: var(--button-primary-bg-hover,#b91c1c);
+}
+
+.hover\:\!text-gray-900:hover {
+  --tw-text-opacity: 1 !important;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1)) !important;
 }
 
 .hover\:underline:hover {
