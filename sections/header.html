@@ -1,23 +1,47 @@
-{{assign "main_menu" section.settings.main_menu_link_list}}
-{{assign "enable_sticky" section.settings.enable_sticky_header}}
+{{#comment}} Mobile menu data {{/comment}}
+<script type="application/json" id="mobile-menu-data">{{json linklists.main-menu.links}}</script>
+
+<script>
+  // Set global menu data for mobile menu  
+  window.mobileMenuData = JSON.parse(document.getElementById('mobile-menu-data').textContent);
+</script>
 
 <sticky-header 
-  {{#if enable_sticky}}data-sticky="true"{{/if}}
-  class="header-wrapper w-full z-40"
+  {{#if section.settings.enable_sticky_header}}data-sticky="true"{{/if}}
+  {{#if section.settings.sticky_hide_on_scroll_down}}data-hide-on-scroll="true"{{/if}}
+  {{#if section.settings.transparent_header_homepage}}data-transparent="true"{{/if}}
+  data-sticky-background="{{section.settings.sticky_header_background}}"
+  class="header-wrapper w-full z-40 {{#if section.settings.transparent_header_homepage}}absolute{{else}}relative{{/if}}"
 >
   <main-header
-    data-main-menu='{{json main_menu}}'
+    data-main-menu='{{json linklists.main-menu.links}}'
     data-logo="{{section.settings.logo}}"
     data-logo-width="{{section.settings.logo_width}}"
     data-show-search="{{section.settings.show_search}}"
     data-show-account="{{section.settings.show_account}}"
     data-show-cart="{{section.settings.show_cart}}"
+    data-cart-action="{{section.settings.cart_action}}"
+    data-transparent="{{section.settings.transparent_header_homepage}}"
   ></main-header>
 </sticky-header>
 
-<!-- Spacer for sticky header -->
-{{#if enable_sticky}}
-  <div class="header-spacer h-16"></div>
+<!-- Mobile Menu Component -->
+<mobile-menu
+  data-menu-items='{{json linklists.main-menu.links}}'
+  data-customer-url="{{routes.account_url}}"
+  data-show-localization="{{section.settings.show_localization}}"
+></mobile-menu>
+
+<!-- Cart Drawer -->
+{{#if section.settings.cart_action == "drawer"}}
+  <cart-drawer></cart-drawer>
+{{/if}}
+
+<!-- Spacer for sticky header (only if not transparent) -->
+{{#if section.settings.enable_sticky_header}}
+  {{#unless section.settings.transparent_header_homepage}}
+    <div class="header-spacer h-16"></div>
+  {{/unless}}
 {{/if}}
 
 {{#schema}}
@@ -25,6 +49,10 @@
   "name": "t:sections.header.name",
   "class": "header-section",
   "settings": [
+    {
+      "type": "group_header",
+      "label": "Logo"
+    },
     {
       "type": "image_picker",
       "id": "logo",
@@ -41,10 +69,24 @@
       "label": "t:sections.header.settings.logo_width.label"
     },
     {
-      "type": "menu_picker",
-      "id": "main_menu_link_list",
+      "type": "group_header",
+      "label": "Navigation"
+    },
+    {
+      "type": "menu",
+      "id": "menu",
       "default": "main-menu",
-      "label": "t:sections.header.settings.menu.label"
+      "label": "Desktop menu"
+    },
+    {
+      "type": "menu",
+      "id": "mobile_menu", 
+      "default": "main-menu",
+      "label": "Mobile menu"
+    },
+    {
+      "type": "group_header",
+      "label": "Header Elements"
     },
     {
       "type": "switch",
@@ -65,10 +107,64 @@
       "label": "t:sections.header.settings.show_cart.label"
     },
     {
+      "type": "select",
+      "id": "cart_action",
+      "label": "t:sections.header.settings.cart_action.label",
+      "options": [
+        {
+          "value": "drawer",
+          "label": "t:sections.header.settings.cart_action.options__1.label"
+        },
+        {
+          "value": "page",
+          "label": "t:sections.header.settings.cart_action.options__2.label"
+        }
+      ],
+      "default": "drawer"
+    },
+    {
+      "type": "group_header",
+      "label": "Sticky Header"
+    },
+    {
       "type": "switch",
       "id": "enable_sticky_header",
       "default": true,
       "label": "t:sections.header.settings.enable_sticky_header.label"
+    },
+    {
+      "type": "switch",
+      "id": "sticky_hide_on_scroll_down",
+      "default": false,
+      "label": "t:sections.header.settings.sticky_hide_on_scroll_down.label"
+    },
+    {
+      "type": "color",
+      "id": "sticky_header_background",
+      "label": "t:sections.header.settings.sticky_header_background.label",
+      "info": "t:sections.header.settings.sticky_header_background.info",
+      "default": "#ffffff"
+    },
+    {
+      "type": "group_header",
+      "label": "Homepage Appearance"
+    },
+    {
+      "type": "switch",
+      "id": "transparent_header_homepage",
+      "default": false,
+      "label": "t:sections.header.settings.transparent_header_homepage.label",
+      "info": "t:sections.header.settings.transparent_header_homepage.info"
+    },
+    {
+      "type": "group_header",
+      "label": "Mobile Settings"
+    },
+    {
+      "type": "switch",
+      "id": "show_localization",
+      "default": false,
+      "label": "Show language/currency selector in mobile menu"
     }
   ]
 }
