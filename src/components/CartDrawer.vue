@@ -40,7 +40,7 @@
                       <p class="mt-1 text-sm text-gray-500">Start shopping to add items to your cart!</p>
                       <button
                         @click="closeDrawer"
-                        class="mt-6 btn-primary"
+                        class="mt-6 w-full inline-flex items-center justify-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
                       >
                         Continue Shopping
                       </button>
@@ -101,23 +101,19 @@
                     <div class="mt-6">
                       <a
                         :href="checkoutUrl"
-                        class="flex items-center justify-center btn-primary w-full"
+                        class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
                       >
                         Checkout
                       </a>
                     </div>
-                    <div class="mt-6 flex justify-center text-sm text-center text-gray-500">
-                      <p>
-                        or
-                        <button
-                          type="button"
-                          class="text-primary-600 font-medium hover:text-primary-500"
-                          @click="closeDrawer"
-                        >
-                          Continue Shopping
-                          <span aria-hidden="true"> &rarr;</span>
-                        </button>
-                      </p>
+                    <div class="mt-6">
+                      <button
+                        type="button"
+                        @click="closeDrawer"
+                        class="w-full inline-flex items-center justify-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
+                      >
+                        Continue Shopping
+                      </button>
                     </div>
                   </div>
                 </div>

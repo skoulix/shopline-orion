@@ -52,6 +52,13 @@
     "footer": {
       "name": "Footer",
       "settings": {
+        "brand_information_header": {
+          "label": "Brand Information"
+        },
+        "brand_description": {
+          "label": "Brand description",
+          "info": "A short description of your brand that appears in the footer"
+        },
         "newsletter_header": {
           "label": "Newsletter"
         },
@@ -68,19 +75,26 @@
           "label": "Footer content"
         },
         "footer_menu": {
-          "label": "Footer menu"
+          "label": "Footer menu",
+          "info": "Select a menu to display footer links"
         },
         "contact_header": {
           "label": "Contact information"
         },
+        "show_contact": {
+          "label": "Show contact information"
+        },
         "contact_email": {
-          "label": "Email"
+          "label": "Email",
+          "placeholder": "hello@example.com"
         },
         "contact_phone": {
-          "label": "Phone"
+          "label": "Phone",
+          "placeholder": "+1 (555) 123-4567"
         },
         "contact_address": {
-          "label": "Address"
+          "label": "Address",
+          "placeholder": "123 Main St, City, State 12345"
         },
         "footer_bottom_header": {
           "label": "Footer bottom"
@@ -92,8 +106,13 @@
         "copyright_text": {
           "label": "Copyright text"
         },
+        "show_policy_links": {
+          "label": "Show policy links",
+          "info": "Display links to privacy policy, terms of service, and other policies"
+        },
         "payment_icons": {
-          "label": "Payment icons"
+          "label": "Payment icons",
+          "info": "Display accepted payment method icons"
         }
       }
     },
