@@ -1,52 +1,52 @@
 <template>
-  <div class="cart-item">
-    <div class="flex gap-4">
+  <div class="cart-item" :data-updating="updating">
+    <div class="cart-item__content">
       <!-- Product Image -->
-      <div class="cart-item-image">
-        <a :href="item.url" class="block">
+      <div class="cart-item__image">
+        <a :href="item.url" class="cart-item__image-link">
           <img 
             :src="item.image || '/assets/placeholder-product.svg'"
             :alt="item.product_title"
-            class="w-full h-full object-cover rounded-md"
+            class="cart-item__image-img"
             loading="lazy"
           >
         </a>
       </div>
       
       <!-- Product Details -->
-      <div class="cart-item-details flex-1">
-        <div class="flex justify-between items-start mb-2">
-          <div>
-            <h3 class="font-medium text-gray-900">
-              <a :href="item.url" class="hover:text-red-600 transition-colors">
+      <div class="cart-item__details">
+        <div class="cart-item__header">
+          <div class="cart-item__info">
+            <h3 class="cart-item__title">
+              <a :href="item.url" class="cart-item__title-link">
                 {{ item.product_title }}
               </a>
             </h3>
-            <p v-if="item.variant_title && item.variant_title !== 'Default Title'" class="text-sm text-gray-500 mt-1">
+            <p v-if="item.variant_title && item.variant_title !== 'Default Title'" class="cart-item__variant">
               {{ item.variant_title }}
             </p>
             
             <!-- Product Properties -->
-            <div v-if="item.properties && Object.keys(item.properties).length" class="mt-2 space-y-1">
-              <p v-for="(value, key) in item.properties" :key="key" class="text-xs text-gray-600">
-                <span class="font-medium">{{ key }}:</span> {{ value }}
+            <div v-if="item.properties && Object.keys(item.properties).length" class="cart-item__properties">
+              <p v-for="(value, key) in item.properties" :key="key" class="cart-item__property">
+                <span class="cart-item__property-key">{{ key }}:</span> {{ value }}
               </p>
             </div>
           </div>
           
           <!-- Price on mobile -->
-          <div class="text-right lg:hidden">
-            <p class="font-medium text-gray-900">{{ formatPrice(item.final_line_price) }}</p>
-            <p v-if="item.original_line_price > item.final_line_price" class="text-sm text-gray-500 line-through">
+          <div class="cart-item__price cart-item__price--mobile">
+            <p class="cart-item__price-current">{{ formatPrice(item.final_line_price) }}</p>
+            <p v-if="item.original_line_price > item.final_line_price" class="cart-item__price-original">
               {{ formatPrice(item.original_line_price) }}
             </p>
           </div>
         </div>
         
         <!-- Discounts -->
-        <div v-if="item.discounts && item.discounts.length" class="mb-2">
-          <div v-for="discount in item.discounts" :key="discount.id" class="inline-flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded">
-            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+        <div v-if="item.discounts && item.discounts.length" class="cart-item__discounts">
+          <div v-for="discount in item.discounts" :key="discount.id" class="cart-item__discount">
+            <svg class="cart-item__discount-icon" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M5 2a2 2 0 00-2 2v11a2 2 0 002 2h10a2 2 0 002-2V4a2 2 0 00-2-2H5zm0 2h10v7h-2l-1 2H8l-1-2H5V4z" clip-rule="evenodd" />
             </svg>
             {{ discount.title }} (-{{ formatPrice(discount.amount) }})
@@ -54,21 +54,20 @@
         </div>
         
         <!-- Quantity and Actions -->
-        <div class="flex items-center justify-between mt-3">
-          <div class="flex items-center gap-3">
+        <div class="cart-item__actions">
+          <div class="cart-item__actions-left">
             <quantity-selector
               v-model="localQuantity"
               :min="0"
               :max="maxQuantity"
               @update:modelValue="handleQuantityChange"
               :disabled="updating"
-              class="w-24"
             ></quantity-selector>
             
             <button 
               type="button"
               @click="handleRemove"
-              class="text-sm text-gray-500 hover:text-red-600 transition-colors"
+              class="cart-item__remove"
               :disabled="updating"
             >
               {{ updating ? 'Removing...' : 'Remove' }}
@@ -76,24 +75,24 @@
           </div>
           
           <!-- Price on desktop -->
-          <div class="text-right hidden lg:block">
-            <p class="font-medium text-gray-900">{{ formatPrice(item.final_line_price) }}</p>
-            <p v-if="item.original_line_price > item.final_line_price" class="text-sm text-gray-500 line-through">
+          <div class="cart-item__price cart-item__price--desktop">
+            <p class="cart-item__price-current">{{ formatPrice(item.final_line_price) }}</p>
+            <p v-if="item.original_line_price > item.final_line_price" class="cart-item__price-original">
               {{ formatPrice(item.original_line_price) }}
             </p>
-            <p v-if="item.original_line_price > item.final_line_price" class="text-xs text-green-600 font-medium">
+            <p v-if="item.original_line_price > item.final_line_price" class="cart-item__price-savings">
               Save {{ calculateSavingsPercentage() }}%
             </p>
           </div>
         </div>
         
         <!-- Stock Warning -->
-        <p v-if="showStockWarning" class="text-xs text-amber-600 mt-2">
+        <p v-if="showStockWarning" class="cart-item__warning">
           Only {{ item.variant.inventory_quantity }} left in stock
         </p>
         
         <!-- Error Message -->
-        <p v-if="errorMessage" class="text-xs text-red-600 mt-2">
+        <p v-if="errorMessage" class="cart-item__error">
           {{ errorMessage }}
         </p>
       </div>
@@ -191,20 +190,261 @@ watch(() => props.item.quantity, (newQuantity) => {
 </script>
 
 <style scoped>
+/* Reset base styles */
+.cart-item * {
+  box-sizing: border-box;
+}
+
+.cart-item p,
+.cart-item h3 {
+  margin: 0;
+}
+
+.cart-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cart-item button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.cart-item svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
 .cart-item {
-  @apply p-4 lg:p-6 border-b border-gray-200 last:border-b-0;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #374151;
+  background-color: white;
 }
 
-.cart-item-image {
-  @apply flex-shrink-0 w-20 h-20 lg:w-24 lg:h-24;
+.cart-item:last-child {
+  border-bottom: 0;
 }
 
-.cart-item-details {
-  @apply min-w-0;
+@media (min-width: 1024px) {
+  .cart-item {
+    padding: 1.5rem;
+  }
+}
+
+.cart-item__content {
+  display: flex;
+  gap: 1rem;
+}
+
+.cart-item__image {
+  flex-shrink: 0;
+  width: 5rem;
+  height: 5rem;
+  min-width: 5rem;
+}
+
+@media (min-width: 1024px) {
+  .cart-item__image {
+    width: 6rem;
+    height: 6rem;
+    min-width: 6rem;
+  }
+}
+
+.cart-item__image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cart-item__image-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.375rem;
+}
+
+.cart-item__details {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.cart-item__info {
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.cart-item__title {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
+}
+
+.cart-item__title-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.cart-item__title-link:hover {
+  color: #dc2626;
+}
+
+.cart-item__variant {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.cart-item__properties {
+  margin-top: 0.5rem;
+}
+
+.cart-item__properties > * + * {
+  margin-top: 0.25rem;
+}
+
+.cart-item__property {
+  font-size: 0.75rem;
+  color: #4b5563;
+  margin: 0;
+}
+
+.cart-item__property-key {
+  font-weight: 500;
+}
+
+.cart-item__price {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.cart-item__price--mobile {
+  display: block;
+}
+
+.cart-item__price--desktop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .cart-item__price--mobile {
+    display: none;
+  }
+  
+  .cart-item__price--desktop {
+    display: block;
+  }
+}
+
+.cart-item__price-current {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
+}
+
+.cart-item__price-original {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-decoration: line-through;
+  margin: 0 0 0.25rem 0;
+}
+
+.cart-item__price-savings {
+  font-size: 0.75rem;
+  color: #059669;
+  font-weight: 500;
+  margin: 0;
+}
+
+.cart-item__discounts {
+  margin-bottom: 0.5rem;
+}
+
+.cart-item__discount {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: #059669;
+  background-color: #d1fae5;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.cart-item__discount-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.cart-item__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+}
+
+.cart-item__actions-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cart-item__remove {
+  font-size: 0.875rem;
+  color: #6b7280;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0.25rem 0.5rem;
+}
+
+.cart-item__remove:hover {
+  color: #dc2626;
+}
+
+.cart-item__remove:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.cart-item__warning {
+  font-size: 0.75rem;
+  color: #d97706;
+  margin-top: 0.5rem;
+}
+
+.cart-item__error {
+  font-size: 0.75rem;
+  color: #dc2626;
+  margin-top: 0.5rem;
 }
 
 /* Loading state */
 .cart-item[data-updating="true"] {
-  @apply opacity-60 pointer-events-none;
+  opacity: 0.6;
+  pointer-events: none;
 }
 </style>

@@ -96,28 +96,65 @@ const handleBlur = (event) => {
 
 <style scoped>
 .quantity-selector {
-  @apply inline-flex items-center border border-gray-300 rounded-lg overflow-hidden;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: white;
 }
 
 .quantity-button {
-  @apply w-10 h-10 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors duration-200 text-gray-600 hover:text-gray-900;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+  transition: all 0.2s;
+  color: #4b5563;
+  cursor: pointer;
+  border: none;
+}
+
+.quantity-button:hover {
+  background-color: #f3f4f6;
+  color: #111827;
 }
 
 .quantity-button:disabled {
-  @apply opacity-30 cursor-not-allowed hover:bg-gray-50 hover:text-gray-600;
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.quantity-button:disabled:hover {
+  background-color: #f9fafb;
+  color: #4b5563;
 }
 
 .quantity-button--minus {
-  @apply border-r border-gray-300;
+  border-right: 1px solid #d1d5db;
 }
 
 .quantity-button--plus {
-  @apply border-l border-gray-300;
+  border-left: 1px solid #d1d5db;
 }
 
 .quantity-input {
-  @apply w-16 h-10 text-center border-0 focus:outline-none focus:ring-0 bg-white text-gray-900 font-medium;
+  width: 4rem;
+  height: 2.5rem;
+  text-align: center;
+  border: 0;
+  background-color: white;
+  color: #111827;
+  font-weight: 500;
+  font-size: 0.875rem;
   -moz-appearance: textfield;
+}
+
+.quantity-input:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .quantity-input::-webkit-outer-spin-button,
