@@ -16,6 +16,7 @@ import CartSummary from './components/CartSummary.vue'
 import SlideshowBanner from './components/SlideshowBanner.vue'
 import TestimonialsCarousel from './components/TestimonialsCarousel.vue'
 import VideoPlayer from './components/VideoPlayer.vue'
+import PasswordModal from './components/PasswordModal.vue'
 
 // Define custom elements
 const CartDrawerElement = defineCustomElement(CartDrawer)
@@ -35,6 +36,7 @@ const CartSummaryElement = defineCustomElement(CartSummary)
 const SlideshowBannerElement = defineCustomElement(SlideshowBanner)
 const TestimonialsCarouselElement = defineCustomElement(TestimonialsCarousel)
 const VideoPlayerElement = defineCustomElement(VideoPlayer)
+const PasswordModalElement = defineCustomElement(PasswordModal)
 
 // Register custom elements
 customElements.define('cart-drawer', CartDrawerElement)
@@ -54,6 +56,7 @@ customElements.define('cart-summary', CartSummaryElement)
 customElements.define('slideshow-banner', SlideshowBannerElement)
 customElements.define('testimonials-carousel', TestimonialsCarouselElement)
 customElements.define('video-player', VideoPlayerElement)
+customElements.define('password-modal', PasswordModalElement)
 
 // Initialize Vue apps if needed
 document.addEventListener('DOMContentLoaded', () => {

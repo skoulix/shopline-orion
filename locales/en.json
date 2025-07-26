@@ -8,6 +8,23 @@
     },
     "search": {
       "search": "Search"
+    },
+    "password": {
+      "use_password_enter": "Enter using password",
+      "entry_store": "Enter store",
+      "you_are_admin": "Are you the store owner?",
+      "log_in_here": "Log in here"
+    }
+  },
+  "customer": {
+    "general": {
+      "password": "Password"
+    }
+  },
+  "products": {
+    "giftcard": {
+      "title": "Gift card",
+      "seoTitle": "Gift card worth {{ value }} - {{ shop }}"
     }
   },
   "sections": {
