@@ -7,7 +7,7 @@
     {{/if}}
 
     {{#if section.settings.blog}}
-      {{#assign 'blog_handle' section.settings.blog}}
+      {{assign 'blog_handle' section.settings.blog}}
       {{#with (lookup blogs blog_handle)}}
         {{#if articles.size > 0}}
           <div class="grid gap-8 {{#if ../section.settings.columns_desktop == '2'}}md:grid-cols-2{{else if ../section.settings.columns_desktop == '3'}}md:grid-cols-3{{else}}md:grid-cols-4{{/if}} {{#if ../section.settings.columns_mobile == '2'}}grid-cols-2{{else}}grid-cols-1{{/if}}">

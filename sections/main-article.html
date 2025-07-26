@@ -144,13 +144,13 @@
 
     <!-- Comments -->
     {{#if section.settings.enable_comments}}
-      {{#if blog.moderated?}}
+      {{#if blog.moderated}}
         <div class="mt-12 pt-8 border-t border-gray-200">
           <h3 class="text-xl font-bold text-gray-900 mb-6">Leave a comment</h3>
           <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4 mb-6">
             <p class="text-yellow-800">Please note, comments need to be approved before they are published.</p>
           </div>
-          {{form 'new_comment' article}}
+          {{#form 'new_comment' article}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
                 <label for="CommentAuthor" class="block text-sm font-medium text-gray-700 mb-2">Name *</label>
