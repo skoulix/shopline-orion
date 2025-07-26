@@ -16,7 +16,7 @@
           {{#if image}}
             <img 
               src="{{image_url image width=1920}}" 
-              alt="{{image.alt | default: heading}}"
+              alt="{{#if image.alt}}{{image.alt}}{{else}}{{heading}}{{/if}}"
               class="absolute inset-0 w-full h-full object-cover"
               {{#unless @first}}loading="lazy"{{/unless}}
             >
@@ -81,7 +81,7 @@
             <button 
               class="slide-indicator w-3 h-3 rounded-full bg-white transition-opacity {{#if @first}}opacity-100{{else}}opacity-50{{/if}}"
               data-slide-index="{{@index}}"
-              aria-label="Go to slide {{add @index 1}}"
+              aria-label="Go to slide {{@index}}"
             ></button>
           {{/each}}
         </div>

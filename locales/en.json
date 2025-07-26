@@ -556,6 +556,23 @@
           "name": "Video"
         }
       }
+    },
+    "main-password-header": {
+      "name": "Password header",
+      "settings": {
+        "logo_img": {
+          "label": "Logo image"
+        },
+        "desktop_logo_width": {
+          "label": "Logo width on desktop"
+        },
+        "mobile_logo_width": {
+          "label": "Logo width on mobile"
+        }
+      }
+    },
+    "main-password-footer": {
+      "name": "Password footer"
     }
   }
 }

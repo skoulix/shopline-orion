@@ -23,7 +23,7 @@
             {{#if section.settings.cover_image}}
               <img 
                 src="{{image_url section.settings.cover_image width=1920}}" 
-                alt="{{section.settings.cover_image.alt | default: section.settings.heading}}"
+                alt="{{#if section.settings.cover_image.alt}}{{section.settings.cover_image.alt}}{{else}}{{section.settings.heading}}{{/if}}"
                 class="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
               >

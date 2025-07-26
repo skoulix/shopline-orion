@@ -17,7 +17,7 @@
               <div class="{{#if ../section.settings.image_ratio == 'square'}}aspect-square{{else if ../section.settings.image_ratio == 'portrait'}}aspect-[3/4]{{else}}aspect-[4/3]{{/if}} overflow-hidden">
                 <img 
                   src="{{image_url featured_image width=600}}" 
-                  alt="{{featured_image.alt | default: title}}"
+                  alt="{{#if featured_image.alt}}{{featured_image.alt}}{{else}}{{title}}{{/if}}"
                   class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                 >
@@ -45,7 +45,7 @@
                 {{#if excerpt}}
                   <p class="text-gray-600 mb-4 line-clamp-3">{{excerpt}}</p>
                 {{else}}
-                  <p class="text-gray-600 mb-4 line-clamp-3">{{content | strip_html | truncatewords: 30}}</p>
+                  <p class="text-gray-600 mb-4 line-clamp-3">{{content}}</p>
                 {{/if}}
               {{/if}}
 
@@ -55,8 +55,8 @@
                     <span>By {{author}}</span>
                   {{/if}}
                   {{#if ../section.settings.show_date}}
-                    <time datetime="{{published_at | date: '%Y-%m-%d'}}">
-                      {{published_at | date: '%B %d, %Y'}}
+                    <time datetime="{{date published_at '%Y-%m-%d'}}">
+                      {{date published_at '%B %d, %Y'}}
                     </time>
                   {{/if}}
                 </div>
