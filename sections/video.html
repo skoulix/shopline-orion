@@ -1,0 +1,154 @@
+<div class="video-section py-16 {{section.settings.color_scheme}}">
+  <div class="{{#if section.settings.full_width}}w-full{{else}}max-w-7xl mx-auto px-4 sm:px-6 lg:px-8{{/if}}">
+    {{#if section.settings.heading}}
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{{section.settings.heading}}</h2>
+        {{#if section.settings.description}}
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{section.settings.description}}</p>
+        {{/if}}
+      </div>
+    {{/if}}
+
+    <div class="video-container {{#unless section.settings.full_width}}rounded-lg overflow-hidden{{/unless}}">
+      {{#if section.settings.video_url}}
+        <video-player
+          data-video-url="{{section.settings.video_url}}"
+          data-autoplay="{{section.settings.enable_video_looping}}"
+          data-muted="{{section.settings.video_muted}}"
+          data-controls="{{section.settings.show_controls}}"
+          data-poster="{{#if section.settings.cover_image}}{{image_url section.settings.cover_image width=1920}}{{/if}}"
+          class="w-full {{#if section.settings.video_height == 'small'}}h-64 md:h-80{{else if section.settings.video_height == 'medium'}}h-80 md:h-96{{else}}h-96 md:h-[70vh]{{/if}}"
+        >
+          <div class="relative w-full h-full bg-gray-900 flex items-center justify-center">
+            {{#if section.settings.cover_image}}
+              <img 
+                src="{{image_url section.settings.cover_image width=1920}}" 
+                alt="{{section.settings.cover_image.alt | default: section.settings.heading}}"
+                class="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              >
+              <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+            {{/if}}
+            
+            <button 
+              class="play-button relative z-10 bg-white bg-opacity-90 hover:bg-opacity-100 text-gray-900 rounded-full p-6 transition-all transform hover:scale-110"
+              aria-label="Play video"
+            >
+              <svg class="w-12 h-12 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          </div>
+        </video-player>
+      {{else}}
+        <div class="w-full {{#if section.settings.video_height == 'small'}}h-64 md:h-80{{else if section.settings.video_height == 'medium'}}h-80 md:h-96{{else}}h-96 md:h-[70vh]{{/if}} bg-gray-100 flex items-center justify-center rounded-lg">
+          <div class="text-center text-gray-500">
+            <svg class="mx-auto h-16 w-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            <p class="text-lg font-medium">Add a video URL</p>
+            <p class="text-sm">Configure the video section in the theme settings</p>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+
+    {{#if section.settings.video_url}}
+      {{#if section.settings.description_below}}
+        <div class="text-center mt-8">
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{section.settings.description_below}}</p>
+        </div>
+      {{/if}}
+    {{/if}}
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "t:sections.video.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Video",
+      "label": "t:sections.video.settings.heading.label"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "t:sections.video.settings.description.label"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "accept": ["youtube", "vimeo"],
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+      "label": "t:sections.video.settings.video_url.label",
+      "info": "t:sections.video.settings.video_url.info"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "t:sections.video.settings.cover_image.label",
+      "info": "t:sections.video.settings.cover_image.info"
+    },
+    {
+      "type": "select",
+      "id": "video_height",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.video.settings.video_height.options__1.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.video.settings.video_height.options__2.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.video.settings.video_height.options__3.label"
+        }
+      ],
+      "default": "medium",
+      "label": "t:sections.video.settings.video_height.label"
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "default": false,
+      "label": "t:sections.video.settings.full_width.label"
+    },
+    {
+      "type": "switch",
+      "id": "enable_video_looping",
+      "default": false,
+      "label": "t:sections.video.settings.enable_video_looping.label"
+    },
+    {
+      "type": "switch",
+      "id": "video_muted",
+      "default": true,
+      "label": "t:sections.video.settings.video_muted.label",
+      "info": "t:sections.video.settings.video_muted.info"
+    },
+    {
+      "type": "switch",
+      "id": "show_controls",
+      "default": true,
+      "label": "t:sections.video.settings.show_controls.label"
+    },
+    {
+      "type": "textarea",
+      "id": "description_below",
+      "label": "t:sections.video.settings.description_below.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.video.presets.video.name"
+    }
+  ]
+}
+{{/schema}}

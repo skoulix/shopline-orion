@@ -1,0 +1,239 @@
+<slideshow-banner 
+  data-auto-rotate="{{section.settings.auto_rotate}}"
+  data-change-slides-speed="{{section.settings.change_slides_speed}}"
+  data-show-text-box="{{section.settings.show_text_box}}"
+  data-full-width="{{section.settings.full_width}}"
+  class="slideshow-section"
+>
+  <div class="slideshow-container {{#unless section.settings.full_width}}max-w-screen-xl mx-auto{{/unless}}">
+    <div class="slideshow-wrapper relative overflow-hidden {{#if section.settings.full_width}}w-full{{else}}rounded-lg{{/if}} {{#if section.settings.height == 'small'}}h-64 md:h-80{{else if section.settings.height == 'medium'}}h-80 md:h-96{{else}}h-96 md:h-screen max-h-[600px]{{/if}}">
+      {{#each section.blocks}}
+        <div 
+          class="slide absolute inset-0 transition-opacity duration-1000 {{#if @first}}opacity-100{{else}}opacity-0{{/if}}"
+          data-slide-index="{{@index}}"
+          {{{shopline_attributes}}}
+        >
+          {{#if image}}
+            <img 
+              src="{{image_url image width=1920}}" 
+              alt="{{image.alt | default: heading}}"
+              class="absolute inset-0 w-full h-full object-cover"
+              {{#unless @first}}loading="lazy"{{/unless}}
+            >
+          {{else}}
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-400 to-gray-600"></div>
+          {{/if}}
+          
+          {{#if overlay_opacity > 0}}
+            <div class="absolute inset-0 bg-black" style="opacity: {{overlay_opacity}}%"></div>
+          {{/if}}
+          
+          {{#if heading}}
+            <div class="relative h-full flex items-center justify-center">
+              <div class="text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 {{text_alignment}}">
+                  {{heading}}
+                </h2>
+                
+                {{#if subheading}}
+                  <p class="text-lg sm:text-xl md:text-2xl mb-8 opacity-90 {{text_alignment}}">
+                    {{subheading}}
+                  </p>
+                {{/if}}
+                
+                {{#if button_label}}
+                  <a 
+                    href="{{button_link}}" 
+                    class="inline-block {{#if button_style == 'solid'}}bg-white text-gray-900 hover:bg-gray-100{{else}}border-2 border-white text-white hover:bg-white hover:text-gray-900{{/if}} px-8 py-3 rounded-md font-semibold transition-colors"
+                  >
+                    {{button_label}}
+                  </a>
+                {{/if}}
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      {{/each}}
+      
+      {{#if section.blocks.size > 1}}
+        <!-- Navigation Arrows -->
+        <button 
+          class="slideshow-prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full p-2 transition-all z-10"
+          aria-label="Previous slide"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        
+        <button 
+          class="slideshow-next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full p-2 transition-all z-10"
+          aria-label="Next slide"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+        
+        <!-- Slide Indicators -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+          {{#each section.blocks}}
+            <button 
+              class="slide-indicator w-3 h-3 rounded-full bg-white transition-opacity {{#if @first}}opacity-100{{else}}opacity-50{{/if}}"
+              data-slide-index="{{@index}}"
+              aria-label="Go to slide {{add @index 1}}"
+            ></button>
+          {{/each}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</slideshow-banner>
+
+{{#schema}}
+{
+  "name": "t:sections.slideshow.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "height",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.slideshow.settings.height.options__1.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.slideshow.settings.height.options__2.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.slideshow.settings.height.options__3.label"
+        }
+      ],
+      "default": "medium",
+      "label": "t:sections.slideshow.settings.height.label"
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.slideshow.settings.full_width.label"
+    },
+    {
+      "type": "switch",
+      "id": "auto_rotate",
+      "default": false,
+      "label": "t:sections.slideshow.settings.auto_rotate.label",
+      "info": "t:sections.slideshow.settings.auto_rotate.info"
+    },
+    {
+      "type": "range",
+      "id": "change_slides_speed",
+      "min": 3,
+      "max": 9,
+      "step": 2,
+      "unit": "s",
+      "label": "t:sections.slideshow.settings.change_slides_speed.label",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "t:sections.slideshow.blocks.slide.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.slideshow.blocks.slide.settings.image.label"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 80,
+          "step": 5,
+          "unit": "%",
+          "label": "t:sections.slideshow.blocks.slide.settings.overlay_opacity.label",
+          "default": 20
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Image slide",
+          "label": "t:sections.slideshow.blocks.slide.settings.heading.label"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Tell your brand's story through images",
+          "label": "t:sections.slideshow.blocks.slide.settings.subheading.label"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.slideshow.blocks.slide.settings.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.slideshow.blocks.slide.settings.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "solid",
+              "label": "t:sections.slideshow.blocks.slide.settings.button_style.options__1.label"
+            },
+            {
+              "value": "outline",
+              "label": "t:sections.slideshow.blocks.slide.settings.button_style.options__2.label"
+            }
+          ],
+          "default": "solid",
+          "label": "t:sections.slideshow.blocks.slide.settings.button_style.label"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "options": [
+            {
+              "value": "text-left",
+              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment.options__1.label"
+            },
+            {
+              "value": "text-center",
+              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment.options__2.label"
+            },
+            {
+              "value": "text-right",
+              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment.options__3.label"
+            }
+          ],
+          "default": "text-center",
+          "label": "t:sections.slideshow.blocks.slide.settings.text_alignment.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.slideshow.presets.slideshow.name",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{{/schema}}

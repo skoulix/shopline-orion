@@ -1,0 +1,189 @@
+<div class="blog-posts-section py-12 {{section.settings.color_scheme}}">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{#if section.settings.heading}}
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">{{section.settings.heading}}</h2>
+      </div>
+    {{/if}}
+
+    {{#if section.settings.blog}}
+      {{#assign 'blog_handle' section.settings.blog}}
+      {{#with (lookup blogs blog_handle)}}
+        {{#if articles.size > 0}}
+          <div class="grid gap-8 {{#if ../section.settings.columns_desktop == '2'}}md:grid-cols-2{{else if ../section.settings.columns_desktop == '3'}}md:grid-cols-3{{else}}md:grid-cols-4{{/if}} {{#if ../section.settings.columns_mobile == '2'}}grid-cols-2{{else}}grid-cols-1{{/if}}">
+            {{#each articles limit=../section.settings.post_limit}}
+              <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+                {{#if featured_image}}
+                  {{#if ../../section.settings.show_image}}
+                    <div class="{{#if ../../section.settings.image_ratio == 'square'}}aspect-square{{else if ../../section.settings.image_ratio == 'portrait'}}aspect-[3/4]{{else}}aspect-[4/3]{{/if}} overflow-hidden">
+                      <a href="{{url}}">
+                        <img 
+                          src="{{image_url featured_image width=600}}" 
+                          alt="{{featured_image.alt | default: title}}"
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        >
+                      </a>
+                    </div>
+                  {{/if}}
+                {{/if}}
+                
+                <div class="p-6">
+                  <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors">
+                    <a href="{{url}}">{{title}}</a>
+                  </h3>
+
+                  {{#if excerpt}}
+                    <p class="text-gray-600 mb-4 line-clamp-3">{{excerpt}}</p>
+                  {{else}}
+                    <p class="text-gray-600 mb-4 line-clamp-3">{{content | strip_html | truncatewords: 25}}</p>
+                  {{/if}}
+
+                  <div class="flex items-center justify-between text-sm text-gray-500">
+                    <div class="flex items-center gap-4">
+                      {{#if ../../section.settings.show_author}}
+                        <span>By {{author}}</span>
+                      {{/if}}
+                      {{#if ../../section.settings.show_date}}
+                        <time datetime="{{published_at | date: '%Y-%m-%d'}}">
+                          {{published_at | date: '%b %d, %Y'}}
+                        </time>
+                      {{/if}}
+                    </div>
+                    <a href="{{url}}" class="text-red-600 font-medium hover:text-red-700">
+                      Read more →
+                    </a>
+                  </div>
+                </div>
+              </article>
+            {{/each}}
+          </div>
+
+          {{#if section.settings.show_view_all}}
+            <div class="text-center mt-12">
+              <a 
+                href="{{url}}" 
+                class="inline-block bg-red-600 text-white px-8 py-3 rounded-md font-medium hover:bg-red-700 transition-colors"
+              >
+                View all posts
+              </a>
+            </div>
+          {{/if}}
+        {{else}}
+          <div class="text-center py-12">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">No articles found</h3>
+            <p class="text-gray-600">Check back soon for new content!</p>
+          </div>
+        {{/if}}
+      {{/with}}
+    {{else}}
+      <div class="text-center py-12">
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Select a blog</h3>
+        <p class="text-gray-600">Choose a blog to display articles from in the section settings.</p>
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "t:sections.blog-posts.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "From the blog",
+      "label": "t:sections.blog-posts.settings.heading.label"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "t:sections.blog-posts.settings.blog.label"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.blog-posts.settings.post_limit.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.blog-posts.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.blog-posts.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.blog-posts.settings.columns_mobile.options__2.label"
+        }
+      ],
+      "default": "1",
+      "label": "t:sections.blog-posts.settings.columns_mobile.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_image",
+      "default": true,
+      "label": "t:sections.blog-posts.settings.show_image.label"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "landscape",
+          "label": "t:sections.blog-posts.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.blog-posts.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.blog-posts.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "landscape",
+      "label": "t:sections.blog-posts.settings.image_ratio.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_date",
+      "default": true,
+      "label": "t:sections.blog-posts.settings.show_date.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_author",
+      "default": false,
+      "label": "t:sections.blog-posts.settings.show_author.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_view_all",
+      "default": true,
+      "label": "t:sections.blog-posts.settings.show_view_all.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.blog-posts.presets.blog_posts.name"
+    }
+  ]
+}
+{{/schema}}

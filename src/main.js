@@ -13,6 +13,9 @@ import ProductGallery from './components/ProductGallery.vue'
 import ProductInfo from './components/ProductInfo.vue'
 import CartItem from './components/CartItem.vue'
 import CartSummary from './components/CartSummary.vue'
+import SlideshowBanner from './components/SlideshowBanner.vue'
+import TestimonialsCarousel from './components/TestimonialsCarousel.vue'
+import VideoPlayer from './components/VideoPlayer.vue'
 
 // Define custom elements
 const CartDrawerElement = defineCustomElement(CartDrawer)
@@ -29,6 +32,9 @@ const ProductGalleryElement = defineCustomElement(ProductGallery)
 const ProductInfoElement = defineCustomElement(ProductInfo)
 const CartItemElement = defineCustomElement(CartItem)
 const CartSummaryElement = defineCustomElement(CartSummary)
+const SlideshowBannerElement = defineCustomElement(SlideshowBanner)
+const TestimonialsCarouselElement = defineCustomElement(TestimonialsCarousel)
+const VideoPlayerElement = defineCustomElement(VideoPlayer)
 
 // Register custom elements
 customElements.define('cart-drawer', CartDrawerElement)
@@ -45,6 +51,9 @@ customElements.define('product-gallery', ProductGalleryElement)
 customElements.define('product-info', ProductInfoElement)
 customElements.define('cart-item', CartItemElement)
 customElements.define('cart-summary', CartSummaryElement)
+customElements.define('slideshow-banner', SlideshowBannerElement)
+customElements.define('testimonials-carousel', TestimonialsCarouselElement)
+customElements.define('video-player', VideoPlayerElement)
 
 // Initialize Vue apps if needed
 document.addEventListener('DOMContentLoaded', () => {

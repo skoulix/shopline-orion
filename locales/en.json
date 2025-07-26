@@ -34,6 +34,26 @@
         },
         "enable_sticky_header": {
           "label": "Enable sticky header"
+        },
+        "sticky_hide_on_scroll_down": {
+          "label": "Hide on scroll down"
+        },
+        "sticky_header_background": {
+          "label": "Sticky header background color",
+          "info": "Color used when header becomes sticky"
+        },
+        "transparent_header_homepage": {
+          "label": "Transparent header on homepage",
+          "info": "Makes header transparent over hero section"
+        },
+        "cart_action": {
+          "label": "Cart action",
+          "options__1": {
+            "label": "Open drawer"
+          },
+          "options__2": {
+            "label": "Go to cart page"
+          }
         }
       }
     },
@@ -188,6 +208,335 @@
         },
         "shipping_info_text": {
           "label": "Shipping information text"
+        }
+      }
+    },
+    "main-blog": {
+      "name": "Blog posts",
+      "settings": {
+        "layout": {
+          "label": "Layout",
+          "options__1": {
+            "label": "Grid"
+          },
+          "options__2": {
+            "label": "List"
+          }
+        },
+        "articles_per_page": {
+          "label": "Articles per page"
+        },
+        "columns_desktop": {
+          "label": "Number of columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Number of columns on mobile",
+          "options__1": {
+            "label": "1 column"
+          },
+          "options__2": {
+            "label": "2 columns"
+          }
+        },
+        "show_author": {
+          "label": "Show author"
+        },
+        "show_date": {
+          "label": "Show date"
+        },
+        "show_excerpt": {
+          "label": "Show excerpt"
+        },
+        "show_tags": {
+          "label": "Show tags"
+        },
+        "image_ratio": {
+          "label": "Image ratio",
+          "options__1": {
+            "label": "Landscape"
+          },
+          "options__2": {
+            "label": "Square"
+          },
+          "options__3": {
+            "label": "Portrait"
+          }
+        }
+      }
+    },
+    "main-article": {
+      "name": "Article",
+      "settings": {
+        "show_author": {
+          "label": "Show author"
+        },
+        "show_date": {
+          "label": "Show date"
+        },
+        "show_tags": {
+          "label": "Show tags"
+        },
+        "show_social_sharing": {
+          "label": "Show social sharing buttons"
+        },
+        "enable_comments": {
+          "label": "Enable comments"
+        }
+      }
+    },
+    "blog-posts": {
+      "name": "Blog posts",
+      "settings": {
+        "heading": {
+          "label": "Heading"
+        },
+        "blog": {
+          "label": "Blog"
+        },
+        "post_limit": {
+          "label": "Maximum posts to show"
+        },
+        "columns_desktop": {
+          "label": "Number of columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Number of columns on mobile",
+          "options__1": {
+            "label": "1 column"
+          },
+          "options__2": {
+            "label": "2 columns"
+          }
+        },
+        "show_image": {
+          "label": "Show featured image"
+        },
+        "image_ratio": {
+          "label": "Image ratio",
+          "options__1": {
+            "label": "Landscape"
+          },
+          "options__2": {
+            "label": "Square"
+          },
+          "options__3": {
+            "label": "Portrait"
+          }
+        },
+        "show_date": {
+          "label": "Show date"
+        },
+        "show_author": {
+          "label": "Show author"
+        },
+        "show_view_all": {
+          "label": "Show 'View all' button"
+        }
+      },
+      "presets": {
+        "blog_posts": {
+          "name": "Blog posts"
+        }
+      }
+    },
+    "slideshow": {
+      "name": "Slideshow",
+      "settings": {
+        "height": {
+          "label": "Section height",
+          "options__1": {
+            "label": "Small"
+          },
+          "options__2": {
+            "label": "Medium"
+          },
+          "options__3": {
+            "label": "Large"
+          }
+        },
+        "full_width": {
+          "label": "Make section full width"
+        },
+        "auto_rotate": {
+          "label": "Auto-rotate slides",
+          "info": "Slides will change automatically"
+        },
+        "change_slides_speed": {
+          "label": "Change slides every"
+        }
+      },
+      "blocks": {
+        "slide": {
+          "name": "Slide",
+          "settings": {
+            "image": {
+              "label": "Image"
+            },
+            "overlay_opacity": {
+              "label": "Image overlay opacity"
+            },
+            "heading": {
+              "label": "Heading"
+            },
+            "subheading": {
+              "label": "Subheading"
+            },
+            "button_label": {
+              "label": "Button label"
+            },
+            "button_link": {
+              "label": "Button link"
+            },
+            "button_style": {
+              "label": "Button style",
+              "options__1": {
+                "label": "Solid"
+              },
+              "options__2": {
+                "label": "Outline"
+              }
+            },
+            "text_alignment": {
+              "label": "Text alignment",
+              "options__1": {
+                "label": "Left"
+              },
+              "options__2": {
+                "label": "Center"
+              },
+              "options__3": {
+                "label": "Right"
+              }
+            }
+          }
+        }
+      },
+      "presets": {
+        "slideshow": {
+          "name": "Slideshow"
+        }
+      }
+    },
+    "testimonials": {
+      "name": "Testimonials",
+      "settings": {
+        "heading": {
+          "label": "Heading"
+        },
+        "subheading": {
+          "label": "Subheading"
+        },
+        "layout": {
+          "label": "Layout",
+          "options__1": {
+            "label": "Slider"
+          },
+          "options__2": {
+            "label": "Grid"
+          }
+        },
+        "text_alignment": {
+          "label": "Text alignment",
+          "options__1": {
+            "label": "Left"
+          },
+          "options__2": {
+            "label": "Center"
+          },
+          "options__3": {
+            "label": "Right"
+          }
+        },
+        "show_stars": {
+          "label": "Show star rating"
+        },
+        "show_navigation": {
+          "label": "Show navigation arrows"
+        },
+        "show_pagination": {
+          "label": "Show pagination dots"
+        },
+        "auto_rotate": {
+          "label": "Auto-rotate testimonials"
+        },
+        "change_slides_speed": {
+          "label": "Change slides every"
+        }
+      },
+      "blocks": {
+        "testimonial": {
+          "name": "Testimonial",
+          "settings": {
+            "quote": {
+              "label": "Quote"
+            },
+            "author_name": {
+              "label": "Author name"
+            },
+            "author_title": {
+              "label": "Author title/company"
+            },
+            "author_image": {
+              "label": "Author image"
+            }
+          }
+        }
+      },
+      "presets": {
+        "testimonials": {
+          "name": "Testimonials"
+        }
+      }
+    },
+    "video": {
+      "name": "Video",
+      "settings": {
+        "heading": {
+          "label": "Heading"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "video_url": {
+          "label": "Video URL",
+          "info": "Paste a YouTube or Vimeo URL"
+        },
+        "cover_image": {
+          "label": "Cover image",
+          "info": "Shows before the video is played"
+        },
+        "video_height": {
+          "label": "Video height",
+          "options__1": {
+            "label": "Small"
+          },
+          "options__2": {
+            "label": "Medium"
+          },
+          "options__3": {
+            "label": "Large"
+          }
+        },
+        "full_width": {
+          "label": "Make section full width"
+        },
+        "enable_video_looping": {
+          "label": "Enable video looping"
+        },
+        "video_muted": {
+          "label": "Mute video",
+          "info": "Videos with sound require user interaction to play"
+        },
+        "show_controls": {
+          "label": "Show video controls"
+        },
+        "description_below": {
+          "label": "Description below video"
+        }
+      },
+      "presets": {
+        "video": {
+          "name": "Video"
         }
       }
     }

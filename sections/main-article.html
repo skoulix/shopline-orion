@@ -1,0 +1,263 @@
+<article class="article-page py-12">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Article Header -->
+    <header class="text-center mb-12">
+      {{#if section.settings.show_tags}}
+        {{#if article.tags.size > 0}}
+          <div class="flex flex-wrap justify-center gap-2 mb-6">
+            {{#each article.tags limit=5}}
+              <a href="{{blog.url}}/tagged/{{this | handle}}" class="inline-block bg-red-100 text-red-700 text-sm font-medium px-3 py-1 rounded-full hover:bg-red-200 transition-colors">
+                {{this}}
+              </a>
+            {{/each}}
+          </div>
+        {{/if}}
+      {{/if}}
+
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{{article.title}}</h1>
+
+      <div class="flex flex-wrap justify-center items-center gap-6 text-gray-600">
+        {{#if section.settings.show_author}}
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+            </svg>
+            <span>{{article.author}}</span>
+          </div>
+        {{/if}}
+
+        {{#if section.settings.show_date}}
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+            </svg>
+            <time datetime="{{article.published_at | date: '%Y-%m-%d'}}">
+              {{article.published_at | date: '%B %d, %Y'}}
+            </time>
+          </div>
+        {{/if}}
+
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+          </svg>
+          <span>{{article.content | strip_html | split: ' ' | size}} min read</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Featured Image -->
+    {{#if article.image}}
+      <div class="mb-12 rounded-lg overflow-hidden">
+        <img 
+          src="{{image_url article.image width=1200}}" 
+          alt="{{article.image.alt | default: article.title}}"
+          class="w-full h-auto object-cover"
+          loading="eager"
+        >
+      </div>
+    {{/if}}
+
+    <!-- Article Content -->
+    <div class="prose prose-lg prose-gray max-w-none">
+      {{article.content}}
+    </div>
+
+    <!-- Social Sharing -->
+    {{#if section.settings.show_social_sharing}}
+      <div class="mt-12 pt-8 border-t border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Share this article</h3>
+        <div class="flex gap-4">
+          <a 
+            href="https://www.facebook.com/sharer/sharer.php?u={{canonical_url}}" 
+            target="_blank" 
+            rel="noopener"
+            class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            Facebook
+          </a>
+          <a 
+            href="https://twitter.com/intent/tweet?url={{canonical_url}}&text={{article.title}}" 
+            target="_blank" 
+            rel="noopener"
+            class="flex items-center gap-2 bg-sky-500 text-white px-4 py-2 rounded-md hover:bg-sky-600 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+            Twitter
+          </a>
+          <a 
+            href="https://www.linkedin.com/sharing/share-offsite/?url={{canonical_url}}" 
+            target="_blank" 
+            rel="noopener"
+            class="flex items-center gap-2 bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    {{/if}}
+
+    <!-- Navigation -->
+    <nav class="mt-12 pt-8 border-t border-gray-200">
+      <div class="flex justify-between items-center">
+        {{#if blog.previous_article}}
+          <a href="{{blog.previous_article.url}}" class="group flex items-center gap-2 text-gray-600 hover:text-gray-900">
+            <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            <div>
+              <div class="text-sm text-gray-500">Previous</div>
+              <div class="font-medium">{{blog.previous_article.title}}</div>
+            </div>
+          </a>
+        {{else}}
+          <div></div>
+        {{/if}}
+
+        <a href="{{blog.url}}" class="text-red-600 font-medium hover:text-red-700">
+          Back to {{blog.title}}
+        </a>
+
+        {{#if blog.next_article}}
+          <a href="{{blog.next_article.url}}" class="group flex items-center gap-2 text-gray-600 hover:text-gray-900 text-right">
+            <div>
+              <div class="text-sm text-gray-500">Next</div>
+              <div class="font-medium">{{blog.next_article.title}}</div>
+            </div>
+            <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        {{else}}
+          <div></div>
+        {{/if}}
+      </div>
+    </nav>
+
+    <!-- Comments -->
+    {{#if section.settings.enable_comments}}
+      {{#if blog.moderated?}}
+        <div class="mt-12 pt-8 border-t border-gray-200">
+          <h3 class="text-xl font-bold text-gray-900 mb-6">Leave a comment</h3>
+          <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4 mb-6">
+            <p class="text-yellow-800">Please note, comments need to be approved before they are published.</p>
+          </div>
+          {{form 'new_comment' article}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label for="CommentAuthor" class="block text-sm font-medium text-gray-700 mb-2">Name *</label>
+                <input 
+                  type="text" 
+                  name="comment[author]" 
+                  id="CommentAuthor" 
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  value="{{form.author}}"
+                  required
+                >
+              </div>
+              <div>
+                <label for="CommentEmail" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                <input 
+                  type="email" 
+                  name="comment[email]" 
+                  id="CommentEmail" 
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  value="{{form.email}}"
+                  required
+                >
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="CommentBody" class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
+              <textarea 
+                name="comment[body]" 
+                id="CommentBody" 
+                rows="4" 
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                required
+              >{{form.body}}</textarea>
+            </div>
+            <button 
+              type="submit" 
+              class="bg-red-600 text-white px-6 py-2 rounded-md font-medium hover:bg-red-700 transition-colors"
+            >
+              Post comment
+            </button>
+          {{/form}}
+        </div>
+      {{/if}}
+
+      {{#if article.comments_count > 0}}
+        <div class="mt-12 pt-8 border-t border-gray-200">
+          <h3 class="text-xl font-bold text-gray-900 mb-6">
+            Comments ({{article.comments_count}})
+          </h3>
+          <div class="space-y-6">
+            {{#each article.comments}}
+              <div class="bg-gray-50 rounded-lg p-6">
+                <div class="flex justify-between items-start mb-4">
+                  <div>
+                    <h4 class="font-medium text-gray-900">{{author}}</h4>
+                    <time class="text-sm text-gray-500" datetime="{{created_at | date: '%Y-%m-%d'}}">
+                      {{created_at | date: '%B %d, %Y at %I:%M %p'}}
+                    </time>
+                  </div>
+                </div>
+                <div class="prose prose-sm max-w-none">
+                  {{content}}
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+    {{/if}}
+  </div>
+</article>
+
+{{#schema}}
+{
+  "name": "t:sections.main-article.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "switch",
+      "id": "show_author",
+      "default": true,
+      "label": "t:sections.main-article.settings.show_author.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_date",
+      "default": true,
+      "label": "t:sections.main-article.settings.show_date.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_tags",
+      "default": true,
+      "label": "t:sections.main-article.settings.show_tags.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_social_sharing",
+      "default": true,
+      "label": "t:sections.main-article.settings.show_social_sharing.label"
+    },
+    {
+      "type": "switch",
+      "id": "enable_comments",
+      "default": true,
+      "label": "t:sections.main-article.settings.enable_comments.label"
+    }
+  ]
+}
+{{/schema}}

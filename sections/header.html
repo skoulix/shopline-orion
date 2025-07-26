@@ -1,11 +1,3 @@
-{{#comment}} Mobile menu data {{/comment}}
-<script type="application/json" id="mobile-menu-data">{{json linklists.main-menu.links}}</script>
-
-<script>
-  // Set global menu data for mobile menu  
-  window.mobileMenuData = JSON.parse(document.getElementById('mobile-menu-data').textContent);
-</script>
-
 <sticky-header 
   {{#if section.settings.enable_sticky_header}}data-sticky="true"{{/if}}
   {{#if section.settings.sticky_hide_on_scroll_down}}data-hide-on-scroll="true"{{/if}}
@@ -14,7 +6,7 @@
   class="header-wrapper w-full z-40 {{#if section.settings.transparent_header_homepage}}absolute{{else}}relative{{/if}}"
 >
   <main-header
-    data-main-menu='{{json linklists.main-menu.links}}'
+    data-main-menu='{{#with (lookup linklists section.settings.menu)}}{{json links}}{{/with}}'
     data-logo="{{section.settings.logo}}"
     data-logo-width="{{section.settings.logo_width}}"
     data-show-search="{{section.settings.show_search}}"
@@ -27,7 +19,7 @@
 
 <!-- Mobile Menu Component -->
 <mobile-menu
-  data-menu-items='{{json linklists.main-menu.links}}'
+  data-menu-items='{{#with (lookup linklists section.settings.mobile_menu)}}{{json links}}{{/with}}'
   data-customer-url="{{routes.account_url}}"
   data-show-localization="{{section.settings.show_localization}}"
 ></mobile-menu>

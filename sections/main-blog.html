@@ -1,0 +1,210 @@
+<div class="blog-page py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Blog Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{{blog.title}}</h1>
+      {{#if blog.description}}
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{blog.description}}</p>
+      {{/if}}
+    </div>
+
+    <!-- Blog Grid -->
+    {{#if blog.articles.size > 0}}
+      <div class="grid gap-8 {{#if section.settings.columns_desktop == '2'}}md:grid-cols-2{{else if section.settings.columns_desktop == '3'}}md:grid-cols-3{{else}}md:grid-cols-4{{/if}} {{#if section.settings.columns_mobile == '2'}}grid-cols-2{{else}}grid-cols-1{{/if}}">
+        {{#each blog.articles limit=section.settings.articles_per_page}}
+          <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+            {{#if featured_image}}
+              <div class="{{#if ../section.settings.image_ratio == 'square'}}aspect-square{{else if ../section.settings.image_ratio == 'portrait'}}aspect-[3/4]{{else}}aspect-[4/3]{{/if}} overflow-hidden">
+                <img 
+                  src="{{image_url featured_image width=600}}" 
+                  alt="{{featured_image.alt | default: title}}"
+                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                >
+              </div>
+            {{/if}}
+            
+            <div class="p-6">
+              {{#if ../section.settings.show_tags}}
+                {{#if tags.size > 0}}
+                  <div class="flex flex-wrap gap-2 mb-3">
+                    {{#each tags limit=3}}
+                      <span class="inline-block bg-gray-100 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">
+                        {{this}}
+                      </span>
+                    {{/each}}
+                  </div>
+                {{/if}}
+              {{/if}}
+
+              <h2 class="text-xl font-bold text-gray-900 mb-3 hover:text-red-600 transition-colors">
+                <a href="{{url}}">{{title}}</a>
+              </h2>
+
+              {{#if ../section.settings.show_excerpt}}
+                {{#if excerpt}}
+                  <p class="text-gray-600 mb-4 line-clamp-3">{{excerpt}}</p>
+                {{else}}
+                  <p class="text-gray-600 mb-4 line-clamp-3">{{content | strip_html | truncatewords: 30}}</p>
+                {{/if}}
+              {{/if}}
+
+              <div class="flex items-center justify-between text-sm text-gray-500">
+                <div class="flex items-center gap-4">
+                  {{#if ../section.settings.show_author}}
+                    <span>By {{author}}</span>
+                  {{/if}}
+                  {{#if ../section.settings.show_date}}
+                    <time datetime="{{published_at | date: '%Y-%m-%d'}}">
+                      {{published_at | date: '%B %d, %Y'}}
+                    </time>
+                  {{/if}}
+                </div>
+                <a href="{{url}}" class="text-red-600 font-medium hover:text-red-700">
+                  Read more →
+                </a>
+              </div>
+            </div>
+          </article>
+        {{/each}}
+      </div>
+
+      <!-- Pagination -->
+      {{#if paginate.pages > 1}}
+        <nav class="flex justify-center mt-12" aria-label="Blog pagination">
+          <div class="flex items-center gap-2">
+            {{#if paginate.previous}}
+              <a href="{{paginate.previous.url}}" class="px-3 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md">
+                ← Previous
+              </a>
+            {{/if}}
+
+            {{#each paginate.parts}}
+              {{#if url}}
+                <a href="{{url}}" class="px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md {{#if is_link}}{{else}}bg-red-600 text-white hover:bg-red-700{{/if}}">
+                  {{title}}
+                </a>
+              {{else}}
+                <span class="px-3 py-2 text-gray-400">{{title}}</span>
+              {{/if}}
+            {{/each}}
+
+            {{#if paginate.next}}
+              <a href="{{paginate.next.url}}" class="px-3 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md">
+                Next →
+              </a>
+            {{/if}}
+          </div>
+        </nav>
+      {{/if}}
+    {{else}}
+      <div class="text-center py-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">No articles found</h2>
+        <p class="text-gray-600">Check back soon for new content!</p>
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "t:sections.main-blog.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "t:sections.main-blog.settings.layout.options__1.label"
+        },
+        {
+          "value": "list",
+          "label": "t:sections.main-blog.settings.layout.options__2.label"
+        }
+      ],
+      "default": "grid",
+      "label": "t:sections.main-blog.settings.layout.label"
+    },
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "default": 9,
+      "label": "t:sections.main-blog.settings.articles_per_page.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.main-blog.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.main-blog.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.main-blog.settings.columns_mobile.options__2.label"
+        }
+      ],
+      "default": "1",
+      "label": "t:sections.main-blog.settings.columns_mobile.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_author",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_author.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_date",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_date.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_excerpt",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_excerpt.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_tags",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_tags.label"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "landscape",
+          "label": "t:sections.main-blog.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.main-blog.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.main-blog.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "landscape",
+      "label": "t:sections.main-blog.settings.image_ratio.label"
+    }
+  ]
+}
+{{/schema}}
