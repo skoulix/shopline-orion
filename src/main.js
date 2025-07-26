@@ -58,8 +58,69 @@ customElements.define('testimonials-carousel', TestimonialsCarouselElement)
 customElements.define('video-player', VideoPlayerElement)
 customElements.define('password-modal', PasswordModalElement)
 
-// Initialize Vue apps if needed
+// Mount Vue components on regular HTML elements
 document.addEventListener('DOMContentLoaded', () => {
+  // Mount MainHeader components
+  const mainHeaderMounts = document.querySelectorAll('.main-header-mount')
+  mainHeaderMounts.forEach(mount => {
+    const app = createApp(MainHeader, {
+      shopName: mount.dataset.shopName || 'Orion Store',
+      logoUrl: mount.dataset.logoUrl || '',
+      navigationLinks: JSON.parse(mount.dataset.navigationLinks || '[]')
+    })
+    app.mount(mount)
+  })
+
+  // Mount MobileMenu components
+  const mobileMenuMounts = document.querySelectorAll('.mobile-menu-mount')
+  mobileMenuMounts.forEach(mount => {
+    const app = createApp(MobileMenu, {
+      menuItems: JSON.parse(mount.dataset.menuItems || '[]'),
+      customerUrl: mount.dataset.customerUrl || '/account',
+      showLocalization: mount.dataset.showLocalization === 'true'
+    })
+    app.mount(mount)
+  })
+
+  // Mount CartDrawer components
+  const cartDrawerMounts = document.querySelectorAll('.cart-drawer-mount')
+  cartDrawerMounts.forEach(mount => {
+    const app = createApp(CartDrawer)
+    app.mount(mount)
+  })
+
+  // Initialize sticky header behavior
+  const stickyHeaders = document.querySelectorAll('.sticky-header')
+  stickyHeaders.forEach(header => {
+    if (header.dataset.sticky === 'true') {
+      let lastScrollY = window.scrollY
+      
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY
+        const isTransparent = header.dataset.transparent === 'true'
+        const hideOnScroll = header.dataset.hideOnScroll === 'true'
+        
+        if (currentScrollY > 100 && !isTransparent) {
+          header.classList.add('sticky', 'top-0', 'shadow-md')
+          header.style.backgroundColor = header.dataset.stickyBackground || '#ffffff'
+        } else {
+          header.classList.remove('sticky', 'shadow-md')
+          header.style.backgroundColor = ''
+        }
+        
+        if (hideOnScroll) {
+          if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            header.style.transform = 'translateY(-100%)'
+          } else {
+            header.style.transform = 'translateY(0)'
+          }
+        }
+        
+        lastScrollY = currentScrollY
+      })
+    }
+  })
+
   // Cart state management
   window.OrionCart = {
     state: {
@@ -140,9 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
     cartCountElements.forEach(el => {
       if (cartCount > 0) {
         el.textContent = cartCount
-        el.style.display = 'flex'
+        el.style.opacity = '1'
       } else {
-        el.style.display = 'none'
+        el.style.opacity = '0'
       }
     })
   })

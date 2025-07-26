@@ -1,0 +1,154 @@
+<header class="site-header bg-white border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        {{#if section.settings.logo}}
+          <img src="{{image_url section.settings.logo width=200}}" alt="{{shop.name}}" class="h-8">
+        {{else}}
+          <h1 class="text-xl font-bold">{{shop.name}}</h1>
+        {{/if}}
+      </div>
+      
+      <!-- Navigation -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="/" class="text-gray-700 hover:text-red-600 transition-colors">Home</a>
+        <a href="/collections" class="text-gray-700 hover:text-red-600 transition-colors">Products</a>
+        <a href="/pages/about" class="text-gray-700 hover:text-red-600 transition-colors">About</a>
+      </nav>
+      
+      <!-- Actions -->
+      <div class="flex items-center space-x-4">
+        <a href="{{routes.account_url}}" class="text-gray-700 hover:text-red-600">Account</a>
+        <a href="{{routes.cart_url}}" class="text-gray-700 hover:text-red-600">Cart</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+{{#schema}}
+{
+  "name": "t:sections.header.name",
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 150,
+      "unit": "px",
+      "label": "t:sections.header.settings.logo_width.label"
+    },
+    {
+      "type": "group_header",
+      "label": "Navigation"
+    },
+    {
+      "type": "menu",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Desktop menu"
+    },
+    {
+      "type": "menu",
+      "id": "mobile_menu", 
+      "default": "main-menu",
+      "label": "Mobile menu"
+    },
+    {
+      "type": "group_header",
+      "label": "Header Elements"
+    },
+    {
+      "type": "switch",
+      "id": "show_search",
+      "default": true,
+      "label": "t:sections.header.settings.show_search.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_account",
+      "default": true,
+      "label": "t:sections.header.settings.show_account.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_cart",
+      "default": true,
+      "label": "t:sections.header.settings.show_cart.label"
+    },
+    {
+      "type": "select",
+      "id": "cart_action",
+      "label": "t:sections.header.settings.cart_action.label",
+      "options": [
+        {
+          "value": "drawer",
+          "label": "t:sections.header.settings.cart_action.options__1.label"
+        },
+        {
+          "value": "page",
+          "label": "t:sections.header.settings.cart_action.options__2.label"
+        }
+      ],
+      "default": "drawer"
+    },
+    {
+      "type": "group_header",
+      "label": "Sticky Header"
+    },
+    {
+      "type": "switch",
+      "id": "enable_sticky_header",
+      "default": true,
+      "label": "t:sections.header.settings.enable_sticky_header.label"
+    },
+    {
+      "type": "switch",
+      "id": "sticky_hide_on_scroll_down",
+      "default": false,
+      "label": "t:sections.header.settings.sticky_hide_on_scroll_down.label"
+    },
+    {
+      "type": "color",
+      "id": "sticky_header_background",
+      "label": "t:sections.header.settings.sticky_header_background.label",
+      "info": "t:sections.header.settings.sticky_header_background.info",
+      "default": "#ffffff"
+    },
+    {
+      "type": "group_header",
+      "label": "Homepage Appearance"
+    },
+    {
+      "type": "switch",
+      "id": "transparent_header_homepage",
+      "default": false,
+      "label": "t:sections.header.settings.transparent_header_homepage.label",
+      "info": "t:sections.header.settings.transparent_header_homepage.info"
+    },
+    {
+      "type": "group_header",
+      "label": "Mobile Settings"
+    },
+    {
+      "type": "switch",
+      "id": "show_localization",
+      "default": false,
+      "label": "Show language/currency selector in mobile menu"
+    }
+  ]
+}
+{{/schema}}

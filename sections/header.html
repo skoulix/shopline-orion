@@ -1,40 +1,198 @@
-<sticky-header 
-  {{#if section.settings.enable_sticky_header}}data-sticky="true"{{/if}}
-  {{#if section.settings.sticky_hide_on_scroll_down}}data-hide-on-scroll="true"{{/if}}
-  {{#if section.settings.transparent_header_homepage}}data-transparent="true"{{/if}}
-  data-sticky-background="{{section.settings.sticky_header_background}}"
-  class="header-wrapper w-full z-40 {{#if section.settings.transparent_header_homepage}}absolute{{else}}relative{{/if}}"
->
-  <main-header
-    data-main-menu='{{#with (lookup linklists section.settings.menu)}}{{json links}}{{/with}}'
-    data-logo="{{section.settings.logo}}"
-    data-logo-width="{{section.settings.logo_width}}"
-    data-show-search="{{section.settings.show_search}}"
-    data-show-account="{{section.settings.show_account}}"
-    data-show-cart="{{section.settings.show_cart}}"
-    data-cart-action="{{section.settings.cart_action}}"
-    data-transparent="{{section.settings.transparent_header_homepage}}"
-  ></main-header>
-</sticky-header>
+{{assign "menu_id" section.settings.menu}}
+{{assign "mobile_menu_id" section.settings.mobile_menu}}
 
-<!-- Mobile Menu Component -->
-<mobile-menu
-  data-menu-items='{{#with (lookup linklists section.settings.mobile_menu)}}{{json links}}{{/with}}'
-  data-customer-url="{{routes.account_url}}"
-  data-show-localization="{{section.settings.show_localization}}"
-></mobile-menu>
+<script>
+  // Global menu data for mobile menu
+  window.mobileMenuData = [
+    {{#each linklists.main-menu.links}}
+    {
+      title: "{{title}}",
+      url: "{{url}}",
+      {{#if links}}
+      children: [
+        {{#each links}}
+        {
+          title: "{{title}}",
+          url: "{{url}}"
+        }{{#unless @last}},{{/unless}}
+        {{/each}}
+      ]
+      {{/if}}
+    }{{#unless @last}},{{/unless}}
+    {{/each}}
+  ];
+</script>
+
+<header class="site-header bg-white border-b border-gray-200 {{#if section.settings.enable_sticky_header}}sticky-header{{/if}}"
+        {{#if section.settings.enable_sticky_header}}
+        data-sticky="true"
+        data-hide-on-scroll="{{section.settings.sticky_hide_on_scroll_down}}"
+        data-sticky-background="{{section.settings.sticky_header_background}}"
+        {{/if}}
+        {{#if section.settings.transparent_header_homepage}}
+        data-transparent="true"
+        {{/if}}>
+  
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button type="button" 
+                class="mobile-menu-toggle inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500"
+                aria-controls="mobile-menu" 
+                aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        {{#if section.settings.logo}}
+          <a href="/" class="flex items-center">
+            <img src="{{image_url section.settings.logo width=section.settings.logo_width}}" 
+                 alt="{{shop.name}}" 
+                 class="h-8"
+                 style="max-width: {{section.settings.logo_width}}px;">
+          </a>
+        {{else}}
+          <a href="/" class="flex items-center">
+            <h1 class="text-xl font-bold text-gray-900">{{shop.name}}</h1>
+          </a>
+        {{/if}}
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-8">
+        {{#each linklists.main-menu.links}}
+          <div class="relative group">
+            <a href="{{url}}" 
+               class="text-gray-700 hover:text-red-600 transition-colors duration-200 flex items-center">
+              {{title}}
+              {{#if links}}
+                <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              {{/if}}
+            </a>
+            
+            {{#if links}}
+              <div class="absolute top-full left-0 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div class="py-1">
+                  {{#each links}}
+                    <a href="{{url}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-600">
+                      {{title}}
+                    </a>
+                  {{/each}}
+                </div>
+              </div>
+            {{/if}}
+          </div>
+        {{/each}}
+      </nav>
+      
+      <!-- Header Actions -->
+      <div class="flex items-center space-x-4">
+        {{#if section.settings.show_search}}
+          <button type="button" class="text-gray-700 hover:text-red-600 transition-colors">
+            <span class="sr-only">Search</span>
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        {{/if}}
+        
+        {{#if section.settings.show_account}}
+          <a href="{{routes.account_url}}" class="text-gray-700 hover:text-red-600 transition-colors">
+            <span class="sr-only">Account</span>
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </a>
+        {{/if}}
+        
+        {{#if section.settings.show_cart}}
+          <button type="button" 
+                  class="cart-toggle relative text-gray-700 hover:text-red-600 transition-colors"
+                  {{#if section.settings.cart_action}}data-action="{{section.settings.cart_action}}"{{/if}}>
+            <span class="sr-only">Shopping cart</span>
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.8-9M7 13l-1-5M7 13l4-5M13 13l-1-5M13 13l4-5M17 13l1-5M17 13h-4M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6" />
+            </svg>
+            <span class="cart-count absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center opacity-0 transition-opacity">0</span>
+          </button>
+        {{/if}}
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu-mount md:hidden" 
+       data-menu-items='[
+         {{#each linklists.main-menu.links}}
+         {
+           "title": "{{title}}",
+           "url": "{{url}}"
+           {{#if links}}
+           ,"children": [
+             {{#each links}}
+             {
+               "title": "{{title}}",
+               "url": "{{url}}"
+             }{{#unless @last}},{{/unless}}
+             {{/each}}
+           ]
+           {{/if}}
+         }{{#unless @last}},{{/unless}}
+         {{/each}}
+       ]'
+       data-customer-url="{{routes.account_url}}"
+       data-show-localization="{{section.settings.show_localization}}">
+  </div>
+  
+</header>
 
 <!-- Cart Drawer -->
-{{#if section.settings.cart_action == "drawer"}}
-  <cart-drawer></cart-drawer>
+{{#if section.settings.show_cart}}
+  {{#if section.settings.cart_action}}
+    {{#if (eq section.settings.cart_action 'drawer')}}
+      <div class="cart-drawer-mount"></div>
+    {{/if}}
+  {{/if}}
 {{/if}}
 
-<!-- Spacer for sticky header (only if not transparent) -->
-{{#if section.settings.enable_sticky_header}}
-  {{#unless section.settings.transparent_header_homepage}}
-    <div class="header-spacer h-16"></div>
-  {{/unless}}
-{{/if}}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu-mount');
+    
+    if (mobileMenuToggle && mobileMenu) {
+      mobileMenuToggle.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
+        mobileMenu.style.display = isExpanded ? 'none' : 'block';
+      });
+    }
+    
+    // Cart toggle
+    const cartToggle = document.querySelector('.cart-toggle');
+    if (cartToggle) {
+      cartToggle.addEventListener('click', function() {
+        const action = this.dataset.action;
+        if (action === 'drawer') {
+          window.OrionCart?.openDrawer();
+        } else {
+          window.location.href = window.routes.cart_url;
+        }
+      });
+    }
+  });
+</script>
 
 {{#schema}}
 {
