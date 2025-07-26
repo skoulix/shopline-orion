@@ -14,6 +14,14 @@
       "entry_store": "Enter store",
       "you_are_admin": "Are you the store owner?",
       "log_in_here": "Log in here"
+    },
+    "header": {
+      "cart": "Cart",
+      "center": "User Center",
+      "close": "Close", 
+      "login": "Log in",
+      "no_currency_fallback": "No relevant currency found",
+      "search_input_placeholder": "Enter here and click search"
     }
   },
   "customer": {
@@ -31,23 +39,125 @@
     "header": {
       "name": "Header",
       "settings": {
+        "color_scheme": {
+          "label": "Color scheme",
+          "options__1": {
+            "label": "Scheme 1"
+          },
+          "options__2": {
+            "label": "Scheme 2"
+          },
+          "options__3": {
+            "label": "Scheme 3"
+          }
+        },
+        "header_full_width": {
+          "label": "Full width",
+          "info": "Make header span the full width of the screen"
+        },
         "logo": {
           "label": "Logo image"
         },
         "logo_width": {
           "label": "Logo width"
         },
+        "desktop_logo_width": {
+          "label": "Desktop logo width",
+          "info": "Width of logo on desktop (max 300px)"
+        },
+        "mobile_logo_width": {
+          "label": "Mobile logo width", 
+          "info": "Width of logo on mobile devices"
+        },
+        "navigation_layout": {
+          "label": "Navigation layout",
+          "options__1": {
+            "label": "Left aligned"
+          },
+          "options__2": {
+            "label": "Center aligned"
+          },
+          "options__3": {
+            "label": "Logo center"
+          },
+          "options__4": {
+            "label": "Full width"
+          }
+        },
+        "main_menu_link_list": {
+          "label": "Desktop menu"
+        },
+        "mobile_main_menu_link_list": {
+          "label": "Mobile menu"
+        },
         "menu": {
           "label": "Menu"
+        },
+        "main_menu_layout": {
+          "label": "Desktop menu type",
+          "options__1": {
+            "label": "Dropdown"
+          },
+          "options__2": {
+            "label": "Drawer"
+          }
+        },
+        "show_locale_selector": {
+          "label": "Show language selector"
+        },
+        "show_country_selector": {
+          "label": "Show country selector"
+        },
+        "show_search_entry": {
+          "label": "Show search"
         },
         "show_search": {
           "label": "Show search"
         },
+        "suggested_menu": {
+          "label": "Suggested searches menu"
+        },
+        "show_user_entry": {
+          "label": "Show account"
+        },
         "show_account": {
           "label": "Show account"
         },
+        "user_mobile_layout": {
+          "label": "Account position on mobile",
+          "options__1": {
+            "label": "Header"
+          },
+          "options__2": {
+            "label": "Mobile menu"
+          }
+        },
+        "show_cart_entry": {
+          "label": "Show cart"
+        },
         "show_cart": {
           "label": "Show cart"
+        },
+        "cart_action": {
+          "label": "Cart action",
+          "options__1": {
+            "label": "Open drawer"
+          },
+          "options__2": {
+            "label": "Go to cart page"
+          }
+        },
+        "header_style": {
+          "label": "Sticky header",
+          "options__1": {
+            "label": "None"
+          },
+          "options__2": {
+            "label": "On scroll up"
+          },
+          "options__3": {
+            "label": "Always stick"
+          }
         },
         "enable_sticky_header": {
           "label": "Enable sticky header"
@@ -59,18 +169,70 @@
           "label": "Sticky header background color",
           "info": "Color used when header becomes sticky"
         },
+        "sticky_index": {
+          "label": "Transparent header on homepage",
+          "info": "Makes header transparent over hero section"
+        },
         "transparent_header_homepage": {
           "label": "Transparent header on homepage",
           "info": "Makes header transparent over hero section"
         },
-        "cart_action": {
-          "label": "Cart action",
+        "header_division_bottom": {
+          "label": "Show header divider",
+          "info": "Display a divider line below the header"
+        },
+        "show_line_separator": {
+          "label": "Show menu separators",
+          "info": "Display separators between menu items"
+        },
+        "enable_highlight": {
+          "label": "Enable menu highlights"
+        },
+        "highlight_menus": {
+          "label": "Highlighted menu items",
+          "info": "Select which menu items to highlight"
+        },
+        "highlight_text_color": {
+          "label": "Highlight text color"
+        },
+        "highlight_bg_color": {
+          "label": "Highlight background color"
+        },
+        "mega_menu_images": {
+          "label": "Show mega menu images"
+        },
+        "mega_menu_images_ratio": {
+          "label": "Mega menu image ratio",
           "options__1": {
-            "label": "Open drawer"
+            "label": "Square"
           },
           "options__2": {
-            "label": "Go to cart page"
+            "label": "Portrait"
+          },
+          "options__3": {
+            "label": "Landscape"
           }
+        },
+        "mobile_top_menu": {
+          "label": "Pin mobile menu to top"
+        },
+        "mobile_top_menu_show_home": {
+          "label": "Show only on homepage"
+        },
+        "body_pc_second_font_size": {
+          "label": "Secondary navigation font size"
+        },
+        "body_pc_second_font_bold": {
+          "label": "Bold secondary navigation"
+        },
+        "body_pc_thirdly_font_size": {
+          "label": "Tertiary navigation font size"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
         }
       }
     },
