@@ -1,0 +1,87 @@
+{{#comment}} Price Snippet {{/comment}}
+{{#comment}} 
+  Usage: {{snippet "price" product=product variant=variant size="large"}}
+  Parameters:
+  - product: product object
+  - variant: specific variant (optional, defaults to selected_or_first_available_variant)
+  - size: "small", "medium", "large" (optional, defaults to medium)
+  - show_badges: true/false (optional, defaults to true)
+{{/comment}}
+
+{{assign "current_variant" (default variant product.selected_or_first_available_variant)}}
+{{assign "price_size" (default size "medium")}}
+{{assign "show_price_badges" (default show_badges true)}}
+
+{{#if current_variant}}
+  <div class="price-wrapper flex items-center space-x-2">
+    <!-- Current Price -->
+    <span class="current-price font-bold text-gray-900 
+      {{#if price_size == "small"}}text-sm
+      {{else if price_size == "large"}}text-2xl
+      {{else}}text-lg{{/if}}
+      {{#if current_variant.compare_at_price}}text-red-600{{/if}}">
+      {{money current_variant.price}}
+    </span>
+
+    <!-- Compare At Price (if on sale) -->
+    {{#if current_variant.compare_at_price}}
+      <span class="compare-price line-through text-gray-500 
+        {{#if price_size == "small"}}text-xs
+        {{else if price_size == "large"}}text-lg
+        {{else}}text-sm{{/if}}">
+        {{money current_variant.compare_at_price}}
+      </span>
+      
+      {{#if show_price_badges}}
+        <!-- Sale Badge -->
+        <span class="sale-badge bg-red-100 text-red-800 text-xs font-medium px-2 py-1 rounded">
+          {{#assign "discount_amount" (minus current_variant.compare_at_price current_variant.price)}}
+          {{#assign "discount_percentage" (times (divided_by discount_amount current_variant.compare_at_price) 100)}}
+          Save {{money discount_amount}} ({{discount_percentage | round}}%)
+        </span>
+      {{/if}}
+    {{/if}}
+
+    <!-- Sold Out Badge -->
+    {{#unless current_variant.available}}
+      {{#if show_price_badges}}
+        <span class="sold-out-badge bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded">
+          Sold Out
+        </span>
+      {{/if}}
+    {{/unless}}
+  </div>
+
+  <!-- Price Range (for products with multiple variants) -->
+  {{#if product.price_varies}}
+    <div class="price-range text-sm text-gray-600 mt-1">
+      {{#if product.compare_at_price_varies}}
+        <span class="line-through">{{money product.compare_at_price_min}} - {{money product.compare_at_price_max}}</span>
+      {{/if}}
+      <span class="{{#if product.compare_at_price_varies}}text-red-600{{/if}}">
+        {{money product.price_min}} - {{money product.price_max}}
+      </span>
+    </div>
+  {{/if}}
+
+  <!-- Unit Price (if available) -->
+  {{#if current_variant.unit_price_measurement}}
+    <div class="unit-price text-xs text-gray-500 mt-1">
+      {{money current_variant.unit_price}} per 
+      {{#if current_variant.unit_price_measurement.reference_value != 1}}
+        {{current_variant.unit_price_measurement.reference_value}}
+      {{/if}}
+      {{current_variant.unit_price_measurement.reference_unit}}
+    </div>
+  {{/if}}
+{{else}}
+  <!-- No variant available -->
+  <div class="price-wrapper">
+    <span class="unavailable-price text-gray-500 
+      {{#if price_size == "small"}}text-sm
+      {{else if price_size == "large"}}text-2xl
+      {{else}}text-lg{{/if}}">
+      Unavailable
+    </span>
+  </div>
+{{/if}}

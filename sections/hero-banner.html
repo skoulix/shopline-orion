@@ -1,0 +1,94 @@
+<div class="hero-banner relative {{#if section.settings.height '==' 'small'}}h-64{{/if}}{{#if section.settings.height '==' 'medium'}}h-96{{/if}}{{#if section.settings.height '==' 'large'}}h-screen max-h-[800px]{{/if}}">
+  {{#if section.settings.image}}
+    <img 
+      src="{{image_url section.settings.image width=1920}}" 
+      alt="{{section.settings.title}}"
+      class="absolute inset-0 w-full h-full object-cover"
+    >
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+  {{else}}
+    <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-red-800"></div>
+  {{/if}}
+  
+  <div class="relative h-full flex items-center justify-center">
+    <div class="text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      {{#if section.settings.title}}
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+          {{section.settings.title}}
+        </h1>
+      {{/if}}
+      
+      {{#if section.settings.subtitle}}
+        <p class="text-xl sm:text-2xl mb-8 opacity-90">
+          {{section.settings.subtitle}}
+        </p>
+      {{/if}}
+      
+      {{#if section.settings.button_label}}
+        <a 
+          href="{{section.settings.button_link}}" 
+          class="inline-block bg-white text-gray-900 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors"
+        >
+          {{section.settings.button_label}}
+        </a>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "t:sections.hero-banner.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Welcome to our store",
+      "label": "t:sections.hero-banner.settings.title.label"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Discover amazing products",
+      "label": "t:sections.hero-banner.settings.subtitle.label"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Shop Now",
+      "label": "t:sections.hero-banner.settings.button_label.label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.hero-banner.settings.button_link.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.hero-banner.settings.image.label"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.hero-banner.settings.height.options__1.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.hero-banner.settings.height.options__2.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.hero-banner.settings.height.options__3.label"
+        }
+      ],
+      "default": "medium",
+      "label": "t:sections.hero-banner.settings.height.label"
+    }
+  ]
+}
+{{/schema}}

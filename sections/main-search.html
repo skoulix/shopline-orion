@@ -1,0 +1,97 @@
+<div class="search-page py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">
+        {{#if search.performed}}
+          {{#if search.results_count > 0}}
+            {{search.results_count}} results for "{{search.terms}}"
+          {{else}}
+            No results found for "{{search.terms}}"
+          {{/if}}
+        {{else}}
+          Search
+        {{/if}}
+      </h1>
+      
+      <form action="{{routes.search_url}}" method="get" class="max-w-2xl">
+        <div class="flex gap-2">
+          <input
+            type="search"
+            name="q"
+            value="{{search.terms}}"
+            placeholder="Search our store..."
+            class="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+          >
+          <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition-colors">
+            Search
+          </button>
+        </div>
+      </form>
+    </div>
+
+    {{#if search.performed}}
+      {{#if search.results_count > 0}}
+        <div class="grid grid-cols-{{section.settings.columns_mobile}} md:grid-cols-3 lg:grid-cols-{{section.settings.columns_desktop}} gap-6">
+          {{#paginate search.results by=24}}
+            {{#each search.results}}
+              {{#if object_type == "product"}}
+                <product-card
+                  :product='{{json this}}'
+                  :enable-quick-add="true"
+                  :enable-quick-view="true"
+                ></product-card>
+              {{/if}}
+            {{/each}}
+            
+            {{#if paginate.pages > 1}}
+              <div class="col-span-full mt-8">
+                {{snippet "pagination" paginate=paginate}}
+              </div>
+            {{/if}}
+          {{/paginate}}
+        </div>
+      {{else}}
+        <div class="text-center py-12">
+          <p class="text-gray-600 mb-4">No products found. Try different keywords or browse our collections.</p>
+          <a href="/collections/all" class="inline-block bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition-colors">
+            Browse All Products
+          </a>
+        </div>
+      {{/if}}
+    {{/if}}
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "Search results",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Number of columns on desktop"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+      ],
+      "default": "2",
+      "label": "Number of columns on mobile"
+    }
+  ]
+}
+{{/schema}}

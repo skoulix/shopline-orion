@@ -1,0 +1,48 @@
+<div class="cart-footer py-8 border-t">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{#if section.settings.show_payment_icons}}
+      <div class="flex justify-center items-center gap-4 mb-4">
+        <span class="text-sm text-gray-500">Secure payments with:</span>
+        <div class="flex gap-2">
+          <!-- Payment icons would go here -->
+          <span class="text-xs text-gray-400">Visa</span>
+          <span class="text-xs text-gray-400">Mastercard</span>
+          <span class="text-xs text-gray-400">PayPal</span>
+        </div>
+      </div>
+    {{/if}}
+    
+    {{#if section.settings.show_shipping_info}}
+      <div class="text-center text-sm text-gray-600">
+        {{section.settings.shipping_info_text}}
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "t:sections.main-cart-footer.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "switch",
+      "id": "show_payment_icons",
+      "default": true,
+      "label": "t:sections.main-cart-footer.settings.show_payment_icons.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_shipping_info",
+      "default": true,
+      "label": "t:sections.main-cart-footer.settings.show_shipping_info.label"
+    },
+    {
+      "type": "text",
+      "id": "shipping_info_text",
+      "default": "Free shipping on orders over $50",
+      "label": "t:sections.main-cart-footer.settings.shipping_info_text.label"
+    }
+  ]
+}
+{{/schema}}

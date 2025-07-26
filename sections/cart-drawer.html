@@ -1,0 +1,48 @@
+{{#comment}} Cart Drawer Section {{/comment}}
+<cart-drawer></cart-drawer>
+
+{{#schema}}
+{
+  "name": "Cart drawer",
+  "class": "section-cart-drawer",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "Cart drawer settings"
+    },
+    {
+      "type": "switch",
+      "id": "show_recommended_products",
+      "label": "Show recommended products",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "recommended_products_count",
+      "label": "Number of recommended products",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "switch",
+      "id": "show_cart_notes",
+      "label": "Enable cart notes",
+      "default": true
+    },
+    {
+      "type": "switch",
+      "id": "show_free_shipping_bar",
+      "label": "Show free shipping progress bar",
+      "default": true
+    },
+    {
+      "type": "price",
+      "id": "free_shipping_threshold",
+      "label": "Free shipping threshold",
+      "default": 5000
+    }
+  ]
+}
+{{/schema}}

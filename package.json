@@ -1,0 +1,30 @@
+{
+  "name": "orion-shopline-theme",
+  "version": "1.0.0",
+  "description": "Modern Shopline 2.0 theme built with Tailwind CSS 4 and Vue 3",
+  "author": "Evan Skoulikaritis",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"pnpm run tailwind:watch\" \"pnpm run vue:watch\"",
+    "build": "pnpm run tailwind:build && pnpm run vue:build",
+    "tailwind:watch": "tailwindcss -i ./src/tailwind.css -o ./assets/theme.css --watch",
+    "tailwind:build": "tailwindcss -i ./src/tailwind.css -o ./assets/theme.css --minify",
+    "vue:watch": "vite build --watch",
+    "vue:build": "vite build"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "autoprefixer": "^10.4.17",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.4.35",
+    "tailwindcss": "3.4.15",
+    "vite": "^5.1.3"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.9.0",
+    "vue": "^3.4.19"
+  }
+}

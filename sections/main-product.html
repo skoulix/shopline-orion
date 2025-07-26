@@ -1,0 +1,632 @@
+<div class="product-page py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Breadcrumbs -->
+    {{#if settings.show_breadcrumb}}
+      <nav class="mb-6" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2 text-sm text-gray-600">
+          <li><a href="/" class="hover:text-red-600">Home</a></li>
+          <li><span class="mx-2">/</span></li>
+          {{#if product.collections.first}}
+            <li><a href="{{product.collections.first.url}}" class="hover:text-red-600">{{product.collections.first.title}}</a></li>
+            <li><span class="mx-2">/</span></li>
+          {{/if}}
+          <li class="text-gray-900 font-medium">{{product.title}}</li>
+        </ol>
+      </nav>
+    {{/if}}
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      <!-- Product Images with Vue Gallery -->
+      <div class="product-images">
+        <product-gallery
+          :images='{{json product.images}}'
+          product-title="{{product.title}}"
+          :image-transform-width="1200"
+          :thumbnail-width="120"
+        ></product-gallery>
+      </div>
+
+      <!-- Product Info with Blocks -->
+      <div class="product-info-wrapper" id="ProductInfo-{{section.id}}">
+        {{#with this as |global|}}
+          {{#each section.block_order as |blockId|}}
+            {{#with (lookup ../section.blocks blockId)}}
+              {{#if type "===" "title"}}
+                <div class="product-block product-block--title mb-4" {{{shopline_attributes}}}>
+                  <h1 class="text-3xl font-bold text-gray-900">{{global.product.title}}</h1>
+                </div>
+              {{else if type "===" "price"}}
+                <div class="product-block product-block--price mb-4" {{{shopline_attributes}}}>
+                  {{#if global.product.compare_at_price}}
+                    <span class="text-2xl font-bold text-red-600">{{money global.product.price}}</span>
+                    <span class="text-lg text-gray-500 line-through ml-2">{{money global.product.compare_at_price}}</span>
+                  {{else}}
+                    <span class="text-2xl font-bold text-gray-900">{{money global.product.price}}</span>
+                  {{/if}}
+                </div>
+              {{else if type "===" "variant_picker"}}
+                {{#unless global.product.has_only_default_variant}}
+                  <div class="product-block product-block--variant-picker mb-4" {{{shopline_attributes}}}>
+                    <product-variant-picker
+                      :product='{{json global.product}}'
+                      :current-variant='{{json global.product.selected_or_first_available_variant}}'
+                    ></product-variant-picker>
+                  </div>
+                {{/unless}}
+              {{else if type "===" "quantity_selector"}}
+                <div class="product-block product-block--quantity mb-4" {{{shopline_attributes}}}>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+                  <quantity-selector></quantity-selector>
+                </div>
+              {{else if type "===" "buy_buttons"}}
+                <div class="product-block product-block--buy-buttons mb-6" {{{shopline_attributes}}}>
+                  <form action="{{routes.cart_add_url}}" method="post" enctype="multipart/form-data" id="product-form-{{global.section.id}}">
+                    <input type="hidden" name="id" value="{{global.product.selected_or_first_available_variant.id}}">
+                    <button
+                      type="submit"
+                      class="w-full bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700 transition-colors mb-3"
+                      {{#unless global.product.available}}disabled{{/unless}}
+                    >
+                      {{#if global.product.available}}Add to Cart{{else}}Sold Out{{/if}}
+                    </button>
+                    
+                    {{#if global.section.settings.show_buy_now}}
+                      <button
+                        type="button"
+                        class="w-full bg-gray-900 text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors"
+                        {{#unless global.product.available}}disabled{{/unless}}
+                      >
+                        Buy Now
+                      </button>
+                    {{/if}}
+                  </form>
+                </div>
+              {{else if type "===" "description"}}
+                {{#if global.product.description}}
+                  <div class="product-block product-block--description mb-6" {{{shopline_attributes}}}>
+                    <div class="product-description prose max-w-none">
+                      {{global.product.description}}
+                    </div>
+                  </div>
+                {{/if}}
+              {{/if}}
+            {{/with}}
+          {{/each}}
+        {{/with}}
+      </div>
+    </div>
+
+    <!-- Product Tabs -->
+    {{#if section.blocks}}
+      <div class="mt-12 border-t pt-12">
+        <div class="tabs">
+          <!-- Tab Headers -->
+          <div class="flex border-b">
+            {{#each section.blocks}}
+              {{#if type == "tab"}}
+                <button 
+                  class="tab-header px-4 py-2 font-medium text-gray-600 border-b-2 border-transparent hover:text-red-600 {{#if @first}}active text-red-600 border-red-600{{/if}}"
+                  data-tab="tab-{{@index}}"
+                >
+                  {{settings.title}}
+                </button>
+              {{/if}}
+            {{/each}}
+          </div>
+
+          <!-- Tab Content -->
+          <div class="tab-content">
+            {{#each section.blocks}}
+              {{#if type == "tab"}}
+                <div class="tab-pane pt-6 {{#unless @first}}hidden{{/unless}}" id="tab-{{@index}}">
+                  {{{settings.content}}}
+                </div>
+              {{/if}}
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+<script>
+  // Handle variant changes
+  function handleVariantChange(event) {
+    const variant = event.detail
+    // Update page elements that depend on variant
+    const url = new URL(window.location)
+    url.searchParams.set('variant', variant.id)
+    window.history.replaceState({}, '', url)
+  }
+
+  // Tab functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabHeaders = document.querySelectorAll('.tab-header')
+    const tabPanes = document.querySelectorAll('.tab-pane')
+
+    tabHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        const tabId = header.dataset.tab
+        
+        // Update headers
+        tabHeaders.forEach(h => {
+          h.classList.remove('active', 'text-red-600', 'border-red-600')
+          h.classList.add('text-gray-600')
+        })
+        header.classList.add('active', 'text-red-600', 'border-red-600')
+        header.classList.remove('text-gray-600')
+        
+        // Update panes
+        tabPanes.forEach(pane => {
+          pane.classList.add('hidden')
+        })
+        document.getElementById(tabId).classList.remove('hidden')
+      })
+    })
+  })
+</script>
+
+<style>
+  .tabs {
+    @apply w-full;
+  }
+  
+  .tab-header {
+    @apply transition-colors duration-200;
+  }
+  
+  .tab-header.active {
+    @apply border-red-600 text-red-600;
+  }
+</style>
+
+{{#schema}}
+{
+  "name": "Product information",
+  "class": "section",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "Gallery Settings"
+    },
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "label": "Gallery layout",
+      "options": [
+        {
+          "value": "thumbnails_bottom",
+          "label": "Thumbnails bottom"
+        },
+        {
+          "value": "thumbnails_left",
+          "label": "Thumbnails left"
+        }
+      ],
+      "default": "thumbnails_bottom"
+    },
+    {
+      "type": "switch",
+      "id": "enable_zoom",
+      "label": "Enable image zoom",
+      "default": true
+    },
+    {
+      "type": "switch",
+      "id": "enable_lightbox",
+      "label": "Enable lightbox",
+      "default": true
+    },
+    {
+      "type": "group_header",
+      "label": "Product Information"
+    },
+    {
+      "type": "switch",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "switch",
+      "id": "show_sku",
+      "label": "Show SKU",
+      "default": false
+    },
+    {
+      "type": "switch",
+      "id": "show_availability",
+      "label": "Show availability",
+      "default": true
+    },
+    {
+      "type": "switch",
+      "id": "show_buy_now",
+      "label": "Show Buy Now button",
+      "default": true
+    },
+    {
+      "type": "switch",
+      "id": "show_breadcrumb",
+      "label": "Show breadcrumb navigation",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Product title",
+      "icon": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "font_size",
+          "label": "Font size",
+          "default": "medium",
+          "options": [
+            {
+              "value": "extra-large",
+              "label": "Extra Large"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            }
+          ]
+        },
+        {
+          "type": "switch",
+          "id": "font_size_flexible",
+          "label": "Use custom font sizes",
+          "info": "Override the font size with custom pixel values",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "title_pc_font_size",
+          "label": "Desktop font size",
+          "unit": "px",
+          "step": 1,
+          "min": 10,
+          "max": 40,
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "title_mobile_font_size",
+          "label": "Mobile font size",
+          "unit": "px",
+          "step": 1,
+          "min": 10,
+          "max": 40,
+          "default": 20
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "icon": "normal",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "discount_style",
+          "label": "Discount display style",
+          "options": [
+            {
+              "value": "ratio",
+              "label": "Percentage"
+            },
+            {
+              "value": "number",
+              "label": "Amount"
+            }
+          ],
+          "default": "number"
+        },
+        {
+          "type": "select",
+          "id": "show_order",
+          "label": "Price display order",
+          "options": [
+            {
+              "value": "sale_origin",
+              "label": "Sale price, Original price"
+            },
+            {
+              "value": "origin_sale",
+              "label": "Original price, Sale price"
+            }
+          ],
+          "default": "sale_origin"
+        },
+        {
+          "type": "select",
+          "id": "sale_font_size",
+          "label": "Sale price font size",
+          "options": [
+            {
+              "value": "font_size_small",
+              "label": "Small"
+            },
+            {
+              "value": "font_size_medium",
+              "label": "Medium"
+            },
+            {
+              "value": "font_size_big",
+              "label": "Large"
+            }
+          ],
+          "default": "font_size_medium"
+        },
+        {
+          "type": "switch",
+          "id": "sale_font_bold",
+          "label": "Bold sale price",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant picker",
+      "icon": "normal",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "label": "Display style",
+          "default": "flatten",
+          "options": [
+            {
+              "value": "flatten",
+              "label": "Buttons"
+            },
+            {
+              "value": "select",
+              "label": "Dropdown"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "sizes",
+          "label": "Button size",
+          "default": "medium",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "layout_direction",
+          "label": "Layout direction",
+          "default": "column",
+          "options": [
+            {
+              "value": "column",
+              "label": "Vertical"
+            },
+            {
+              "value": "row",
+              "label": "Horizontal"
+            }
+          ]
+        },
+        {
+          "type": "switch",
+          "id": "enabled_color_swatch",
+          "label": "Enable color swatches",
+          "info": "Show color swatches for color variants",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "color_swatch_type",
+          "label": "Swatch shape",
+          "default": "circle",
+          "options": [
+            {
+              "value": "square",
+              "label": "Square"
+            },
+            {
+              "value": "circle",
+              "label": "Circle"
+            },
+            {
+              "value": "round_corner",
+              "label": "Rounded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quantity_selector",
+      "name": "Quantity selector",
+      "icon": "normal",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Width",
+          "default": "half",
+          "options": [
+            {
+              "value": "half",
+              "label": "Half width"
+            },
+            {
+              "value": "full",
+              "label": "Full width"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "layout_direction",
+          "label": "Layout direction",
+          "default": "column",
+          "options": [
+            {
+              "value": "column",
+              "label": "Vertical"
+            },
+            {
+              "value": "row",
+              "label": "Horizontal"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "border_style",
+          "label": "Border style",
+          "default": "outline",
+          "options": [
+            {
+              "value": "line",
+              "label": "Line"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "icon": "button",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "button_layout",
+          "label": "Button layout",
+          "type": "select",
+          "options": [
+            {
+              "value": "embed",
+              "label": "Inline"
+            },
+            {
+              "value": "float",
+              "label": "Floating"
+            },
+            {
+              "value": "both",
+              "label": "Both"
+            }
+          ],
+          "default": "embed"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Product description",
+      "icon": "paragraph",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "location",
+          "label": "Display location",
+          "type": "select",
+          "options": [
+            {
+              "value": "image_right",
+              "label": "Next to images"
+            },
+            {
+              "value": "image_bottom",
+              "label": "Below images"
+            }
+          ],
+          "default": "image_right"
+        },
+        {
+          "type": "switch",
+          "id": "is_fold",
+          "label": "Show 'Read more' for long descriptions",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "tab",
+      "name": "Custom tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab title",
+          "default": "Additional Information"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Tab content",
+          "default": "<p>Add custom product information here</p>"
+        }
+      ]
+    },
+    {
+      "type": "collapsible_row",
+      "name": "Collapsible row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Shipping & Returns"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Free shipping on orders over $50</p>"
+        },
+        {
+          "type": "switch",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": false
+        }
+      ]
+    }
+  ]
+}
+{{/schema}}

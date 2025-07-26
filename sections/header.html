@@ -1,0 +1,75 @@
+{{assign "main_menu" section.settings.main_menu_link_list}}
+{{assign "enable_sticky" section.settings.enable_sticky_header}}
+
+<sticky-header 
+  {{#if enable_sticky}}data-sticky="true"{{/if}}
+  class="header-wrapper w-full z-40"
+>
+  <main-header
+    data-main-menu='{{json main_menu}}'
+    data-logo="{{section.settings.logo}}"
+    data-logo-width="{{section.settings.logo_width}}"
+    data-show-search="{{section.settings.show_search}}"
+    data-show-account="{{section.settings.show_account}}"
+    data-show-cart="{{section.settings.show_cart}}"
+  ></main-header>
+</sticky-header>
+
+<!-- Spacer for sticky header -->
+{{#if enable_sticky}}
+  <div class="header-spacer h-16"></div>
+{{/if}}
+
+{{#schema}}
+{
+  "name": "t:sections.header.name",
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 150,
+      "unit": "px",
+      "label": "t:sections.header.settings.logo_width.label"
+    },
+    {
+      "type": "menu_picker",
+      "id": "main_menu_link_list",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_search",
+      "default": true,
+      "label": "t:sections.header.settings.show_search.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_account",
+      "default": true,
+      "label": "t:sections.header.settings.show_account.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_cart",
+      "default": true,
+      "label": "t:sections.header.settings.show_cart.label"
+    },
+    {
+      "type": "switch",
+      "id": "enable_sticky_header",
+      "default": true,
+      "label": "t:sections.header.settings.enable_sticky_header.label"
+    }
+  ]
+}
+{{/schema}}

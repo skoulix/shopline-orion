@@ -1,0 +1,39 @@
+{
+  "current": {
+    "color_primary": "#dc2626",
+    "color_secondary": "#1f2937",
+    "type_header_font": "sans-serif",
+    "type_body_font": "sans-serif",
+    "cart_type": "drawer",
+    "sections": {
+      "header": {
+        "disabled": false,
+        "type": "header",
+        "settings": {
+          "logo_width": 150,
+          "show_search": true,
+          "show_account": true,
+          "show_cart": true,
+          "enable_sticky_header": true,
+          "main_menu_link_list": "main-menu"
+        },
+        "blocks": {}
+      },
+      "footer": {
+        "disabled": false,
+        "type": "footer",
+        "settings": {
+          "show_newsletter": true,
+          "newsletter_heading": "Subscribe to our newsletter",
+          "newsletter_subheading": "Get the latest updates on new products and upcoming sales",
+          "show_social": true,
+          "copyright_text": "© 2024, Orion Theme. All rights reserved.",
+          "footer_menu": "7015096016845168856"
+        },
+        "blocks": {},
+        "custom_css": []
+      }
+    },
+    "content_for_index": []
+  }
+}

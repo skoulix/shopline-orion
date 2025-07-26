@@ -1,0 +1,63 @@
+<div class="product-recommendations py-12 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{#if section.settings.heading}}
+      <h2 class="text-2xl font-bold text-gray-900 text-center mb-8">
+        {{section.settings.heading}}
+      </h2>
+    {{/if}}
+    
+    <div class="recommendations-container" data-product-id="{{product.id}}" data-limit="{{section.settings.products_to_show}}">
+      <!-- This would be populated by JavaScript with recommended products -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {{#comment}}
+          Placeholder - In production, this would be populated via JavaScript
+          using the Shopline recommendations API
+        {{/comment}}
+        <div class="text-center col-span-full py-8 text-gray-500">
+          Loading recommendations...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Simple recommendations loader
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.recommendations-container');
+    if (container) {
+      const productId = container.dataset.productId;
+      const limit = container.dataset.limit || 4;
+      
+      // In production, this would call the Shopline API
+      // For now, we'll just show a message
+      setTimeout(() => {
+        container.innerHTML = '<p class="text-center text-gray-500">Recommendations would appear here</p>';
+      }, 1000);
+    }
+  });
+</script>
+
+{{#schema}}
+{
+  "name": "Product recommendations",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "You may also like",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "Maximum products to show"
+    }
+  ]
+}
+{{/schema}}

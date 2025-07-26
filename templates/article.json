@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "settings": {
+        "show_share_buttons": true
+      }
+    },
+    "related-articles": {
+      "type": "blog",
+      "settings": {
+        "title": "Related Articles",
+        "posts_to_show": 3,
+        "show_view_all": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-articles"
+  ]
+}

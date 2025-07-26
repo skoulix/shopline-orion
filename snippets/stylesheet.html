@@ -1,0 +1,12 @@
+{{#comment}} 
+  Accepts:
+  - href: {String} (required) - The URL of the stylesheet
+  - lazy: {Boolean} (optional) - Whether to lazy load the stylesheet
+  - preload: {Boolean} (optional) - Whether to preload the stylesheet
+{{/comment}}
+
+{{~#if lazy~}}
+  <link rel="stylesheet" href="{{ href }}" media="print" onload="this.media='all'">
+{{~else~}}
+  {{stylesheet_tag href preload=(default preload (ternary section.index (if section.index '<=' 2) true))}}
+{{~/if~}}

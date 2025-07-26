@@ -1,0 +1,55 @@
+{{#if section.settings.show_announcement}}
+  <div class="announcement-bar bg-{{#if section.settings.color_scheme == 'dark'}}gray-900{{else}}red-600{{/if}} text-white py-2 text-center text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {{#if section.settings.link}}
+        <a href="{{section.settings.link}}" class="hover:underline">
+          {{section.settings.text}}
+        </a>
+      {{else}}
+        {{section.settings.text}}
+      {{/if}}
+    </div>
+  </div>
+{{/if}}
+
+{{#schema}}
+{
+  "name": "Announcement bar",
+  "class": "section-announcement-bar",
+  "settings": [
+    {
+      "type": "switch",
+      "id": "show_announcement",
+      "default": false,
+      "label": "Show announcement"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Welcome to our store!",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent",
+          "label": "Accent"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "accent",
+      "label": "Color scheme"
+    }
+  ]
+}
+{{/schema}}

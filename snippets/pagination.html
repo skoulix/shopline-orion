@@ -1,0 +1,42 @@
+{{#comment}}
+  Renders pagination
+  
+  Accepts:
+  - paginate: {Object} Paginate object
+  - anchor: {String} Anchor to add to links (optional)
+  
+  Usage:
+  {{snippet 'pagination' paginate=paginate}}
+{{/comment}}
+
+{{#if paginate.pages > 1}}
+  <nav class="pagination flex items-center justify-center gap-1">
+    {{#if paginate.previous}}
+      <a href="{{paginate.previous.url}}{{anchor}}" class="px-3 py-2 text-sm border border-gray-300 rounded hover:bg-gray-50">
+        &larr; Previous
+      </a>
+    {{/if}}
+    
+    {{#for paginate.parts as |part|}}
+      {{#if part.is_link}}
+        <a href="{{part.url}}{{anchor}}" class="px-3 py-2 text-sm border border-gray-300 rounded hover:bg-gray-50">
+          {{part.title}}
+        </a>
+      {{else}}
+        {{#if part.title == paginate.current_page}}
+          <span class="px-3 py-2 text-sm border border-red-600 bg-red-600 text-white rounded">
+            {{part.title}}
+          </span>
+        {{else}}
+          <span class="px-3 py-2 text-sm">{{part.title}}</span>
+        {{/if}}
+      {{/if}}
+    {{/for}}
+    
+    {{#if paginate.next}}
+      <a href="{{paginate.next.url}}{{anchor}}" class="px-3 py-2 text-sm border border-gray-300 rounded hover:bg-gray-50">
+        Next &rarr;
+      </a>
+    {{/if}}
+  </nav>
+{{/if}}

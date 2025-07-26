@@ -1,0 +1,195 @@
+{
+  "general": {
+    "meta": {
+      "page": "Page {{ page }}"
+    },
+    "accessibility": {
+      "skip_to_text": "Skip to content"
+    },
+    "search": {
+      "search": "Search"
+    }
+  },
+  "sections": {
+    "header": {
+      "name": "Header",
+      "settings": {
+        "logo": {
+          "label": "Logo image"
+        },
+        "logo_width": {
+          "label": "Logo width"
+        },
+        "menu": {
+          "label": "Menu"
+        },
+        "show_search": {
+          "label": "Show search"
+        },
+        "show_account": {
+          "label": "Show account"
+        },
+        "show_cart": {
+          "label": "Show cart"
+        },
+        "enable_sticky_header": {
+          "label": "Enable sticky header"
+        }
+      }
+    },
+    "footer": {
+      "name": "Footer",
+      "settings": {
+        "newsletter_header": {
+          "label": "Newsletter"
+        },
+        "show_newsletter": {
+          "label": "Show newsletter signup"
+        },
+        "newsletter_heading": {
+          "label": "Newsletter heading"
+        },
+        "newsletter_subheading": {
+          "label": "Newsletter subheading"
+        },
+        "footer_content_header": {
+          "label": "Footer content"
+        },
+        "footer_menu": {
+          "label": "Footer menu"
+        },
+        "contact_header": {
+          "label": "Contact information"
+        },
+        "contact_email": {
+          "label": "Email"
+        },
+        "contact_phone": {
+          "label": "Phone"
+        },
+        "contact_address": {
+          "label": "Address"
+        },
+        "footer_bottom_header": {
+          "label": "Footer bottom"
+        },
+        "show_social": {
+          "label": "Show social icons",
+          "info": "To display social icons, add your social links in theme settings"
+        },
+        "copyright_text": {
+          "label": "Copyright text"
+        },
+        "payment_icons": {
+          "label": "Payment icons"
+        }
+      }
+    },
+    "collection-banner": {
+      "name": "Collection banner",
+      "settings": {
+        "show_collection_image": {
+          "label": "Show collection image"
+        },
+        "show_collection_description": {
+          "label": "Show collection description"
+        }
+      }
+    },
+    "main-collection-product-list": {
+      "name": "Collection products",
+      "settings": {
+        "products_per_page": {
+          "label": "Products per page"
+        },
+        "columns_desktop": {
+          "label": "Number of columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Number of columns on mobile",
+          "options__1": {
+            "label": "1 column"
+          },
+          "options__2": {
+            "label": "2 columns"
+          }
+        },
+        "enable_filtering": {
+          "label": "Enable filtering"
+        },
+        "enable_sorting": {
+          "label": "Enable sorting"
+        },
+        "enable_infinite_scroll": {
+          "label": "Enable infinite scroll"
+        }
+      }
+    },
+    "hero-banner": {
+      "name": "Hero banner",
+      "settings": {
+        "title": {
+          "label": "Title"
+        },
+        "subtitle": {
+          "label": "Subtitle"
+        },
+        "button_label": {
+          "label": "Button label"
+        },
+        "button_link": {
+          "label": "Button link"
+        },
+        "image": {
+          "label": "Background image"
+        },
+        "height": {
+          "label": "Section height",
+          "options__1": {
+            "label": "Small"
+          },
+          "options__2": {
+            "label": "Medium"
+          },
+          "options__3": {
+            "label": "Large"
+          }
+        }
+      }
+    },
+    "featured-collection": {
+      "name": "Featured collection",
+      "settings": {
+        "title": {
+          "label": "Heading"
+        },
+        "collection": {
+          "label": "Collection"
+        },
+        "products_to_show": {
+          "label": "Maximum products to show"
+        },
+        "show_view_all": {
+          "label": "Show 'View all' button"
+        }
+      }
+    },
+    "main-cart-items": {
+      "name": "Cart items"
+    },
+    "main-cart-footer": {
+      "name": "Cart footer",
+      "settings": {
+        "show_payment_icons": {
+          "label": "Show payment icons"
+        },
+        "show_shipping_info": {
+          "label": "Show shipping information"
+        },
+        "shipping_info_text": {
+          "label": "Shipping information text"
+        }
+      }
+    }
+  }
+}

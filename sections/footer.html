@@ -1,0 +1,101 @@
+<site-footer
+  data-newsletter-heading="{{section.settings.newsletter_heading}}"
+  data-newsletter-subheading="{{section.settings.newsletter_subheading}}"
+  data-show-newsletter="{{section.settings.show_newsletter}}"
+  data-show-social="{{section.settings.show_social}}"
+  data-copyright-text="{{section.settings.copyright_text}}"
+  data-contact-email="{{section.settings.contact_email}}"
+  data-contact-phone="{{section.settings.contact_phone}}"
+  data-contact-address="{{section.settings.contact_address}}"
+  data-payment-icons='{{json section.settings.payment_icons}}'
+  data-social-facebook="{{settings.social_facebook_link}}"
+  data-social-instagram="{{settings.social_instagram_link}}"
+  data-social-twitter="{{settings.social_twitter_link}}"
+  data-social-youtube="{{settings.social_youtube_link}}"
+  data-social-tiktok="{{settings.social_tiktok_link}}"
+  data-social-pinterest="{{settings.social_pinterest_link}}"
+  data-social-linkedin="{{settings.social_linkedin_link}}"
+  data-footer-menu='{{json section.settings.footer_menu}}'
+></site-footer>
+
+{{#schema}}
+{
+  "name": "t:sections.footer.name",
+  "class": "footer-section",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "t:sections.footer.settings.newsletter_header.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_newsletter",
+      "default": true,
+      "label": "t:sections.footer.settings.show_newsletter.label"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "default": "Subscribe to our newsletter",
+      "label": "t:sections.footer.settings.newsletter_heading.label"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_subheading",
+      "default": "Get the latest updates on new products and upcoming sales",
+      "label": "t:sections.footer.settings.newsletter_subheading.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.footer.settings.footer_content_header.label"
+    },
+    {
+      "type": "menu_picker",
+      "id": "footer_menu",
+      "default": "footer",
+      "label": "t:sections.footer.settings.footer_menu.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.footer.settings.contact_header.label"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "t:sections.footer.settings.contact_email.label"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "t:sections.footer.settings.contact_phone.label"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_address",
+      "label": "t:sections.footer.settings.contact_address.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.footer.settings.footer_bottom_header.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_social",
+      "default": true,
+      "label": "t:sections.footer.settings.show_social.label",
+      "info": "t:sections.footer.settings.show_social.info"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "default": "© 2024, Your Store. All rights reserved.",
+      "label": "t:sections.footer.settings.copyright_text.label"
+    },
+    {
+      "type": "payment_methods",
+      "id": "payment_icons",
+      "label": "t:sections.footer.settings.payment_icons.label"
+    }
+  ]
+}
+{{/schema}}

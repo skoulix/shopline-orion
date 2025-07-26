@@ -1,0 +1,174 @@
+<!-- Collection Banner -->
+{{#if collection}}
+  {{#or section.settings.show_collection_image section.settings.show_collection_description}}
+    <div class="collection-banner bg-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center">
+          <h1 class="text-4xl font-bold text-gray-900 mb-4">{{collection.title}}</h1>
+          
+          {{#if section.settings.show_collection_description}}
+            {{#if collection.description}}
+              <div class="max-w-3xl mx-auto text-gray-600 prose">
+                {{collection.description}}
+              </div>
+            {{/if}}
+          {{/if}}
+        </div>
+        
+        {{#if section.settings.show_collection_image}}
+          {{#if collection.image}}
+            <div class="mt-8 rounded-lg overflow-hidden max-w-6xl mx-auto">
+              <img 
+                src="{{image_url collection.image width=1200}}" 
+                alt="{{collection.title}}"
+                class="w-full h-64 object-cover"
+              >
+            </div>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+  {{/or}}
+{{/if}}
+
+<!-- Collection Products -->
+<div class="collection-page">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+      <!-- Filters Sidebar -->
+      {{#if section.settings.enable_filtering}}
+        <aside class="hidden lg:block">
+          <collection-filters 
+            :initial-filters='{{json collection.filters}}'
+            collection-handle="{{collection.handle}}"
+          ></collection-filters>
+        </aside>
+      {{/if}}
+      
+      <!-- Products Grid -->
+      <div class="{{#if section.settings.enable_filtering}}lg:col-span-3{{else}}lg:col-span-4{{/if}}">
+        <!-- Mobile Filter Toggle -->
+        {{#if section.settings.enable_filtering}}
+          <div class="lg:hidden mb-4">
+            <button 
+              type="button"
+              class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+              onclick="document.dispatchEvent(new CustomEvent('filters:toggle'))"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              Filters
+            </button>
+          </div>
+        {{/if}}
+        
+        <!-- Sorting and Results -->
+        {{#if section.settings.enable_sorting}}
+          <div class="flex items-center justify-between mb-6">
+            <p class="text-sm text-gray-600">
+              {{collection.products_count}} products
+            </p>
+            
+            <div class="flex items-center">
+              <label for="sort-by" class="mr-2 text-sm text-gray-600">Sort by:</label>
+              <select 
+                id="sort-by" 
+                class="block w-48 px-3 py-1 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500"
+                onchange="window.location.href = this.value"
+              >
+                {{#each collection.sort_options}}
+                  <option value="{{url}}" {{#if active}}selected{{/if}}>{{name}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+        {{/if}}
+        
+        <!-- Products -->
+        <collection-grid
+          :products='{{json collection.products}}'
+          :columns-desktop="{{section.settings.columns_desktop}}"
+          :columns-mobile="{{section.settings.columns_mobile}}"
+          :enable-infinite-scroll="{{section.settings.enable_infinite_scroll}}"
+          :products-per-page="{{section.settings.products_per_page}}"
+          collection-url="{{collection.url}}"
+          :total-products="{{collection.products_count}}"
+        ></collection-grid>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "t:sections.main-collection.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "switch",
+      "id": "show_collection_image",
+      "default": true,
+      "label": "t:sections.collection-banner.settings.show_collection_image.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 12,
+      "max": 48,
+      "step": 12,
+      "default": 24,
+      "label": "t:sections.main-collection-product-list.settings.products_per_page.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.main-collection-product-list.settings.columns_desktop.label"
+    },
+    {
+      "type": "radio",
+      "id": "columns_mobile",
+      "default": 2,
+      "label": "t:sections.main-collection-product-list.settings.columns_mobile.label",
+      "options": [
+        {
+          "value": 1,
+          "label": "t:sections.main-collection-product-list.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": 2,
+          "label": "t:sections.main-collection-product-list.settings.columns_mobile.options__2.label"
+        }
+      ]
+    },
+    {
+      "type": "switch",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "t:sections.main-collection-product-list.settings.enable_filtering.label"
+    },
+    {
+      "type": "switch",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "t:sections.main-collection-product-list.settings.enable_sorting.label"
+    },
+    {
+      "type": "switch",
+      "id": "enable_infinite_scroll",
+      "default": false,
+      "label": "t:sections.main-collection-product-list.settings.enable_infinite_scroll.label"
+    }
+  ]
+}
+{{/schema}}
