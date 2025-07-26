@@ -68,6 +68,11 @@ export default {
       transitionProperty: {
         'height': 'height',
         'spacing': 'margin, padding',
+      },
+      borderRadius: {
+        'button': 'var(--button-radius, 0.375rem)', // Uses CSS variable from theme settings
+        'button-lg': 'calc(var(--button-radius, 0.375rem) * 1.5)', // 1.5x the base radius
+        'button-pill': '9999px', // fully rounded/pill buttons
       }
     },
   },

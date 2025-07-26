@@ -38,12 +38,14 @@
                       </svg>
                       <h3 class="mt-2 text-sm font-medium text-gray-900">Your cart is empty</h3>
                       <p class="mt-1 text-sm text-gray-500">Start shopping to add items to your cart!</p>
-                      <button
+                      <Button
                         @click="closeDrawer"
-                        class="mt-6 w-full inline-flex items-center justify-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
+                        variant="secondary"
+                        :full-width="true"
+                        class="mt-6"
                       >
                         Continue Shopping
-                      </button>
+                      </Button>
                     </div>
 
                     <div v-else class="flow-root">
@@ -99,21 +101,22 @@
                     </div>
                     <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                     <div class="mt-6">
-                      <a
+                      <Button
                         :href="checkoutUrl"
-                        class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
+                        variant="primary"
+                        :full-width="true"
                       >
                         Checkout
-                      </a>
+                      </Button>
                     </div>
                     <div class="mt-6">
-                      <button
-                        type="button"
+                      <Button
                         @click="closeDrawer"
-                        class="w-full inline-flex items-center justify-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
+                        variant="secondary"
+                        :full-width="true"
                       >
                         Continue Shopping
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -128,6 +131,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import Button from './Button.vue'
 
 const isOpen = ref(false)
 const items = ref([])

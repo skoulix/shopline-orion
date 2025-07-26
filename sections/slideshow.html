@@ -44,7 +44,8 @@
                 {{#if button_label}}
                   <a 
                     href="{{button_link}}" 
-                    class="inline-block {{#if button_style == 'solid'}}bg-white text-gray-900 hover:bg-gray-100{{else}}border-2 border-white text-white hover:bg-white hover:text-gray-900{{/if}} px-8 py-3 rounded-md font-semibold transition-colors"
+                    class="slideshow-button inline-block px-8 py-3 font-semibold transition-colors {{#if button_style == 'solid'}}slideshow-button-solid{{else}}slideshow-button-outline{{/if}}"
+                    style="border-radius: var(--button-radius, 6px);"
                   >
                     {{button_label}}
                   </a>
@@ -237,3 +238,24 @@
   ]
 }
 {{/schema}}
+
+<style>
+  .slideshow-button-solid {
+    background-color: white;
+    color: #111827;
+  }
+  
+  .slideshow-button-solid:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .slideshow-button-outline {
+    border: 2px solid white;
+    color: white;
+  }
+  
+  .slideshow-button-outline:hover {
+    background-color: white;
+    color: #111827;
+  }
+</style>

@@ -32,20 +32,25 @@
       
       <!-- Quick Actions -->
       <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-        <button
+        <Button
           v-if="product.available && enableQuickAdd"
           @click="handleQuickAdd"
-          class="w-full bg-secondary-900 text-white py-2 px-4 rounded hover:bg-secondary-800 transition-colors text-sm font-medium"
+          variant="primary"
+          size="small"
+          :full-width="true"
         >
           Quick Add
-        </button>
-        <button
+        </Button>
+        <Button
           v-if="enableQuickView"
           @click="handleQuickView"
-          class="w-full bg-white text-secondary-900 border border-secondary-300 py-2 px-4 rounded hover:bg-secondary-50 transition-colors text-sm font-medium mt-2"
+          variant="secondary"
+          size="small"
+          :full-width="true"
+          class="mt-2"
         >
           Quick View
-        </button>
+        </Button>
       </div>
     </div>
     
@@ -93,6 +98,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import Button from './Button.vue'
 
 const props = defineProps({
   product: {

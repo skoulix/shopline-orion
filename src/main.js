@@ -1,4 +1,5 @@
 import { createApp, defineCustomElement } from 'vue'
+import Button from './components/Button.vue'
 import CartDrawer from './components/CartDrawer.vue'
 import MobileMenu from './components/MobileMenu.vue'
 import ProductVariantPicker from './components/ProductVariantPicker.vue'
@@ -19,6 +20,7 @@ import VideoPlayer from './components/VideoPlayer.vue'
 import PasswordModal from './components/PasswordModal.vue'
 
 // Define custom elements
+const ButtonElement = defineCustomElement(Button)
 const CartDrawerElement = defineCustomElement(CartDrawer)
 const MobileMenuElement = defineCustomElement(MobileMenu)
 const ProductVariantPickerElement = defineCustomElement(ProductVariantPicker)
@@ -39,6 +41,7 @@ const VideoPlayerElement = defineCustomElement(VideoPlayer)
 const PasswordModalElement = defineCustomElement(PasswordModal)
 
 // Register custom elements
+customElements.define('orion-button', ButtonElement)
 customElements.define('cart-drawer', CartDrawerElement)
 customElements.define('mobile-menu', MobileMenuElement)
 customElements.define('product-variant-picker', ProductVariantPickerElement)

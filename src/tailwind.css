@@ -37,7 +37,7 @@ a {
   justify-content: center;
   padding: 0.75rem 1.5rem;
   font-weight: 500;
-  border-radius: 0.375rem;
+  border-radius: var(--button-radius, 6px);
   transition-property: all;
   transition-duration: 200ms;
 }
@@ -49,29 +49,30 @@ a {
 }
 
 .btn-primary {
-  background-color: rgb(220 38 38);
-  color: white;
+  background-color: var(--button-primary-bg, rgb(220 38 38));
+  color: var(--button-primary-text, white);
 }
 
 .btn-primary:hover {
-  background-color: rgb(185 28 28);
+  background-color: var(--button-primary-bg-hover, rgb(185 28 28));
 }
 
 .btn-primary:focus {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(239 68 68);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--button-primary-bg, rgb(239 68 68));
 }
 
 .btn-secondary {
-  background-color: rgb(75 85 99);
-  color: white;
+  background-color: var(--button-secondary-bg, white);
+  color: var(--button-secondary-text, rgb(55 65 81));
+  border: 1px solid var(--button-secondary-border, rgb(209 213 219));
 }
 
 .btn-secondary:hover {
-  background-color: rgb(55 65 81);
+  background-color: var(--button-secondary-bg-hover, rgb(249 250 251));
 }
 
 .btn-secondary:focus {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(107 114 128);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--button-secondary-border, rgb(107 114 128));
 }
 
 .btn-outline {
@@ -185,6 +186,44 @@ sticky-header.sticky-header-wrapper.not-sticky {
 }
 
 /* Utility styles */
+.button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: var(--button-radius, 6px);
+  transition: all 0.2s;
+}
+
+.button-base:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--button-primary-bg, rgb(239 68 68));
+}
+
+.button-primary {
+  background-color: var(--button-primary-bg, rgb(220 38 38));
+  color: var(--button-primary-text, white);
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.button-primary:hover {
+  background-color: var(--button-primary-bg-hover, rgb(185 28 28));
+}
+
+.button-secondary {
+  background-color: var(--button-secondary-bg, white);
+  color: var(--button-secondary-text, rgb(55 65 81));
+  border: 1px solid var(--button-secondary-border, rgb(209 213 219));
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.button-secondary:hover {
+  background-color: var(--button-secondary-bg-hover, rgb(249 250 251));
+}
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;

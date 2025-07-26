@@ -1883,8 +1883,16 @@ select {
   right: -0.25rem;
 }
 
+.-right-2 {
+  right: -0.5rem;
+}
+
 .-top-1 {
   top: -0.25rem;
+}
+
+.-top-2 {
+  top: -0.5rem;
 }
 
 .-top-8 {
@@ -1947,20 +1955,8 @@ select {
   top: 1rem;
 }
 
-.-right-2 {
-  right: -0.5rem;
-}
-
-.-top-2 {
-  top: -0.5rem;
-}
-
 .top-full {
   top: 100%;
-}
-
-.-bottom-1 {
-  bottom: -0.25rem;
 }
 
 .z-0 {
@@ -1969,10 +1965,6 @@ select {
 
 .z-10 {
   z-index: 10;
-}
-
-.z-40 {
-  z-index: 40;
 }
 
 .z-50 {
@@ -2103,6 +2095,14 @@ select {
   margin-top: auto;
 }
 
+.-ml-1 {
+  margin-left: -0.25rem;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
+}
+
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
@@ -2231,10 +2231,6 @@ select {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-0\.5 {
-  height: 0.125rem;
 }
 
 .max-h-\[600px\] {
@@ -2391,11 +2387,6 @@ select {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.translate-x-full {
-  --tw-translate-x: 100%;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 .rotate-180 {
   --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -2545,6 +2536,24 @@ select {
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-x-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.75rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(2rem * var(--tw-space-x-reverse));
+  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
@@ -2581,24 +2590,6 @@ select {
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
 }
 
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-x-8 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(2rem * var(--tw-space-x-reverse));
-  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-x-3 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.75rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -2626,6 +2617,10 @@ select {
   border-radius: 0.25rem;
 }
 
+.rounded-button {
+  border-radius: var(--button-radius, 0.375rem);
+}
+
 .rounded-full {
   border-radius: 9999px;
 }
@@ -2638,24 +2633,32 @@ select {
   border-radius: 0.375rem;
 }
 
+.rounded-\[var\(--button-radius\2c 6px\)\] {
+  border-radius: var(--button-radius,6px);
+}
+
+.rounded-none {
+  border-radius: 0px;
+}
+
+.rounded-l-button {
+  border-top-left-radius: var(--button-radius, 0.375rem);
+  border-bottom-left-radius: var(--button-radius, 0.375rem);
+}
+
 .rounded-l-md {
   border-top-left-radius: 0.375rem;
   border-bottom-left-radius: 0.375rem;
 }
 
+.rounded-r-button {
+  border-top-right-radius: var(--button-radius, 0.375rem);
+  border-bottom-right-radius: var(--button-radius, 0.375rem);
+}
+
 .rounded-r-md {
   border-top-right-radius: 0.375rem;
   border-bottom-right-radius: 0.375rem;
-}
-
-.rounded-l-full {
-  border-top-left-radius: 9999px;
-  border-bottom-left-radius: 9999px;
-}
-
-.rounded-r-full {
-  border-top-right-radius: 9999px;
-  border-bottom-right-radius: 9999px;
 }
 
 .border {
@@ -2752,6 +2755,10 @@ select {
 .border-yellow-200 {
   --tw-border-opacity: 1;
   border-color: rgb(254 240 138 / var(--tw-border-opacity, 1));
+}
+
+.border-\[var\(--button-secondary-border\2c \#d1d5db\)\] {
+  border-color: var(--button-secondary-border,#d1d5db);
 }
 
 .bg-black {
@@ -2864,6 +2871,18 @@ select {
   background-color: rgb(254 252 232 / var(--tw-bg-opacity, 1));
 }
 
+.bg-\[var\(--button-primary-bg\2c \#dc2626\)\] {
+  background-color: var(--button-primary-bg,#dc2626);
+}
+
+.bg-\[var\(--button-secondary-bg\2c white\)\] {
+  background-color: var(--button-secondary-bg,white);
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
 .bg-opacity-20 {
   --tw-bg-opacity: 0.2;
 }
@@ -2888,12 +2907,12 @@ select {
   --tw-bg-opacity: 0.9;
 }
 
-.bg-gradient-to-r {
-  background-image: linear-gradient(to right, var(--tw-gradient-stops));
-}
-
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
 .from-gray-400 {
@@ -2902,15 +2921,15 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.from-red-600 {
-  --tw-gradient-from: #dc2626 var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(220 38 38 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
 .from-gray-50 {
   --tw-gradient-from: #f9fafb var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(249 250 251 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-red-600 {
+  --tw-gradient-from: #dc2626 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(220 38 38 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -3050,6 +3069,11 @@ select {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.py-1\.5 {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
 }
 
 .pb-20 {
@@ -3207,6 +3231,11 @@ select {
   color: rgb(229 231 235 / var(--tw-text-opacity, 1));
 }
 
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+}
+
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity, 1));
@@ -3302,9 +3331,16 @@ select {
   color: rgb(133 77 14 / var(--tw-text-opacity, 1));
 }
 
-.text-gray-300 {
-  --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+.text-\[var\(--button-primary-bg\2c \#dc2626\)\] {
+  color: var(--button-primary-bg,#dc2626);
+}
+
+.text-\[var\(--button-primary-text\2c white\)\] {
+  color: var(--button-primary-text,white);
+}
+
+.text-\[var\(--button-secondary-text\2c \#374151\)\] {
+  color: var(--button-secondary-text,#374151);
 }
 
 .underline {
@@ -3526,7 +3562,7 @@ a {
   justify-content: center;
   padding: 0.75rem 1.5rem;
   font-weight: 500;
-  border-radius: 0.375rem;
+  border-radius: var(--button-radius, 6px);
   transition-property: all;
   transition-duration: 200ms;
 }
@@ -3538,29 +3574,30 @@ a {
 }
 
 .btn-primary {
-  background-color: rgb(220 38 38);
-  color: white;
+  background-color: var(--button-primary-bg, rgb(220 38 38));
+  color: var(--button-primary-text, white);
 }
 
 .btn-primary:hover {
-  background-color: rgb(185 28 28);
+  background-color: var(--button-primary-bg-hover, rgb(185 28 28));
 }
 
 .btn-primary:focus {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(239 68 68);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--button-primary-bg, rgb(239 68 68));
 }
 
 .btn-secondary {
-  background-color: rgb(75 85 99);
-  color: white;
+  background-color: var(--button-secondary-bg, white);
+  color: var(--button-secondary-text, rgb(55 65 81));
+  border: 1px solid var(--button-secondary-border, rgb(209 213 219));
 }
 
 .btn-secondary:hover {
-  background-color: rgb(55 65 81);
+  background-color: var(--button-secondary-bg-hover, rgb(249 250 251));
 }
 
 .btn-secondary:focus {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(107 114 128);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--button-secondary-border, rgb(107 114 128));
 }
 
 .btn-outline {
@@ -3675,6 +3712,44 @@ sticky-header.sticky-header-wrapper.not-sticky {
 }
 
 /* Utility styles */
+
+.button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: var(--button-radius, 6px);
+  transition: all 0.2s;
+}
+
+.button-base:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--button-primary-bg, rgb(239 68 68));
+}
+
+.button-primary {
+  background-color: var(--button-primary-bg, rgb(220 38 38));
+  color: var(--button-primary-text, white);
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.button-primary:hover {
+  background-color: var(--button-primary-bg-hover, rgb(185 28 28));
+}
+
+.button-secondary {
+  background-color: var(--button-secondary-bg, white);
+  color: var(--button-secondary-text, rgb(55 65 81));
+  border: 1px solid var(--button-secondary-border, rgb(209 213 219));
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.button-secondary:hover {
+  background-color: var(--button-secondary-bg-hover, rgb(249 250 251));
+}
 
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -3807,9 +3882,12 @@ sticky-header.sticky-header-wrapper.not-sticky {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
-.hover\:bg-red-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+.hover\:bg-\[var\(--button-primary-bg-hover\2c \#b91c1c\)\]:hover {
+  background-color: var(--button-primary-bg-hover,#b91c1c);
+}
+
+.hover\:bg-\[var\(--button-secondary-bg-hover\2c \#f9fafb\)\]:hover {
+  background-color: var(--button-secondary-bg-hover,#f9fafb);
 }
 
 .hover\:bg-opacity-100:hover {
@@ -3905,13 +3983,16 @@ sticky-header.sticky-header-wrapper.not-sticky {
   color: rgb(14 165 233 / var(--tw-text-opacity, 1));
 }
 
-.hover\:text-white:hover {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+.hover\:text-\[var\(--button-primary-bg-hover\2c \#b91c1c\)\]:hover {
+  color: var(--button-primary-bg-hover,#b91c1c);
 }
 
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+
+.hover\:no-underline:hover {
+  text-decoration-line: none;
 }
 
 .hover\:opacity-100:hover {
@@ -3994,6 +4075,10 @@ sticky-header.sticky-header-wrapper.not-sticky {
 
 .focus\:ring-red-500\/20:focus {
   --tw-ring-color: rgb(239 68 68 / 0.2);
+}
+
+.focus\:ring-\[var\(--button-primary-bg\2c \#dc2626\)\]:focus {
+  --tw-ring-color: var(--button-primary-bg,#dc2626);
 }
 
 .focus\:ring-offset-2:focus {

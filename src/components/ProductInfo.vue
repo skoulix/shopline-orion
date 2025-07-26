@@ -92,15 +92,16 @@
           </span>
         </button>
 
-        <button
+        <Button
           v-if="showBuyNow"
           type="button"
+          variant="secondary"
           @click="handleBuyNow"
-          class="btn btn-secondary flex-1"
+          class="flex-1"
           :disabled="!currentVariant.available"
         >
           Buy Now
-        </button>
+        </Button>
       </div>
     </form>
 
@@ -235,6 +236,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import Button from './Button.vue'
 
 const props = defineProps({
   product: {
