@@ -18,6 +18,7 @@ import SlideshowBanner from './components/SlideshowBanner.vue'
 import TestimonialsCarousel from './components/TestimonialsCarousel.vue'
 import VideoPlayer from './components/VideoPlayer.vue'
 import PasswordModal from './components/PasswordModal.vue'
+import SearchOverlay from './components/SearchOverlay.vue'
 
 // Define custom elements with global button settings
 const ButtonElement = defineCustomElement({
@@ -78,6 +79,7 @@ const SlideshowBannerElement = defineCustomElement(SlideshowBanner)
 const TestimonialsCarouselElement = defineCustomElement(TestimonialsCarousel)
 const VideoPlayerElement = defineCustomElement(VideoPlayer)
 const PasswordModalElement = defineCustomElement(PasswordModal)
+const SearchOverlayElement = defineCustomElement(SearchOverlay)
 
 // Register custom elements
 customElements.define('orion-button', ButtonElement)
@@ -99,6 +101,7 @@ customElements.define('slideshow-banner', SlideshowBannerElement)
 customElements.define('testimonials-carousel', TestimonialsCarouselElement)
 customElements.define('video-player', VideoPlayerElement)
 customElements.define('password-modal', PasswordModalElement)
+customElements.define('search-overlay', SearchOverlayElement)
 
 // Mount Vue components on regular HTML elements
 document.addEventListener('DOMContentLoaded', () => {

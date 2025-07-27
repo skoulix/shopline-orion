@@ -1,0 +1,30 @@
+<div class="predictive-search-results">
+  {{#if (size predictive_search.products)}}
+    <ul class="predictive-search__results-list" data-predictive-search>
+      {{#each predictive_search.products}}
+        <li class="predictive-search__list-item">
+          <a class="predictive-search__item" href="{{url}}">
+            {{#if images.[0]}}
+              <img src="{{image_url images.[0] width=100}}" 
+                   alt="{{title}}" 
+                   class="predictive-search__item-image">
+            {{else}}
+              <div class="predictive-search__item-image predictive-search__item-image--placeholder"></div>
+            {{/if}}
+            <div class="predictive-search__item-content">
+              <p class="predictive-search__item-head">{{title}}</p>
+              <span class="price__item">{{price}}</span>
+            </div>
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</div>
+
+{{#schema}}
+{
+  "name": "Predictive search",
+  "settings": []
+}
+{{/schema}}

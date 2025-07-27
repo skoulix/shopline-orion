@@ -97,7 +97,7 @@
       <!-- Header Actions -->
       <div class="flex items-center space-x-4">
         {{#if section.settings.show_search}}
-          <button type="button" class="text-gray-700 hover:text-red-600 transition-colors">
+          <button type="button" class="search-toggle text-gray-700 hover:text-red-600 transition-colors">
             <span class="sr-only">Search</span>
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -169,6 +169,16 @@
       mobileMenuToggle.addEventListener('click', function() {
         console.log('Mobile menu toggle clicked');
         document.dispatchEvent(new CustomEvent('mobile-menu:open'));
+      });
+    }
+    
+    // Search toggle
+    const searchToggle = document.querySelector('.search-toggle');
+    if (searchToggle) {
+      searchToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('Search toggle clicked');
+        document.dispatchEvent(new CustomEvent('search-overlay:open'));
       });
     }
     

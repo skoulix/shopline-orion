@@ -2264,6 +2264,10 @@ select {
   max-height: 100%;
 }
 
+.max-h-96 {
+  max-height: 24rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -2346,6 +2350,10 @@ select {
 
 .w-32 {
   width: 8rem;
+}
+
+.min-w-0 {
+  min-width: 0px;
 }
 
 .max-w-2xl {
@@ -2640,6 +2648,12 @@ select {
 
 .overflow-y-auto {
   overflow-y: auto;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .whitespace-nowrap {
@@ -3209,6 +3223,10 @@ select {
 
 .pb-2 {
   padding-bottom: 0.5rem;
+}
+
+.pr-12 {
+  padding-right: 3rem;
 }
 
 .text-left {
@@ -4571,6 +4589,10 @@ sticky-header.sticky-header-wrapper.not-sticky {
 
   .sm\:flex-1 {
     flex: 1 1 0%;
+  }
+
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .sm\:flex-row {
