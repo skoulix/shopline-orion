@@ -25,20 +25,20 @@
 
 {{#schema}}
 {
-  "name": "Rich text",
+  "name": "t:sections.rich-text.name",
   "class": "section",
   "settings": [
     {
       "type": "text",
       "id": "heading",
       "default": "Talk about your brand",
-      "label": "Heading"
+      "label": "t:sections.rich-text.settings.heading.label"
     },
     {
       "type": "richtext",
       "id": "text",
       "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
-      "label": "Text"
+      "label": "t:sections.rich-text.settings.text.label"
     },
     {
       "type": "select",
@@ -46,35 +46,119 @@
       "options": [
         {
           "value": "left",
-          "label": "Left"
+          "label": "t:sections.rich-text.settings.text_alignment.options__0.label"
         },
         {
           "value": "center",
-          "label": "Center"
+          "label": "t:sections.rich-text.settings.text_alignment.options__1.label"
         },
         {
           "value": "right",
-          "label": "Right"
+          "label": "t:sections.rich-text.settings.text_alignment.options__2.label"
         }
       ],
       "default": "center",
-      "label": "Text alignment"
+      "label": "t:sections.rich-text.settings.text_alignment.label"
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Button label"
+      "label": "t:sections.rich-text.settings.button_label.label"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link"
+      "label": "t:sections.rich-text.settings.button_link.label"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.content_position.options__0.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.content_position.options__1.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.content_position.options__2.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.content_position.label",
+      "info": "t:sections.rich-text.settings.content_position.info"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.rich-text.settings.color_scheme.options__0.label"
+        },
+        {
+          "value": "1",
+          "label": "t:sections.rich-text.settings.color_scheme.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.rich-text.settings.color_scheme.options__2.label"
+        },
+        {
+          "value": "3",
+          "label": "t:sections.rich-text.settings.color_scheme.options__3.label"
+        }
+      ],
+      "default": "none",
+      "label": "t:sections.rich-text.settings.color_scheme.label"
     },
     {
       "type": "switch",
       "id": "full_width",
       "default": false,
-      "label": "Make section full width"
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.rich-text.settings.group_header__0.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.rich-text.settings.padding_top.label",
+      "default": 60,
+      "max": 100,
+      "min": 0,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.rich-text.settings.padding_bottom.label",
+      "default": 60,
+      "max": 100,
+      "min": 0,
+      "step": 2,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich-text.presets.presets__0.name",
+      "settings": {
+        "heading": "Talk about your brand",
+        "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+        "text_alignment": "center",
+        "content_position": "center",
+        "color_scheme": "none",
+        "full_width": false,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
     }
   ]
 }

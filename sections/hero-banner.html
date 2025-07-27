@@ -65,9 +65,14 @@
       "label": "t:sections.hero-banner.settings.button_link.label"
     },
     {
+      "type": "group_header",
+      "label": "t:sections.hero-banner.settings.group_header__0.label"
+    },
+    {
       "type": "image_picker",
       "id": "image",
-      "label": "t:sections.hero-banner.settings.image.label"
+      "label": "t:sections.hero-banner.settings.image.label",
+      "info": "t:sections.hero-banner.settings.image.info"
     },
     {
       "type": "select",
@@ -88,6 +93,75 @@
       ],
       "default": "medium",
       "label": "t:sections.hero-banner.settings.height.label"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.hero-banner.settings.image_overlay_opacity.label",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.hero-banner.settings.content_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.hero-banner.settings.content_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.hero-banner.settings.content_alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.hero-banner.settings.content_alignment.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.hero-banner.settings.group_header__1.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.hero-banner.settings.padding_top.label",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.hero-banner.settings.padding_bottom.label",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 2,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.hero-banner.presets.hero_banner.name",
+      "settings": {
+        "title": "Welcome to our store",
+        "subtitle": "Discover amazing products",
+        "button_label": "Shop Now",
+        "height": "medium",
+        "image_overlay_opacity": 40,
+        "content_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   ]
 }

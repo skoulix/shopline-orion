@@ -87,19 +87,23 @@
 
 {{#schema}}
 {
-  "name": "Blog Posts",
+  "name": "t:sections.blog-posts.name",
   "class": "section",
   "settings": [
     {
       "type": "text",
       "id": "heading",
       "default": "From the blog",
-      "label": "Heading"
+      "label": "t:sections.blog-posts.settings.heading.label"
     },
     {
       "type": "blog",
       "id": "blog",
-      "label": "Blog"
+      "label": "t:sections.blog-posts.settings.blog.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.blog-posts.settings.group_header__0.label"
     },
     {
       "type": "range",
@@ -108,7 +112,7 @@
       "max": 12,
       "step": 1,
       "default": 3,
-      "label": "Number of posts"
+      "label": "t:sections.blog-posts.settings.post_limit.label"
     },
     {
       "type": "range",
@@ -117,7 +121,7 @@
       "max": 4,
       "step": 1,
       "default": 3,
-      "label": "Number of columns on desktop"
+      "label": "t:sections.blog-posts.settings.columns_desktop.label"
     },
     {
       "type": "select",
@@ -125,21 +129,25 @@
       "options": [
         {
           "value": 1,
-          "label": "1 column"
+          "label": "t:sections.blog-posts.settings.columns_mobile.options__0.label"
         },
         {
           "value": 2,
-          "label": "2 columns"
+          "label": "t:sections.blog-posts.settings.columns_mobile.options__1.label"
         }
       ],
       "default": 1,
-      "label": "Number of columns on mobile"
+      "label": "t:sections.blog-posts.settings.columns_mobile.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.blog-posts.settings.group_header__1.label"
     },
     {
       "type": "switch",
       "id": "show_image",
       "default": true,
-      "label": "Show featured image"
+      "label": "t:sections.blog-posts.settings.show_image.label"
     },
     {
       "type": "select",
@@ -147,42 +155,79 @@
       "options": [
         {
           "value": "landscape",
-          "label": "Landscape (4:3)"
+          "label": "t:sections.blog-posts.settings.image_ratio.options__0.label"
         },
         {
           "value": "square",
-          "label": "Square (1:1)"
+          "label": "t:sections.blog-posts.settings.image_ratio.options__1.label"
         },
         {
           "value": "portrait",
-          "label": "Portrait (3:4)"
+          "label": "t:sections.blog-posts.settings.image_ratio.options__2.label"
         }
       ],
       "default": "landscape",
-      "label": "Image ratio"
+      "label": "t:sections.blog-posts.settings.image_ratio.label"
     },
     {
       "type": "switch",
       "id": "show_date",
       "default": true,
-      "label": "Show date"
+      "label": "t:sections.blog-posts.settings.show_date.label"
     },
     {
       "type": "switch",
       "id": "show_author",
       "default": false,
-      "label": "Show author"
+      "label": "t:sections.blog-posts.settings.show_author.label"
     },
     {
       "type": "switch",
       "id": "show_view_all",
       "default": true,
-      "label": "Show 'View all' button"
+      "label": "t:sections.blog-posts.settings.show_view_all.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.blog-posts.settings.group_header__2.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.blog-posts.settings.padding_top.label",
+      "default": 60,
+      "max": 100,
+      "min": 0,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.blog-posts.settings.padding_bottom.label",
+      "default": 60,
+      "max": 100,
+      "min": 0,
+      "step": 2,
+      "unit": "px"
     }
   ],
   "presets": [
     {
-      "name": "Blog Posts"
+      "name": "t:sections.blog-posts.presets.blog_posts.name",
+      "settings": {
+        "heading": "From the blog",
+        "post_limit": 3,
+        "columns_desktop": 3,
+        "columns_mobile": 1,
+        "show_image": true,
+        "image_ratio": "landscape",
+        "show_date": true,
+        "show_author": false,
+        "show_view_all": true,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
     }
   ]
 }
