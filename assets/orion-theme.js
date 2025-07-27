@@ -13806,7 +13806,7 @@ const X1 = { class: "sticky-header-container" }, Q1 = {
       ])
     ]));
   }
-}, zb = /* @__PURE__ */ We(qb, [["__scopeId", "data-v-bb6699dc"]]), Kb = { class: "product-card group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" }, Wb = ["href"], Gb = ["src", "alt"], Yb = {
+}, zb = /* @__PURE__ */ We(qb, [["__scopeId", "data-v-1c1567f0"]]), Kb = { class: "product-card group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" }, Wb = ["href"], Gb = ["src", "alt"], Yb = {
   key: 1,
   class: "h-full w-full flex items-center justify-center"
 }, Jb = {

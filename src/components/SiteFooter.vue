@@ -253,7 +253,7 @@ const getSocialIcon = (name) => {
 }
 
 .newsletter-input {
-  @apply flex-1 md:w-80 px-4 py-3 rounded-l-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500;
+  @apply flex-1 md:w-80 px-4 py-3 rounded-l-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500;
 }
 
 .newsletter-button {
