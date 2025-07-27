@@ -1,0 +1,30 @@
+{{layout 'proofing'}}
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+  <div class="text-center max-w-md">
+    <!-- Store Closed Icon -->
+    <div class="mb-8">
+      <svg class="w-32 h-32 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      </svg>
+    </div>
+    
+    <!-- Message -->
+    <h1 class="text-2xl font-bold text-gray-900 mb-4">Store Temporarily Closed</h1>
+    <p class="text-lg text-gray-600">
+      {{{t 'general.general.proofing_tip'}}}
+    </p>
+    
+    <!-- Alternative message if translation is not available -->
+    <p class="text-lg text-gray-600 mt-4">
+      We're currently updating our store. Please check back soon!
+    </p>
+  </div>
+</div>
+
+<style>
+  body.template-proofing {
+    margin: 0;
+    padding: 0;
+  }
+</style>
