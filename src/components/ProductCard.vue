@@ -317,10 +317,19 @@ const handleAddToCart = async () => {
       window.OrionCart.openDrawer()
     }
     
+    // Show success notification using global system
+    if (window.OrionNotifications) {
+      window.OrionNotifications.cartSuccess(productData.value.title)
+    }
+    
     emit('add-to-cart', { variantId, quantity: 1 })
   } catch (error) {
     console.error('Error adding to cart:', error)
-    alert('Failed to add item to cart. Please try again.')
+    if (window.OrionNotifications) {
+      window.OrionNotifications.cartError()
+    } else {
+      alert('Failed to add item to cart. Please try again.')
+    }
   } finally {
     isAddingToCart.value = false
   }

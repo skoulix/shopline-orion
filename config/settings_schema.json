@@ -197,6 +197,84 @@
         "id": "show_free_shipping_bar",
         "default": true,
         "label": "Show free shipping progress bar"
+      },
+      {
+        "type": "group_header",
+        "label": "Notifications"
+      },
+      {
+        "type": "switch",
+        "id": "enable_notifications",
+        "default": true,
+        "label": "Enable notifications",
+        "info": "Show success and error messages when adding items to cart"
+      },
+      {
+        "type": "select",
+        "id": "notification_position",
+        "options": [
+          {
+            "value": "top-right",
+            "label": "Top right"
+          },
+          {
+            "value": "top-left",
+            "label": "Top left"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom left"
+          },
+          {
+            "value": "top-center",
+            "label": "Top center"
+          },
+          {
+            "value": "bottom-center",
+            "label": "Bottom center"
+          }
+        ],
+        "default": "top-right",
+        "label": "Notification position"
+      },
+      {
+        "type": "range",
+        "id": "notification_duration",
+        "min": 1000,
+        "max": 10000,
+        "step": 500,
+        "unit": "ms",
+        "default": 3000,
+        "label": "Auto-dismiss duration",
+        "info": "How long notifications stay visible before automatically disappearing"
+      },
+      {
+        "type": "range",
+        "id": "notification_max_count",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 5,
+        "label": "Maximum notifications",
+        "info": "Maximum number of notifications to show at once"
+      },
+      {
+        "type": "switch",
+        "id": "notification_show_close_button",
+        "default": true,
+        "label": "Show close button",
+        "info": "Allow users to manually close notifications"
+      },
+      {
+        "type": "switch",
+        "id": "notification_show_product_name",
+        "default": true,
+        "label": "Show product name in notifications",
+        "info": "Include product name in add to cart success messages"
       }
     ]
   }

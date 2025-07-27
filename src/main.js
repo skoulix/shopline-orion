@@ -18,6 +18,7 @@ import SlideshowBanner from './components/SlideshowBanner.vue'
 import TestimonialsCarousel from './components/TestimonialsCarousel.vue'
 import VideoPlayer from './components/VideoPlayer.vue'
 import PasswordModal from './components/PasswordModal.vue'
+import { initNotifications } from './utils/notifications.js'
 
 // Define custom elements with global button settings
 const ButtonElement = defineCustomElement({
@@ -102,6 +103,19 @@ customElements.define('password-modal', PasswordModalElement)
 
 // Mount Vue components on regular HTML elements
 document.addEventListener('DOMContentLoaded', () => {
+  // Make theme settings globally available
+  if (typeof window.settings === 'undefined') {
+    // Fallback: try to get settings from Shopline's global object or create defaults
+    window.settings = window.Shopline?.theme?.settings || {
+      enable_notifications: true,
+      notification_position: 'top-right',
+      notification_duration: 3000,
+      notification_max_count: 5,
+      notification_show_close_button: true,
+      notification_show_product_name: true
+    }
+  }
+  
   // Make button settings globally available
   window.OrionButtonSettings = {
     radius: document.documentElement.style.getPropertyValue('--button-radius') || '6px',
@@ -316,5 +330,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
+  
+  // Initialize global notification system (will read from theme settings)
+  initNotifications()
   
 })

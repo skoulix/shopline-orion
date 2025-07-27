@@ -136,6 +136,91 @@ window.OrionCart = {
 }
 ```
 
+## Global Notification System
+
+The theme includes a comprehensive notification system accessible via `window.OrionNotifications`:
+
+### **Basic Usage**
+```javascript
+// Show different types of notifications
+window.OrionNotifications.success('Success message!')
+window.OrionNotifications.error('Error message!')
+window.OrionNotifications.warning('Warning message!')
+window.OrionNotifications.info('Info message!')
+
+// Cart-specific notifications
+window.OrionNotifications.cartSuccess('Product Name', 2) // 2x Product Name added to cart!
+window.OrionNotifications.cartError() // Uses default error message
+```
+
+### **Advanced Usage**
+```javascript
+// Custom notification with options
+window.OrionNotifications.show('Custom message', 'success', {
+  duration: 5000,        // Auto-dismiss after 5 seconds
+  position: 'top-left',  // Override global position
+  showCloseButton: false // Hide close button
+})
+
+// Dismiss notifications
+const id = window.OrionNotifications.success('Message')
+window.OrionNotifications.dismiss(id) // Dismiss specific notification
+window.OrionNotifications.dismissAll() // Dismiss all notifications
+```
+
+### **Configuration**
+Notification settings are integrated into the theme's Cart settings panel and can be customized by store owners:
+
+**Theme Settings → Cart → Notifications:**
+- **Enable notifications** - Turn notifications on/off
+- **Notification position** - Choose from 6 positions (top-right, top-left, etc.)
+- **Auto-dismiss duration** - How long notifications stay visible (1-10 seconds)
+- **Maximum notifications** - How many can be shown at once (1-10)
+- **Show close button** - Allow manual dismissal
+- **Show product name** - Include product name in cart notifications
+
+Settings are automatically applied through Shopline's theme settings system:
+
+```javascript
+// Settings are automatically loaded from theme configuration
+window.settings = {
+  enable_notifications: true,
+  notification_position: 'top-right',
+  notification_duration: 3000,
+  notification_max_count: 5,
+  notification_show_close_button: true,
+  notification_show_product_name: true
+}
+```
+
+### **Available Positions**
+- `top-right` (default)
+- `top-left`
+- `bottom-right`
+- `bottom-left`
+- `top-center`
+- `bottom-center`
+
+### **Integration Examples**
+```javascript
+// In Vue components
+if (window.OrionNotifications) {
+  window.OrionNotifications.cartSuccess(productData.value.title)
+}
+
+// In HTML templates (product page)
+if (window.OrionNotifications) {
+  window.OrionNotifications.cartSuccess(productData.title, quantity)
+}
+
+// Custom styling with theme colors
+window.OrionNotifications.show('Message', 'success', {
+  styles: {
+    success: 'bg-green-600 text-white border-l-4 border-green-400'
+  }
+})
+```
+
 ## Styling Guidelines
 
 ### Tailwind Classes
