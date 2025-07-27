@@ -121,7 +121,7 @@ const handleBlur = (event) => {
   display: inline-flex;
   align-items: center;
   border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
+  border-radius: var(--button-radius, 0.5rem);
   overflow: hidden;
   background-color: white;
 }

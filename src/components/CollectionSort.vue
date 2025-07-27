@@ -3,7 +3,8 @@
     <select 
       v-model="selectedSort"
       @change="handleSortChange"
-      class="px-4 py-2 min-w-[200px] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+      class="px-4 py-2 min-w-[200px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+      :style="{ borderRadius: 'var(--button-radius)' }"
     >
       <option value="manual">Featured</option>
       <option value="best-selling">Best Selling</option>

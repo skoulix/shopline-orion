@@ -7,13 +7,17 @@
     <div class="mt-8 flex gap-4 justify-center">
       <a 
         href="/" 
-        class="bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700 transition-colors"
+        class="px-6 py-3 font-medium transition-colors"
+        style="background-color: var(--button-primary-bg); color: var(--button-primary-text); border-radius: var(--button-radius);"
+        onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover)'"
+        onmouseout="this.style.backgroundColor='var(--button-primary-bg)'"
       >
         Go to Homepage
       </a>
       <a 
         href="/collections/all" 
-        class="bg-gray-200 text-gray-900 px-6 py-3 rounded-md font-medium hover:bg-gray-300 transition-colors"
+        class="bg-gray-200 text-gray-900 px-6 py-3 font-medium hover:bg-gray-300 transition-colors"
+        style="border-radius: var(--button-radius);"
       >
         Browse Products
       </a>

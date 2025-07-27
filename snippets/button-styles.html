@@ -1,0 +1,14 @@
+{{!-- Button inline styles helper snippet --}}
+{{!-- Usage: {{snippet 'button-styles' variant='primary'}} --}}
+
+{{#if (eq variant 'primary')}}
+style="background-color: var(--button-primary-bg); color: var(--button-primary-text); border-radius: var(--button-radius);" 
+onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover)'" 
+onmouseout="this.style.backgroundColor='var(--button-primary-bg)'"
+{{else if (eq variant 'secondary')}}
+style="background-color: var(--button-secondary-bg); color: var(--button-secondary-text); border-color: var(--button-secondary-border); border-radius: var(--button-radius);" 
+onmouseover="this.style.backgroundColor='var(--button-secondary-bg-hover)'" 
+onmouseout="this.style.backgroundColor='var(--button-secondary-bg)'"
+{{else}}
+style="border-radius: var(--button-radius);"
+{{/if}}

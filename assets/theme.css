@@ -2717,10 +2717,6 @@ select {
   border-top-width: 1px;
 }
 
-.border-\[var\(--button-secondary-border\2c \#d1d5db\)\] {
-  border-color: var(--button-secondary-border,#d1d5db);
-}
-
 .border-blue-200 {
   --tw-border-opacity: 1;
   border-color: rgb(191 219 254 / var(--tw-border-opacity, 1));
@@ -2800,14 +2796,6 @@ select {
 
 .border-t-transparent {
   border-top-color: transparent;
-}
-
-.bg-\[var\(--button-primary-bg\2c \#dc2626\)\] {
-  background-color: var(--button-primary-bg,#dc2626);
-}
-
-.bg-\[var\(--button-secondary-bg\2c white\)\] {
-  background-color: var(--button-secondary-bg,white);
 }
 
 .bg-black {
@@ -3326,6 +3314,10 @@ select {
   text-align: right;
 }
 
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -3421,18 +3413,6 @@ select {
 
 .tracking-wider {
   letter-spacing: 0.05em;
-}
-
-.text-\[var\(--button-primary-bg\2c \#dc2626\)\] {
-  color: var(--button-primary-bg,#dc2626);
-}
-
-.text-\[var\(--button-primary-text\2c white\)\] {
-  color: var(--button-primary-text,white);
-}
-
-.text-\[var\(--button-secondary-text\2c \#374151\)\] {
-  color: var(--button-secondary-text,#374151);
 }
 
 .text-amber-600 {
@@ -3699,6 +3679,11 @@ select {
 .ring-black {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(0 0 0 / var(--tw-ring-opacity, 1));
+}
+
+.ring-primary-500 {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(239 68 68 / var(--tw-ring-opacity, 1));
 }
 
 .ring-red-200 {
@@ -4326,14 +4311,6 @@ sticky-header.sticky-header-wrapper.not-sticky {
   border-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
 }
 
-.hover\:bg-\[var\(--button-primary-bg-hover\2c \#b91c1c\)\]:hover {
-  background-color: var(--button-primary-bg-hover,#b91c1c);
-}
-
-.hover\:bg-\[var\(--button-secondary-bg-hover\2c \#f9fafb\)\]:hover {
-  background-color: var(--button-secondary-bg-hover,#f9fafb);
-}
-
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
@@ -4413,10 +4390,6 @@ sticky-header.sticky-header-wrapper.not-sticky {
 
 .hover\:to-pink-600:hover {
   --tw-gradient-to: #db2777 var(--tw-gradient-to-position);
-}
-
-.hover\:text-\[var\(--button-primary-bg-hover\2c \#b91c1c\)\]:hover {
-  color: var(--button-primary-bg-hover,#b91c1c);
 }
 
 .hover\:text-black:hover {
@@ -4543,6 +4516,10 @@ sticky-header.sticky-header-wrapper.not-sticky {
   border-color: transparent;
 }
 
+.focus\:border-\[var\(--color-primary\)\]:focus {
+  border-color: var(--color-primary);
+}
+
 .focus\:bg-gray-50:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
@@ -4578,10 +4555,6 @@ sticky-header.sticky-header-wrapper.not-sticky {
 
 .focus\:ring-inset:focus {
   --tw-ring-inset: inset;
-}
-
-.focus\:ring-\[var\(--button-primary-bg\2c \#dc2626\)\]:focus {
-  --tw-ring-color: var(--button-primary-bg,#dc2626);
 }
 
 .focus\:ring-gray-500:focus {

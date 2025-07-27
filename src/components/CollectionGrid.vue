@@ -15,7 +15,8 @@
           <select
             v-model="sortBy"
             @change="handleSort"
-            class="px-3 py-2 border border-secondary-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+            class="px-3 py-2 border border-secondary-300 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+            :style="{ borderRadius: 'var(--button-radius)' }"
           >
             <option value="manual">Featured</option>
             <option value="best-selling">Best Selling</option>
@@ -43,7 +44,7 @@
         <!-- Loading State -->
         <div v-if="loading" :class="gridClasses">
           <div v-for="n in 6" :key="n" class="animate-pulse">
-            <div class="bg-secondary-200 rounded-lg aspect-[3/4]"></div>
+            <div class="bg-secondary-200 aspect-[3/4]" :style="{ borderRadius: 'var(--button-radius)' }"></div>
             <div class="mt-4 space-y-2">
               <div class="h-4 bg-secondary-200 rounded w-3/4"></div>
               <div class="h-4 bg-secondary-200 rounded w-1/2"></div>
@@ -89,7 +90,8 @@
             <button
               @click="loadMore"
               :disabled="loadingMore"
-              class="inline-flex items-center px-6 py-3 border border-secondary-300 text-sm font-medium rounded-md text-secondary-700 bg-white hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              class="inline-flex items-center px-6 py-3 border border-secondary-300 text-sm font-medium text-secondary-700 bg-white hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              :style="{ borderRadius: 'var(--button-radius)' }"
             >
               <span v-if="loadingMore">Loading...</span>
               <span v-else>Load More ({{ remainingProducts }} remaining)</span>
@@ -102,14 +104,16 @@
               <button
                 @click="currentPage--"
                 :disabled="currentPage === 1"
-                class="relative inline-flex items-center px-4 py-2 border border-secondary-300 text-sm font-medium rounded-md text-secondary-700 bg-white hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="relative inline-flex items-center px-4 py-2 border border-secondary-300 text-sm font-medium text-secondary-700 bg-white hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                :style="{ borderRadius: 'var(--button-radius)' }"
               >
                 Previous
               </button>
               <button
                 @click="currentPage++"
                 :disabled="currentPage === totalPages"
-                class="ml-3 relative inline-flex items-center px-4 py-2 border border-secondary-300 text-sm font-medium rounded-md text-secondary-700 bg-white hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="ml-3 relative inline-flex items-center px-4 py-2 border border-secondary-300 text-sm font-medium text-secondary-700 bg-white hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                :style="{ borderRadius: 'var(--button-radius)' }"
               >
                 Next
               </button>
@@ -120,7 +124,8 @@
                   <button
                     @click="currentPage--"
                     :disabled="currentPage === 1"
-                    class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-secondary-300 bg-white text-sm font-medium text-secondary-500 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    class="relative inline-flex items-center px-2 py-2 border border-secondary-300 bg-white text-sm font-medium text-secondary-500 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    :style="{ borderTopLeftRadius: 'var(--button-radius)', borderBottomLeftRadius: 'var(--button-radius)' }"
                   >
                     <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
@@ -144,7 +149,8 @@
                   <button
                     @click="currentPage++"
                     :disabled="currentPage === totalPages"
-                    class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-secondary-300 bg-white text-sm font-medium text-secondary-500 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    class="relative inline-flex items-center px-2 py-2 border border-secondary-300 bg-white text-sm font-medium text-secondary-500 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    :style="{ borderTopRightRadius: 'var(--button-radius)', borderBottomRightRadius: 'var(--button-radius)' }"
                   >
                     <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
@@ -170,7 +176,8 @@
           <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" @click="closeQuickView"></div>
           
           <!-- Modal -->
-          <div class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-2xl sm:w-full">
+          <div class="relative bg-white text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-2xl sm:w-full"
+            :style="{ borderRadius: 'var(--button-radius)' }">
             <div class="absolute top-0 right-0 pt-4 pr-4">
               <button
                 @click="closeQuickView"

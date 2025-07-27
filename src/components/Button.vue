@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 const props = defineProps({
   variant: {
@@ -114,6 +114,42 @@ const emit = defineEmits(['click'])
 const isHovered = ref(false)
 const tag = computed(() => props.href ? 'a' : 'button')
 
+// Helper to get theme setting value
+const getThemeSetting = (settingName, fallback = '') => {
+  // Check if value is passed as prop first
+  const propMapping = {
+    'button_border_radius': props.buttonRadius,
+    'button_primary_bg': props.primaryBg,
+    'button_primary_bg_hover': props.primaryBgHover,
+    'button_primary_text': props.primaryText,
+    'button_secondary_bg': props.secondaryBg,
+    'button_secondary_bg_hover': props.secondaryBgHover,
+    'button_secondary_text': props.secondaryText,
+    'button_secondary_border': props.secondaryBorder
+  }
+  
+  if (propMapping[settingName]) {
+    return propMapping[settingName]
+  }
+  
+  // Try to get from Shopline settings
+  const value = window.Shopline?.theme?.settings?.[settingName]
+  if (value !== undefined && value !== null && value !== '') {
+    return value
+  }
+  
+  // Last resort: try CSS variable
+  try {
+    const cssVarName = '--' + settingName.replace(/_/g, '-')
+    const cssValue = getComputedStyle(document.documentElement).getPropertyValue(cssVarName).trim()
+    if (cssValue) return cssValue
+  } catch (e) {
+    // Ignore
+  }
+  
+  return fallback
+}
+
 const buttonStyles = computed(() => {
   const styles = {}
   
@@ -128,20 +164,36 @@ const buttonStyles = computed(() => {
       ? `${props.buttonRadius}px` 
       : props.buttonRadius
   } else {
-    // Fall back to CSS variable
-    styles.borderRadius = 'var(--button-radius, 6px)'
+    // Get button radius from theme settings
+    const radius = getThemeSetting('button_border_radius', '6')
+    styles.borderRadius = typeof radius === 'number' || !isNaN(radius) ? `${radius}px` : radius
   }
   
-  // Apply variant-specific colors if provided
+  // Apply variant-specific colors
   if (props.variant === 'primary') {
-    const bgColor = isHovered.value && props.primaryBgHover ? props.primaryBgHover : props.primaryBg
-    if (bgColor) styles.backgroundColor = bgColor
-    if (props.primaryText) styles.color = props.primaryText
+    // Get colors from theme settings
+    if (isHovered.value) {
+      styles.backgroundColor = getThemeSetting('button_primary_bg_hover', '#b91c1c')
+    } else {
+      styles.backgroundColor = getThemeSetting('button_primary_bg', '#dc2626')
+    }
+    styles.color = getThemeSetting('button_primary_text', 'white')
   } else if (props.variant === 'secondary') {
-    const bgColor = isHovered.value && props.secondaryBgHover ? props.secondaryBgHover : props.secondaryBg
-    if (bgColor) styles.backgroundColor = bgColor
-    if (props.secondaryText) styles.color = props.secondaryText
-    if (props.secondaryBorder) styles.borderColor = props.secondaryBorder
+    // Get colors from theme settings
+    if (isHovered.value) {
+      styles.backgroundColor = getThemeSetting('button_secondary_bg_hover', '#f9fafb')
+    } else {
+      styles.backgroundColor = getThemeSetting('button_secondary_bg', 'white')
+    }
+    styles.color = getThemeSetting('button_secondary_text', '#374151')
+    styles.borderColor = getThemeSetting('button_secondary_border', '#d1d5db')
+  } else if (props.variant === 'link') {
+    // Link variant uses primary color for text
+    if (isHovered.value) {
+      styles.color = getThemeSetting('button_primary_bg_hover', '#b91c1c')
+    } else {
+      styles.color = getThemeSetting('button_primary_bg', '#dc2626')
+    }
   }
   
   return styles
@@ -169,25 +221,19 @@ const buttonClasses = computed(() => {
 
   // Border radius is handled in buttonStyles computed property
 
-  // Variant styles
+  // Variant styles - use inline styles for CSS variables
   if (props.variant === 'primary') {
     classes.push(
-      'bg-[var(--button-primary-bg,#dc2626)]',
-      'hover:bg-[var(--button-primary-bg-hover,#b91c1c)]',
-      'text-[var(--button-primary-text,white)]',
       'border border-transparent',
-      'shadow-sm',
-      'focus:ring-[var(--button-primary-bg,#dc2626)]'
+      'shadow-sm'
     )
+    // Colors will be handled by buttonStyles
   } else if (props.variant === 'secondary') {
     classes.push(
-      'bg-[var(--button-secondary-bg,white)]',
-      'hover:bg-[var(--button-secondary-bg-hover,#f9fafb)]',
-      'text-[var(--button-secondary-text,#374151)]',
-      'border border-[var(--button-secondary-border,#d1d5db)]',
-      'shadow-sm',
-      'focus:ring-[var(--button-primary-bg,#dc2626)]'
+      'border',
+      'shadow-sm'
     )
+    // Colors will be handled by buttonStyles
   } else if (props.variant === 'outline') {
     classes.push(
       'bg-transparent',
@@ -208,8 +254,6 @@ const buttonClasses = computed(() => {
   } else if (props.variant === 'link') {
     classes.push(
       'bg-transparent',
-      'text-[var(--button-primary-bg,#dc2626)]',
-      'hover:text-[var(--button-primary-bg-hover,#b91c1c)]',
       'underline',
       'hover:no-underline',
       'p-0',
@@ -231,5 +275,17 @@ const handleClick = (event) => {
 /* Ensure the button respects the CSS variables */
 button, a {
   text-decoration: none;
+}
+
+/* Inherit CSS variables from parent document for custom elements */
+:host {
+  --button-radius: inherit;
+  --button-primary-bg: inherit;
+  --button-primary-bg-hover: inherit;
+  --button-primary-text: inherit;
+  --button-secondary-bg: inherit;
+  --button-secondary-bg-hover: inherit;
+  --button-secondary-text: inherit;
+  --button-secondary-border: inherit;
 }
 </style>

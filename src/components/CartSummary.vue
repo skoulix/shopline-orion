@@ -66,7 +66,8 @@
             >
             <button
               type="submit"
-              class="px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              class="px-4 py-2 bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              :style="{ borderRadius: 'var(--button-radius)' }"
               :disabled="!promoCode.trim() || applyingPromo"
             >
               {{ applyingPromo ? 'Applying...' : 'Apply' }}
@@ -81,7 +82,14 @@
     <!-- Checkout Button -->
     <button
       @click="handleCheckout"
-      class="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+      class="w-full py-3 px-6 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+      :style="{
+        backgroundColor: isHovered ? 'var(--button-primary-bg-hover)' : 'var(--button-primary-bg)',
+        color: 'var(--button-primary-text)',
+        borderRadius: 'var(--button-radius)'
+      }"
+      @mouseenter="isHovered = true"
+      @mouseleave="isHovered = false"
       :disabled="itemCount === 0 || checkingOut"
     >
       <span v-if="checkingOut" class="flex items-center gap-2">
@@ -175,6 +183,7 @@ const promoError = ref('')
 const promoSuccess = ref('')
 const applyingPromo = ref(false)
 const checkingOut = ref(false)
+const isHovered = ref(false)
 
 // Computed
 const itemCount = computed(() => props.cart.item_count || 0)

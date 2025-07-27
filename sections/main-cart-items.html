@@ -8,7 +8,14 @@
         <h2 class="mt-2 text-lg font-medium text-gray-900">{{t "cart.item.empty_cart"}}</h2>
         <a 
           href="/collections/all" 
-          class="mt-6 inline-block bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700 transition-colors"
+          class="mt-6 inline-block px-6 py-3 font-medium transition-colors"
+          style="
+            background-color: var(--button-primary-bg, #dc2626);
+            color: var(--button-primary-text, #ffffff);
+            border-radius: var(--button-radius, 6px);
+          "
+          onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover, #b91c1c)'"
+          onmouseout="this.style.backgroundColor='var(--button-primary-bg, #dc2626)'"
         >
           {{t "cart.checkout_proceeding.continue_shopping"}}
         </a>
@@ -114,7 +121,10 @@
             
             <a 
               href="/checkout" 
-              class="block w-full bg-red-600 text-white text-center py-4 rounded-lg font-semibold text-lg hover:bg-red-700 transition-colors"
+              class="block w-full text-center py-4 font-semibold text-lg transition-colors"
+              style="background-color: var(--button-primary-bg); color: var(--button-primary-text); border-radius: var(--button-radius);"
+              onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover)'"
+              onmouseout="this.style.backgroundColor='var(--button-primary-bg)'"
             >
               Proceed to Checkout
             </a>

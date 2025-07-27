@@ -7,6 +7,14 @@
     "cart_type": "drawer",
     "free_shipping_threshold": 50,
     "show_free_shipping_bar": true,
+    "button_border_radius": 30,
+    "button_primary_bg": "#dc2626",
+    "button_primary_bg_hover": "#b91c1c",
+    "button_primary_text": "#ffffff",
+    "button_secondary_bg": "#ffffff",
+    "button_secondary_bg_hover": "#f9fafb",
+    "button_secondary_text": "#374151",
+    "button_secondary_border": "#d1d5db",
     "sections": {
       "header": {
         "disabled": false,

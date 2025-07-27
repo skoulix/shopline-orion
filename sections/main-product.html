@@ -120,13 +120,17 @@
             <button type="button" 
                     id="addToCartBtn"
                     onclick="addToCart()"
-                    class="w-full bg-red-600 text-white py-4 px-8 rounded-xl font-semibold text-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500/20 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                    class="w-full py-4 px-8 font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-red-500/20 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    style="background-color: var(--button-primary-bg); color: var(--button-primary-text); border-radius: var(--button-radius);"
+                    onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover)'"
+                    onmouseout="this.style.backgroundColor='var(--button-primary-bg)'">
               <span class="add-to-cart-text">Add to Cart</span>
               <span class="add-to-cart-loading hidden">Adding...</span>
             </button>
             <button type="button" 
                     onclick="buyNow()"
-                    class="w-full bg-gray-900 text-white py-4 px-8 rounded-xl font-semibold text-lg hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-500/20 transition-all duration-200">
+                    class="w-full bg-gray-900 text-white py-4 px-8 font-semibold text-lg hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-500/20 transition-all duration-200"
+                    style="border-radius: var(--button-radius);">
               Buy Now
             </button>
           </div>

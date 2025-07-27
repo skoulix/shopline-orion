@@ -31,7 +31,10 @@ const ButtonElement = defineCustomElement({
     // Inject global settings as default props
     buttonRadius: {
       type: [String, Number],
-      default: () => Shopline?.theme?.settings?.button_border_radius || 6
+      default: () => {
+        const radius = Shopline?.theme?.settings?.button_border_radius;
+        return radius ? `${radius}px` : '6px';
+      }
     },
     primaryBg: {
       type: String,
@@ -87,7 +90,8 @@ const PasswordModalElement = defineCustomElement(PasswordModal)
 const SearchOverlayElement = defineCustomElement(SearchOverlay)
 
 // Register custom elements
-customElements.define('orion-button', ButtonElement)
+// Don't use custom element for Button due to CSS variable access
+// customElements.define('orion-button', ButtonElement)
 customElements.define('cart-drawer', CartDrawerElement)
 customElements.define('mobile-menu', MobileMenuElement)
 customElements.define('product-variant-picker', ProductVariantPickerElement)
@@ -164,6 +168,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const app = createApp(CollectionSort, props)
+    app.mount(mount)
+  })
+  
+  // Mount Button components (as Vue apps to access CSS variables)
+  const buttonMounts = document.querySelectorAll('orion-button')
+  buttonMounts.forEach(mount => {
+    const props = {
+      variant: mount.getAttribute('variant') || 'primary',
+      size: mount.getAttribute('size') || 'medium',
+      fullWidth: mount.hasAttribute('full-width'),
+      href: mount.getAttribute('href'),
+      type: mount.getAttribute('type') || 'button',
+      disabled: mount.hasAttribute('disabled'),
+      loading: mount.hasAttribute('loading'),
+      rounded: mount.getAttribute('rounded') || 'default'
+    }
+    
+    const app = createApp({
+      components: { Button },
+      template: `<Button v-bind="$attrs">${mount.innerHTML}</Button>`
+    }, props)
+    
     app.mount(mount)
   })
 

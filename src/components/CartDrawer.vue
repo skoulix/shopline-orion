@@ -116,7 +116,8 @@
 										<div
 											v-if="showFreeShippingBar"
 											:class="totalPrice >= freeShippingThreshold ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'"
-											class="rounded-lg p-3">
+											class="p-3"
+											:style="{ borderRadius: 'var(--button-radius)' }">
 											<div v-if="totalPrice >= freeShippingThreshold" class="flex items-center gap-2">
 												<svg
 													class="w-5 h-5 text-green-600"

@@ -30,7 +30,8 @@
                           v-model="searchQuery"
                           type="search"
                           placeholder="Search for products, collections..."
-                          class="w-full pl-12 pr-12 py-4 text-lg text-gray-900 placeholder-gray-400 bg-gray-50/50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 focus:bg-white transition-all duration-200"
+                          class="search-input w-full pl-12 pr-12 py-4 text-lg text-gray-900 placeholder-gray-400 bg-gray-50/50 border border-gray-200 focus:outline-none focus:ring-2 focus:bg-white transition-all duration-200"
+                          :style="{ borderRadius: `var(--button-radius, 16px)` }"
                           @input="handleSearchInput"
                           @keydown.escape="closeSearch"
                           @keydown.enter="submitSearch"
@@ -408,6 +409,12 @@ onUnmounted(() => {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+/* Search input styling with theme colors */
+.search-input:focus {
+  --tw-ring-color: var(--color-primary, #dc2626);
+  border-color: var(--color-primary, #dc2626);
 }
 
 /* Remove native search input clear button */

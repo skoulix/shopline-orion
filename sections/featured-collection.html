@@ -35,7 +35,15 @@
               <div class="text-center mt-8">
                 <a 
                   href="{{this.url}}" 
-                  class="inline-block bg-white text-gray-700 px-6 py-3 rounded-md font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
+                  class="inline-block px-6 py-3 font-medium border transition-colors"
+                  style="
+                    background-color: var(--button-secondary-bg, #ffffff);
+                    color: var(--button-secondary-text, #374151);
+                    border: 1px solid var(--button-secondary-border, #d1d5db);
+                    border-radius: var(--button-radius, 6px);
+                  "
+                  onmouseover="this.style.backgroundColor='var(--button-secondary-bg-hover, #f9fafb)'"
+                  onmouseout="this.style.backgroundColor='var(--button-secondary-bg, #ffffff)'"
                 >
                   View All Products
                 </a>
