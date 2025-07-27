@@ -4,7 +4,7 @@
 
 Orion is a modern Shopline 2.0 theme built with:
 
--   **Tailwind CSS 4** (Alpha) for styling
+-   **Tailwind CSS 3** for styling
 -   **Vue 3** for reactivity and component logic
 -   **Vite** for building and bundling
 -   **Shopline 2.0** theme architecture (HTML templates)
@@ -51,6 +51,7 @@ orion/
 ### ✅ Completed
 
 #### Vue Components
+
 -   **CartDrawer.vue** - Slide-out cart drawer with cart management (mounted as Vue app, not custom element)
 -   **QuantitySelector.vue** - Quantity input component with +/- buttons
 -   **ProductVariantPicker.vue** - Product variant selection with color swatches
@@ -67,6 +68,7 @@ orion/
 -   **CartSummary.vue** - Cart summary with promo codes and checkout
 
 #### Theme Structure
+
 -   **Layout** - theme.html with Vue component integration and proper Shopline tags
 -   **Sections** - header, footer, hero-banner, collection-banner, featured-collection (with proper Shopline collection syntax), cart sections, main-product
 -   **Templates** - index.json, collection.json, cart.json, 404.json, product.json
@@ -75,6 +77,7 @@ orion/
 -   **Snippets** - meta-tags, stylesheet, icons, pagination
 
 #### Build System
+
 -   **Vue Setup** - Mix of custom elements and direct Vue app mounting (CartDrawer uses app mounting to avoid style isolation issues)
 -   **Tailwind Config** - Custom theme with primary/secondary colors
 -   **Build Pipeline** - Vite + Tailwind build setup with ESM modules
@@ -95,6 +98,7 @@ orion/
 Components use a hybrid approach for integration with Shopline HTML templates:
 
 ### Custom Elements (Most Components)
+
 ```javascript
 // Define component
 const ProductCardElement = defineCustomElement(ProductCard)
@@ -107,7 +111,9 @@ customElements.define('product-card', ProductCardElement)
 ```
 
 ### Direct Vue App Mounting (CartDrawer)
+
 To avoid style isolation issues with custom elements, CartDrawer is mounted as a regular Vue app:
+
 ```javascript
 // Mount CartDrawer components
 const cartDrawerMounts = document.querySelectorAll('.cart-drawer-mount')
@@ -136,98 +142,11 @@ window.OrionCart = {
 }
 ```
 
-## Global Notification System
-
-The theme includes a comprehensive notification system accessible via `window.OrionNotifications`:
-
-### **Basic Usage**
-```javascript
-// Show different types of notifications
-window.OrionNotifications.success('Success message!')
-window.OrionNotifications.error('Error message!')
-window.OrionNotifications.warning('Warning message!')
-window.OrionNotifications.info('Info message!')
-
-// Cart-specific notifications
-window.OrionNotifications.cartSuccess('Product Name', 2) // 2x Product Name added to cart!
-window.OrionNotifications.cartError() // Uses default error message
-```
-
-### **Advanced Usage**
-```javascript
-// Custom notification with options
-window.OrionNotifications.show('Custom message', 'success', {
-  duration: 5000,        // Auto-dismiss after 5 seconds
-  position: 'top-left',  // Override global position
-  showCloseButton: false // Hide close button
-})
-
-// Dismiss notifications
-const id = window.OrionNotifications.success('Message')
-window.OrionNotifications.dismiss(id) // Dismiss specific notification
-window.OrionNotifications.dismissAll() // Dismiss all notifications
-```
-
-### **Configuration**
-Notification settings are integrated into the theme's Cart settings panel and can be customized by store owners:
-
-**Theme Settings → Cart → Notifications:**
-- **Enable notifications** - Turn notifications on/off
-- **Notification position** - Choose from 6 positions (top-right, top-left, etc.)
-- **Auto-dismiss duration** - How long notifications stay visible (1-10 seconds)
-- **Maximum notifications** - How many can be shown at once (1-10)
-- **Show close button** - Allow manual dismissal
-- **Show product name** - Include product name in cart notifications
-
-Settings are automatically applied through Shopline's theme settings system:
-
-```javascript
-// Settings are automatically loaded from theme configuration
-window.themeSettings = {
-  enableNotifications: true,
-  notificationPosition: 'top-right',
-  notificationDuration: 3000,
-  notificationMaxCount: 5,
-  notificationShowCloseButton: true,
-  notificationShowProductName: true
-}
-```
-
-The notification system automatically reads these settings from `window.themeSettings` which is populated by the theme's layout file from the Shopline settings panel.
-
-### **Available Positions**
-- `top-right` (default)
-- `top-left`
-- `bottom-right`
-- `bottom-left`
-- `top-center`
-- `bottom-center`
-
-### **Integration Examples**
-```javascript
-// In Vue components
-if (window.OrionNotifications) {
-  window.OrionNotifications.cartSuccess(productData.value.title)
-}
-
-// In HTML templates (product page)
-if (window.OrionNotifications) {
-  window.OrionNotifications.cartSuccess(productData.title, quantity)
-}
-
-// Custom styling with theme colors
-window.OrionNotifications.show('Message', 'success', {
-  styles: {
-    success: 'bg-green-600 text-white border-l-4 border-green-400'
-  }
-})
-```
-
 ## Styling Guidelines
 
 ### Tailwind Classes
 
--   Use Tailwind 4's new features (CSS variables, improved performance)
+-   Use Tailwind 3's features and utility classes
 -   Follow the color scheme defined in `tailwind.config.js`
 -   Primary colors: Red-based palette
 -   Secondary colors: Gray/slate palette
@@ -262,27 +181,27 @@ Reference these CSS variables from arise-pro theme:
 3. **Shopline Template Syntax**
 
     - **Collection Picker (v20251201 docs)**:
-      - `collection_picker` returns only a collection ID (string), not a full collection object
-      - Purpose: "Select all available collections in the store" for displaying collections
-      - Schema example:
-        ```json
-        {
-          "id": "collection",
-          "type": "collection_picker",
-          "label": "Collection"
-        }
-        ```
-      - To access collection data, find it in `all_collections` using the ID:
-        ```handlebars
-        {{#each all_collections}}
-          {{#if (eq this.id section.settings.collection)}}
-            {{!-- Access collection properties here --}}
-            {{#each this.products limit=8}}
-              {{!-- Product loop --}}
+        - `collection_picker` returns only a collection ID (string), not a full collection object
+        - Purpose: "Select all available collections in the store" for displaying collections
+        - Schema example:
+            ```json
+            {
+            	"id": "collection",
+            	"type": "collection_picker",
+            	"label": "Collection"
+            }
+            ```
+        - To access collection data, find it in `all_collections` using the ID:
+            ```handlebars
+            {{#each all_collections}}
+            	{{#if (eq this.id section.settings.collection)}}
+            		{{! Access collection properties here }}
+            		{{#each this.products limit=8}}
+            			{{! Product loop }}
+            		{{/each}}
+            	{{/if}}
             {{/each}}
-          {{/if}}
-        {{/each}}
-        ```
+            ```
     - Use `{{#each collection.products limit=X}}` for iterating products once you have the collection object
     - Note: The arise theme may show direct access like `section.settings.collection.products`, but in standard Shopline implementation, you need to lookup the collection by ID first
 
@@ -305,119 +224,129 @@ Reference these CSS variables from arise-pro theme:
 Shopline themes use two main localization files:
 
 1. **`locales/en.json`** - General theme translations
-   - Used for general theme text, customer-facing strings
-   - Static text in templates
-   - JavaScript strings
-   - Customer account messages
+
+    - Used for general theme text, customer-facing strings
+    - Static text in templates
+    - JavaScript strings
+    - Customer account messages
 
 2. **`locales/en.schema.json`** - Schema translations (IMPORTANT)
-   - **Used for ALL section settings labels and descriptions**
-   - Theme settings panel labels
-   - Section names and descriptions
-   - Setting group headers
-   - Option labels for select/radio settings
+    - **Used for ALL section settings labels and descriptions**
+    - Theme settings panel labels
+    - Section names and descriptions
+    - Setting group headers
+    - Option labels for select/radio settings
 
 ### Important Guidelines
 
 **When creating section settings:**
-- ✅ ALWAYS place setting labels in `en.schema.json`
-- ❌ DO NOT place section setting labels in `en.json`
-- Use the `t:` prefix to reference schema translations: `"label": "t:sections.header.settings.logo.label"`
+
+-   ✅ ALWAYS place setting labels in `en.schema.json`
+-   ❌ DO NOT place section setting labels in `en.json`
+-   Use the `t:` prefix to reference schema translations: `"label": "t:sections.header.settings.logo.label"`
 
 **Example structure in `en.schema.json`:**
+
 ```json
 {
-  "sections": {
-    "header": {
-      "name": "Header",
-      "settings": {
-        "group_header__0": {
-          "label": "Logo"
-        },
-        "logo": {
-          "label": "Logo image"
-        },
-        "logo_width": {
-          "label": "Logo width"
-        }
-      }
-    }
-  }
+	"sections": {
+		"header": {
+			"name": "Header",
+			"settings": {
+				"group_header__0": {
+					"label": "Logo"
+				},
+				"logo": {
+					"label": "Logo image"
+				},
+				"logo_width": {
+					"label": "Logo width"
+				}
+			}
+		}
+	}
 }
 ```
 
 **Section schema example:**
+
 ```json
 {
-  "name": "t:sections.header.name",
-  "settings": [
-    {
-      "type": "group_header",
-      "label": "t:sections.header.settings.group_header__0.label"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "t:sections.header.settings.logo.label"
-    }
-  ]
+	"name": "t:sections.header.name",
+	"settings": [
+		{
+			"type": "group_header",
+			"label": "t:sections.header.settings.group_header__0.label"
+		},
+		{
+			"type": "image_picker",
+			"id": "logo",
+			"label": "t:sections.header.settings.logo.label"
+		}
+	]
 }
 ```
 
 ### Translation Keys Best Practice
 
-- Keep keys hierarchical and descriptive
-- Follow the pattern: `sections.[section-name].settings.[setting-id].label`
-- For options: `sections.[section-name].settings.[setting-id].options__[index].label`
-- For info text: `sections.[section-name].settings.[setting-id].info`
+-   Keep keys hierarchical and descriptive
+-   Follow the pattern: `sections.[section-name].settings.[setting-id].label`
+-   For options: `sections.[section-name].settings.[setting-id].options__[index].label`
+-   For info text: `sections.[section-name].settings.[setting-id].info`
 
 ## Shopline Image Optimization
 
 ### Image Filters
+
 Shopline provides image optimization filters similar to Shopify:
 
 1. **`image_url` filter** - Optimizes images with size parameters
-   ```handlebars
-   {{image_url product.images.[0] width=400}}
-   {{image_url item.image width=300}}
-   {{image_url data quality=quality}}
-   ```
+
+    ```handlebars
+    {{image_url product.images.0 width=400}}
+    {{image_url item.image width=300}}
+    {{image_url data quality=quality}}
+    ```
 
 2. **`image_tag` helper** - Creates responsive img tags with srcset
-   ```handlebars
-   {{image_tag
-     (image_url data quality=quality)
-     class="product-image"
-     widths="375, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160"
-     loading="lazy"
-     sizes="(max-width: 959px) 100vw, 50vw"
-     alt=data.alt
-   }}
-   ```
+    ```handlebars
+    {{image_tag
+    	(image_url data quality=quality)
+    	class='product-image'
+    	widths='375, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160'
+    	loading='lazy'
+    	sizes='(max-width: 959px) 100vw, 50vw'
+    	alt=data.alt
+    }}
+    ```
 
 ### Usage in Templates
-- For product cards: `{{image_url this.images.[0] width=800}}` (2x for retina displays)
-- For cart items: `{{image_url item.image width=150}}`
-- For thumbnails: `{{image_url image width=100}}`
-- For responsive images: Use `image_tag` with multiple widths
+
+-   For product cards: `{{image_url this.images.[0] width=800}}` (2x for retina displays)
+-   For cart items: `{{image_url item.image width=150}}`
+-   For thumbnails: `{{image_url image width=100}}`
+-   For responsive images: Use `image_tag` with multiple widths
 
 ### Recommended Sizes
-- Product cards in grid: 800px (serves 400px display size on retina)
-- Product detail images: 1200px or use responsive `image_tag`
-- Cart drawer items: 150px
-- Thumbnails: 100-150px
+
+-   Product cards in grid: 800px (serves 400px display size on retina)
+-   Product detail images: 1200px or use responsive `image_tag`
+-   Cart drawer items: 150px
+-   Thumbnails: 100-150px
 
 ### Best Practices
-- Always specify width to avoid loading full-size images
-- Use lazy loading for images below the fold
-- The arise theme uses predefined width breakpoints for responsive images
-- Images are automatically served in optimal formats (WebP when supported)
+
+-   Always specify width to avoid loading full-size images
+-   Use lazy loading for images below the fold
+-   The arise theme uses predefined width breakpoints for responsive images
+-   Images are automatically served in optimal formats (WebP when supported)
 
 ### Important Notes
-- **URL parameters (like `?w=150&h=150`) do NOT work with Shopline's CDN for image resizing**
-- The `image_url` filter only works in Handlebars templates, not in JavaScript
-- Cart API returns pre-optimized images that should be used as-is
-- For dynamic image optimization in JavaScript, consider using CSS to constrain display size rather than trying to modify URLs
+
+-   **URL parameters (like `?w=150&h=150`) do NOT work with Shopline's CDN for image resizing**
+-   The `image_url` filter only works in Handlebars templates, not in JavaScript
+-   Cart API returns pre-optimized images that should be used as-is
+-   For dynamic image optimization in JavaScript, consider using CSS to constrain display size rather than trying to modify URLs
 
 ## API Endpoints
 
@@ -435,57 +364,60 @@ window.routes = {
 ### Shopline Cart AJAX API
 
 #### Add to Cart
-- **URL**: `/api/carts/ajax-cart/add.js`
-- **Method**: POST
-- **Headers**: `Content-Type: application/json`
-- **Request Body**:
-  ```json
-  {
-    "items": [
-      {
-        "id": "variant_id",      // Required: Product variant/SKU ID
-        "quantity": 1,           // Required: Number to add
-        "properties": {},        // Optional: Custom properties
-        "groupId": ""           // Optional: Group identifier
-      }
-    ]
-  }
-  ```
-- **Response**: Complete cart item details including pricing, discounts, and metadata
-- **Note**: Supports adding multiple items in one request
+
+-   **URL**: `/api/carts/ajax-cart/add.js`
+-   **Method**: POST
+-   **Headers**: `Content-Type: application/json`
+-   **Request Body**:
+    ```json
+    {
+    	"items": [
+    		{
+    			"id": "variant_id", // Required: Product variant/SKU ID
+    			"quantity": 1, // Required: Number to add
+    			"properties": {}, // Optional: Custom properties
+    			"groupId": "" // Optional: Group identifier
+    		}
+    	]
+    }
+    ```
+-   **Response**: Complete cart item details including pricing, discounts, and metadata
+-   **Note**: Supports adding multiple items in one request
 
 #### Update Cart Item
-- **URL**: `/cart/update`
-- **Method**: POST
-- **Headers**: `Content-Type: application/json`
-- **Request Body**:
-  ```json
-  {
-    "id": "variant_id",         // Required: Product variant/SKU ID
-    "quantity": 2,              // Required: New quantity (0 to remove)
-    "groupId": "",              // Optional: Group ID
-    "properties": {},           // Optional: Custom properties
-    "note": "",                 // Optional: Cart note
-    "attributes": {}            // Optional: Cart attributes
-  }
-  ```
-- **Response**: Full cart state with all items, totals, and discounts
+
+-   **URL**: `/cart/update`
+-   **Method**: POST
+-   **Headers**: `Content-Type: application/json`
+-   **Request Body**:
+    ```json
+    {
+    	"id": "variant_id", // Required: Product variant/SKU ID
+    	"quantity": 2, // Required: New quantity (0 to remove)
+    	"groupId": "", // Optional: Group ID
+    	"properties": {}, // Optional: Custom properties
+    	"note": "", // Optional: Cart note
+    	"attributes": {} // Optional: Cart attributes
+    }
+    ```
+-   **Response**: Full cart state with all items, totals, and discounts
 
 #### Change Cart Item Quantity
-- **URL**: `/api/carts/ajax-cart/change.js`
-- **Method**: POST
-- **Headers**: `Content-Type: application/json`
-- **Request Body**:
-  ```json
-  {
-    "id": "variant_id",         // Optional: Update by variant ID
-    "line": 1,                  // Optional: Update by line number
-    "quantity": 3,              // Required: New quantity
-    "groupId": ""               // Optional: Update by group ID
-  }
-  ```
-- **Response**: Updated cart state
-- **Note**: Can update by ID, line position, or group ID
+
+-   **URL**: `/api/carts/ajax-cart/change.js`
+-   **Method**: POST
+-   **Headers**: `Content-Type: application/json`
+-   **Request Body**:
+    ```json
+    {
+    	"id": "variant_id", // Optional: Update by variant ID
+    	"line": 1, // Optional: Update by line number
+    	"quantity": 3, // Required: New quantity
+    	"groupId": "" // Optional: Update by group ID
+    }
+    ```
+-   **Response**: Updated cart state
+-   **Note**: Can update by ID, line position, or group ID
 
 ## Next Steps
 

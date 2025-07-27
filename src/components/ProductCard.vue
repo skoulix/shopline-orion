@@ -311,25 +311,29 @@ const handleAddToCart = async () => {
     
     const result = await response.json()
     
-    // Refresh cart and open drawer
+    // Refresh cart and open drawer based on cart type
     if (window.OrionCart) {
       await window.OrionCart.fetchCart()
-      window.OrionCart.openDrawer()
+      
+      // Only open drawer if cart_type is set to drawer
+      const cartType = window.themeSettings?.cartType || 'page'
+      if (cartType === 'drawer') {
+        window.OrionCart.openDrawer()
+      } else {
+        // Redirect to cart page
+        window.location.href = '/cart'
+      }
+    } else {
+      // Fallback: redirect to cart page
+      window.location.href = '/cart'
     }
     
-    // Show success notification using global system
-    if (window.OrionNotifications) {
-      window.OrionNotifications.cartSuccess(productData.value.title)
-    }
+    // Cart added successfully
     
     emit('add-to-cart', { variantId, quantity: 1 })
   } catch (error) {
     console.error('Error adding to cart:', error)
-    if (window.OrionNotifications) {
-      window.OrionNotifications.cartError()
-    } else {
-      alert('Failed to add item to cart. Please try again.')
-    }
+    // Error adding to cart
   } finally {
     isAddingToCart.value = false
   }

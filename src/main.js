@@ -18,7 +18,6 @@ import SlideshowBanner from './components/SlideshowBanner.vue'
 import TestimonialsCarousel from './components/TestimonialsCarousel.vue'
 import VideoPlayer from './components/VideoPlayer.vue'
 import PasswordModal from './components/PasswordModal.vue'
-import { initNotifications } from './utils/notifications.js'
 
 // Define custom elements with global button settings
 const ButtonElement = defineCustomElement({
@@ -320,7 +319,5 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
   
-  // Initialize global notification system
-  initNotifications()
   
 })
