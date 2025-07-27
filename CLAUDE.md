@@ -8,6 +8,27 @@ Orion is a modern Shopline 2.0 theme built with:
 -   **Vue 3** for reactivity and component logic
 -   **Vite** for building and bundling
 -   **Shopline 2.0** theme architecture (HTML templates)
+-   **Reference**: Using Arise theme as feature reference
+
+## Reference Theme: Arise
+
+We are using the Arise theme (`/arise` directory) as a reference for building Orion. Arise is a feature-complete Shopline 2.0 theme with:
+
+- Traditional JavaScript/CSS architecture
+- Extensive section library (40+ sections)
+- Complete customer account pages
+- Multi-language support (30+ languages)
+- Advanced features like multi-level filtering, quick view, recently viewed products
+- Comprehensive theme settings with CSS variables
+
+**Key differences:**
+- **Arise**: Vanilla JS/CSS, no build process, traditional approach
+- **Orion**: Vue 3 + Tailwind CSS, modern build tools, component-based
+
+When implementing features in Orion:
+1. Check how Arise implements the feature
+2. Adapt it to use Vue components and Tailwind classes
+3. Maintain compatibility with Shopline's template system
 
 ## Development Commands
 
@@ -82,16 +103,45 @@ orion/
 -   **Tailwind Config** - Custom theme with primary/secondary colors
 -   **Build Pipeline** - Vite + Tailwind build setup with ESM modules
 
-### 📋 TODO
+### 📋 TODO (Priority Order - Reference Arise Theme)
 
--   Customer account pages (login, register, account dashboard, orders, addresses)
--   Search functionality with predictive search
--   Product recommendations
--   Recently viewed products
--   Wishlist functionality
--   Additional page templates (about, contact, etc)
--   Blog templates (blog listing and article pages)
--   Additional utility sections (slideshow, testimonials)
+#### High Priority
+-   **Customer Account Pages** (Reference: `/arise/sections/main-account.html`, etc.)
+    - Login page (`main-login.html`)
+    - Register page (`main-register.html`) 
+    - Account dashboard (`main-account.html`)
+    - Order history (`main-order-list.html`)
+    - Order details (`main-order-detail.html`)
+    - Addresses (`main-addresses.html`)
+-   **Search with Predictive Search** (Reference: `/arise/sections/predictive-search.html`)
+-   **Blog Templates** (Reference: `/arise/sections/main-blog-list.html`, `main-article.html`)
+    - Blog listing page
+    - Article page with comments
+
+#### Medium Priority
+-   **Product Recommendations** (Reference: `/arise/sections/product-recommendations.html`)
+-   **Recently Viewed Products** (Reference: `/arise/sections/product-recently-viewed.html`)
+-   **Additional Sections from Arise**:
+    - Slideshow/Hero Banner (`/arise/sections/slideshow.html`)
+    - Testimonials (`/arise/sections/testimonials.html`)
+    - Newsletter Signup (`/arise/sections/sign-up-and-save.html`)
+    - Image with Text (`/arise/sections/image-with-text.html`)
+    - Multi-column Text (`/arise/sections/text-columns-with-image.html`)
+    - Video Section (`/arise/sections/video.html`)
+    - Countdown Timer (`/arise/sections/count-down.html`)
+    - Contact Form (`/arise/sections/contact-form.html`)
+
+#### Low Priority
+-   **Advanced Features**:
+    - Multi-level filtering (Reference: `/arise/sections/multilevel-filter.html`)
+    - Quick View Modal (Reference: `/arise/assets/component-product-quick-modal.js`)
+    - Shoppable Images (`/arise/sections/shoppable-image.html`)
+    - Collection List variations
+-   **Page Templates**:
+    - About page
+    - Contact page (with map)
+    - FAQ page
+    - Store policies
 
 ## Vue Component Architecture
 
@@ -151,15 +201,36 @@ window.OrionCart = {
 -   Primary colors: Red-based palette
 -   Secondary colors: Gray/slate palette
 
-### CSS Variables from Arise-Pro
+### CSS Variables from Arise Theme
 
-Reference these CSS variables from arise-pro theme:
+When porting sections from Arise, reference these CSS variables (defined in `/arise/snippets/theme-css-var.html`):
 
--   `--page-padding`: Responsive page padding
--   `--grid-horizontal-space`: Grid gap spacing
--   `--section-padding-top/bottom`: Section spacing
--   `--btn-*`: Button styling variables
--   `--input-*`: Form input styling variables
+**Layout & Spacing:**
+-   `--page-width`: Maximum page width (default: 1200px)
+-   `--section-vertical-gap`: Vertical spacing between sections
+-   `--grid-horizontal-space`: Horizontal grid gap
+-   `--grid-vertical-space`: Vertical grid gap
+
+**Typography:**
+-   `--title-font`, `--body-font`: Font families
+-   `--title-font-size`, `--body-font-size`: Base font sizes
+-   `--title-line-height`, `--body-line-height`: Line heights
+
+**Colors:**
+-   `--color-page-background`: Page background
+-   `--color-text`, `--color-light-text`: Text colors
+-   `--color-button-background/text`: Button colors
+-   `--color-sale`, `--color-discount`: Sale/discount colors
+-   `--color-scheme-1/2/3-bg/text`: Color scheme variations
+
+**Components:**
+-   `--btn-*`: Button border, radius, shadow properties
+-   `--input-*`: Form input styling properties
+-   `--card-*`: Card component properties
+-   `--product-card-*`: Product card specific properties
+-   `--drawer-*`: Drawer/modal properties
+
+**Note**: When implementing in Orion, map these to Tailwind utilities or CSS custom properties as needed.
 
 ## Development Best Practices
 

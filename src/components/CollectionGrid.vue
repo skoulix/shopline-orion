@@ -8,10 +8,10 @@
       </div>
       <div class="mt-4 flex items-center justify-between">
         <p class="text-sm text-secondary-600">
-          {{ filteredProducts.length }} products
+          {{ totalProducts || filteredProducts.length }} products
         </p>
         <!-- Mobile Sort -->
-        <div class="lg:hidden">
+        <div v-if="enableSorting" class="lg:hidden">
           <select
             v-model="sortBy"
             @change="handleSort"
@@ -31,7 +31,7 @@
     <!-- Main Grid Layout -->
     <div class="lg:grid lg:grid-cols-4 lg:gap-8">
       <!-- Filters Sidebar -->
-      <aside class="lg:col-span-1">
+      <aside v-if="enableFiltering && filterPosition === 'sidebar'" class="lg:col-span-1">
         <collection-filters
           :products="products"
           @update-filters="handleFilterUpdate"
@@ -39,9 +39,9 @@
       </aside>
 
       <!-- Products Grid -->
-      <div class="lg:col-span-3">
+      <div :class="enableFiltering && filterPosition === 'sidebar' ? 'lg:col-span-3' : 'lg:col-span-4'">
         <!-- Loading State -->
-        <div v-if="loading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 lg:gap-6">
+        <div v-if="loading" :class="gridClasses">
           <div v-for="n in 6" :key="n" class="animate-pulse">
             <div class="bg-secondary-200 rounded-lg aspect-[3/4]"></div>
             <div class="mt-4 space-y-2">
@@ -61,7 +61,7 @@
         </div>
 
         <!-- Products Grid -->
-        <div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 lg:gap-6">
+        <div v-else :class="gridClasses">
           <product-card
             v-for="product in paginatedProducts"
             :key="product.id"
@@ -212,6 +212,14 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  collectionHandle: {
+    type: String,
+    default: ''
+  },
+  totalProducts: {
+    type: Number,
+    default: 0
+  },
   productsPerPage: {
     type: Number,
     default: 12
@@ -223,14 +231,46 @@ const props = defineProps({
   showHeader: {
     type: Boolean,
     default: true
+  },
+  currentPage: {
+    type: Number,
+    default: 1
+  },
+  totalPages: {
+    type: Number,
+    default: 1
+  },
+  paginationInfo: {
+    type: Object,
+    default: () => ({})
+  },
+  columnsDesktop: {
+    type: Number,
+    default: 4
+  },
+  columnsMobile: {
+    type: [Number, String],
+    default: 2
+  },
+  enableFiltering: {
+    type: Boolean,
+    default: true
+  },
+  enableSorting: {
+    type: Boolean,
+    default: true
+  },
+  filterPosition: {
+    type: String,
+    default: 'sidebar'
   }
 })
 
 // State
 const loading = ref(false)
 const loadingMore = ref(false)
-const currentPage = ref(1)
-const loadedProducts = ref(props.productsPerPage)
+const currentPage = ref(props.currentPage)
+const loadedProducts = ref(props.products.length)
 const sortBy = ref('manual')
 const activeFilters = ref({})
 const quickViewProduct = ref(null)
@@ -239,6 +279,17 @@ const quickViewProduct = ref(null)
 const loadMoreTrigger = ref(null)
 
 // Computed
+const gridClasses = computed(() => {
+  const mobileCol = Number(props.columnsMobile)
+  const desktopCol = props.columnsDesktop
+  
+  const mobileClass = mobileCol === 1 ? 'grid-cols-1' : 'grid-cols-2'
+  const tabletClass = desktopCol <= 3 ? `md:grid-cols-${desktopCol}` : 'md:grid-cols-3'
+  const desktopClass = `lg:grid-cols-${desktopCol}`
+  
+  return `grid ${mobileClass} ${tabletClass} ${desktopClass} gap-4 lg:gap-6`
+})
+
 const filteredProducts = computed(() => {
   let filtered = [...props.products]
   
@@ -305,14 +356,23 @@ const paginatedProducts = computed(() => {
 })
 
 const totalPages = computed(() => {
-  return Math.ceil(filteredProducts.value.length / props.productsPerPage)
+  // Use server-side pagination info if available
+  return props.totalPages || Math.ceil(filteredProducts.value.length / props.productsPerPage)
 })
 
 const hasMoreProducts = computed(() => {
+  // For server-side pagination, check if we're not on the last page
+  if (props.paginationInfo && props.paginationInfo.pages) {
+    return props.currentPage < props.totalPages
+  }
   return loadedProducts.value < filteredProducts.value.length
 })
 
 const remainingProducts = computed(() => {
+  // For server-side pagination, calculate remaining from total
+  if (props.totalProducts) {
+    return Math.max(0, props.totalProducts - (props.currentPage * props.productsPerPage))
+  }
   return Math.max(0, filteredProducts.value.length - loadedProducts.value)
 })
 

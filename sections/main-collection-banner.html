@@ -1,52 +1,211 @@
-<div class="collection-banner bg-gray-100">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    {{#if section.settings.show_collection_image}}
-      {{#if collection.image}}
-        <div class="mb-8">
-          <img 
-            src="{{image_url collection.image width=1200}}" 
-            alt="{{collection.title}}"
-            class="w-full h-64 object-cover rounded-lg"
-            loading="lazy"
-          >
+{{assign "has_image" (and section.settings.show_collection_image collection.image)}}
+{{assign "image_height_class" ""}}
+{{#if section.settings.image_height == "small"}}
+  {{assign "image_height_class" "h-48 md:h-64"}}
+{{else if section.settings.image_height == "medium"}}
+  {{assign "image_height_class" "h-64 md:h-96"}}
+{{else if section.settings.image_height == "large"}}
+  {{assign "image_height_class" "h-96 md:h-[32rem]"}}
+{{/if}}
+
+<div class="collection-banner {{#if has_image}}relative{{else}}{{section.settings.background_style}}{{/if}}">
+  {{#if has_image}}
+    <div class="relative {{image_height_class}} overflow-hidden">
+      <img 
+        src="{{image_url collection.image width=1920}}" 
+        alt="{{collection.title}}"
+        class="w-full h-full object-cover"
+        loading="eager"
+      >
+      {{#if section.settings.show_overlay}}
+        <div class="absolute inset-0 bg-black opacity-{{section.settings.overlay_opacity}}"></div>
+      {{/if}}
+      
+      <!-- Content over image -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {{#if section.settings.show_collection_title}}
+            <h1 class="text-4xl md:text-5xl font-bold {{#if has_image}}text-white{{else}}text-gray-900{{/if}} mb-4">
+              {{collection.title}}
+            </h1>
+          {{/if}}
+          
+          {{#if section.settings.show_collection_description}}
+            {{#if collection.description}}
+              <div class="prose prose-lg max-w-3xl mx-auto {{#if has_image}}text-white{{else}}text-gray-600{{/if}}">
+                {{{collection.description}}}
+              </div>
+            {{/if}}
+          {{/if}}
+          
+          {{#if section.settings.show_product_count}}
+            <div class="mt-6 text-sm {{#if has_image}}text-gray-200{{else}}text-gray-500{{/if}}">
+              {{collection.products_count}} {{#if collection.products_count == 1}}product{{else}}products{{/if}}
+            </div>
+          {{/if}}
         </div>
-      {{/if}}
-    {{/if}}
-    
-    <div class="text-center">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">{{collection.title}}</h1>
-      
-      {{#if section.settings.show_collection_description}}
-        {{#if collection.description}}
-          <div class="prose prose-lg max-w-3xl mx-auto text-gray-600">
-            {{{collection.description}}}
-          </div>
-        {{/if}}
-      {{/if}}
-      
-      <div class="mt-6 text-sm text-gray-500">
-        {{collection.products_count}} products
       </div>
     </div>
-  </div>
+  {{else}}
+    <!-- Content without image -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-{{section.settings.padding_vertical}}">
+      <div class="text-{{section.settings.text_alignment}}">
+        {{#if section.settings.show_collection_title}}
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            {{collection.title}}
+          </h1>
+        {{/if}}
+        
+        {{#if section.settings.show_collection_description}}
+          {{#if collection.description}}
+            <div class="prose prose-lg max-w-3xl {{#if section.settings.text_alignment == 'center'}}mx-auto{{/if}} text-gray-600">
+              {{{collection.description}}}
+            </div>
+          {{/if}}
+        {{/if}}
+        
+        {{#if section.settings.show_product_count}}
+          <div class="mt-6 text-sm text-gray-500">
+            {{collection.products_count}} {{#if collection.products_count == 1}}product{{else}}products{{/if}}
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
 </div>
 
 {{#schema}}
 {
-  "name": "Collection Banner",
+  "name": "t:sections.main-collection-banner.name",
   "class": "section",
   "settings": [
     {
+      "type": "group_header",
+      "label": "t:sections.main-collection-banner.settings.group_header__0.label"
+    },
+    {
       "type": "switch",
-      "id": "show_collection_image",
+      "id": "show_collection_title",
       "default": true,
-      "label": "Show collection image"
+      "label": "t:sections.main-collection-banner.settings.show_collection_title.label"
     },
     {
       "type": "switch",
       "id": "show_collection_description",
       "default": true,
-      "label": "Show collection description"
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_product_count",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_product_count.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.main-collection-banner.settings.group_header__1.label"
+    },
+    {
+      "type": "switch",
+      "id": "show_collection_image",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_image.label",
+      "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "label": "t:sections.main-collection-banner.settings.image_height.label",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.main-collection-banner.settings.image_height.options__0.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.main-collection-banner.settings.image_height.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.main-collection-banner.settings.image_height.options__2.label"
+        }
+      ]
+    },
+    {
+      "type": "switch",
+      "id": "show_overlay",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_overlay.label",
+      "info": "t:sections.main-collection-banner.settings.show_overlay.info"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:sections.main-collection-banner.settings.overlay_opacity.label",
+      "min": 0,
+      "max": 90,
+      "step": 10,
+      "default": 40,
+      "unit": "%"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.main-collection-banner.settings.group_header__2.label"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "t:sections.main-collection-banner.settings.text_alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.main-collection-banner.settings.text_alignment.options__0.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.main-collection-banner.settings.text_alignment.options__1.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.main-collection-banner.settings.text_alignment.options__2.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "t:sections.main-collection-banner.settings.background_style.label",
+      "default": "bg-gray-50",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "t:sections.main-collection-banner.settings.background_style.options__0.label"
+        },
+        {
+          "value": "bg-gray-50",
+          "label": "t:sections.main-collection-banner.settings.background_style.options__1.label"
+        },
+        {
+          "value": "bg-gray-100",
+          "label": "t:sections.main-collection-banner.settings.background_style.options__2.label"
+        },
+        {
+          "value": "bg-gray-900",
+          "label": "t:sections.main-collection-banner.settings.background_style.options__3.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "t:sections.main-collection-banner.settings.padding_vertical.label",
+      "min": 8,
+      "max": 24,
+      "step": 4,
+      "default": 12,
+      "unit": "spacing units"
     }
   ]
 }

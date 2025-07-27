@@ -1,19 +1,44 @@
-<div class="collection-page">
-  <collection-grid
-    :products='{{json collection.products}}'
-    collection-title="{{collection.title}}"
-    collection-description="{{collection.description}}"
-    :products-per-page="{{section.settings.products_per_page}}"
-    :enable-infinite-scroll="{{section.settings.enable_infinite_scroll}}"
-    :show-header="false"
-  ></collection-grid>
+<div class="collection-page py-{{section.settings.padding_top}} pb-{{section.settings.padding_bottom}}">
+  <div class="{{#if section.settings.full_width}}w-full{{else}}max-w-7xl mx-auto{{/if}} px-4 sm:px-6 lg:px-8">
+    {{#paginate collection.products by=section.settings.products_per_page}}
+      <collection-grid
+        :products='{{json paginate.items}}'
+        collection-title="{{collection.title}}"
+        collection-description="{{collection.description}}"
+        collection-handle="{{collection.handle}}"
+        :total-products="{{collection.products_count}}"
+        :products-per-page="{{section.settings.products_per_page}}"
+        :columns-desktop="{{section.settings.columns_desktop}}"
+        :columns-mobile="{{section.settings.columns_mobile}}"
+        :enable-filtering="{{section.settings.enable_filtering}}"
+        :enable-sorting="{{section.settings.enable_sorting}}"
+        :enable-infinite-scroll="{{section.settings.enable_infinite_scroll}}"
+        :filter-position="'{{section.settings.filter_position}}'"
+        :show-header="false"
+        :current-page="{{paginate.current_page}}"
+        :total-pages="{{paginate.pages}}"
+        :pagination-info='{{json paginate}}'
+      ></collection-grid>
+    {{/paginate}}
+  </div>
 </div>
 
 {{#schema}}
 {
-  "name": "Collection Product List",
+  "name": "t:sections.main-collection-product-list.name",
   "class": "section",
   "settings": [
+    {
+      "type": "group_header",
+      "label": "t:sections.main-collection-product-list.settings.group_header__0.label"
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "default": false,
+      "label": "t:sections.main-collection-product-list.settings.full_width.label",
+      "info": "t:sections.main-collection-product-list.settings.full_width.info"
+    },
     {
       "type": "range",
       "id": "products_per_page",
@@ -21,7 +46,7 @@
       "max": 48,
       "step": 4,
       "default": 24,
-      "label": "Products per page"
+      "label": "t:sections.main-collection-product-list.settings.products_per_page.label"
     },
     {
       "type": "range",
@@ -30,41 +55,91 @@
       "max": 5,
       "step": 1,
       "default": 4,
-      "label": "Number of columns on desktop"
+      "label": "t:sections.main-collection-product-list.settings.columns_desktop.label"
     },
     {
       "type": "select",
       "id": "columns_mobile",
       "options": [
         {
-          "value": 1,
-          "label": "1 column"
+          "value": "1",
+          "label": "t:sections.main-collection-product-list.settings.columns_mobile.options__0.label"
         },
         {
-          "value": 2,
-          "label": "2 columns"
+          "value": "2",
+          "label": "t:sections.main-collection-product-list.settings.columns_mobile.options__1.label"
         }
       ],
-      "default": 2,
-      "label": "Number of columns on mobile"
+      "default": "2",
+      "label": "t:sections.main-collection-product-list.settings.columns_mobile.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.main-collection-product-list.settings.group_header__1.label"
     },
     {
       "type": "switch",
       "id": "enable_filtering",
       "default": true,
-      "label": "Enable filtering"
+      "label": "t:sections.main-collection-product-list.settings.enable_filtering.label"
+    },
+    {
+      "type": "select",
+      "id": "filter_position",
+      "label": "t:sections.main-collection-product-list.settings.filter_position.label",
+      "default": "sidebar",
+      "options": [
+        {
+          "value": "sidebar",
+          "label": "t:sections.main-collection-product-list.settings.filter_position.options__0.label"
+        },
+        {
+          "value": "drawer",
+          "label": "t:sections.main-collection-product-list.settings.filter_position.options__1.label"
+        }
+      ],
+      "info": "t:sections.main-collection-product-list.settings.filter_position.info"
     },
     {
       "type": "switch",
       "id": "enable_sorting",
       "default": true,
-      "label": "Enable sorting"
+      "label": "t:sections.main-collection-product-list.settings.enable_sorting.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.main-collection-product-list.settings.group_header__2.label"
     },
     {
       "type": "switch",
       "id": "enable_infinite_scroll",
       "default": false,
-      "label": "Enable infinite scroll"
+      "label": "t:sections.main-collection-product-list.settings.enable_infinite_scroll.label",
+      "info": "t:sections.main-collection-product-list.settings.enable_infinite_scroll.info"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.main-collection-product-list.settings.group_header__3.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "spacing units",
+      "label": "t:sections.main-collection-product-list.settings.padding_top.label",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "spacing units",
+      "label": "t:sections.main-collection-product-list.settings.padding_bottom.label",
+      "default": 8
     }
   ]
 }
