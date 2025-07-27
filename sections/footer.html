@@ -139,31 +139,60 @@
         <!-- Footer Menu Columns -->
         {{#if section.settings.footer_menu}}
           {{assign "footer_menu" section.settings.footer_menu}}
-          {{#each footer_menu.links}}
-            {{#if this.links}}
-              <div class="footer-column">
-                <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
-                  {{this.title}}
-                </h4>
-                <ul class="space-y-3">
-                  {{#each this.links}}
-                    <li>
-                      <a href="{{this.url}}" class="text-gray-600 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
-                        {{this.title}}
-                      </a>
-                    </li>
-                  {{/each}}
-                </ul>
-              </div>
-            {{else}}
-              <!-- Single link item -->
-              <div class="footer-column">
-                <a href="{{this.url}}" class="text-sm font-semibold text-gray-900 uppercase tracking-wider hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
-                  {{this.title}}
-                </a>
-              </div>
-            {{/if}}
-          {{/each}}
+          {{#if footer_menu.links}}
+            {{#each footer_menu.links}}
+              {{#if this.links}}
+                <div class="footer-column">
+                  <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
+                    {{this.title}}
+                  </h4>
+                  <ul class="space-y-3">
+                    {{#each this.links}}
+                      <li>
+                        <a href="{{this.url}}" class="text-gray-600 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                          {{this.title}}
+                        </a>
+                      </li>
+                    {{/each}}
+                  </ul>
+                </div>
+              {{else}}
+                <!-- Single link item -->
+                <div class="footer-column">
+                  <a href="{{this.url}}" class="text-sm font-semibold text-gray-900 uppercase tracking-wider hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                    {{this.title}}
+                  </a>
+                </div>
+              {{/if}}
+            {{/each}}
+          {{else}}
+            <!-- Fallback: Try using linklists directly with the menu handle -->
+            {{#each linklists.footer.links}}
+              {{#if this.links}}
+                <div class="footer-column">
+                  <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
+                    {{this.title}}
+                  </h4>
+                  <ul class="space-y-3">
+                    {{#each this.links}}
+                      <li>
+                        <a href="{{this.url}}" class="text-gray-600 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                          {{this.title}}
+                        </a>
+                      </li>
+                    {{/each}}
+                  </ul>
+                </div>
+              {{else}}
+                <!-- Single link item -->
+                <div class="footer-column">
+                  <a href="{{this.url}}" class="text-sm font-semibold text-gray-900 uppercase tracking-wider hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                    {{this.title}}
+                  </a>
+                </div>
+              {{/if}}
+            {{/each}}
+          {{/if}}
         {{/if}}
         
         <!-- Contact Column -->
