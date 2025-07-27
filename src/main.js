@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
       content: mount.getAttribute('content'),
       author: mount.getAttribute('author'),
       publishedAt: mount.getAttribute('published-at'),
+      rawPublishedAt: mount.getAttribute('raw-published-at'),
       image: mount.getAttribute('image'),
       imageAlt: mount.getAttribute('image-alt'),
       tags: JSON.parse(mount.getAttribute('tags') || '[]'),
