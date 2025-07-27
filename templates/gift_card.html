@@ -1,0 +1,105 @@
+{{layout "gift_card"}}
+
+<div class="min-h-screen bg-gray-50 py-12">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{#if gift_card.code}}
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">{{shop.name}}</h1>
+        {{#if gift_card.expired}}
+          <p class="mt-2 text-red-600">This gift card has expired</p>
+        {{else if (isFalsey gift_card.enabled)}}
+          <p class="mt-2 text-red-600">This gift card is invalid</p>
+        {{else}}
+          <p class="mt-2 text-green-600">Here's your gift card!</p>
+        {{/if}}
+      </div>
+
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden {{#if (or gift_card.expired (isFalsey gift_card.enabled))}}opacity-50{{/if}}">
+        <!-- Gift Card Visual -->
+        <div class="bg-gradient-to-r from-red-500 to-red-600 p-8 text-white">
+          <div class="text-center">
+            <p class="text-sm uppercase tracking-wider mb-2">Gift Card</p>
+            <div class="bg-white/20 rounded-lg p-4 backdrop-blur-sm">
+              <code class="text-2xl font-mono tracking-wider">{{gift_card.code}}</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gift Card Details -->
+        <div class="p-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-sm text-gray-500">Balance</p>
+              <p class="text-2xl font-bold text-gray-900">{{money_with_currency gift_card.balance}}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Expires</p>
+              {{#if gift_card.expires_on}}
+                <p class="text-lg font-medium text-gray-900">
+                  {{date gift_card.expires_on "%B %d, %Y"}}
+                </p>
+              {{else}}
+                <p class="text-lg font-medium text-gray-900">Never</p>
+              {{/if}}
+            </div>
+          </div>
+
+          <div class="mt-8 space-y-4">
+            <a href="{{routes.root_url}}" 
+               class="block w-full text-center py-3 px-6 font-medium text-white transition-colors rounded-md focus:outline-none focus:ring-4 focus:ring-red-500/20"
+               style="background-color: var(--button-primary-bg);"
+               onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover)'"
+               onmouseout="this.style.backgroundColor='var(--button-primary-bg)'">
+              Start Shopping
+            </a>
+            
+            <button type="button" 
+                    onclick="printGiftCard()"
+                    class="block w-full text-center py-3 px-6 font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors rounded-md">
+              Print Gift Card
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center text-sm text-gray-600">
+        <p>To use this gift card, enter the code at checkout or show this page in store.</p>
+      </div>
+    {{else}}
+      <div class="text-center">
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">Gift Card Not Found</h1>
+        <p class="text-gray-600 mb-8">The gift card you're looking for doesn't exist.</p>
+        <a href="{{routes.root_url}}" 
+           class="inline-block py-3 px-6 font-medium text-white transition-colors rounded-md"
+           style="background-color: var(--button-primary-bg);"
+           onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover)'"
+           onmouseout="this.style.backgroundColor='var(--button-primary-bg)'">
+          Go to Homepage
+        </a>
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+<script>
+  function printGiftCard() {
+    window.print();
+  }
+</script>
+
+<style>
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    .bg-white.rounded-lg.shadow-lg, .bg-white.rounded-lg.shadow-lg * {
+      visibility: visible;
+    }
+    .bg-white.rounded-lg.shadow-lg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+  }
+</style>

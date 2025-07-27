@@ -1,0 +1,105 @@
+<div class="py-12 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Page Title -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">All Collections</h1>
+      <p class="text-lg text-gray-600">Browse our complete collection catalog</p>
+    </div>
+
+    <!-- Collections Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-{{section.settings.collections_per_row_desktop}} gap-6">
+      {{#each collections}}
+        <a href="{{this.url}}" class="group relative block overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+          <!-- Collection Image -->
+          {{#if ../section.settings.show_collection_image}}
+            {{#if this.image}}
+              <div class="aspect-square bg-gray-100">
+                <img src="{{image_url this.image width=600}}" 
+                     alt="{{this.title}}"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              </div>
+            {{else}}
+              <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+            {{/if}}
+          {{/if}}
+          
+          <!-- Collection Info -->
+          <div class="p-4 bg-white">
+            {{#if ../section.settings.show_collection_title}}
+              <h3 class="text-lg font-semibold text-gray-900 group-hover:opacity-80 transition-opacity" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                {{this.title}}
+              </h3>
+            {{/if}}
+            
+            {{#if ../section.settings.show_product_count}}
+              <p class="text-sm text-gray-500 mt-1">
+                {{this.products_count}} {{#if this.products_count '==' 1}}product{{else}}products{{/if}}
+              </p>
+            {{/if}}
+          </div>
+        </a>
+      {{/each}}
+    </div>
+
+    <!-- Empty State -->
+    {{#unless collections}}
+      <div class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No collections</h3>
+        <p class="mt-1 text-sm text-gray-500">Get started by creating a new collection.</p>
+      </div>
+    {{/unless}}
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "t:sections.main-list-collections.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "collections_per_row_desktop",
+      "label": "Collections per row (Desktop)",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "collections_per_row_mobile",
+      "label": "Collections per row (Mobile)",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "switch",
+      "id": "show_collection_image",
+      "label": "Show collection image",
+      "default": true
+    },
+    {
+      "type": "switch",
+      "id": "show_collection_title",
+      "label": "Show collection title",
+      "default": true
+    },
+    {
+      "type": "switch",
+      "id": "show_product_count",
+      "label": "Show product count",
+      "default": true
+    }
+  ]
+}
+{{/schema}}

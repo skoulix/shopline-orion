@@ -213,20 +213,20 @@
       });
     }
     
-    // Search toggle
-    const searchToggle = document.querySelector('.search-toggle');
-    if (searchToggle) {
-      searchToggle.addEventListener('click', function(e) {
+    // Search toggle - handle all search buttons
+    const searchToggles = document.querySelectorAll('.search-toggle');
+    searchToggles.forEach(toggle => {
+      toggle.addEventListener('click', function(e) {
         e.preventDefault();
         console.log('Search toggle clicked');
         document.dispatchEvent(new CustomEvent('search-overlay:open'));
       });
-    }
+    });
     
-    // Cart toggle
-    const cartToggle = document.querySelector('.cart-toggle');
-    if (cartToggle) {
-      cartToggle.addEventListener('click', function(e) {
+    // Cart toggle - handle all cart buttons
+    const cartToggles = document.querySelectorAll('.cart-toggle');
+    cartToggles.forEach(toggle => {
+      toggle.addEventListener('click', function(e) {
         e.preventDefault();
         // Get cart type from Shopline theme settings
         const cartType = Shopline?.theme?.settings?.cart_type || 'drawer';
@@ -239,7 +239,7 @@
           window.location.href = Shopline?.routes?.cart || '/cart';
         }
       });
-    }
+    });
   });
 </script>
 

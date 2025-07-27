@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-order-tracking",
+      "settings": {
+        "heading": "Track Your Order",
+        "description": "Enter your order number and email to track your shipment."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

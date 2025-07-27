@@ -1000,6 +1000,23 @@
           "label": "Payment icons"
         }
       }
+    },
+    "main-password-header": {
+      "name": "Password header",
+      "settings": {
+        "logo_img": {
+          "label": "Logo image"
+        },
+        "desktop_logo_width": {
+          "label": "Desktop logo width"
+        },
+        "mobile_logo_width": {
+          "label": "Mobile logo width"
+        }
+      }
+    },
+    "main-password-footer": {
+      "name": "Password footer"
     }
   }
 }

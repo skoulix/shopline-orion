@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-company",
+      "settings": {
+        "heading": "Company Account",
+        "show_order_history": true,
+        "show_addresses": true
+      }
+    }
+  },
+  "order": ["main"]
+}
