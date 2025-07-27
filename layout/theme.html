@@ -87,6 +87,18 @@
 						settings.color_secondary
 					);
 				}
+				
+				// Focus state colors using primary color
+				if (settings.button_primary_bg) {
+					root.style.setProperty(
+						'--focus-ring-color',
+						settings.button_primary_bg
+					);
+					root.style.setProperty(
+						'--focus-border-color',
+						settings.button_primary_bg
+					);
+				}
 			});
 		</script>
 
@@ -103,6 +115,22 @@
 				--button-secondary-border: #d1d5db;
 				--color-primary: #dc2626;
 				--color-secondary: #1f2937;
+				--focus-ring-color: #dc2626;
+				--focus-border-color: #dc2626;
+			}
+			
+			/* Custom focus utilities using CSS variables */
+			.focus\:ring-primary:focus {
+				--tw-ring-color: var(--focus-ring-color);
+			}
+			
+			.focus\:border-primary:focus {
+				border-color: var(--focus-border-color);
+			}
+			
+			.focus\:ring-primary\/20:focus {
+				--tw-ring-color: var(--focus-ring-color);
+				--tw-ring-opacity: 0.2;
 			}
 		</style>
 
