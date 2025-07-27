@@ -56,21 +56,28 @@
         <!-- Quantity and Actions -->
         <div class="cart-item__actions">
           <div class="cart-item__actions-left">
-            <quantity-selector
+            <QuantitySelector
               v-model="localQuantity"
               :min="0"
               :max="maxQuantity"
               @update:modelValue="handleQuantityChange"
               :disabled="updating"
-            ></quantity-selector>
+            />
             
             <button 
               type="button"
               @click="handleRemove"
               class="cart-item__remove"
               :disabled="updating"
+              aria-label="Remove item from cart"
             >
-              {{ updating ? 'Removing...' : 'Remove' }}
+              <svg v-if="!updating" class="cart-item__remove-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              <svg v-else class="cart-item__remove-icon cart-item__remove-icon--loading" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
             </button>
           </div>
           
@@ -102,6 +109,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import QuantitySelector from './QuantitySelector.vue'
 
 const props = defineProps({
   item: {
@@ -358,24 +366,29 @@ watch(() => props.item.quantity, (newQuantity) => {
 }
 
 .cart-item__price-current {
-  font-weight: 500;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 1.125rem;
   color: #111827;
-  margin: 0 0 0.25rem 0;
+  margin: 0;
+  letter-spacing: -0.025em;
 }
 
 .cart-item__price-original {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: #9ca3af;
   text-decoration: line-through;
-  margin: 0 0 0.25rem 0;
+  margin: 0.25rem 0 0 0;
 }
 
 .cart-item__price-savings {
   font-size: 0.75rem;
-  color: #059669;
-  font-weight: 500;
-  margin: 0;
+  color: #10b981;
+  font-weight: 600;
+  margin: 0.25rem 0 0 0;
+  background-color: #d1fae5;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  display: inline-block;
 }
 
 .cart-item__discounts {
@@ -412,22 +425,46 @@ watch(() => props.item.quantity, (newQuantity) => {
 }
 
 .cart-item__remove {
-  font-size: 0.875rem;
-  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: #9ca3af;
   background: none;
   border: none;
   cursor: pointer;
-  transition: color 0.2s;
-  padding: 0.25rem 0.5rem;
+  transition: all 0.2s;
+  padding: 0.375rem;
+  border-radius: 0.375rem;
 }
 
 .cart-item__remove:hover {
-  color: #dc2626;
+  color: #ef4444;
+  background-color: #fee2e2;
 }
 
 .cart-item__remove:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.cart-item__remove-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.cart-item__remove-icon--loading {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .cart-item__warning {

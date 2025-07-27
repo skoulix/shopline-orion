@@ -7,29 +7,51 @@
     {{/if}}
     
     {{#if section.settings.collection}}
-      {{assign "collection" collections.[section.settings.collection]}}
-      {{assign "products" (limit collection.products section.settings.products_to_show)}}
+      {{!-- Simple approach: Loop through all_collections to find matching ID --}}
+      {{assign "products_displayed" false}}
       
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {{#each products}}
-          <product-card
-            :product='{{json this}}'
-            :enable-quick-add="true"
-            :enable-quick-view="true"
-          ></product-card>
-        {{/each}}
-      </div>
+      {{#each all_collections}}
+        {{#if (eq this.id ../section.settings.collection)}}
+          {{assign "products_displayed" true}}
+          
+          {{#if this.products}}
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {{#each this.products limit=../../section.settings.products_to_show}}
+                <div class="product-card-wrapper">
+                  <product-card
+                    product-id="{{this.id}}"
+                    variant-id="{{this.variants.[0].id}}"
+                    title="{{this.title}}"
+                    handle="{{this.handle}}"
+                    price="{{this.price}}"
+                    compare-at-price="{{this.compare_at_price}}"
+                    image="{{this.images.[0].src}}"
+                    :available="{{#if this.available}}true{{else}}false{{/if}}"
+                  ></product-card>
+                </div>
+              {{/each}}
+            </div>
+            
+            {{#if ../../section.settings.show_view_all}}
+              <div class="text-center mt-8">
+                <a 
+                  href="{{this.url}}" 
+                  class="inline-block bg-gray-900 text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors"
+                >
+                  View All Products
+                </a>
+              </div>
+            {{/if}}
+          {{else}}
+            <p class="text-center text-gray-500 py-8">This collection has no products.</p>
+          {{/if}}
+        {{/if}}
+      {{/each}}
       
-      {{#if section.settings.show_view_all}}
-        <div class="text-center mt-8">
-          <a 
-            href="{{collection.url}}" 
-            class="inline-block bg-gray-900 text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors"
-          >
-            View All Products
-          </a>
-        </div>
-      {{/if}}
+      {{#unless products_displayed}}
+        <p class="text-center text-gray-500 py-8">Collection not found.</p>
+      {{/unless}}
+      
     {{else}}
       <p class="text-center text-gray-500">Please select a collection to display products.</p>
     {{/if}}
@@ -48,7 +70,7 @@
       "label": "t:sections.featured-collection.settings.title.label"
     },
     {
-      "type": "collection",
+      "type": "collection_picker",
       "id": "collection",
       "label": "t:sections.featured-collection.settings.collection.label"
     },
@@ -66,6 +88,12 @@
       "id": "show_view_all",
       "default": true,
       "label": "t:sections.featured-collection.settings.show_view_all.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured-collection.name",
+      "category": "t:sections.featured-collection.presets.category"
     }
   ]
 }

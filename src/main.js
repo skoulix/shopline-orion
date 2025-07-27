@@ -7,7 +7,7 @@ import QuantitySelector from './components/QuantitySelector.vue'
 import StickyHeader from './components/StickyHeader.vue'
 import MainHeader from './components/MainHeader.vue'
 import SiteFooter from './components/SiteFooter.vue'
-import ProductCard from './components/ProductCard.vue'
+import ProductCard from './components/ProductCard.vue' // Mounted as Vue app, not custom element
 import CollectionFilters from './components/CollectionFilters.vue'
 import CollectionGrid from './components/CollectionGrid.vue'
 import ProductGallery from './components/ProductGallery.vue'
@@ -66,7 +66,8 @@ const QuantitySelectorElement = defineCustomElement(QuantitySelector)
 const StickyHeaderElement = defineCustomElement(StickyHeader)
 const MainHeaderElement = defineCustomElement(MainHeader)
 const SiteFooterElement = defineCustomElement(SiteFooter)
-const ProductCardElement = defineCustomElement(ProductCard)
+// Don't use custom element for ProductCard due to style isolation
+// const ProductCardElement = defineCustomElement(ProductCard)
 const CollectionFiltersElement = defineCustomElement(CollectionFilters)
 const CollectionGridElement = defineCustomElement(CollectionGrid)
 const ProductGalleryElement = defineCustomElement(ProductGallery)
@@ -87,7 +88,7 @@ customElements.define('quantity-selector', QuantitySelectorElement)
 customElements.define('sticky-header', StickyHeaderElement)
 customElements.define('main-header', MainHeaderElement)
 customElements.define('site-footer', SiteFooterElement)
-customElements.define('product-card', ProductCardElement)
+// customElements.define('product-card', ProductCardElement)
 customElements.define('collection-filters', CollectionFiltersElement)
 customElements.define('collection-grid', CollectionGridElement)
 customElements.define('product-gallery', ProductGalleryElement)
@@ -139,6 +140,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartDrawerMounts = document.querySelectorAll('.cart-drawer-mount')
   cartDrawerMounts.forEach(mount => {
     const app = createApp(CartDrawer)
+    app.mount(mount)
+  })
+
+  // Mount ProductCard components (as Vue apps to avoid style isolation)
+  const productCardMounts = document.querySelectorAll('product-card')
+  productCardMounts.forEach(mount => {
+    // Extract props from attributes
+    const props = {
+      productId: mount.getAttribute('product-id'),
+      variantId: mount.getAttribute('variant-id'),
+      title: mount.getAttribute('title'),
+      handle: mount.getAttribute('handle'),
+      price: mount.getAttribute('price'),
+      compareAtPrice: mount.getAttribute('compare-at-price'),
+      image: mount.getAttribute('image'),
+      available: mount.getAttribute(':available') === 'true'
+    }
+    
+    const app = createApp(ProductCard, props)
     app.mount(mount)
   })
 
@@ -197,12 +217,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     
-    async addItem(formData) {
+    async addItem(data) {
       try {
-        const response = await fetch(window.routes.cart_add_url, {
-          method: 'POST',
-          body: formData
-        })
+        let response
+        
+        // Handle both FormData and JSON formats
+        if (data instanceof FormData) {
+          // Legacy FormData format
+          response = await fetch(window.routes.cart_add_url, {
+            method: 'POST',
+            body: data
+          })
+        } else {
+          // New Shopline AJAX API format
+          response = await fetch('/api/carts/ajax-cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+        }
+        
         const result = await response.json()
         await this.fetchCart()
         this.openDrawer()
@@ -212,15 +249,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     
-    async updateItem(key, quantity) {
+    async updateItem(variantId, quantity, lineNumber = null) {
       try {
-        const formData = new FormData()
-        formData.append('updates[' + key + ']', quantity)
+        // Use Shopline's change API
+        const requestData = {
+          quantity: quantity
+        }
         
-        const response = await fetch(window.routes.cart_update_url, {
+        // Prefer line number if available, otherwise use variant ID
+        if (lineNumber !== null) {
+          requestData.line = lineNumber
+        } else {
+          requestData.id = variantId
+        }
+        
+        const response = await fetch('/api/carts/ajax-cart/change.js', {
           method: 'POST',
-          body: formData
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(requestData)
         })
+        
         const result = await response.json()
         await this.fetchCart()
         return result
@@ -229,8 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     
-    async removeItem(key) {
-      return this.updateItem(key, 0)
+    async removeItem(variantId, lineNumber = null) {
+      return this.updateItem(variantId, 0, lineNumber)
     },
     
     openDrawer() {
