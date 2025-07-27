@@ -1,25 +1,59 @@
-<div class="collection-page py-{{section.settings.padding_top}} pb-{{section.settings.padding_bottom}}">
+<div class="collection-page pt-{{section.settings.padding_top}} pb-{{section.settings.padding_bottom}}">
   <div class="{{#if section.settings.full_width}}w-full{{else}}max-w-7xl mx-auto{{/if}} px-4 sm:px-6 lg:px-8">
-    {{#paginate collection.products by=section.settings.products_per_page}}
-      <collection-grid
-        :products='{{json paginate.items}}'
-        collection-title="{{collection.title}}"
-        collection-description="{{collection.description}}"
-        collection-handle="{{collection.handle}}"
-        :total-products="{{collection.products_count}}"
-        :products-per-page="{{section.settings.products_per_page}}"
-        :columns-desktop="{{section.settings.columns_desktop}}"
-        :columns-mobile="{{section.settings.columns_mobile}}"
-        :enable-filtering="{{section.settings.enable_filtering}}"
-        :enable-sorting="{{section.settings.enable_sorting}}"
-        :enable-infinite-scroll="{{section.settings.enable_infinite_scroll}}"
-        :filter-position="'{{section.settings.filter_position}}'"
-        :show-header="false"
-        :current-page="{{paginate.current_page}}"
-        :total-pages="{{paginate.pages}}"
-        :pagination-info='{{json paginate}}'
-      ></collection-grid>
-    {{/paginate}}
+    {{#if collection.products}}
+      <!-- Filters and Sorting Bar -->
+      {{#if (or section.settings.enable_filtering section.settings.enable_sorting)}}
+        <div class="mb-6 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            {{#if section.settings.enable_filtering}}
+              <button class="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                Filter
+              </button>
+            {{/if}}
+          </div>
+          
+          {{#if section.settings.enable_sorting}}
+            <select class="px-4 py-2 border border-gray-300 rounded-md">
+              <option value="manual">Featured</option>
+              <option value="best-selling">Best Selling</option>
+              <option value="title-ascending">A-Z</option>
+              <option value="title-descending">Z-A</option>
+              <option value="price-ascending">Price: Low to High</option>
+              <option value="price-descending">Price: High to Low</option>
+            </select>
+          {{/if}}
+        </div>
+      {{/if}}
+      
+      <!-- Products Grid -->
+      <div class="product-grid" data-products-count="{{collection.products.length}}">
+        {{#each collection.products}}
+          <div class="product-card-wrapper">
+            <product-card
+              product-id="{{this.id}}"
+              variant-id="{{this.variants.[0].id}}"
+              title="{{this.title}}"
+              handle="{{this.handle}}"
+              vendor="{{this.vendor}}"
+              price="{{this.price}}"
+              compare-at-price="{{this.compare_at_price}}"
+              image="{{image_url this.images.[0] width=800}}"
+              :available="{{#if this.available}}true{{else}}false{{/if}}"
+            ></product-card>
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="text-center py-12">
+        <p class="text-gray-500">No products found in this collection.</p>
+        <p class="text-sm text-gray-400 mt-2">Collection: {{collection.title}}</p>
+        <p class="text-sm text-gray-400 mt-2">Collection ID: {{collection.id}}</p>
+        <p class="text-sm text-gray-400 mt-2">Products Count: {{collection.products_count}}</p>
+      </div>
+    {{/if}}
   </div>
 </div>
 
