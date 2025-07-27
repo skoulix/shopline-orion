@@ -13806,7 +13806,7 @@ const X1 = { class: "sticky-header-container" }, Q1 = {
       ])
     ]));
   }
-}, zb = /* @__PURE__ */ We(qb, [["__scopeId", "data-v-799862f9"]]), Kb = { class: "product-card group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" }, Wb = ["href"], Gb = ["src", "alt"], Yb = {
+}, zb = /* @__PURE__ */ We(qb, [["__scopeId", "data-v-bb6699dc"]]), Kb = { class: "product-card group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" }, Wb = ["href"], Gb = ["src", "alt"], Yb = {
   key: 1,
   class: "h-full w-full flex items-center justify-center"
 }, Jb = {
@@ -14062,7 +14062,7 @@ const X1 = { class: "sticky-header-container" }, Q1 = {
           key: 2,
           onClick: M,
           disabled: i.value,
-          class: "w-full bg-black text-white px-4 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          class: "w-full bg-red-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         }, [
           i.value ? R("", !0) : (w(), N("svg", f_, b[6] || (b[6] = [
             f("path", {
