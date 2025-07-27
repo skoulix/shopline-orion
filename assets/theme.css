@@ -2236,6 +2236,14 @@ select {
   height: 100vh;
 }
 
+.h-28 {
+  height: 7rem;
+}
+
+.h-32 {
+  height: 8rem;
+}
+
 .max-h-\[600px\] {
   max-height: 600px;
 }
@@ -2326,6 +2334,14 @@ select {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-28 {
+  width: 7rem;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .max-w-2xl {

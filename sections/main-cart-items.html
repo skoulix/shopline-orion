@@ -23,9 +23,9 @@
                 <div class="flex gap-4">
                   <div class="flex-shrink-0">
                     <img 
-                      src="{{image_url image width=200}}" 
+                      src="{{image_url image width=400}}" 
                       alt="{{product_title}}"
-                      class="w-20 h-20 object-cover rounded-md"
+                      class="w-32 h-32 object-cover rounded-md"
                       loading="lazy"
                     >
                   </div>
@@ -35,13 +35,13 @@
                       <h3 class="font-medium text-gray-900 text-base">
                         <a href="{{url}}" class="hover:text-red-600">{{product.title}}</a>
                       </h3>
-                      {{#if variant_title}}
-                        <p class="text-sm text-gray-500 mt-1">{{variant_title}}</p>
+                      {{#if (isFalsey product.has_only_default_variant)}}
+                        {{#each options_with_values as |option|}}
+                          <p class="text-sm text-gray-500 mt-1">{{option.name}}: {{option.value}}</p>
+                        {{/each}}
                       {{/if}}
                     </div>
-                    {{#if line_price}}
-                      <p class="text-sm text-gray-600">{{money_with_currency (divided_by line_price quantity)}} each</p>
-                    {{/if}}
+                    <p class="text-sm text-gray-600">{{money_with_currency (divided_by final_line_price quantity)}} each</p>
                     
                     <div class="mt-4 flex items-center justify-between">
                       <div class="flex items-center gap-3">
@@ -86,7 +86,7 @@
                       
                       <div class="text-right">
                         <p class="font-medium text-gray-900">{{money_with_currency line_price}}</p>
-                        <p class="text-xs text-gray-500 mt-1">{{quantity}} × {{money_with_currency (divided_by line_price quantity)}}</p>
+                        <p class="text-xs text-gray-500 mt-1">{{quantity}} × {{money_with_currency (divided_by final_line_price quantity)}}</p>
                       </div>
                     </div>
                   </div>
