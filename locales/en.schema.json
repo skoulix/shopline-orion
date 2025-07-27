@@ -940,6 +940,66 @@
           "label": "Padding bottom"
         }
       }
+    },
+    "footer": {
+      "name": "Footer",
+      "settings": {
+        "group_header__0": {
+          "label": "Brand"
+        },
+        "brand_description": {
+          "label": "Brand description"
+        },
+        "newsletter_header": {
+          "label": "Newsletter"
+        },
+        "show_newsletter": {
+          "label": "Show newsletter"
+        },
+        "newsletter_heading": {
+          "label": "Newsletter heading"
+        },
+        "newsletter_subheading": {
+          "label": "Newsletter subheading"
+        },
+        "footer_content_header": {
+          "label": "Footer content"
+        },
+        "footer_menu": {
+          "label": "Footer menu"
+        },
+        "contact_header": {
+          "label": "Contact information"
+        },
+        "show_contact": {
+          "label": "Show contact information"
+        },
+        "contact_email": {
+          "label": "Email"
+        },
+        "contact_phone": {
+          "label": "Phone"
+        },
+        "contact_address": {
+          "label": "Address"
+        },
+        "footer_bottom_header": {
+          "label": "Footer bottom"
+        },
+        "show_social": {
+          "label": "Show social media icons",
+          "info": "Social media links can be configured in theme settings"
+        },
+        "copyright_text": {
+          "label": "Copyright text"
+        },
+        "show_policy_links": {
+          "label": "Show policy links"
+        },
+        "payment_icons": {
+          "label": "Payment icons"
+        }
+      }
     }
   }
 }

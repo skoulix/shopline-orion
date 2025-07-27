@@ -3314,10 +3314,6 @@ select {
   text-align: right;
 }
 
-.font-mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -4514,10 +4510,6 @@ sticky-header.sticky-header-wrapper.not-sticky {
 
 .focus\:border-transparent:focus {
   border-color: transparent;
-}
-
-.focus\:border-\[var\(--color-primary\)\]:focus {
-  border-color: var(--color-primary);
 }
 
 .focus\:bg-gray-50:focus {

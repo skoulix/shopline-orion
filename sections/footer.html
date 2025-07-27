@@ -138,46 +138,31 @@
         
         <!-- Footer Menu Columns -->
         {{#if section.settings.footer_menu}}
-          {{assign "footer_menu" section.settings.footer_menu}}
-          {{#if (eq footer_menu "footer")}}
-            {{#each linklists.footer.links}}
+          {{#each section.settings.footer_menu.links}}
+            {{#if this.links}}
               <div class="footer-column">
                 <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
-                  {{title}}
+                  {{this.title}}
                 </h4>
-                {{#if links}}
-                  <ul class="space-y-3">
-                    {{#each links}}
-                      <li>
-                        <a href="{{url}}" class="text-gray-600 hover:text-red-600 transition-colors">
-                          {{title}}
-                        </a>
-                      </li>
-                    {{/each}}
-                  </ul>
-                {{/if}}
+                <ul class="space-y-3">
+                  {{#each this.links}}
+                    <li>
+                      <a href="{{this.url}}" class="text-gray-600 hover:text-red-600 transition-colors">
+                        {{this.title}}
+                      </a>
+                    </li>
+                  {{/each}}
+                </ul>
               </div>
-            {{/each}}
-          {{else}}
-            {{#each linklists.main-menu.links}}
+            {{else}}
+              <!-- Single link item -->
               <div class="footer-column">
-                <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
-                  {{title}}
-                </h4>
-                {{#if links}}
-                  <ul class="space-y-3">
-                    {{#each links}}
-                      <li>
-                        <a href="{{url}}" class="text-gray-600 hover:text-red-600 transition-colors">
-                          {{title}}
-                        </a>
-                      </li>
-                    {{/each}}
-                  </ul>
-                {{/if}}
+                <a href="{{this.url}}" class="text-sm font-semibold text-gray-900 uppercase tracking-wider hover:text-red-600 transition-colors">
+                  {{this.title}}
+                </a>
               </div>
-            {{/each}}
-          {{/if}}
+            {{/if}}
+          {{/each}}
         {{/if}}
         
         <!-- Contact Column -->
@@ -246,11 +231,13 @@
       <div class="border-t border-gray-200 pt-8">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <p class="text-sm text-gray-600">
-            {{#if section.settings.copyright_text}}
-              {{section.settings.copyright_text}}
-            {{else}}
-              © 2024 {{shop.name}}. All rights reserved.
-            {{/if}}
+            <span id="copyright-text">
+              {{#if section.settings.copyright_text}}
+                {{section.settings.copyright_text}}
+              {{else}}
+                © <span class="copyright-year"></span> {{shop.name}}. All rights reserved.
+              {{/if}}
+            </span>
           </p>
           
           <nav class="flex flex-wrap gap-6 text-sm">
@@ -333,6 +320,37 @@
     background-color: var(--button-primary-bg-hover, #b91c1c);
   }
 </style>
+
+<script>
+  // Update copyright year dynamically
+  document.addEventListener('DOMContentLoaded', function() {
+    const currentYear = new Date().getFullYear();
+    const copyrightText = document.getElementById('copyright-text');
+    
+    if (copyrightText) {
+      let html = copyrightText.innerHTML.trim();
+      console.log('Original copyright text:', html);
+      
+      // Check if there's already a year (2020-2099)
+      if (/20\d{2}/.test(html)) {
+        // Replace existing year with current year
+        html = html.replace(/20\d{2}/g, currentYear);
+      } else {
+        // No year found, insert current year after © symbol
+        html = html.replace(/©\s*/g, `© ${currentYear} `);
+      }
+      
+      console.log('Updated copyright text:', html);
+      copyrightText.innerHTML = html;
+    }
+    
+    // Also update any elements with class 'copyright-year'
+    const yearElements = document.querySelectorAll('.copyright-year');
+    yearElements.forEach(element => {
+      element.textContent = currentYear;
+    });
+  });
+</script>
 
 {{#schema}}
 {
@@ -423,8 +441,9 @@
     {
       "type": "text",
       "id": "copyright_text",
-      "default": "© 2024, Your Store. All rights reserved.",
-      "label": "t:sections.footer.settings.copyright_text.label"
+      "default": "© Your Store. All rights reserved.",
+      "label": "t:sections.footer.settings.copyright_text.label",
+      "info": "Use © without a year - the current year will be added automatically"
     },
     {
       "type": "switch",
