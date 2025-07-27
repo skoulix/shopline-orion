@@ -348,16 +348,146 @@ Shopline provides image optimization filters similar to Shopify:
 -   Cart API returns pre-optimized images that should be used as-is
 -   For dynamic image optimization in JavaScript, consider using CSS to constrain display size rather than trying to modify URLs
 
+## Shopline Global Object
+
+Shopline provides a comprehensive global object that contains all the necessary data for theme development. **You should always use the Shopline global object instead of creating custom window objects.**
+
+### Structure Overview
+```javascript
+Shopline = {
+  // Shop information
+  shop: {
+    name: "Store Name",
+    domain: "store.myshopline.com",
+    currency: "USD",
+    money_format: "${{amount}}",
+    money_with_currency_format: "${{amount}} USD"
+  },
+  
+  // Theme settings from settings_schema.json
+  theme: {
+    settings: {
+      cart_type: "drawer",
+      free_shipping_threshold: 50,
+      show_free_shipping_bar: true,
+      button_border_radius: 6,
+      button_primary_bg: "#dc2626",
+      // ... all other theme settings
+    }
+  },
+  
+  // Routes for cart, account, etc.
+  routes: {
+    cart: "/cart",
+    cart_add: "/cart/add",
+    cart_update: "/cart/update", 
+    cart_change: "/cart/change",
+    account: "/account",
+    account_login: "/account/login",
+    account_logout: "/account/logout",
+    search: "/search"
+  },
+  
+  // Currency formatting
+  currency: {
+    active: "USD",
+    rate: 1,
+    format: "${{amount}}"
+  },
+  
+  // Locale information
+  locale: {
+    current: "en",
+    available: ["en", "zh-CN"]
+  },
+  
+  // Customer information (if logged in)
+  customer: {
+    id: 123,
+    email: "customer@example.com",
+    first_name: "John",
+    last_name: "Doe"
+    // ... other customer properties
+  }
+}
+```
+
+### Common Usage Examples
+
+#### Accessing Theme Settings
+```javascript
+// Get cart type setting
+const cartType = Shopline?.theme?.settings?.cart_type || 'drawer'
+
+// Get free shipping threshold
+const threshold = Shopline?.theme?.settings?.free_shipping_threshold || 50
+
+// Get button styling
+const buttonRadius = Shopline?.theme?.settings?.button_border_radius || 6
+```
+
+#### Using Routes
+```javascript
+// Get cart URL
+const cartUrl = Shopline?.routes?.cart || '/cart'
+
+// Add to cart endpoint
+const addToCartUrl = Shopline?.routes?.cart_add || '/cart/add'
+
+// Account URL
+const accountUrl = Shopline?.routes?.account || '/account'
+```
+
+#### Currency Formatting
+```javascript
+// Format price with currency
+const formatMoney = (cents) => {
+  const format = Shopline?.currency?.format || '${{amount}}'
+  const amount = (cents / 100).toFixed(2)
+  return format.replace('{{amount}}', amount)
+}
+```
+
+#### Shop Information
+```javascript
+// Get shop name
+const shopName = Shopline?.shop?.name || 'My Store'
+
+// Get shop currency
+const currency = Shopline?.shop?.currency || 'USD'
+```
+
+### Important Notes
+- **Never create custom window objects** like `window.routes`, `window.shop`, or `window.themeSettings`
+- The only exception is `window.OrionCart` which is our custom cart state management system
+- Always use optional chaining (`?.`) when accessing Shopline properties to avoid errors
+- The Shopline object is automatically populated by the platform
+- Global settings from `settings_schema.json` may not be directly accessible in section templates using `{{settings.variable}}` - use JavaScript to access them via `Shopline.theme.settings`
+- The structure may vary slightly between different Shopline versions, always check what's available in your environment
+
+### Debugging the Shopline Object
+To explore what's available in the Shopline object in your environment:
+```javascript
+console.log('Shopline:', Shopline)
+console.log('Shopline.shop:', Shopline.shop)
+console.log('Shopline.theme:', Shopline.theme)
+console.log('Shopline.routes:', Shopline.routes)
+console.log('Shopline.currency:', Shopline.currency)
+console.log('Shopline.locale:', Shopline.locale)
+```
+
 ## API Endpoints
 
 ### Cart Routes (v20251201)
 
+Cart routes are available via the Shopline global object:
+
 ```javascript
-window.routes = {
-	cart_url: '/cart',
-	cart_add_url: '/cart/add',
-	cart_update_url: '/cart/update',
-	cart_change_url: '/cart/change',
+Shopline.routes = {
+	cart: '/cart',
+	cart_add: '/cart/add',
+	cart_update: '/cart/update',
+	cart_change: '/cart/change',
 };
 ```
 

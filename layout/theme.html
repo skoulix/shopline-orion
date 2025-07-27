@@ -19,32 +19,8 @@
 		<script src="{{asset_url 'orion-theme.umd.js'}}" defer></script>
 
 		<script>
-			window.shop = {
-				name: '{{shop.name}}',
-				currency: '{{shop.currency}}',
-				locale: '{{shop.locale}}',
-			};
-
-			window.routes = {
-				cart_url: '{{routes.cart_url}}',
-				cart_add_url: '{{routes.cart_add_url}}',
-				cart_update_url: '{{routes.cart_update_url}}',
-				cart_change_url: '{{routes.cart_change_url}}',
-			};
-
-			window.themeSettings = {
-				buttonRadius: {{#if settings.button_border_radius}}{{settings.button_border_radius}}{{else}}6{{/if}},
-				buttonPrimaryBg: '{{#if settings.button_primary_bg}}{{settings.button_primary_bg}}{{else}}#dc2626{{/if}}',
-				buttonPrimaryBgHover: '{{#if settings.button_primary_bg_hover}}{{settings.button_primary_bg_hover}}{{else}}#b91c1c{{/if}}',
-				buttonPrimaryText: '{{#if settings.button_primary_text}}{{settings.button_primary_text}}{{else}}#ffffff{{/if}}',
-				buttonSecondaryBg: '{{#if settings.button_secondary_bg}}{{settings.button_secondary_bg}}{{else}}#ffffff{{/if}}',
-				buttonSecondaryBgHover: '{{#if settings.button_secondary_bg_hover}}{{settings.button_secondary_bg_hover}}{{else}}#f9fafb{{/if}}',
-				buttonSecondaryText: '{{#if settings.button_secondary_text}}{{settings.button_secondary_text}}{{else}}#374151{{/if}}',
-				buttonSecondaryBorder: '{{#if settings.button_secondary_border}}{{settings.button_secondary_border}}{{else}}#d1d5db{{/if}}',
-				cartType: '{{#if settings.cart_type}}{{settings.cart_type}}{{else}}page{{/if}}',
-				freeShippingThreshold: {{#if settings.free_shipping_threshold}}{{settings.free_shipping_threshold}}{{else}}50{{/if}},
-				showFreeShippingBar: {{#if settings.show_free_shipping_bar}}true{{else}}false{{/if}}
-			};
+			// All shop data, routes, and theme settings are available via the Shopline global object
+			// No need to define custom window objects
 		</script>
 	</head>
 
@@ -59,6 +35,11 @@
 			{{content_for_layout}}
 		</main>
 
-		{{section "footer"}} {{content_for_footer}}
+		{{section "footer"}}
+		
+		<!-- Global Cart Drawer Mount -->
+		<div class="cart-drawer-mount"></div>
+		
+		{{content_for_footer}}
 	</body>
 </html>

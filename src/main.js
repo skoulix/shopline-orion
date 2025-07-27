@@ -27,35 +27,35 @@ const ButtonElement = defineCustomElement({
     // Inject global settings as default props
     buttonRadius: {
       type: [String, Number],
-      default: () => window.themeSettings?.buttonRadius || 6
+      default: () => Shopline?.theme?.settings?.button_border_radius || 6
     },
     primaryBg: {
       type: String,
-      default: () => window.themeSettings?.buttonPrimaryBg || '#dc2626'
+      default: () => Shopline?.theme?.settings?.button_primary_bg || '#dc2626'
     },
     primaryBgHover: {
       type: String,
-      default: () => window.themeSettings?.buttonPrimaryBgHover || '#b91c1c'
+      default: () => Shopline?.theme?.settings?.button_primary_bg_hover || '#b91c1c'
     },
     primaryText: {
       type: String,
-      default: () => window.themeSettings?.buttonPrimaryText || '#ffffff'
+      default: () => Shopline?.theme?.settings?.button_primary_text || '#ffffff'
     },
     secondaryBg: {
       type: String,
-      default: () => window.themeSettings?.buttonSecondaryBg || '#ffffff'
+      default: () => Shopline?.theme?.settings?.button_secondary_bg || '#ffffff'
     },
     secondaryBgHover: {
       type: String,
-      default: () => window.themeSettings?.buttonSecondaryBgHover || '#f9fafb'
+      default: () => Shopline?.theme?.settings?.button_secondary_bg_hover || '#f9fafb'
     },
     secondaryText: {
       type: String,
-      default: () => window.themeSettings?.buttonSecondaryText || '#374151'
+      default: () => Shopline?.theme?.settings?.button_secondary_text || '#374151'
     },
     secondaryBorder: {
       type: String,
-      default: () => window.themeSettings?.buttonSecondaryBorder || '#d1d5db'
+      default: () => Shopline?.theme?.settings?.button_secondary_border || '#d1d5db'
     }
   }
 })
@@ -102,19 +102,9 @@ customElements.define('password-modal', PasswordModalElement)
 
 // Mount Vue components on regular HTML elements
 document.addEventListener('DOMContentLoaded', () => {
-  // Theme settings are automatically available via window.themeSettings from layout/theme.html
+  // Theme settings are available via Shopline.theme.settings
   
-  // Make button settings globally available
-  window.OrionButtonSettings = {
-    radius: document.documentElement.style.getPropertyValue('--button-radius') || '6px',
-    primaryBg: document.documentElement.style.getPropertyValue('--button-primary-bg') || '#dc2626',
-    primaryBgHover: document.documentElement.style.getPropertyValue('--button-primary-bg-hover') || '#b91c1c',
-    primaryText: document.documentElement.style.getPropertyValue('--button-primary-text') || '#ffffff',
-    secondaryBg: document.documentElement.style.getPropertyValue('--button-secondary-bg') || '#ffffff',
-    secondaryBgHover: document.documentElement.style.getPropertyValue('--button-secondary-bg-hover') || '#f9fafb',
-    secondaryText: document.documentElement.style.getPropertyValue('--button-secondary-text') || '#374151',
-    secondaryBorder: document.documentElement.style.getPropertyValue('--button-secondary-border') || '#d1d5db'
-  }
+  // Button settings are available via Shopline.theme.settings
   
   // Mount MainHeader components
   const mainHeaderMounts = document.querySelectorAll('.main-header-mount')
@@ -208,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async fetchCart() {
       try {
-        const response = await fetch(window.routes.cart_url + '.js')
+        const response = await fetch((Shopline?.routes?.cart || '/cart') + '.js')
         const cart = await response.json()
         
         // Note: Cart images from the API are already processed by Shopline
@@ -231,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Handle both FormData and JSON formats
         if (data instanceof FormData) {
           // Legacy FormData format
-          response = await fetch(window.routes.cart_add_url, {
+          response = await fetch(Shopline?.routes?.cart_add || '/cart/add', {
             method: 'POST',
             body: data
           })

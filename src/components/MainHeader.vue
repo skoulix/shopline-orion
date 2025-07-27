@@ -138,9 +138,9 @@ const cartCount = ref(0)
 // Account URL logic - use proper Shopline routes
 const accountUrl = computed(() => {
   if (props.customer) {
-    return window.routes?.account_url || '/account'
+    return Shopline?.routes?.account || '/account'
   } else {
-    return window.routes?.account_login_url || '/account/login'
+    return Shopline?.routes?.account_login || '/account/login'
   }
 })
 

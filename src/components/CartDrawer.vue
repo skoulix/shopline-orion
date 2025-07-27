@@ -244,24 +244,32 @@ const items = ref([]);
 const totalPrice = ref(0);
 
 const checkoutUrl = computed(() => {
-	return window.routes?.cart_url || '/cart';
+	return Shopline?.routes?.cart || '/cart';
 });
 
-// Get free shipping settings from theme
+// Get free shipping settings from Shopline theme
 const freeShippingThreshold = computed(() => {
-	return window.themeSettings?.freeShippingThreshold || 50;
+	// Convert threshold from dollars to cents for comparison with cart total
+	const thresholdInDollars = Shopline?.theme?.settings?.free_shipping_threshold || 50;
+	return thresholdInDollars * 100; // Convert to cents
 });
 
 const showFreeShippingBar = computed(() => {
-	return window.themeSettings?.showFreeShippingBar !== false;
+	return Shopline?.theme?.settings?.show_free_shipping_bar !== false;
 });
 
-const formatMoney = (price) => {
-	if (!price && price !== 0) return '$0.00'
-	// Use the same logic as CartItem component
-	// If price seems unusually high (>1000), assume it's in cents
-	const amount = price > 1000 ? price / 100 : price
-	return `$${amount.toFixed(2)}`
+const formatMoney = (cents) => {
+	if (!cents && cents !== 0) return '$0.00'
+	
+	// Get currency format from Shopline
+	const format = Shopline?.currency?.format || Shopline?.shop?.money_format || '${{amount}}'
+	const currencyCode = Shopline?.currency?.active || Shopline?.shop?.currency || 'USD'
+	
+	// Convert cents to dollars
+	const amount = (cents / 100).toFixed(2)
+	
+	// Replace {{amount}} placeholder with actual amount
+	return format.replace('{{amount}}', amount)
 };
 
 const openDrawer = () => {

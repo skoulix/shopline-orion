@@ -315,12 +315,12 @@ const handleAddToCart = async () => {
     if (window.OrionCart) {
       await window.OrionCart.fetchCart()
       
-      // Only open drawer if cart_type is set to drawer
-      const cartType = window.themeSettings?.cartType || 'page'
+      // Check cart type setting
+      const cartType = Shopline?.theme?.settings?.cart_type || 'drawer'
+      
       if (cartType === 'drawer') {
         window.OrionCart.openDrawer()
       } else {
-        // Redirect to cart page
         window.location.href = '/cart'
       }
     } else {

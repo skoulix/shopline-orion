@@ -116,8 +116,7 @@
         
         {{#if section.settings.show_cart}}
           <button type="button" 
-                  class="cart-toggle relative text-gray-700 hover:text-red-600 transition-colors"
-                  {{#if settings.cart_type}}data-action="{{settings.cart_type}}"{{/if}}>
+                  class="cart-toggle relative text-gray-700 hover:text-red-600 transition-colors">
             <span class="sr-only">Shopping cart</span>
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
@@ -156,10 +155,6 @@
   
 </header>
 
-<!-- Cart Drawer -->
-{{#if section.settings.show_cart}}
-  <div class="cart-drawer-mount"></div>
-{{/if}}
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -180,12 +175,15 @@
     if (cartToggle) {
       cartToggle.addEventListener('click', function(e) {
         e.preventDefault();
-        const action = this.dataset.action;
+        // Get cart type from Shopline theme settings
+        const cartType = Shopline?.theme?.settings?.cart_type || 'drawer';
         
-        if (action === 'drawer' && window.OrionCart) {
+        if (cartType === 'drawer' && window.OrionCart) {
+          console.log('Opening cart drawer...');
           window.OrionCart.openDrawer();
         } else {
-          window.location.href = window.routes?.cart_url || '/cart';
+          console.log('Redirecting to cart page...');
+          window.location.href = Shopline?.routes?.cart || '/cart';
         }
       });
     }
