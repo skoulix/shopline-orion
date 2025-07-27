@@ -5,13 +5,12 @@
     {{#if cart.empty}}
       <div class="text-center py-12">
         <div class="mx-auto h-12 w-12 text-gray-400 text-center text-4xl">🛒</div>
-        <h2 class="mt-2 text-lg font-medium text-gray-900">Your cart is empty</h2>
-        <p class="mt-1 text-sm text-gray-500">Start shopping to add items to your cart</p>
+        <h2 class="mt-2 text-lg font-medium text-gray-900">{{t "cart.item.empty_cart"}}</h2>
         <a 
           href="/collections/all" 
           class="mt-6 inline-block bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700 transition-colors"
         >
-          Continue Shopping
+          {{t "cart.checkout_proceeding.continue_shopping"}}
         </a>
       </div>
     {{else}}
@@ -25,7 +24,7 @@
                     <img 
                       src="{{image_url image width=400}}" 
                       alt="{{product_title}}"
-                      class="w-32 h-32 object-cover rounded-md"
+                      class="w-24 h-24 object-cover rounded-md"
                       loading="lazy"
                     >
                   </div>
@@ -41,7 +40,6 @@
                         {{/each}}
                       {{/if}}
                     </div>
-                    <p class="text-sm text-gray-600">{{money_with_currency (divided_by final_line_price quantity)}} each</p>
                     
                     <div class="mt-4 flex items-center justify-between">
                       <div class="flex items-center gap-3">
