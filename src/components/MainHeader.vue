@@ -51,7 +51,7 @@
         </button>
         
         <!-- Account -->
-        <a href="/account/signIn" class="action-button" aria-label="Account">
+        <a :href="accountUrl" class="action-button" aria-label="Account">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
@@ -110,7 +110,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 
 const props = defineProps({
   shopName: {
@@ -124,12 +124,25 @@ const props = defineProps({
   navigationLinks: {
     type: Array,
     default: () => []
+  },
+  customer: {
+    type: Object,
+    default: null
   }
 })
 
 const searchInput = ref(null)
 const searchOpen = ref(false)
 const cartCount = ref(0)
+
+// Account URL logic - use proper Shopline routes
+const accountUrl = computed(() => {
+  if (props.customer) {
+    return window.routes?.account_url || '/account'
+  } else {
+    return window.routes?.account_login_url || '/account/login'
+  }
+})
 
 const openMobileMenu = () => {
   document.dispatchEvent(new CustomEvent('mobile-menu:open'))
