@@ -62,6 +62,7 @@
               :max="maxQuantity"
               @update:modelValue="handleQuantityChange"
               :disabled="updating"
+              size="small"
             />
             
             <button 

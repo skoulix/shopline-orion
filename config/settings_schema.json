@@ -180,6 +180,23 @@
         ],
         "default": "drawer",
         "label": "Cart type"
+      },
+      {
+        "type": "range",
+        "id": "free_shipping_threshold",
+        "min": 0,
+        "max": 500,
+        "step": 5,
+        "unit": "$",
+        "default": 50,
+        "label": "Free shipping threshold",
+        "info": "Minimum order amount for free shipping promotion"
+      },
+      {
+        "type": "switch",
+        "id": "show_free_shipping_bar",
+        "default": true,
+        "label": "Show free shipping progress bar"
       }
     ]
   }

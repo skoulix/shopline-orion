@@ -114,7 +114,7 @@
 										class="border-t border-gray-200 px-4 py-6 sm:px-6 space-y-6">
 										<!-- Free Shipping Notice -->
 										<div
-											v-if="totalPrice < 5000"
+											v-if="totalPrice < 50"
 											class="bg-blue-50 border border-blue-200 rounded-lg p-3">
 											<div
 												class="flex items-center gap-2">
@@ -134,7 +134,7 @@
 													Add
 													{{
 														formatMoney(
-															5000 - totalPrice
+															50 - totalPrice
 														)
 													}}
 													more for free shipping!
@@ -145,7 +145,7 @@
 												<div
 													class="bg-blue-600 h-full transition-all duration-300"
 													:style="`width: ${Math.min(
-														(totalPrice / 5000) *
+														(totalPrice / freeShippingThreshold) *
 															100,
 														100
 													)}%`"></div>

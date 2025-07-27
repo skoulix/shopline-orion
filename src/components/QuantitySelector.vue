@@ -1,8 +1,9 @@
 <template>
-  <div class="quantity-selector">
+  <div class="quantity-selector" :class="{ 'quantity-selector--small': size === 'small' }">
     <button
       type="button"
       class="quantity-button quantity-button--minus"
+      :class="{ 'quantity-button--small': size === 'small' }"
       :disabled="modelValue <= min"
       @click="decrease"
       aria-label="Decrease quantity"
@@ -15,6 +16,7 @@
     <input
       type="number"
       class="quantity-input"
+      :class="{ 'quantity-input--small': size === 'small' }"
       :value="modelValue"
       :min="min"
       :max="max"
@@ -26,6 +28,7 @@
     <button
       type="button"
       class="quantity-button quantity-button--plus"
+      :class="{ 'quantity-button--small': size === 'small' }"
       :disabled="modelValue >= max"
       @click="increase"
       aria-label="Increase quantity"
@@ -56,6 +59,11 @@ const props = defineProps({
   step: {
     type: Number,
     default: 1
+  },
+  size: {
+    type: String,
+    default: 'default', // 'default', 'small'
+    validator: (value) => ['default', 'small'].includes(value)
   }
 })
 
@@ -175,5 +183,28 @@ const handleBlur = (event) => {
 .quantity-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* Small variant styles */
+.quantity-selector--small {
+  border-radius: 0.375rem;
+}
+
+.quantity-button--small {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.25rem;
+}
+
+.quantity-button--small svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.quantity-input--small {
+  width: 2.5rem;
+  height: 2rem;
+  font-size: 0.75rem;
+  padding: 0.25rem;
 }
 </style>

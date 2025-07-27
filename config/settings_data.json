@@ -5,6 +5,8 @@
     "type_header_font": "sans-serif",
     "type_body_font": "sans-serif",
     "cart_type": "drawer",
+    "free_shipping_threshold": 50,
+    "show_free_shipping_bar": true,
     "sections": {
       "header": {
         "disabled": false,
