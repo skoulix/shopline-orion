@@ -1,4 +1,4 @@
-<div class="blog-posts-section py-12 {{section.settings.color_scheme}}">
+<div class="blog-posts-section py-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     {{#if section.settings.heading}}
       <div class="text-center mb-12">
@@ -6,63 +6,32 @@
       </div>
     {{/if}}
 
-    {{#if section.settings.blog}}
-      {{assign 'blog_handle' section.settings.blog}}
-      {{#with (lookup blogs blog_handle)}}
-        {{#if articles}}
-          <div class="grid gap-8 md:grid-cols-{{../section.settings.columns_desktop}} grid-cols-{{../section.settings.columns_mobile}}">
-            {{#each articles limit=../section.settings.post_limit}}
-              <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
-                {{#if featured_image}}
-                  {{#if ../../section.settings.show_image}}
-                    <div class="{{#if ../../section.settings.image_ratio == 'square'}}aspect-square{{else if ../../section.settings.image_ratio == 'portrait'}}aspect-[3/4]{{else}}aspect-[4/3]{{/if}} overflow-hidden">
-                      <a href="{{url}}">
-                        <img 
-                          src="{{image_url featured_image width=600}}" 
-                          alt="{{#if featured_image.alt}}{{featured_image.alt}}{{else}}{{title}}{{/if}}"
-                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          loading="lazy"
-                        >
-                      </a>
-                    </div>
-                  {{/if}}
-                {{/if}}
-                
-                <div class="p-6">
-                  <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors">
-                    <a href="{{url}}">{{title}}</a>
-                  </h3>
-
-                  {{#if excerpt}}
-                    <p class="text-gray-600 mb-4 line-clamp-3">{{excerpt}}</p>
-                  {{else}}
-                    <p class="text-gray-600 mb-4 line-clamp-3">{{content}}</p>
-                  {{/if}}
-
-                  <div class="flex items-center justify-between text-sm text-gray-500">
-                    <div class="flex items-center gap-4">
-                      {{#if ../../section.settings.show_author}}
-                        <span>By {{author}}</span>
-                      {{/if}}
-                      {{#if ../../section.settings.show_date}}
-                        <time datetime="{{date published_at '%Y-%m-%d'}}">
-                          {{date published_at '%b %d, %Y'}}
-                        </time>
-                      {{/if}}
-                    </div>
-                    <a href="{{url}}" class="text-red-600 font-medium hover:text-red-700">
-                      Read more →
-                    </a>
-                  </div>
-                </div>
-              </article>
-            {{/each}}
+    {{#if section.settings.blog_collection}}
+      {{#if blog}}
+        {{#if blog.title}}
+          <div class="grid gap-8 md:grid-cols-3 grid-cols-1">
+            <article-card
+              title="{{blog.title}}"
+              url="/blogs/{{blog.handle}}/{{blog.redirectPath}}"
+              excerpt="{{blog.digest}}"
+              content="{{blog.content}}"
+              author="{{blog.author}}"
+              published-at="{{blog.publishTime}}"
+              image="{{#if blog.coverImagePath}}{{blog.coverImagePath}}{{/if}}"
+              image-alt="{{blog.title}}"
+              tags="{{#if blog.blogTagList}}{{json blog.blogTagList}}{{else}}[]{{/if}}"
+              image-ratio="{{section.settings.image_ratio}}"
+              show-image="{{section.settings.show_image}}"
+              show-author="{{section.settings.show_author}}"
+              show-date="{{section.settings.show_date}}"
+              show-tags="true"
+            ></article-card>
           </div>
 
           {{#if section.settings.show_view_all}}
             <div class="text-center mt-12">
               <a 
-                href="{{url}}" 
+                href="/blogs/{{blog.handle}}" 
                 class="inline-block bg-red-600 text-white px-8 py-3 rounded-md font-medium hover:bg-red-700 transition-colors"
               >
                 View all posts
@@ -71,11 +40,16 @@
           {{/if}}
         {{else}}
           <div class="text-center py-12">
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">No articles found</h3>
-            <p class="text-gray-600">Check back soon for new content!</p>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">No article found</h3>
+            <p class="text-gray-600">No article data available.</p>
           </div>
         {{/if}}
-      {{/with}}
+      {{else}}
+        <div class="text-center py-12">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">No blog found</h3>
+          <p class="text-gray-600">Unable to load blog content.</p>
+        </div>
+      {{/if}}
     {{else}}
       <div class="text-center py-12">
         <h3 class="text-xl font-semibold text-gray-900 mb-2">Select a blog</h3>
@@ -98,7 +72,7 @@
     },
     {
       "type": "blog",
-      "id": "blog",
+      "id": "blog_collection",
       "label": "t:sections.blog-posts.settings.blog.label"
     },
     {

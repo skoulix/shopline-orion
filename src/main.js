@@ -21,6 +21,7 @@ import TestimonialsCarousel from './components/TestimonialsCarousel.vue'
 import VideoPlayer from './components/VideoPlayer.vue'
 import PasswordModal from './components/PasswordModal.vue'
 import SearchOverlay from './components/SearchOverlay.vue'
+import ArticleCard from './components/ArticleCard.vue'
 
 // Define custom elements with global button settings
 const ButtonElement = defineCustomElement({
@@ -175,6 +176,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const app = createApp(CollectionFilterDrawer, props)
+    app.mount(mount)
+  })
+
+  // Mount ArticleCard components (as Vue apps to avoid style isolation)
+  const articleCardMounts = document.querySelectorAll('article-card')
+  articleCardMounts.forEach(mount => {
+    const props = {
+      title: mount.getAttribute('title'),
+      url: mount.getAttribute('url'),
+      excerpt: mount.getAttribute('excerpt'),
+      content: mount.getAttribute('content'),
+      author: mount.getAttribute('author'),
+      publishedAt: mount.getAttribute('published-at'),
+      image: mount.getAttribute('image'),
+      imageAlt: mount.getAttribute('image-alt'),
+      tags: JSON.parse(mount.getAttribute('tags') || '[]'),
+      imageRatio: mount.getAttribute('image-ratio') || 'landscape',
+      showImage: mount.getAttribute('show-image') === 'true',
+      showAuthor: mount.getAttribute('show-author') === 'true',
+      showDate: mount.getAttribute('show-date') === 'true',
+      showTags: mount.getAttribute('show-tags') === 'true'
+    }
+    
+    const app = createApp(ArticleCard, props)
     app.mount(mount)
   })
 
