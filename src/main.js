@@ -11,6 +11,7 @@ import ProductCard from './components/ProductCard.vue' // Mounted as Vue app, no
 import CollectionFilters from './components/CollectionFilters.vue'
 import CollectionGrid from './components/CollectionGrid.vue'
 import CollectionSort from './components/CollectionSort.vue'
+import CollectionFilterDrawer from './components/CollectionFilterDrawer.vue'
 import ProductGallery from './components/ProductGallery.vue'
 import ProductInfo from './components/ProductInfo.vue'
 import CartItem from './components/CartItem.vue'
@@ -161,6 +162,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const app = createApp(CollectionSort, props)
+    app.mount(mount)
+  })
+
+  // Mount CollectionFilterDrawer components (as Vue apps to avoid style isolation)
+  const filterDrawerMounts = document.querySelectorAll('collection-filter-drawer')
+  filterDrawerMounts.forEach(mount => {
+    const props = {
+      collectionHandle: mount.getAttribute('collection-handle'),
+      products: JSON.parse(mount.getAttribute(':products') || '[]')
+    }
+    
+    const app = createApp(CollectionFilterDrawer, props)
     app.mount(mount)
   })
 
