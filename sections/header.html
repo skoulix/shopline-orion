@@ -34,10 +34,10 @@
         {{/if}}>
   
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between py-1">
-      
-      <!-- Mobile menu button -->
-      <div class="md:hidden">
+    <!-- Mobile Layout: 3-column grid -->
+    <div class="md:hidden grid grid-cols-3 items-center py-1">
+      <!-- Left column: Mobile menu -->
+      <div class="flex justify-start">
         <button type="button" 
                 class="mobile-menu-toggle inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
                 aria-controls="mobile-menu" 
@@ -49,6 +49,47 @@
         </button>
       </div>
       
+      <!-- Center column: Logo -->
+      <div class="flex justify-center">
+        {{#if section.settings.logo}}
+          <a href="/" class="flex items-center">
+            <img src="{{image_url section.settings.logo width=300}}" 
+                 alt="{{shop.name}}" 
+                 class="h-auto"
+                 style="width: {{section.settings.logo_width}}px; max-width: {{section.settings.logo_width}}px;">
+          </a>
+        {{else}}
+          <a href="/" class="flex items-center">
+            <h1 class="text-xl font-bold text-gray-900">{{shop.name}}</h1>
+          </a>
+        {{/if}}
+      </div>
+      
+      <!-- Right column: Header actions -->
+      <div class="flex justify-end items-center space-x-2">
+        {{#if section.settings.show_search}}
+          <button type="button" class="search-toggle text-gray-700 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+            <span class="sr-only">Search</span>
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+          </button>
+        {{/if}}
+        
+        {{#if section.settings.show_cart}}
+          <button type="button" class="cart-toggle relative text-gray-700 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+            <span class="sr-only">Cart</span>
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            </svg>
+            <span class="cart-count absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium" style="display: none;">0</span>
+          </button>
+        {{/if}}
+      </div>
+    </div>
+    
+    <!-- Desktop Layout: Standard flex -->
+    <div class="hidden md:flex items-center justify-between py-1">
       <!-- Logo -->
       <div class="flex-shrink-0">
         {{#if section.settings.logo}}
@@ -66,11 +107,11 @@
       </div>
       
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex space-x-8">
+      <nav class="flex space-x-8">
         {{#each linklists.main-menu.links}}
           <div class="relative group">
             <a href="{{url}}" 
-               class="text-gray-700 hover:opacity-80 transition-all duration-200 flex items-center" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+               class="text-gray-700 hover:opacity-80 transition-all duration-200 flex items-center py-2 px-1" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
               {{title}}
               {{#if links}}
                 <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
@@ -80,7 +121,7 @@
             </a>
             
             {{#if links}}
-              <div class="absolute top-full left-0 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div class="absolute top-full left-0 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-out z-[9999]">
                 <div class="py-1">
                   {{#each links}}
                     <a href="{{url}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
