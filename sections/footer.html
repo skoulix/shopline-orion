@@ -138,7 +138,8 @@
         
         <!-- Footer Menu Columns -->
         {{#if section.settings.footer_menu}}
-          {{#each section.settings.footer_menu.links}}
+          {{assign "footer_menu" section.settings.footer_menu}}
+          {{#each footer_menu.links}}
             {{#if this.links}}
               <div class="footer-column">
                 <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
