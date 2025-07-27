@@ -1,16 +1,16 @@
 <div class="collection-banner">
   {{#if section.settings.show_collection_image}}
-    {{#if collection.image}}
+    {{#if (or collection.banner_image section.settings.default_image)}}
       <!-- Banner with image -->
       <div class="relative overflow-hidden {{#if section.settings.image_height '==' 'small'}}h-48 md:h-64{{/if}}{{#if section.settings.image_height '==' 'medium'}}h-64 md:h-96{{/if}}{{#if section.settings.image_height '==' 'large'}}h-96 md:h-[32rem]{{/if}}">
         <img 
-          src="{{image_url collection.image width=1920}}" 
+          src="{{#if collection.banner_image}}{{image_url collection.banner_image width=1920}}{{else}}{{image_url section.settings.default_image width=1920}}{{/if}}" 
           alt="{{collection.title}}"
           class="w-full h-full object-cover"
           loading="eager"
         >
         {{#if section.settings.show_overlay}}
-          <div class="absolute inset-0 bg-black opacity-{{section.settings.overlay_opacity}}"></div>
+          <div class="absolute inset-0" style="background-color: rgba(0, 0, 0, {{divide section.settings.overlay_opacity 100}})"></div>
         {{/if}}
         
         <!-- Content over image -->
@@ -133,6 +133,12 @@
       "default": true,
       "label": "t:sections.main-collection-banner.settings.show_collection_image.label",
       "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
+    },
+    {
+      "type": "image_picker",
+      "id": "default_image",
+      "label": "t:sections.main-collection-banner.settings.default_image.label",
+      "info": "t:sections.main-collection-banner.settings.default_image.info"
     },
     {
       "type": "select",

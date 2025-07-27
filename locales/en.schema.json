@@ -148,7 +148,11 @@
         },
         "show_collection_image": {
           "label": "Show collection image",
-          "info": "To add collection images, go to the product collection management page"
+          "info": "To add collection banner images, go to the collection settings in your admin"
+        },
+        "default_image": {
+          "label": "Default banner image",
+          "info": "This image will be used for collections without a banner image"
         },
         "image_height": {
           "label": "Image height",
