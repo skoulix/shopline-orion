@@ -890,6 +890,56 @@
           "label": "Enable comments"
         }
       }
+    },
+    "main-blog-list": {
+      "name": "Blog list",
+      "settings": {
+        "articles_per_page": {
+          "label": "Articles per page"
+        },
+        "columns_desktop": {
+          "label": "Number of columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Number of columns on mobile",
+          "options__0": {
+            "label": "1 column"
+          },
+          "options__1": {
+            "label": "2 columns"
+          }
+        },
+        "show_image": {
+          "label": "Show image"
+        },
+        "image_ratio": {
+          "label": "Image ratio",
+          "options__0": {
+            "label": "Landscape (4:3)"
+          },
+          "options__1": {
+            "label": "Square (1:1)"
+          },
+          "options__2": {
+            "label": "Portrait (3:4)"
+          }
+        },
+        "show_author": {
+          "label": "Show author"
+        },
+        "show_date": {
+          "label": "Show date"
+        },
+        "show_tags": {
+          "label": "Show tags"
+        },
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
+        }
+      }
     }
   }
 }

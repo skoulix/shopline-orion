@@ -16558,7 +16558,7 @@ const X1 = { class: "sticky-header-container" }, Q1 = {
       truncatedContent: r
     };
   }
-}, px = { class: "group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 h-full flex flex-col border border-gray-100" }, hx = ["href"], mx = ["src", "alt"], gx = { class: "relative p-6 flex-1 flex flex-col z-10" }, vx = {
+}, px = { class: "group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-gray-200/50 h-full flex flex-col border border-gray-100" }, hx = ["href"], mx = ["src", "alt"], gx = { class: "relative p-6 flex-1 flex flex-col z-10" }, vx = {
   key: 0,
   class: "flex flex-wrap gap-2 mb-4"
 }, yx = { class: "text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-tight" }, bx = ["href"], _x = {
@@ -16643,7 +16643,7 @@ function Tx(e, t, n, s, o, r) {
     ])
   ]);
 }
-const $x = /* @__PURE__ */ We(fx, [["render", Tx], ["__scopeId", "data-v-e9020a0d"]]), Dx = /* @__PURE__ */ je({
+const $x = /* @__PURE__ */ We(fx, [["render", Tx], ["__scopeId", "data-v-3471d8e5"]]), Dx = /* @__PURE__ */ je({
   ...xs,
   props: {
     ...xs.props,

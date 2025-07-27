@@ -1,5 +1,5 @@
 <template>
-  <article class="group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 h-full flex flex-col border border-gray-100">
+  <article class="group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-gray-200/50 h-full flex flex-col border border-gray-100">
     <!-- Gradient Overlay Background -->
     <div class="absolute inset-0 bg-gradient-to-br from-white via-gray-50/30 to-gray-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
     
