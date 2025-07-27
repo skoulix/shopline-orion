@@ -3,7 +3,7 @@
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-gray-900 mb-4">
         {{#if search.performed}}
-          {{#if search.results_count > 0}}
+          {{#if search.results_count}}
             {{search.results_count}} results for "{{search.terms}}"
           {{else}}
             No results found for "{{search.terms}}"
@@ -30,11 +30,11 @@
     </div>
 
     {{#if search.performed}}
-      {{#if search.results_count > 0}}
+      {{#if search.results_count}}
         <div class="grid grid-cols-{{section.settings.columns_mobile}} md:grid-cols-3 lg:grid-cols-{{section.settings.columns_desktop}} gap-6">
           {{#paginate search.results by=24}}
             {{#each search.results}}
-              {{#if object_type == "product"}}
+              {{#if this.object_type}}
                 <product-card
                   :product='{{json this}}'
                   :enable-quick-add="true"
@@ -43,7 +43,7 @@
               {{/if}}
             {{/each}}
             
-            {{#if paginate.pages > 1}}
+            {{#if paginate.pages}}
               <div class="col-span-full mt-8">
                 {{snippet "pagination" paginate=paginate}}
               </div>
@@ -81,15 +81,15 @@
       "id": "columns_mobile",
       "options": [
         {
-          "value": "1",
+          "value": 1,
           "label": "1 column"
         },
         {
-          "value": "2",
+          "value": 2,
           "label": "2 columns"
         }
       ],
-      "default": "2",
+      "default": 2,
       "label": "Number of columns on mobile"
     }
   ]

@@ -1,14 +1,16 @@
 {
   "sections": {
     "cart-items": {
-      "type": "main-cart-items"
-    },
-    "cart-footer": {
-      "type": "main-cart-footer"
+      "type": "main-cart-items",
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "show_shipping_estimate": true,
+        "show_security_badges": true
+      }
     }
   },
   "order": [
-    "cart-items",
-    "cart-footer"
+    "cart-items"
   ]
 }

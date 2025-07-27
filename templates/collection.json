@@ -1,13 +1,13 @@
 {
   "sections": {
-    "banner": {
+    "main-collection-banner": {
       "type": "main-collection-banner",
       "settings": {
         "show_collection_image": true,
         "show_collection_description": true
       }
     },
-    "product-grid": {
+    "main-collection-product-list": {
       "type": "main-collection-product-list",
       "settings": {
         "products_per_page": 24,
@@ -20,7 +20,7 @@
     }
   },
   "order": [
-    "banner",
-    "product-grid"
+    "main-collection-banner",
+    "main-collection-product-list"
   ]
 }

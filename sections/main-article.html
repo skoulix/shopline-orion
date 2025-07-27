@@ -3,7 +3,7 @@
     <!-- Article Header -->
     <header class="text-center mb-12">
       {{#if section.settings.show_tags}}
-        {{#if article.tags.size > 0}}
+        {{#if article.tags}}
           <div class="flex flex-wrap justify-center gap-2 mb-6">
             {{#each article.tags limit=5}}
               <a href="{{blog.url}}/tagged/{{this}}" class="inline-block bg-red-100 text-red-700 text-sm font-medium px-3 py-1 rounded-full hover:bg-red-200 transition-colors">
@@ -195,7 +195,7 @@
         </div>
       {{/if}}
 
-      {{#if article.comments_count > 0}}
+      {{#if article.comments_count}}
         <div class="mt-12 pt-8 border-t border-gray-200">
           <h3 class="text-xl font-bold text-gray-900 mb-6">
             Comments ({{article.comments_count}})
@@ -225,38 +225,38 @@
 
 {{#schema}}
 {
-  "name": "t:sections.main-article.name",
+  "name": "Article",
   "class": "section",
   "settings": [
     {
       "type": "switch",
       "id": "show_author",
       "default": true,
-      "label": "t:sections.main-article.settings.show_author.label"
+      "label": "Show author"
     },
     {
       "type": "switch",
       "id": "show_date",
       "default": true,
-      "label": "t:sections.main-article.settings.show_date.label"
+      "label": "Show date"
     },
     {
       "type": "switch",
       "id": "show_tags",
       "default": true,
-      "label": "t:sections.main-article.settings.show_tags.label"
+      "label": "Show tags"
     },
     {
       "type": "switch",
       "id": "show_social_sharing",
       "default": true,
-      "label": "t:sections.main-article.settings.show_social_sharing.label"
+      "label": "Show social sharing"
     },
     {
       "type": "switch",
       "id": "enable_comments",
       "default": true,
-      "label": "t:sections.main-article.settings.enable_comments.label"
+      "label": "Enable comments"
     }
   ]
 }

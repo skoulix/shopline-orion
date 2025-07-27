@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, getCurrentInstance } from 'vue'
 
 const props = defineProps({
   modelValue: {
@@ -60,6 +60,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:modelValue', 'update'])
+const instance = getCurrentInstance()
 
 const value = computed({
   get: () => props.modelValue,
@@ -67,6 +68,19 @@ const value = computed({
     const clampedValue = Math.max(props.min, Math.min(props.max, newValue))
     emit('update:modelValue', clampedValue)
     emit('update', clampedValue)
+    
+    // Dispatch custom event for non-Vue listeners when used as custom element
+    if (instance?.vnode?.el?.parentElement?.tagName === 'QUANTITY-SELECTOR') {
+      const element = instance.vnode.el.parentElement;
+      const key = element.getAttribute('data-line-key');
+      if (key) {
+        const event = new CustomEvent('quantity-update', {
+          detail: { key, value: clampedValue },
+          bubbles: true
+        });
+        element.dispatchEvent(event);
+      }
+    }
   }
 })
 

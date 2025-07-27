@@ -247,11 +247,12 @@ const checkoutUrl = computed(() => {
 	return window.routes?.cart_url || '/cart';
 });
 
-const formatMoney = (cents) => {
-	return new Intl.NumberFormat('en-US', {
-		style: 'currency',
-		currency: window.Shopify?.currency?.active || 'USD',
-	}).format(cents / 100);
+const formatMoney = (price) => {
+	if (!price && price !== 0) return '$0.00'
+	// Use the same logic as CartItem component
+	// If price seems unusually high (>1000), assume it's in cents
+	const amount = price > 1000 ? price / 100 : price
+	return `$${amount.toFixed(2)}`
 };
 
 const openDrawer = () => {

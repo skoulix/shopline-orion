@@ -9,8 +9,8 @@
     {{#if section.settings.blog}}
       {{assign 'blog_handle' section.settings.blog}}
       {{#with (lookup blogs blog_handle)}}
-        {{#if articles.size > 0}}
-          <div class="grid gap-8 {{#if ../section.settings.columns_desktop == '2'}}md:grid-cols-2{{else if ../section.settings.columns_desktop == '3'}}md:grid-cols-3{{else}}md:grid-cols-4{{/if}} {{#if ../section.settings.columns_mobile == '2'}}grid-cols-2{{else}}grid-cols-1{{/if}}">
+        {{#if articles}}
+          <div class="grid gap-8 md:grid-cols-{{../section.settings.columns_desktop}} grid-cols-{{../section.settings.columns_mobile}}">
             {{#each articles limit=../section.settings.post_limit}}
               <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
                 {{#if featured_image}}
@@ -87,19 +87,19 @@
 
 {{#schema}}
 {
-  "name": "t:sections.blog-posts.name",
+  "name": "Blog Posts",
   "class": "section",
   "settings": [
     {
       "type": "text",
       "id": "heading",
       "default": "From the blog",
-      "label": "t:sections.blog-posts.settings.heading.label"
+      "label": "Heading"
     },
     {
       "type": "blog",
       "id": "blog",
-      "label": "t:sections.blog-posts.settings.blog.label"
+      "label": "Blog"
     },
     {
       "type": "range",
@@ -108,7 +108,7 @@
       "max": 12,
       "step": 1,
       "default": 3,
-      "label": "t:sections.blog-posts.settings.post_limit.label"
+      "label": "Number of posts"
     },
     {
       "type": "range",
@@ -117,29 +117,29 @@
       "max": 4,
       "step": 1,
       "default": 3,
-      "label": "t:sections.blog-posts.settings.columns_desktop.label"
+      "label": "Number of columns on desktop"
     },
     {
       "type": "select",
       "id": "columns_mobile",
       "options": [
         {
-          "value": "1",
-          "label": "t:sections.blog-posts.settings.columns_mobile.options__1.label"
+          "value": 1,
+          "label": "1 column"
         },
         {
-          "value": "2",
-          "label": "t:sections.blog-posts.settings.columns_mobile.options__2.label"
+          "value": 2,
+          "label": "2 columns"
         }
       ],
-      "default": "1",
-      "label": "t:sections.blog-posts.settings.columns_mobile.label"
+      "default": 1,
+      "label": "Number of columns on mobile"
     },
     {
       "type": "switch",
       "id": "show_image",
       "default": true,
-      "label": "t:sections.blog-posts.settings.show_image.label"
+      "label": "Show featured image"
     },
     {
       "type": "select",
@@ -147,42 +147,42 @@
       "options": [
         {
           "value": "landscape",
-          "label": "t:sections.blog-posts.settings.image_ratio.options__1.label"
+          "label": "Landscape (4:3)"
         },
         {
           "value": "square",
-          "label": "t:sections.blog-posts.settings.image_ratio.options__2.label"
+          "label": "Square (1:1)"
         },
         {
           "value": "portrait",
-          "label": "t:sections.blog-posts.settings.image_ratio.options__3.label"
+          "label": "Portrait (3:4)"
         }
       ],
       "default": "landscape",
-      "label": "t:sections.blog-posts.settings.image_ratio.label"
+      "label": "Image ratio"
     },
     {
       "type": "switch",
       "id": "show_date",
       "default": true,
-      "label": "t:sections.blog-posts.settings.show_date.label"
+      "label": "Show date"
     },
     {
       "type": "switch",
       "id": "show_author",
       "default": false,
-      "label": "t:sections.blog-posts.settings.show_author.label"
+      "label": "Show author"
     },
     {
       "type": "switch",
       "id": "show_view_all",
       "default": true,
-      "label": "t:sections.blog-posts.settings.show_view_all.label"
+      "label": "Show 'View all' button"
     }
   ],
   "presets": [
     {
-      "name": "t:sections.blog-posts.presets.blog_posts.name"
+      "name": "Blog Posts"
     }
   ]
 }

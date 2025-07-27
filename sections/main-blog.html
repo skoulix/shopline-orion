@@ -9,8 +9,8 @@
     </div>
 
     <!-- Blog Grid -->
-    {{#if blog.articles.size > 0}}
-      <div class="grid gap-8 {{#if section.settings.columns_desktop == '2'}}md:grid-cols-2{{else if section.settings.columns_desktop == '3'}}md:grid-cols-3{{else}}md:grid-cols-4{{/if}} {{#if section.settings.columns_mobile == '2'}}grid-cols-2{{else}}grid-cols-1{{/if}}">
+    {{#if blog.articles}}
+      <div class="grid gap-8 md:grid-cols-{{section.settings.columns_desktop}} grid-cols-{{section.settings.columns_mobile}}">
         {{#each blog.articles limit=section.settings.articles_per_page}}
           <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
             {{#if featured_image}}
@@ -26,7 +26,7 @@
             
             <div class="p-6">
               {{#if ../section.settings.show_tags}}
-                {{#if tags.size > 0}}
+                {{#if tags}}
                   <div class="flex flex-wrap gap-2 mb-3">
                     {{#each tags limit=3}}
                       <span class="inline-block bg-gray-100 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">
@@ -70,7 +70,7 @@
       </div>
 
       <!-- Pagination -->
-      {{#if paginate.pages > 1}}
+      {{#if paginate.pages}}
         <nav class="flex justify-center mt-12" aria-label="Blog pagination">
           <div class="flex items-center gap-2">
             {{#if paginate.previous}}
@@ -108,7 +108,7 @@
 
 {{#schema}}
 {
-  "name": "t:sections.main-blog.name",
+  "name": "Blog",
   "class": "section",
   "settings": [
     {
@@ -117,15 +117,15 @@
       "options": [
         {
           "value": "grid",
-          "label": "t:sections.main-blog.settings.layout.options__1.label"
+          "label": "Grid"
         },
         {
           "value": "list",
-          "label": "t:sections.main-blog.settings.layout.options__2.label"
+          "label": "List"
         }
       ],
       "default": "grid",
-      "label": "t:sections.main-blog.settings.layout.label"
+      "label": "Layout"
     },
     {
       "type": "range",
@@ -134,7 +134,7 @@
       "max": 24,
       "step": 3,
       "default": 9,
-      "label": "t:sections.main-blog.settings.articles_per_page.label"
+      "label": "Articles per page"
     },
     {
       "type": "range",
@@ -143,47 +143,47 @@
       "max": 4,
       "step": 1,
       "default": 3,
-      "label": "t:sections.main-blog.settings.columns_desktop.label"
+      "label": "Number of columns on desktop"
     },
     {
       "type": "select",
       "id": "columns_mobile",
       "options": [
         {
-          "value": "1",
-          "label": "t:sections.main-blog.settings.columns_mobile.options__1.label"
+          "value": 1,
+          "label": "1 column"
         },
         {
-          "value": "2",
-          "label": "t:sections.main-blog.settings.columns_mobile.options__2.label"
+          "value": 2,
+          "label": "2 columns"
         }
       ],
-      "default": "1",
-      "label": "t:sections.main-blog.settings.columns_mobile.label"
+      "default": 1,
+      "label": "Number of columns on mobile"
     },
     {
       "type": "switch",
       "id": "show_author",
       "default": true,
-      "label": "t:sections.main-blog.settings.show_author.label"
+      "label": "Show author"
     },
     {
       "type": "switch",
       "id": "show_date",
       "default": true,
-      "label": "t:sections.main-blog.settings.show_date.label"
+      "label": "Show date"
     },
     {
       "type": "switch",
       "id": "show_excerpt",
       "default": true,
-      "label": "t:sections.main-blog.settings.show_excerpt.label"
+      "label": "Show excerpt"
     },
     {
       "type": "switch",
       "id": "show_tags",
       "default": true,
-      "label": "t:sections.main-blog.settings.show_tags.label"
+      "label": "Show tags"
     },
     {
       "type": "select",
@@ -191,19 +191,19 @@
       "options": [
         {
           "value": "landscape",
-          "label": "t:sections.main-blog.settings.image_ratio.options__1.label"
+          "label": "Landscape (4:3)"
         },
         {
           "value": "square",
-          "label": "t:sections.main-blog.settings.image_ratio.options__2.label"
+          "label": "Square (1:1)"
         },
         {
           "value": "portrait",
-          "label": "t:sections.main-blog.settings.image_ratio.options__3.label"
+          "label": "Portrait (3:4)"
         }
       ],
       "default": "landscape",
-      "label": "t:sections.main-blog.settings.image_ratio.label"
+      "label": "Image ratio"
     }
   ]
 }

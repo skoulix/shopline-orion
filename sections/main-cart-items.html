@@ -2,25 +2,34 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <h1 class="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
     
-    {{#if cart.item_count > 0}}
+    {{#if cart.empty}}
+      <div class="text-center py-12">
+        <div class="mx-auto h-12 w-12 text-gray-400 text-center text-4xl">🛒</div>
+        <h2 class="mt-2 text-lg font-medium text-gray-900">Your cart is empty</h2>
+        <p class="mt-1 text-sm text-gray-500">Start shopping to add items to your cart</p>
+        <a 
+          href="/collections/all" 
+          class="mt-6 inline-block bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700 transition-colors"
+        >
+          Continue Shopping
+        </a>
+      </div>
+    {{else}}
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Cart Items -->
         <div class="lg:col-span-2">
           <div class="bg-white rounded-lg shadow-sm">
             {{#each cart.items}}
               <div class="p-6 {{#unless @last}}border-b{{/unless}}">
                 <div class="flex gap-4">
-                  <!-- Product Image -->
                   <div class="flex-shrink-0">
                     <img 
-                      src="{{image_url image width=150}}" 
+                      src="{{image_url image width=200}}" 
                       alt="{{product_title}}"
-                      class="w-24 h-24 object-cover rounded-md"
+                      class="w-20 h-20 object-cover rounded-md"
                       loading="lazy"
                     >
                   </div>
                   
-                  <!-- Product Details -->
                   <div class="flex-1">
                     <h3 class="font-medium text-gray-900">
                       <a href="{{url}}" class="hover:text-red-600">{{product_title}}</a>
@@ -28,14 +37,17 @@
                     {{#if variant_title}}
                       <p class="text-sm text-gray-500 mt-1">{{variant_title}}</p>
                     {{/if}}
+                    {{#if price}}
+                      <p class="text-sm text-gray-600 mt-1">{{money_with_currency price}} each</p>
+                    {{/if}}
                     
                     <div class="mt-4 flex items-center justify-between">
                       <div class="flex items-center gap-2">
                         <quantity-selector
-                          :value="{{quantity}}"
-                          :min="0"
+                          model-value="{{quantity}}"
+                          min="0"
                           data-key="{{key}}"
-                          @update="updateQuantity"
+                          data-line-key="{{key}}"
                         ></quantity-selector>
                         <button 
                           type="button"
@@ -48,8 +60,8 @@
                       
                       <div class="text-right">
                         <p class="font-medium text-gray-900">{{money_with_currency line_price}}</p>
-                        {{#if original_line_price > line_price}}
-                          <p class="text-sm text-gray-500 line-through">{{money_with_currency original_line_price}}</p>
+                        {{#if quantity}}
+                          <p class="text-xs text-gray-500 mt-1">{{quantity}} × {{money_with_currency price}}</p>
                         {{/if}}
                       </div>
                     </div>
@@ -60,17 +72,16 @@
           </div>
         </div>
         
-        <!-- Cart Summary -->
         <div class="lg:col-span-1">
-          <div class="bg-white rounded-lg shadow-sm p-6">
-            <h2 class="text-lg font-semibold text-gray-900 mb-4">Order Summary</h2>
+          <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 sticky top-24">
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">Order Summary</h2>
             
-            <div class="space-y-2 mb-4">
-              <div class="flex justify-between">
+            <div class="space-y-3 mb-6">
+              <div class="flex justify-between items-center">
                 <span class="text-gray-600">Subtotal</span>
-                <span class="font-medium">{{money_with_currency cart.total_price}}</span>
+                <span class="font-medium text-gray-900">{{money_with_currency cart.total_price}}</span>
               </div>
-              {{#if cart.total_discount > 0}}
+              {{#if cart.total_discount}}
                 <div class="flex justify-between text-green-600">
                   <span>Discount</span>
                   <span>-{{money_with_currency cart.total_discount}}</span>
@@ -78,46 +89,61 @@
               {{/if}}
             </div>
             
-            <div class="border-t pt-4 mb-6">
-              <div class="flex justify-between">
-                <span class="text-lg font-semibold">Total</span>
-                <span class="text-lg font-semibold">{{money_with_currency cart.total_price}}</span>
+            <div class="border-t border-gray-200 pt-6 mb-6">
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-semibold text-gray-900">Total</span>
+                <span class="text-2xl font-bold text-gray-900">{{money_with_currency cart.total_price}}</span>
               </div>
             </div>
             
+            {{#if section.settings.show_shipping_estimate}}
+              <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                  </svg>
+                  <span class="text-sm font-medium text-blue-900">Free shipping on orders over $50</span>
+                </div>
+              </div>
+            {{/if}}
+            
             <a 
               href="/checkout" 
-              class="block w-full bg-red-600 text-white text-center py-3 rounded-md font-medium hover:bg-red-700 transition-colors"
+              class="block w-full bg-red-600 text-white text-center py-4 rounded-lg font-semibold text-lg hover:bg-red-700 transition-all duration-200 hover:shadow-lg transform hover:-translate-y-0.5"
             >
               Proceed to Checkout
             </a>
+            
+            {{#if section.settings.show_security_badges}}
+              <div class="mt-4 pt-4 border-t border-gray-100">
+                <div class="flex items-center justify-center gap-2 text-xs text-gray-500">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Secure checkout</span>
+                  <span class="text-gray-300">•</span>
+                  <span>SSL encrypted</span>
+                </div>
+              </div>
+            {{/if}}
           </div>
         </div>
-      </div>
-    {{else}}
-      <div class="text-center py-12">
-        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-        </svg>
-        <h2 class="mt-2 text-lg font-medium text-gray-900">Your cart is empty</h2>
-        <p class="mt-1 text-sm text-gray-500">Start shopping to add items to your cart</p>
-        <a 
-          href="/collections/all" 
-          class="mt-6 inline-block bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700 transition-colors"
-        >
-          Continue Shopping
-        </a>
       </div>
     {{/if}}
   </div>
 </div>
 
 <script>
-  function updateQuantity(event) {
-    const key = event.target.closest('[data-key]').dataset.key;
-    const quantity = event.detail;
-    window.OrionCart?.updateItem(key, quantity);
-  }
+  // Listen for quantity updates from quantity-selector components
+  document.addEventListener('quantity-update', function(event) {
+    const { key, value } = event.detail;
+    
+    if (value === 0) {
+      removeItem(key);
+    } else {
+      window.OrionCart?.updateItem(key, value);
+    }
+  });
   
   function removeItem(key) {
     window.OrionCart?.removeItem(key);
@@ -126,7 +152,41 @@
 
 {{#schema}}
 {
-  "name": "t:sections.main-cart-items.name",
-  "class": "section"
+  "name": "Cart Items",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    },
+    {
+      "type": "switch",
+      "id": "show_shipping_estimate",
+      "label": "Show shipping estimate",
+      "default": true
+    },
+    {
+      "type": "switch",
+      "id": "show_security_badges",
+      "label": "Show security badges",
+      "default": true
+    }
+  ]
 }
 {{/schema}}

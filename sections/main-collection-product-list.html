@@ -11,7 +11,7 @@
 
 {{#schema}}
 {
-  "name": "t:sections.main-collection-product-list.name",
+  "name": "Collection Product List",
   "class": "section",
   "settings": [
     {
@@ -21,7 +21,7 @@
       "max": 48,
       "step": 4,
       "default": 24,
-      "label": "t:sections.main-collection-product-list.settings.products_per_page.label"
+      "label": "Products per page"
     },
     {
       "type": "range",
@@ -30,41 +30,41 @@
       "max": 5,
       "step": 1,
       "default": 4,
-      "label": "t:sections.main-collection-product-list.settings.columns_desktop.label"
+      "label": "Number of columns on desktop"
     },
     {
       "type": "select",
       "id": "columns_mobile",
       "options": [
         {
-          "value": "1",
-          "label": "t:sections.main-collection-product-list.settings.columns_mobile.options__1.label"
+          "value": 1,
+          "label": "1 column"
         },
         {
-          "value": "2",
-          "label": "t:sections.main-collection-product-list.settings.columns_mobile.options__2.label"
+          "value": 2,
+          "label": "2 columns"
         }
       ],
-      "default": "2",
-      "label": "t:sections.main-collection-product-list.settings.columns_mobile.label"
+      "default": 2,
+      "label": "Number of columns on mobile"
     },
     {
       "type": "switch",
       "id": "enable_filtering",
       "default": true,
-      "label": "t:sections.main-collection-product-list.settings.enable_filtering.label"
+      "label": "Enable filtering"
     },
     {
       "type": "switch",
       "id": "enable_sorting",
       "default": true,
-      "label": "t:sections.main-collection-product-list.settings.enable_sorting.label"
+      "label": "Enable sorting"
     },
     {
       "type": "switch",
       "id": "enable_infinite_scroll",
       "default": false,
-      "label": "t:sections.main-collection-product-list.settings.enable_infinite_scroll.label"
+      "label": "Enable infinite scroll"
     }
   ]
 }

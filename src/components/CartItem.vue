@@ -36,9 +36,9 @@
           
           <!-- Price on mobile -->
           <div class="cart-item__price cart-item__price--mobile">
-            <p class="cart-item__price-current">{{ formatPrice(item.final_line_price) }}</p>
-            <p v-if="item.original_line_price > item.final_line_price" class="cart-item__price-original">
-              {{ formatPrice(item.original_line_price) }}
+            <p class="cart-item__price-current">{{ formatPrice(item.line_price || item.price * item.quantity) }}</p>
+            <p v-if="item.original_price && item.price < item.original_price" class="cart-item__price-original">
+              {{ formatPrice(item.original_price * item.quantity) }}
             </p>
           </div>
         </div>
@@ -49,7 +49,7 @@
             <svg class="cart-item__discount-icon" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M5 2a2 2 0 00-2 2v11a2 2 0 002 2h10a2 2 0 002-2V4a2 2 0 00-2-2H5zm0 2h10v7h-2l-1 2H8l-1-2H5V4z" clip-rule="evenodd" />
             </svg>
-            {{ discount.title }} (-{{ formatPrice(discount.amount) }})
+            {{ discount.title }} (-{{ formatPrice(discount.amount || discount.total_allocated_amount) }})
           </div>
         </div>
         
@@ -83,12 +83,12 @@
           
           <!-- Price on desktop -->
           <div class="cart-item__price cart-item__price--desktop">
-            <p class="cart-item__price-current">{{ formatPrice(item.final_line_price) }}</p>
-            <p v-if="item.original_line_price > item.final_line_price" class="cart-item__price-original">
-              {{ formatPrice(item.original_line_price) }}
+            <p class="cart-item__price-current">{{ formatPrice(item.line_price || item.price * item.quantity) }}</p>
+            <p v-if="item.original_price && item.price < item.original_price" class="cart-item__price-original">
+              {{ formatPrice(item.original_price * item.quantity) }}
             </p>
-            <p v-if="item.original_line_price > item.final_line_price" class="cart-item__price-savings">
-              Save {{ calculateSavingsPercentage() }}%
+            <p v-if="item.original_price && item.price < item.original_price" class="cart-item__price-savings">
+              Save {{ Math.round(((item.original_price - item.price) / item.original_price) * 100) }}%
             </p>
           </div>
         </div>
@@ -140,13 +140,16 @@ const showStockWarning = computed(() => {
 
 // Methods
 const formatPrice = (price) => {
-  // This would use the actual money formatting from Shopline
-  return `$${(price / 100).toFixed(2)}`
+  if (!price && price !== 0) return '$0.00'
+  // Check if price needs conversion from cents
+  const amount = price > 1000 ? price / 100 : price
+  return `$${amount.toFixed(2)}`
 }
 
 const calculateSavingsPercentage = () => {
-  const savings = props.item.original_line_price - props.item.final_line_price
-  return Math.round((savings / props.item.original_line_price) * 100)
+  if (!props.item.original_price || !props.item.price) return 0
+  const savings = props.item.original_price - props.item.price
+  return Math.round((savings / props.item.original_price) * 100)
 }
 
 const handleQuantityChange = async (newQuantity) => {

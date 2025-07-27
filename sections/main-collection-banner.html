@@ -1,26 +1,31 @@
 <div class="collection-banner bg-gray-100">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    {{#if section.settings.show_collection_image and collection.image}}
-      <div class="mb-8">
-        <img 
-          src="{{collection.image}}" 
-          alt="{{collection.title}}"
-          class="w-full h-64 object-cover rounded-lg"
-        >
-      </div>
+    {{#if section.settings.show_collection_image}}
+      {{#if collection.image}}
+        <div class="mb-8">
+          <img 
+            src="{{image_url collection.image width=1200}}" 
+            alt="{{collection.title}}"
+            class="w-full h-64 object-cover rounded-lg"
+            loading="lazy"
+          >
+        </div>
+      {{/if}}
     {{/if}}
     
     <div class="text-center">
       <h1 class="text-4xl font-bold text-gray-900 mb-4">{{collection.title}}</h1>
       
-      {{#if section.settings.show_collection_description and collection.description}}
-        <div class="prose prose-lg max-w-3xl mx-auto text-gray-600">
-          {{{collection.description}}}
-        </div>
+      {{#if section.settings.show_collection_description}}
+        {{#if collection.description}}
+          <div class="prose prose-lg max-w-3xl mx-auto text-gray-600">
+            {{{collection.description}}}
+          </div>
+        {{/if}}
       {{/if}}
       
       <div class="mt-6 text-sm text-gray-500">
-        {{collection.products_count}} {{#if collection.products_count == 1}}product{{else}}products{{/if}}
+        {{collection.products_count}} products
       </div>
     </div>
   </div>
@@ -28,20 +33,20 @@
 
 {{#schema}}
 {
-  "name": "t:sections.collection-banner.name",
+  "name": "Collection Banner",
   "class": "section",
   "settings": [
     {
       "type": "switch",
       "id": "show_collection_image",
       "default": true,
-      "label": "t:sections.collection-banner.settings.show_collection_image.label"
+      "label": "Show collection image"
     },
     {
       "type": "switch",
       "id": "show_collection_description",
       "default": true,
-      "label": "t:sections.collection-banner.settings.show_collection_description.label"
+      "label": "Show collection description"
     }
   ]
 }
