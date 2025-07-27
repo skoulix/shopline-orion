@@ -2,113 +2,179 @@
   <Teleport to="body">
     <Transition name="search-overlay">
       <div v-if="isOpen" class="fixed inset-0 z-50 overflow-hidden">
-        <!-- Backdrop -->
+        <!-- Backdrop with blur -->
         <Transition name="fade">
           <div
             v-if="isOpen"
-            class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+            class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm transition-all duration-300"
             @click="closeSearch"></div>
         </Transition>
 
         <!-- Search Panel -->
         <Transition name="slide-down" appear>
           <div v-if="isOpen" class="relative z-10 pointer-events-auto">
-            <div class="bg-white shadow-xl transition-shadow duration-300">
-              <div class="max-w-4xl mx-auto">
+            <div class="bg-white/95 backdrop-blur-xl shadow-2xl transition-all duration-300 border-b border-gray-200/20">
+              <div class="max-w-6xl mx-auto">
                 <div class="relative">
                   <!-- Header with Search Input -->
-                  <div class="flex items-center px-4 py-6 sm:px-6 border-b border-gray-200">
-                    <div class="flex-1 relative">
-                      <input
-                        ref="searchInput"
-                        v-model="searchQuery"
-                        type="search"
-                        placeholder="Search products..."
-                        class="w-full px-4 py-3 pr-12 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                        @input="handleSearchInput"
-                        @keydown.escape="closeSearch"
-                        @keydown.enter="submitSearch"
-                      />
-                      <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                        <svg v-if="!loading" class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  <div class="px-4 py-8 sm:px-6 lg:px-8">
+                    <div class="flex items-center gap-4 max-w-3xl mx-auto">
+                      <div class="flex-1 relative group">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                          <svg class="w-5 h-5 text-gray-400 group-focus-within:text-gray-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                          </svg>
+                        </div>
+                        <input
+                          ref="searchInput"
+                          v-model="searchQuery"
+                          type="search"
+                          placeholder="Search for products, collections..."
+                          class="w-full pl-12 pr-12 py-4 text-lg text-gray-900 placeholder-gray-400 bg-gray-50/50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 focus:bg-white transition-all duration-200"
+                          @input="handleSearchInput"
+                          @keydown.escape="closeSearch"
+                          @keydown.enter="submitSearch"
+                        />
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                          <div v-if="loading" class="relative">
+                            <div class="animate-spin rounded-full h-5 w-5 border-2 border-gray-200"></div>
+                            <div class="animate-spin rounded-full h-5 w-5 border-2 border-red-500 border-t-transparent absolute inset-0"></div>
+                          </div>
+                          <button
+                            v-else-if="searchQuery"
+                            @click="searchQuery = ''"
+                            class="p-1 hover:bg-gray-200/50 rounded-lg transition-colors">
+                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        class="p-3 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-all duration-200"
+                        @click="closeSearch">
+                        <span class="sr-only">Close search</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
-                        <div v-else class="animate-spin rounded-full h-5 w-5 border-b-2 border-red-600"></div>
+                      </button>
+                    </div>
+
+                    <!-- Quick Search Suggestions -->
+                    <div v-if="!searchQuery && !loading" class="mt-6 max-w-3xl mx-auto">
+                      <p class="text-sm text-gray-500 mb-3">Popular searches</p>
+                      <div class="flex flex-wrap gap-2">
+                        <button
+                          v-for="suggestion in popularSearches"
+                          :key="suggestion"
+                          @click="searchQuery = suggestion; handleSearchInput()"
+                          class="px-4 py-2 text-sm text-gray-600 bg-gray-100/50 hover:bg-gray-200/50 rounded-full transition-colors duration-200">
+                          {{ suggestion }}
+                        </button>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      class="ml-3 -m-1.5 p-1.5 text-gray-400 hover:text-gray-500 transition-colors"
-                      @click="closeSearch">
-                      <span class="sr-only">Close search</span>
-                      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
                   </div>
 
                   <!-- Search Results -->
-                  <div v-if="showResults" class="border-t border-gray-200">
-                    <div class="max-h-96 overflow-y-auto">
+                  <div v-if="showResults" class="border-t border-gray-100">
+                    <div class="max-h-[60vh] overflow-y-auto custom-scrollbar">
+                      <!-- Loading Skeleton -->
+                      <div v-if="loading" class="p-6">
+                        <div class="animate-pulse">
+                          <div class="h-4 bg-gray-200 rounded w-20 mb-4"></div>
+                          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div v-for="i in 4" :key="i" class="flex items-start space-x-3">
+                              <div class="w-20 h-20 bg-gray-200 rounded-xl"></div>
+                              <div class="flex-1">
+                                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                       <!-- Products -->
-                      <div v-if="results.products && results.products.length > 0" class="p-4">
-                        <h3 class="text-sm font-medium text-gray-900 mb-3">Products</h3>
+                      <div v-else-if="results.products && results.products.length > 0" class="p-6">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Products</h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                           <a
                             v-for="product in results.products"
                             :key="product.id"
                             :href="product.url"
-                            class="group flex items-start space-x-3 p-2 rounded-lg hover:bg-gray-50"
+                            class="group flex items-start space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-all duration-200 hover:shadow-lg"
                             @click="closeSearch">
-                            <img
-                              v-if="product.image"
-                              :src="product.image"
-                              :alt="product.title"
-                              class="w-16 h-16 object-cover rounded"
-                            />
+                            <div class="relative overflow-hidden rounded-lg flex-shrink-0">
+                              <img
+                                v-if="product.image"
+                                :src="product.image"
+                                :alt="product.title"
+                                class="w-20 h-20 object-cover group-hover:scale-110 transition-transform duration-300"
+                              />
+                              <div v-else class="w-20 h-20 bg-gray-100 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                              </div>
+                            </div>
                             <div class="flex-1 min-w-0">
-                              <p class="text-sm font-medium text-gray-900 truncate group-hover:text-red-600">
+                              <p class="text-sm font-medium text-gray-900 group-hover:text-red-600 transition-colors line-clamp-2">
                                 {{ product.title }}
                               </p>
-                              <p class="text-sm text-gray-500">
-                                {{ formatMoney(product.price) }}
-                              </p>
+                              <div class="mt-1 flex items-center gap-2">
+                                <p class="text-sm font-semibold text-gray-900">
+                                  {{ formatMoney(product.price) }}
+                                </p>
+                                <p v-if="product.compareAtPrice && product.compareAtPrice > product.price" class="text-xs text-gray-400 line-through">
+                                  {{ formatMoney(product.compareAtPrice) }}
+                                </p>
+                              </div>
                             </div>
                           </a>
                         </div>
                       </div>
 
                       <!-- Collections -->
-                      <div v-if="results.collections && results.collections.length > 0" class="p-4 border-t">
-                        <h3 class="text-sm font-medium text-gray-900 mb-3">Collections</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <div v-if="results.collections && results.collections.length > 0" class="p-6 border-t border-gray-100">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Collections</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                           <a
                             v-for="collection in results.collections"
                             :key="collection.id"
                             :href="collection.url"
-                            class="text-sm text-gray-600 hover:text-red-600 p-2 rounded hover:bg-gray-50"
+                            class="group flex items-center justify-between px-4 py-3 bg-gray-50/50 hover:bg-gray-100/50 rounded-xl transition-all duration-200"
                             @click="closeSearch">
-                            {{ collection.title }}
+                            <span class="text-sm font-medium text-gray-700 group-hover:text-red-600 transition-colors">{{ collection.title }}</span>
+                            <svg class="w-4 h-4 text-gray-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
                           </a>
                         </div>
                       </div>
 
                       <!-- No Results -->
-                      <div v-if="searchQuery && !loading && (!results.products || results.products.length === 0) && (!results.collections || results.collections.length === 0)" class="p-8 text-center">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <p class="mt-2 text-sm text-gray-500">No results found for "{{ searchQuery }}"</p>
+                      <div v-if="searchQuery && !loading && (!results.products || results.products.length === 0) && (!results.collections || results.collections.length === 0)" class="p-12 text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                          <svg class="w-10 h-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                          </svg>
+                        </div>
+                        <p class="text-gray-900 font-medium mb-2">No results found</p>
+                        <p class="text-sm text-gray-500">Try searching for something else or check your spelling</p>
                       </div>
                     </div>
 
                     <!-- View All Results -->
-                    <div v-if="searchQuery && (results.products?.length > 0 || results.collections?.length > 0)" class="border-t border-gray-200 px-4 py-3 bg-gray-50">
+                    <div v-if="searchQuery && (results.products?.length > 0 || results.collections?.length > 0)" class="border-t border-gray-100 px-6 py-4 bg-gray-50/50">
                       <a
                         :href="`${searchUrl}?q=${encodeURIComponent(searchQuery)}`"
-                        class="text-sm text-red-600 hover:text-red-700 font-medium"
+                        class="inline-flex items-center gap-2 text-sm font-medium text-red-600 hover:text-red-700 transition-colors"
                         @click="closeSearch">
-                        View all results →
+                        View all results for "{{ searchQuery }}"
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
                       </a>
                     </div>
                   </div>
@@ -144,6 +210,14 @@ const searchUrl = computed(() => {
 const showResults = computed(() => {
   return searchQuery.value.length > 0
 })
+
+// Popular search suggestions
+const popularSearches = ref([
+  'New Arrivals',
+  'Best Sellers',
+  'Sale',
+  'Summer Collection'
+])
 
 const formatMoney = (price) => {
   if (!price && price !== 0) return '$0.00'
@@ -281,26 +355,67 @@ onUnmounted(() => {
 }
 
 .slide-down-enter-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .slide-down-leave-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .slide-down-enter-from {
   transform: translateY(-100%);
-  opacity: 0.8;
+  opacity: 0;
 }
 
 .slide-down-leave-to {
   transform: translateY(-100%);
-  opacity: 0.8;
+  opacity: 0;
 }
 
 .slide-down-enter-to,
 .slide-down-leave-from {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #e5e7eb #f9fafb;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f9fafb;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #d1d5db;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* Remove native search input clear button */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
 }
 </style>
