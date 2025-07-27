@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
   
-  // Initialize global notification system (will read from theme settings)
+  // Initialize global notification system
   initNotifications()
   
 })

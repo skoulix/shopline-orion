@@ -298,6 +298,79 @@ Reference these CSS variables from arise-pro theme:
     - Cross-browser testing
     - Always check the Shopline CLI output for template compilation errors
 
+## Localization and Language Files
+
+### Language File Structure
+
+Shopline themes use two main localization files:
+
+1. **`locales/en.json`** - General theme translations
+   - Used for general theme text, customer-facing strings
+   - Static text in templates
+   - JavaScript strings
+   - Customer account messages
+
+2. **`locales/en.schema.json`** - Schema translations (IMPORTANT)
+   - **Used for ALL section settings labels and descriptions**
+   - Theme settings panel labels
+   - Section names and descriptions
+   - Setting group headers
+   - Option labels for select/radio settings
+
+### Important Guidelines
+
+**When creating section settings:**
+- ✅ ALWAYS place setting labels in `en.schema.json`
+- ❌ DO NOT place section setting labels in `en.json`
+- Use the `t:` prefix to reference schema translations: `"label": "t:sections.header.settings.logo.label"`
+
+**Example structure in `en.schema.json`:**
+```json
+{
+  "sections": {
+    "header": {
+      "name": "Header",
+      "settings": {
+        "group_header__0": {
+          "label": "Logo"
+        },
+        "logo": {
+          "label": "Logo image"
+        },
+        "logo_width": {
+          "label": "Logo width"
+        }
+      }
+    }
+  }
+}
+```
+
+**Section schema example:**
+```json
+{
+  "name": "t:sections.header.name",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "t:sections.header.settings.group_header__0.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    }
+  ]
+}
+```
+
+### Translation Keys Best Practice
+
+- Keep keys hierarchical and descriptive
+- Follow the pattern: `sections.[section-name].settings.[setting-id].label`
+- For options: `sections.[section-name].settings.[setting-id].options__[index].label`
+- For info text: `sections.[section-name].settings.[setting-id].info`
+
 ## Shopline Image Optimization
 
 ### Image Filters

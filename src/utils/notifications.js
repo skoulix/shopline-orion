@@ -70,16 +70,7 @@ function getPositionClasses(position) {
  * @param {Object} options - Override options for this notification
  */
 export function showNotification(message, type = 'info', options = {}) {
-  // Get live settings from theme
-  const liveConfig = {
-    ...globalConfig,
-    position: window.themeSettings?.notificationPosition || globalConfig.position,
-    duration: window.themeSettings?.notificationDuration || globalConfig.duration,
-    maxNotifications: window.themeSettings?.notificationMaxCount || globalConfig.maxNotifications,
-    showCloseButton: window.themeSettings?.notificationShowCloseButton !== false
-  }
-  
-  const config = { ...liveConfig, ...options }
+  const config = { ...globalConfig, ...options }
   const id = ++notificationId
   
   // Create notification element
@@ -226,6 +217,7 @@ export function showCartError(message = 'Failed to add item to cart. Please try 
  * This can be called from main.js to set up global defaults
  */
 export function initNotifications(config = {}) {
+  // Apply any override config
   setNotificationConfig(config)
   
   // Make notifications available globally on window object

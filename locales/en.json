@@ -1189,6 +1189,9 @@
     "header": {
       "name": "Header",
       "settings": {
+        "group_header__0": {
+          "label": "Logo"
+        },
         "color_scheme": {
           "label": "Color scheme",
           "options__1": {
@@ -1240,6 +1243,9 @@
         "mobile_main_menu_link_list": {
           "label": "Mobile menu"
         },
+        "group_header__1": {
+          "label": "Navigation"
+        },
         "menu": {
           "label": "Menu"
         },
@@ -1260,6 +1266,9 @@
         },
         "show_search_entry": {
           "label": "Show search"
+        },
+        "group_header__2": {
+          "label": "Header Actions"
         },
         "show_search": {
           "label": "Show search"
@@ -1288,15 +1297,6 @@
         "show_cart": {
           "label": "Show cart"
         },
-        "cart_action": {
-          "label": "Cart action",
-          "options__1": {
-            "label": "Open drawer"
-          },
-          "options__2": {
-            "label": "Go to cart page"
-          }
-        },
         "header_style": {
           "label": "Sticky header",
           "options__1": {
@@ -1308,6 +1308,9 @@
           "options__3": {
             "label": "Always stick"
           }
+        },
+        "group_header__3": {
+          "label": "Header Behavior"
         },
         "enable_sticky_header": {
           "label": "Enable sticky header"
@@ -1383,6 +1386,15 @@
         },
         "padding_bottom": {
           "label": "Bottom padding"
+        },
+        "group_header__4": {
+          "label": "Advanced Settings"
+        },
+        "group_header__5": {
+          "label": "Localization"
+        },
+        "show_localization": {
+          "label": "Show language/country selector"
         }
       }
     },
@@ -1489,8 +1501,12 @@
         "button_link": {
           "label": "Button link"
         },
+        "group_header__0": {
+          "label": "Background"
+        },
         "image": {
-          "label": "Background image"
+          "label": "Background image",
+          "info": "Recommended size: 1920x1080px"
         },
         "height": {
           "label": "Section height",
@@ -1503,6 +1519,30 @@
           "options__3": {
             "label": "Large"
           }
+        },
+        "image_overlay_opacity": {
+          "label": "Image overlay opacity"
+        },
+        "content_alignment": {
+          "label": "Content alignment",
+          "options__1": {
+            "label": "Left"
+          },
+          "options__2": {
+            "label": "Center"
+          },
+          "options__3": {
+            "label": "Right"
+          }
+        },
+        "group_header__1": {
+          "label": "Spacing"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
         }
       }
     },
@@ -1515,11 +1555,65 @@
         "collection": {
           "label": "Collection"
         },
+        "group_header__0": {
+          "label": "Layout"
+        },
         "products_to_show": {
           "label": "Maximum products to show"
         },
+        "columns_desktop": {
+          "label": "Number of columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Number of columns on mobile",
+          "options__0": {
+            "label": "1 column"
+          },
+          "options__1": {
+            "label": "2 columns"
+          }
+        },
         "show_view_all": {
           "label": "Show 'View all' button"
+        },
+        "group_header__1": {
+          "label": "Product Cards"
+        },
+        "product_image_ratio": {
+          "label": "Image ratio",
+          "options__0": {
+            "label": "Adapt to image"
+          },
+          "options__1": {
+            "label": "Square"
+          },
+          "options__3": {
+            "label": "Portrait"
+          },
+          "options__4": {
+            "label": "Landscape"
+          }
+        },
+        "image_fill_type": {
+          "label": "Image fill type",
+          "options__0": {
+            "label": "Contain"
+          },
+          "options__1": {
+            "label": "Cover"
+          }
+        },
+        "show_secondary_image": {
+          "label": "Show second image on hover"
+        },
+        "group_header__2": {
+          "label": "Spacing"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
         }
       }
     },

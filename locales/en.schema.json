@@ -3,17 +3,26 @@
     "header": {
       "name": "Header",
       "settings": {
+        "group_header__0": {
+          "label": "Logo"
+        },
         "logo": {
           "label": "Logo image"
         },
         "logo_width": {
           "label": "Logo width"
         },
+        "group_header__1": {
+          "label": "Navigation"
+        },
         "menu": {
           "label": "Menu"
         },
         "mobile_menu": {
           "label": "Mobile menu"
+        },
+        "group_header__2": {
+          "label": "Header Actions"
         },
         "show_search": {
           "label": "Show search"
@@ -24,14 +33,8 @@
         "show_cart": {
           "label": "Show cart"
         },
-        "cart_action": {
-          "label": "Cart icon action",
-          "options__1": {
-            "label": "Open cart drawer"
-          },
-          "options__2": {
-            "label": "Go to cart page"
-          }
+        "group_header__3": {
+          "label": "Header Behavior"
         },
         "enable_sticky_header": {
           "label": "Enable sticky header"
@@ -46,6 +49,15 @@
         "sticky_header_background": {
           "label": "Sticky header background color",
           "info": "Background color for the header when it becomes sticky. This overrides transparency when scrolling."
+        },
+        "group_header__4": {
+          "label": "Advanced Settings"
+        },
+        "group_header__5": {
+          "label": "Localization"
+        },
+        "show_localization": {
+          "label": "Show language/country selector"
         }
       }
     },
@@ -171,8 +183,12 @@
         "button_link": {
           "label": "Button link"
         },
+        "group_header__0": {
+          "label": "Background"
+        },
         "image": {
-          "label": "Background image"
+          "label": "Background image",
+          "info": "Recommended size: 1920x1080px"
         },
         "height": {
           "label": "Section height",
@@ -185,6 +201,30 @@
           "options__3": {
             "label": "Large"
           }
+        },
+        "image_overlay_opacity": {
+          "label": "Image overlay opacity"
+        },
+        "content_alignment": {
+          "label": "Content alignment",
+          "options__1": {
+            "label": "Left"
+          },
+          "options__2": {
+            "label": "Center"
+          },
+          "options__3": {
+            "label": "Right"
+          }
+        },
+        "group_header__1": {
+          "label": "Spacing"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
         }
       }
     },
@@ -193,6 +233,18 @@
       "settings": {
         "title": {
           "label": "Heading"
+        },
+        "title_alignment": {
+          "label": "Heading alignment",
+          "options__0": {
+            "label": "Left"
+          },
+          "options__1": {
+            "label": "Center"
+          },
+          "options__2": {
+            "label": "Right"
+          }
         },
         "collection": {
           "label": "Collection"

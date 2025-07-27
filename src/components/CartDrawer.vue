@@ -114,7 +114,7 @@
 										class="border-t border-gray-200 px-4 py-6 sm:px-6 space-y-6">
 										<!-- Free Shipping Notice -->
 										<div
-											v-if="totalPrice < 50"
+											v-if="showFreeShippingBar && totalPrice < freeShippingThreshold"
 											class="bg-blue-50 border border-blue-200 rounded-lg p-3">
 											<div
 												class="flex items-center gap-2">
@@ -134,7 +134,7 @@
 													Add
 													{{
 														formatMoney(
-															50 - totalPrice
+															freeShippingThreshold - totalPrice
 														)
 													}}
 													more for free shipping!
@@ -245,6 +245,15 @@ const totalPrice = ref(0);
 
 const checkoutUrl = computed(() => {
 	return window.routes?.cart_url || '/cart';
+});
+
+// Get free shipping settings from theme
+const freeShippingThreshold = computed(() => {
+	return window.themeSettings?.freeShippingThreshold || 50;
+});
+
+const showFreeShippingBar = computed(() => {
+	return window.themeSettings?.showFreeShippingBar !== false;
 });
 
 const formatMoney = (price) => {
