@@ -114,10 +114,26 @@
 										class="border-t border-gray-200 px-4 py-6 sm:px-6 space-y-6">
 										<!-- Free Shipping Notice -->
 										<div
-											v-if="showFreeShippingBar && totalPrice < freeShippingThreshold"
-											class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-											<div
-												class="flex items-center gap-2">
+											v-if="showFreeShippingBar"
+											:class="totalPrice >= freeShippingThreshold ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'"
+											class="rounded-lg p-3">
+											<div v-if="totalPrice >= freeShippingThreshold" class="flex items-center gap-2">
+												<svg
+													class="w-5 h-5 text-green-600"
+													fill="none"
+													viewBox="0 0 24 24"
+													stroke="currentColor">
+													<path
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														stroke-width="2"
+														d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+												</svg>
+												<p class="text-sm text-green-800">
+													Congratulations! You've unlocked free shipping!
+												</p>
+											</div>
+											<div v-else class="flex items-center gap-2">
 												<svg
 													class="w-5 h-5 text-blue-600"
 													fill="none"
@@ -141,6 +157,7 @@
 												</p>
 											</div>
 											<div
+												v-if="totalPrice < freeShippingThreshold"
 												class="mt-2 bg-blue-200 rounded-full h-2 overflow-hidden">
 												<div
 													class="bg-blue-600 h-full transition-all duration-300"
@@ -187,42 +204,6 @@
 											</Button>
 										</div>
 
-										<!-- Trust Badges -->
-										<div
-											class="flex items-center justify-center gap-6 text-xs text-gray-500 pt-2">
-											<div
-												class="flex items-center gap-1">
-												<svg
-													class="w-4 h-4"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor">
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														stroke-width="2"
-														d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-												</svg>
-												<span>Secure Checkout</span>
-											</div>
-											<div
-												class="flex items-center gap-1">
-												<svg
-													class="w-4 h-4"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor">
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														stroke-width="2"
-														d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-												</svg>
-												<span
-													>Money Back Guarantee</span
-												>
-											</div>
-										</div>
 									</div>
 								</div>
 							</div>
@@ -249,27 +230,37 @@ const checkoutUrl = computed(() => {
 
 // Get free shipping settings from Shopline theme
 const freeShippingThreshold = computed(() => {
-	// Convert threshold from dollars to cents for comparison with cart total
+	// Get threshold in dollars from settings
 	const thresholdInDollars = Shopline?.theme?.settings?.free_shipping_threshold || 50;
-	return thresholdInDollars * 100; // Convert to cents
+	// Return as dollars, not cents - we'll handle comparison based on actual price format
+	return thresholdInDollars;
 });
 
 const showFreeShippingBar = computed(() => {
 	return Shopline?.theme?.settings?.show_free_shipping_bar !== false;
 });
 
-const formatMoney = (cents) => {
-	if (!cents && cents !== 0) return '$0.00'
+const formatMoney = (price) => {
+	if (!price && price !== 0) return '$0.00'
 	
-	// Get currency format from Shopline
-	const format = Shopline?.currency?.format || Shopline?.shop?.money_format || '${{amount}}'
-	const currencyCode = Shopline?.currency?.active || Shopline?.shop?.currency || 'USD'
+	// Get currency and locale settings from Shopline
+	const moneyFormat = Shopline?.shop?.money_format || '${{amount}}'
+	const moneyWithCurrencyFormat = Shopline?.shop?.money_with_currency_format || '${{amount}} USD'
+	const currency = Shopline?.shop?.currency || 'USD'
+	const locale = Shopline?.locale?.current || 'en'
 	
-	// Convert cents to dollars
-	const amount = (cents / 100).toFixed(2)
+	// Format the number according to the locale
+	// This handles decimal separators, thousand separators, etc.
+	const formatter = new Intl.NumberFormat(locale, {
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2
+	})
 	
-	// Replace {{amount}} placeholder with actual amount
-	return format.replace('{{amount}}', amount)
+	const amount = formatter.format(parseFloat(price))
+	
+	// Replace {{amount}} placeholder with formatted amount
+	// You can also use moneyWithCurrencyFormat if you want to show currency code
+	return moneyFormat.replace('{{amount}}', amount)
 };
 
 const openDrawer = () => {

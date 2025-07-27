@@ -142,9 +142,22 @@ const showStockWarning = computed(() => {
 // Methods
 const formatPrice = (price) => {
   if (!price && price !== 0) return '$0.00'
-  // Check if price needs conversion from cents
-  const amount = price > 1000 ? price / 100 : price
-  return `$${amount.toFixed(2)}`
+  
+  // Get currency and locale settings from Shopline
+  const moneyFormat = Shopline?.shop?.money_format || '${{amount}}'
+  const currency = Shopline?.shop?.currency || 'USD'
+  const locale = Shopline?.locale?.current || 'en'
+  
+  // Format the number according to the locale
+  const formatter = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
+  
+  const amount = formatter.format(parseFloat(price))
+  
+  // Replace {{amount}} placeholder with formatted amount
+  return moneyFormat.replace('{{amount}}', amount)
 }
 
 const calculateSavingsPercentage = () => {

@@ -440,12 +440,45 @@ const accountUrl = Shopline?.routes?.account || '/account'
 
 #### Currency Formatting
 ```javascript
-// Format price with currency
-const formatMoney = (cents) => {
-  const format = Shopline?.currency?.format || '${{amount}}'
-  const amount = (cents / 100).toFixed(2)
-  return format.replace('{{amount}}', amount)
+// Format price with currency and locale
+const formatMoney = (price) => {
+  if (!price && price !== 0) return '$0.00'
+  
+  // Get currency and locale settings from Shopline
+  const moneyFormat = Shopline?.shop?.money_format || '${{amount}}'
+  const moneyWithCurrencyFormat = Shopline?.shop?.money_with_currency_format || '${{amount}} USD'
+  const currency = Shopline?.shop?.currency || 'USD'
+  const locale = Shopline?.locale?.current || 'en'
+  
+  // Format the number according to the locale
+  const formatter = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
+  
+  const amount = formatter.format(parseFloat(price))
+  
+  // Replace {{amount}} placeholder with formatted amount
+  return moneyFormat.replace('{{amount}}', amount)
 }
+```
+
+### Date Formatting
+```javascript
+// Format dates with locale
+const formatDate = (dateString) => {
+  const locale = Shopline?.locale?.current || 'en'
+  const date = new Date(dateString)
+  
+  // Use Intl.DateTimeFormat for locale-aware formatting
+  return new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date)
+}
+
+// Example: "January 15, 2024" in English or "15 janvier 2024" in French
 ```
 
 #### Shop Information
@@ -464,6 +497,66 @@ const currency = Shopline?.shop?.currency || 'USD'
 - The Shopline object is automatically populated by the platform
 - Global settings from `settings_schema.json` may not be directly accessible in section templates using `{{settings.variable}}` - use JavaScript to access them via `Shopline.theme.settings`
 - The structure may vary slightly between different Shopline versions, always check what's available in your environment
+
+### Internationalization Best Practices
+
+When developing for Shopline themes, always use the platform's locale and currency settings:
+
+1. **Currency Formatting**
+   - Always use `Shopline.shop.money_format` for currency display
+   - Use `Intl.NumberFormat` with `Shopline.locale.current` for proper number formatting
+   - Never hardcode currency symbols or decimal separators
+
+2. **Date Formatting**
+   - Use `Intl.DateTimeFormat` with `Shopline.locale.current`
+   - This ensures dates display correctly for all regions (MM/DD/YYYY vs DD/MM/YYYY)
+
+3. **Number Formatting**
+   - Use `Intl.NumberFormat` for any numeric displays (quantities, percentages, etc.)
+   - Respects regional differences in thousand/decimal separators
+
+4. **Text Content**
+   - Use translation files (`locales/en.json`, `locales/en.schema.json`)
+   - Never hardcode user-facing text in JavaScript or templates
+
+Example utility functions:
+```javascript
+// Create a reusable formatter utility
+const createFormatters = () => {
+  const locale = Shopline?.locale?.current || 'en'
+  const moneyFormat = Shopline?.shop?.money_format || '${{amount}}'
+  
+  return {
+    money: (price) => {
+      const formatter = new Intl.NumberFormat(locale, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })
+      return moneyFormat.replace('{{amount}}', formatter.format(price))
+    },
+    
+    date: (date, options = {}) => {
+      return new Intl.DateTimeFormat(locale, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        ...options
+      }).format(new Date(date))
+    },
+    
+    number: (num, options = {}) => {
+      return new Intl.NumberFormat(locale, options).format(num)
+    },
+    
+    percent: (num) => {
+      return new Intl.NumberFormat(locale, {
+        style: 'percent',
+        minimumFractionDigits: 0
+      }).format(num / 100)
+    }
+  }
+}
+```
 
 ### Debugging the Shopline Object
 To explore what's available in the Shopline object in your environment:
