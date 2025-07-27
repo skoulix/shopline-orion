@@ -31,9 +31,16 @@
       </div>
 
       <!-- Title -->
-      <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-tight">
+      <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-tight">
         <a :href="url" class="hover:underline decoration-2 underline-offset-2">{{ title }}</a>
       </h3>
+
+      <!-- Author and Date Meta (right after title) -->
+      <div v-if="(showAuthor && author) || (showDate && formattedDate)" class="flex items-center gap-2 text-xs text-gray-500 mb-4">
+        <span v-if="showAuthor && author">{{ author }}</span>
+        <span v-if="(showAuthor && author) && (showDate && formattedDate)" class="text-gray-300">•</span>
+        <time v-if="showDate && formattedDate" :datetime="rawPublishedAt || publishedAt">{{ formattedDate }}</time>
+      </div>
 
       <!-- Excerpt -->
       <div class="flex-1 mb-6">
@@ -41,36 +48,17 @@
         <div v-else-if="content" class="text-gray-600 leading-relaxed line-clamp-3" v-html="truncatedContent"></div>
       </div>
 
-      <!-- Meta Info -->
-      <div class="space-y-4 mt-auto">
-        <!-- Author and Date -->
-        <div v-if="(showAuthor && author) || (showDate && formattedDate)" class="flex flex-col gap-2">
-          <div v-if="showAuthor && author" class="flex items-center gap-2 text-sm text-gray-600">
-            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-            </svg>
-            <span class="font-medium">{{ author }}</span>
-          </div>
-          <time v-if="showDate && formattedDate" :datetime="rawPublishedAt || publishedAt" class="flex items-center gap-2 text-sm text-gray-600">
-            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-            </svg>
-            <span class="font-medium">{{ formattedDate }}</span>
-          </time>
-        </div>
-        
-        <!-- Read More Button -->
-        <div class="pt-2">
-          <a 
-            :href="url" 
-            class="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-semibold text-sm group transition-colors duration-300"
-          >
-            <span>Read Article</span>
-            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
+      <!-- Read More Button -->
+      <div class="mt-auto">
+        <a 
+          :href="url" 
+          class="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-semibold text-sm group transition-colors duration-300"
+        >
+          <span>Read Article</span>
+          <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
       </div>
     </div>
   </article>
