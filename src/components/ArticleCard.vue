@@ -41,36 +41,36 @@
         <div v-else-if="content" class="text-gray-600 leading-relaxed line-clamp-3" v-html="truncatedContent"></div>
       </div>
 
-      <!-- Meta -->
-      <div class="flex items-center justify-between text-sm mt-auto">
-        <div class="flex items-center gap-4 text-gray-500">
-          <span v-if="showAuthor && author" class="flex items-center gap-2 font-medium">
-            <div class="w-6 h-6 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center">
-              <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <span class="group-hover:text-gray-700 transition-colors">{{ author }}</span>
-          </span>
-          <time v-if="showDate && publishedAt" :datetime="publishedAt" class="flex items-center gap-2 font-medium">
-            <div class="w-6 h-6 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full flex items-center justify-center">
-              <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <span class="group-hover:text-gray-700 transition-colors">{{ formattedDate }}</span>
+      <!-- Meta Info -->
+      <div class="space-y-4 mt-auto">
+        <!-- Author and Date -->
+        <div v-if="(showAuthor && author) || (showDate && formattedDate)" class="flex flex-col gap-2">
+          <div v-if="showAuthor && author" class="flex items-center gap-2 text-sm text-gray-600">
+            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-medium">{{ author }}</span>
+          </div>
+          <time v-if="showDate && formattedDate" :datetime="rawPublishedAt || publishedAt" class="flex items-center gap-2 text-sm text-gray-600">
+            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-medium">{{ formattedDate }}</span>
           </time>
         </div>
         
-        <a 
-          :href="url" 
-          class="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl hover:from-red-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300"
-        >
-          <span>Read</span>
-          <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
+        <!-- Read More Button -->
+        <div class="pt-2">
+          <a 
+            :href="url" 
+            class="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-semibold text-sm group transition-colors duration-300"
+          >
+            <span>Read Article</span>
+            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </article>
@@ -191,23 +191,30 @@ export default {
 
     const formattedDate = computed(() => {
       // If we have a pre-formatted date from Shopline's {{date}} helper, use it
-      if (props.publishedAt && props.publishedAt.trim() && 
+      // But exclude timestamps that are still showing through
+      if (props.publishedAt && 
+          props.publishedAt.trim() && 
           !props.publishedAt.match(/^\d+$/) && // Not just a timestamp
           !props.publishedAt.includes('T') && // Not ISO date format
-          !props.publishedAt.match(/^\d{4}-\d{2}-\d{2}/)) { // Not YYYY-MM-DD format
+          !props.publishedAt.match(/^\d{4}-\d{2}-\d{2}/) && // Not YYYY-MM-DD format
+          props.publishedAt.length < 20) { // Not a long timestamp string
         return props.publishedAt
       }
       
-      // Fall back to parsing raw date
+      // Fall back to parsing raw date or the publishedAt value
       const dateToFormat = props.rawPublishedAt || props.publishedAt
       if (!dateToFormat) return ''
       
       try {
         // Handle timestamp (number) or date string
         let date
-        if (typeof dateToFormat === 'number' || /^\d+$/.test(dateToFormat)) {
-          // If it's a timestamp, use it directly
-          date = new Date(parseInt(dateToFormat))
+        const dateStr = String(dateToFormat).trim()
+        
+        if (/^\d+$/.test(dateStr)) {
+          // If it's a pure number (timestamp)
+          const timestamp = parseInt(dateStr)
+          // Handle both seconds and milliseconds timestamps
+          date = new Date(timestamp > 1000000000000 ? timestamp : timestamp * 1000)
         } else if (typeof dateToFormat === 'string') {
           // If it's a string, parse it
           date = new Date(dateToFormat)
@@ -215,10 +222,10 @@ export default {
           return ''
         }
         
-        // Check if date is valid
-        if (isNaN(date.getTime())) {
-          console.warn('Invalid date:', dateToFormat)
-          return dateToFormat
+        // Check if date is valid and reasonable (not year 1755 from bad timestamp)
+        if (isNaN(date.getTime()) || date.getFullYear() < 1900 || date.getFullYear() > 2100) {
+          console.warn('Invalid or unreasonable date:', dateToFormat, 'parsed as:', date)
+          return ''
         }
         
         // Get locale from Shopline global object
@@ -234,7 +241,7 @@ export default {
         }).format(date)
       } catch (error) {
         console.warn('Error formatting date:', error, dateToFormat)
-        return dateToFormat
+        return ''
       }
     })
 
