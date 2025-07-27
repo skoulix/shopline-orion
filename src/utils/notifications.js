@@ -8,7 +8,6 @@ const defaultConfig = {
   duration: 3000, // Auto-dismiss after 3 seconds
   position: 'top-right', // top-right, top-left, bottom-right, bottom-left
   maxNotifications: 5, // Maximum number of notifications to show at once
-  showCloseButton: true, // Show close button
   animation: {
     enter: 'translate-x-full', // Initial state (off-screen)
     enterActive: 'transition-all duration-300 transform', // Transition classes
@@ -23,23 +22,8 @@ const defaultConfig = {
   }
 }
 
-// Get configuration from theme settings
-function getThemeConfig() {
-  if (typeof window !== 'undefined' && window.settings) {
-    return {
-      enabled: window.settings.enable_notifications !== false,
-      duration: window.settings.notification_duration || defaultConfig.duration,
-      position: window.settings.notification_position || defaultConfig.position,
-      maxNotifications: window.settings.notification_max_count || defaultConfig.maxNotifications,
-      showCloseButton: window.settings.notification_show_close_button !== false,
-      showProductName: window.settings.notification_show_product_name !== false,
-    }
-  }
-  return defaultConfig
-}
-
-// Global configuration (merged with theme settings)
-let globalConfig = { ...defaultConfig, ...getThemeConfig() }
+// Global configuration (can be overridden)
+let globalConfig = { ...defaultConfig }
 
 // Track active notifications
 let activeNotifications = []
@@ -86,15 +70,16 @@ function getPositionClasses(position) {
  * @param {Object} options - Override options for this notification
  */
 export function showNotification(message, type = 'info', options = {}) {
-  // Refresh config from theme settings
-  globalConfig = { ...defaultConfig, ...getThemeConfig() }
-  
-  // Check if notifications are enabled
-  if (!globalConfig.enabled) {
-    return null
+  // Get live settings from theme
+  const liveConfig = {
+    ...globalConfig,
+    position: window.themeSettings?.notificationPosition || globalConfig.position,
+    duration: window.themeSettings?.notificationDuration || globalConfig.duration,
+    maxNotifications: window.themeSettings?.notificationMaxCount || globalConfig.maxNotifications,
+    showCloseButton: window.themeSettings?.notificationShowCloseButton !== false
   }
   
-  const config = { ...globalConfig, ...options }
+  const config = { ...liveConfig, ...options }
   const id = ++notificationId
   
   // Create notification element
@@ -226,25 +211,9 @@ export function showInfo(message, options = {}) {
  * Cart-specific notification helpers
  */
 export function showCartSuccess(productTitle, quantity = 1) {
-  // Refresh config from theme settings
-  globalConfig = { ...defaultConfig, ...getThemeConfig() }
-  
-  if (!globalConfig.enabled) {
-    return null
-  }
-  
-  // Build message based on settings
-  let message
-  if (globalConfig.showProductName) {
-    message = quantity === 1 
-      ? `${productTitle} added to cart!`
-      : `${quantity}x ${productTitle} added to cart!`
-  } else {
-    message = quantity === 1 
-      ? 'Item added to cart!'
-      : `${quantity} items added to cart!`
-  }
-  
+  const message = quantity === 1 
+    ? `${productTitle} added to cart!`
+    : `${quantity}x ${productTitle} added to cart!`
   return showSuccess(message)
 }
 

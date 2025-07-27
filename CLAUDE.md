@@ -183,15 +183,17 @@ Settings are automatically applied through Shopline's theme settings system:
 
 ```javascript
 // Settings are automatically loaded from theme configuration
-window.settings = {
-  enable_notifications: true,
-  notification_position: 'top-right',
-  notification_duration: 3000,
-  notification_max_count: 5,
-  notification_show_close_button: true,
-  notification_show_product_name: true
+window.themeSettings = {
+  enableNotifications: true,
+  notificationPosition: 'top-right',
+  notificationDuration: 3000,
+  notificationMaxCount: 5,
+  notificationShowCloseButton: true,
+  notificationShowProductName: true
 }
 ```
+
+The notification system automatically reads these settings from `window.themeSettings` which is populated by the theme's layout file from the Shopline settings panel.
 
 ### **Available Positions**
 - `top-right` (default)
