@@ -13,10 +13,10 @@
             ></div>
           </Transition>
 
-          <div class="fixed inset-y-0 left-0 max-w-full flex">
-            <Transition name="slide-left">
-              <div v-if="isOpen" class="w-screen max-w-sm transform transition-transform duration-300 ease-out">
-                <div class="h-full flex flex-col bg-white shadow-xl">
+          <div class="fixed inset-y-0 left-0 max-w-full flex pointer-events-none">
+            <Transition name="slide" appear>
+              <div v-if="isOpen" class="w-screen max-w-sm pointer-events-auto">
+                <div class="h-full flex flex-col bg-white shadow-xl transition-shadow duration-300">
                   <!-- Header -->
                   <div class="flex items-center justify-between px-4 py-6 border-b">
                     <h2 class="text-lg font-medium text-gray-900">Menu</h2>
@@ -129,7 +129,6 @@
                     <div class="px-4 py-4 border-t">
                       <div class="space-y-1">
                         <a
-                          v-if="customerUrl"
                           :href="customerUrl"
                           class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50"
                         >
@@ -196,10 +195,21 @@ const menuItems = computed(() => {
   return window.mobileMenuData || []
 })
 
+// Get customer URL from global or props
+const customerUrl = computed(() => {
+  return props.customerUrl || window.mobileMenuCustomerUrl || '/account'
+})
+
+// Get localization setting from global or props
+const showLocalization = computed(() => {
+  return props.showLocalization || window.mobileMenuShowLocalization || false
+})
+
 const isOpen = ref(false)
 const expandedMenus = ref([])
 
 const openMenu = () => {
+  console.log('openMenu called')
   isOpen.value = true
   document.body.style.overflow = 'hidden'
 }
@@ -225,6 +235,8 @@ defineExpose({
 })
 
 onMounted(() => {
+  console.log('MobileMenu component mounted')
+  console.log('Menu items:', menuItems.value)
   document.addEventListener('mobile-menu:open', openMenu)
   document.addEventListener('mobile-menu:close', closeMenu)
   
@@ -266,22 +278,28 @@ onMounted(() => {
   opacity: 0;
 }
 
-.slide-left-enter-active,
-.slide-left-leave-active {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.slide-enter-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.slide-left-enter-from {
+.slide-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.slide-enter-from {
   transform: translateX(-100%);
+  opacity: 0.8;
 }
 
-.slide-left-leave-to {
+.slide-leave-to {
   transform: translateX(-100%);
+  opacity: 0.8;
 }
 
-.slide-left-enter-to,
-.slide-left-leave-from {
+.slide-enter-to,
+.slide-leave-from {
   transform: translateX(0);
+  opacity: 1;
 }
 
 .submenu-enter-active,

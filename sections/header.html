@@ -129,44 +129,46 @@
     </div>
   </div>
   
-  <!-- Mobile Menu -->
-  <div class="mobile-menu-mount md:hidden" 
-       data-menu-items='[
-         {{#each linklists.main-menu.links}}
-         {
-           "title": "{{title}}",
-           "url": "{{url}}"
-           {{#if links}}
-           ,"children": [
-             {{#each links}}
-             {
-               "title": "{{title}}",
-               "url": "{{url}}"
-             }{{#unless @last}},{{/unless}}
-             {{/each}}
-           ]
-           {{/if}}
-         }{{#unless @last}},{{/unless}}
-         {{/each}}
-       ]'
-       data-customer-url="{{routes.account_url}}"
-       data-show-localization="{{section.settings.show_localization}}">
-  </div>
-  
 </header>
 
 
 <script>
+  // Pass menu data to mobile menu component
+  window.mobileMenuData = [
+    {{#each linklists.main-menu.links}}
+    {
+      "title": "{{title}}",
+      "url": "{{url}}"
+      {{#if links}}
+      ,"links": [
+        {{#each links}}
+        {
+          "title": "{{title}}",
+          "url": "{{url}}"
+          {{#if links}}
+          ,"links": [
+            {{#each links}}
+            {"title": "{{title}}", "url": "{{url}}"}{{#unless @last}},{{/unless}}
+            {{/each}}
+          ]
+          {{/if}}
+        }{{#unless @last}},{{/unless}}
+        {{/each}}
+      ]
+      {{/if}}
+    }{{#unless @last}},{{/unless}}
+    {{/each}}
+  ];
+  window.mobileMenuCustomerUrl = {{#if customer}}"{{routes.account_url}}"{{else}}"{{routes.account_login_url}}"{{/if}};
+  window.mobileMenuShowLocalization = {{section.settings.show_localization}};
+  
   document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileMenu = document.querySelector('.mobile-menu-mount');
-    
-    if (mobileMenuToggle && mobileMenu) {
+    if (mobileMenuToggle) {
       mobileMenuToggle.addEventListener('click', function() {
-        const isExpanded = this.getAttribute('aria-expanded') === 'true';
-        this.setAttribute('aria-expanded', !isExpanded);
-        mobileMenu.style.display = isExpanded ? 'none' : 'block';
+        console.log('Mobile menu toggle clicked');
+        document.dispatchEvent(new CustomEvent('mobile-menu:open'));
       });
     }
     

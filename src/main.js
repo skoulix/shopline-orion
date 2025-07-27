@@ -117,16 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     app.mount(mount)
   })
 
-  // Mount MobileMenu components
-  const mobileMenuMounts = document.querySelectorAll('.mobile-menu-mount')
-  mobileMenuMounts.forEach(mount => {
-    const app = createApp(MobileMenu, {
-      menuItems: JSON.parse(mount.dataset.menuItems || '[]'),
-      customerUrl: mount.dataset.customerUrl || '/account',
-      showLocalization: mount.dataset.showLocalization === 'true'
-    })
-    app.mount(mount)
-  })
 
   // Mount CartDrawer components
   const cartDrawerMounts = document.querySelectorAll('.cart-drawer-mount')

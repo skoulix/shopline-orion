@@ -10,13 +10,13 @@
 							@click="closeDrawer"></div>
 					</Transition>
 
-					<div class="fixed inset-y-0 right-0 max-w-full flex">
-						<Transition name="slide">
+					<div class="fixed inset-y-0 right-0 max-w-full flex pointer-events-none">
+						<Transition name="slide" appear>
 							<div
 								v-if="isOpen"
-								class="w-screen max-w-md transform transition-transform duration-300 ease-out">
+								class="w-screen max-w-md pointer-events-auto">
 								<div
-									class="h-full flex flex-col bg-white shadow-xl">
+									class="h-full flex flex-col bg-white shadow-xl transition-shadow duration-300">
 									<!-- Header -->
 									<div
 										class="flex items-center justify-between px-4 py-6 sm:px-6 border-b border-gray-200">
@@ -331,22 +331,28 @@ onUnmounted(() => {
 	opacity: 0;
 }
 
-.slide-enter-active,
+.slide-enter-active {
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .slide-leave-active {
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.6, 1);
 }
 
 .slide-enter-from {
 	transform: translateX(100%);
+	opacity: 0.8;
 }
 
 .slide-leave-to {
 	transform: translateX(100%);
+	opacity: 0.8;
 }
 
 .slide-enter-to,
 .slide-leave-from {
 	transform: translateX(0);
+	opacity: 1;
 }
 
 /* Empty state icon styling */

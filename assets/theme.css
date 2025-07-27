@@ -1837,6 +1837,10 @@ select {
   pointer-events: none;
 }
 
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
 .invisible {
   visibility: hidden;
 }
