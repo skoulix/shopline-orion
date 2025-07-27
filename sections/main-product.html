@@ -1,4 +1,4 @@
-<div class="product-page bg-white">
+<main-product-detail class="product-page bg-white" data-product-id="{{product.id}}">
   <!-- Breadcrumb -->
   <div class="bg-gray-50 border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -178,7 +178,31 @@
     </div>
     {{/if}}
   </div>
-</div>
+</main-product-detail>
+
+<script>
+  // Define the main-product-detail custom element required by Shopline
+  if (!customElements.get('main-product-detail')) {
+    customElements.define('main-product-detail', class extends HTMLElement {
+      connectedCallback() {
+        // Basic initialization for Shopline compatibility
+        const productId = this.dataset.productId;
+        if (productId) {
+          // Store recently viewed products
+          try {
+            let recentlyViewed = JSON.parse(localStorage.getItem('recently_viewed_products_ids') || '[]');
+            recentlyViewed = recentlyViewed.filter(id => id !== productId);
+            recentlyViewed.unshift(productId);
+            recentlyViewed = recentlyViewed.slice(0, 13);
+            localStorage.setItem('recently_viewed_products_ids', JSON.stringify(recentlyViewed));
+          } catch (e) {
+            console.warn('Error storing recently viewed products:', e);
+          }
+        }
+      }
+    });
+  }
+</script>
 
 <script>
   // Product data
