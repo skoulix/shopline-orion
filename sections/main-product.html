@@ -1,242 +1,59 @@
 <div class="product-page py-8">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Breadcrumbs -->
-    {{#if section.settings.show_breadcrumb}}
-      <nav class="mb-6" aria-label="Breadcrumb">
-        <ol class="flex items-center space-x-2 text-sm text-gray-600">
-          <li><a href="/" class="hover:text-red-600">Home</a></li>
-          <li><span class="mx-2">/</span></li>
-          {{#if product.collections.first}}
-            <li><a href="{{product.collections.first.url}}" class="hover:text-red-600">{{product.collections.first.title}}</a></li>
-            <li><span class="mx-2">/</span></li>
-          {{/if}}
-          <li class="text-gray-900 font-medium">{{product.title}}</li>
-        </ol>
-      </nav>
-    {{/if}}
-
+    
+    <!-- Simple Product Display -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-      <!-- Product Images with Vue Gallery -->
+      <!-- Product Images -->
       <div class="product-images">
-        <product-gallery
-          :images='{{json product.images}}'
-          product-title="{{product.title}}"
-          :image-transform-width="1200"
-          :thumbnail-width="120"
-        ></product-gallery>
+        {{#if product.images}}
+          <div class="aspect-square mb-4">
+            <img src="{{image_url product.images.[0] width=800}}" 
+                 alt="{{product.title}}" 
+                 class="w-full h-full object-cover rounded-lg">
+          </div>
+          {{#if product.images.[1]}}
+            <div class="flex gap-2 overflow-x-auto">
+              {{#each product.images}}
+                <img src="{{image_url this width=120}}" 
+                     alt="{{../product.title}}" 
+                     class="w-20 h-20 object-cover rounded-md flex-shrink-0">
+              {{/each}}
+            </div>
+          {{/if}}
+        {{/if}}
       </div>
 
-      <!-- Product Info with Vue Component -->
-      <div class="product-info-wrapper">
-        {{assign "product_json" (json product)}}
-        <product-info
-          :product='{{product_json}}'
-          :show-buy-now="{{section.settings.show_buy_now}}"
-          @variant-change="handleVariantChange"
-        ></product-info>
+      <!-- Product Info -->
+      <div class="product-info">
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">{{product.title}}</h1>
+        
+        <p class="text-gray-600 mb-2">{{product.vendor}}</p>
+        
+        <div class="text-2xl font-bold text-red-600 mb-6">
+          {{money_with_currency product.price}}
+        </div>
+        
+        {{#if product.description}}
+          <div class="prose prose-sm mb-6">
+            {{product.description}}
+          </div>
+        {{/if}}
+        
+        <form action="/cart/add" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="{{product.first_available_variant.id}}">
+          <button type="submit" class="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors">
+            Add to Cart
+          </button>
+        </form>
       </div>
     </div>
-
-    <!-- Product Tabs -->
-    {{#if section.blocks}}
-      <div class="mt-12 border-t pt-12">
-        <div class="tabs">
-          <!-- Tab Headers -->
-          <div class="flex border-b">
-            {{#each section.blocks}}
-              {{#if type == "tab"}}
-                <button 
-                  class="tab-header px-4 py-2 font-medium text-gray-600 border-b-2 border-transparent hover:text-red-600 {{#if @first}}active text-red-600 border-red-600{{/if}}"
-                  data-tab="tab-{{@index}}"
-                >
-                  {{settings.title}}
-                </button>
-              {{/if}}
-            {{/each}}
-          </div>
-
-          <!-- Tab Content -->
-          <div class="tab-content">
-            {{#each section.blocks}}
-              {{#if type == "tab"}}
-                <div class="tab-pane pt-6 {{#unless @first}}hidden{{/unless}}" id="tab-{{@index}}">
-                  {{{settings.content}}}
-                </div>
-              {{/if}}
-            {{/each}}
-          </div>
-        </div>
-      </div>
-    {{/if}}
+    
   </div>
 </div>
 
-<script>
-  // Handle variant changes
-  function handleVariantChange(event) {
-    const variant = event.detail
-    // Update page elements that depend on variant
-    const url = new URL(window.location)
-    url.searchParams.set('variant', variant.id)
-    window.history.replaceState({}, '', url)
-  }
-
-  // Tab functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const tabHeaders = document.querySelectorAll('.tab-header')
-    const tabPanes = document.querySelectorAll('.tab-pane')
-
-    tabHeaders.forEach(header => {
-      header.addEventListener('click', () => {
-        const tabId = header.dataset.tab
-        
-        // Update headers
-        tabHeaders.forEach(h => {
-          h.classList.remove('active', 'text-red-600', 'border-red-600')
-          h.classList.add('text-gray-600')
-        })
-        header.classList.add('active', 'text-red-600', 'border-red-600')
-        header.classList.remove('text-gray-600')
-        
-        // Update panes
-        tabPanes.forEach(pane => {
-          pane.classList.add('hidden')
-        })
-        document.getElementById(tabId).classList.remove('hidden')
-      })
-    })
-  })
-</script>
-
-<style>
-  .tabs {
-    @apply w-full;
-  }
-  
-  .tab-header {
-    @apply transition-colors duration-200;
-  }
-  
-  .tab-header.active {
-    @apply border-red-600 text-red-600;
-  }
-</style>
-
 {{#schema}}
 {
-  "name": "t:sections.main-product.name",
-  "class": "section",
-  "settings": [
-    {
-      "type": "group_header",
-      "label": "t:sections.main-product.settings.group_header__0.label"
-    },
-    {
-      "type": "select",
-      "id": "gallery_layout",
-      "label": "t:sections.main-product.settings.gallery_layout.label",
-      "options": [
-        {
-          "value": "thumbnails_bottom",
-          "label": "t:sections.main-product.settings.gallery_layout.options__0.label"
-        },
-        {
-          "value": "thumbnails_left",
-          "label": "t:sections.main-product.settings.gallery_layout.options__1.label"
-        }
-      ],
-      "default": "thumbnails_bottom"
-    },
-    {
-      "type": "switch",
-      "id": "enable_zoom",
-      "label": "t:sections.main-product.settings.enable_zoom.label",
-      "default": true
-    },
-    {
-      "type": "switch",
-      "id": "enable_lightbox",
-      "label": "t:sections.main-product.settings.enable_lightbox.label",
-      "default": true
-    },
-    {
-      "type": "group_header",
-      "label": "t:sections.main-product.settings.group_header__1.label"
-    },
-    {
-      "type": "switch",
-      "id": "show_vendor",
-      "label": "t:sections.main-product.settings.show_vendor.label",
-      "default": true
-    },
-    {
-      "type": "switch",
-      "id": "show_sku",
-      "label": "t:sections.main-product.settings.show_sku.label",
-      "default": false
-    },
-    {
-      "type": "switch",
-      "id": "show_availability",
-      "label": "t:sections.main-product.settings.show_availability.label",
-      "default": true
-    },
-    {
-      "type": "switch",
-      "id": "show_buy_now",
-      "label": "t:sections.main-product.settings.show_buy_now.label",
-      "default": true
-    },
-    {
-      "type": "switch",
-      "id": "show_breadcrumb",
-      "label": "t:sections.main-product.settings.show_breadcrumb.label",
-      "default": true
-    }
-  ],
-  "blocks": [
-    {
-      "type": "tab",
-      "name": "t:sections.main-product.blocks.tab.name",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "t:sections.main-product.blocks.tab.settings.title.label",
-          "default": "Additional Information"
-        },
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "t:sections.main-product.blocks.tab.settings.content.label",
-          "default": "<p>Add custom product information here</p>"
-        }
-      ]
-    },
-    {
-      "type": "collapsible_row",
-      "name": "t:sections.main-product.blocks.collapsible_row.name",
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "t:sections.main-product.blocks.collapsible_row.settings.heading.label",
-          "default": "Shipping & Returns"
-        },
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "t:sections.main-product.blocks.collapsible_row.settings.content.label",
-          "default": "<p>Free shipping on orders over $50</p>"
-        },
-        {
-          "type": "switch",
-          "id": "open_by_default",
-          "label": "t:sections.main-product.blocks.collapsible_row.settings.open_by_default.label",
-          "default": false
-        }
-      ]
-    }
-  ]
+  "name": "Product",
+  "class": "section"
 }
 {{/schema}}
