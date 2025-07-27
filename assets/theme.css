@@ -2348,6 +2348,10 @@ select {
   min-width: 0px;
 }
 
+.min-w-\[200px\] {
+  min-width: 200px;
+}
+
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -4448,6 +4452,11 @@ sticky-header.sticky-header-wrapper.not-sticky {
 
 .focus\:border-transparent:focus {
   border-color: transparent;
+}
+
+.focus\:border-primary-500:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
 }
 
 .focus\:bg-gray-50:focus {

@@ -16,14 +16,10 @@
           </div>
           
           {{#if section.settings.enable_sorting}}
-            <select class="px-4 py-2 border border-gray-300 rounded-md">
-              <option value="manual">Featured</option>
-              <option value="best-selling">Best Selling</option>
-              <option value="title-ascending">A-Z</option>
-              <option value="title-descending">Z-A</option>
-              <option value="price-ascending">Price: Low to High</option>
-              <option value="price-descending">Price: High to Low</option>
-            </select>
+            <collection-sort
+              collection-handle="{{collection.handle}}"
+              current-sort="{{#if request.params.sort_by}}{{request.params.sort_by}}{{else}}manual{{/if}}"
+            ></collection-sort>
           {{/if}}
         </div>
       {{/if}}

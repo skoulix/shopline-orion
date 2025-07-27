@@ -10,6 +10,7 @@ import SiteFooter from './components/SiteFooter.vue'
 import ProductCard from './components/ProductCard.vue' // Mounted as Vue app, not custom element
 import CollectionFilters from './components/CollectionFilters.vue'
 import CollectionGrid from './components/CollectionGrid.vue'
+import CollectionSort from './components/CollectionSort.vue'
 import ProductGallery from './components/ProductGallery.vue'
 import ProductInfo from './components/ProductInfo.vue'
 import CartItem from './components/CartItem.vue'
@@ -71,6 +72,8 @@ const SiteFooterElement = defineCustomElement(SiteFooter)
 // const ProductCardElement = defineCustomElement(ProductCard)
 const CollectionFiltersElement = defineCustomElement(CollectionFilters)
 const CollectionGridElement = defineCustomElement(CollectionGrid)
+// Don't use custom element for CollectionSort due to style isolation
+// const CollectionSortElement = defineCustomElement(CollectionSort)
 const ProductGalleryElement = defineCustomElement(ProductGallery)
 const ProductInfoElement = defineCustomElement(ProductInfo)
 const CartItemElement = defineCustomElement(CartItem)
@@ -93,6 +96,7 @@ customElements.define('site-footer', SiteFooterElement)
 // customElements.define('product-card', ProductCardElement)
 customElements.define('collection-filters', CollectionFiltersElement)
 customElements.define('collection-grid', CollectionGridElement)
+// customElements.define('collection-sort', CollectionSortElement)
 customElements.define('product-gallery', ProductGalleryElement)
 customElements.define('product-info', ProductInfoElement)
 customElements.define('cart-item', CartItemElement)
@@ -145,6 +149,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const app = createApp(ProductCard, props)
+    app.mount(mount)
+  })
+
+  // Mount CollectionSort components (as Vue apps to avoid style isolation)
+  const collectionSortMounts = document.querySelectorAll('collection-sort')
+  collectionSortMounts.forEach(mount => {
+    const props = {
+      collectionHandle: mount.getAttribute('collection-handle'),
+      currentSort: mount.getAttribute('current-sort') || 'manual'
+    }
+    
+    const app = createApp(CollectionSort, props)
     app.mount(mount)
   })
 
