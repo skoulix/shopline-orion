@@ -248,20 +248,11 @@ const applyFilters = () => {
   }
   
   if (filters.value.priceRanges.length > 0) {
-    // Shopline uses specific price filter format
+    // Convert price ranges to a format that can be handled client-side
+    // Since Shopline doesn't support OR conditions in price filters via URL params,
+    // we'll store the selected ranges and handle filtering client-side
     filters.value.priceRanges.forEach(range => {
-      if (range === '0-50') {
-        params.append('filter.v.price.gte', '0')
-        params.append('filter.v.price.lte', '50')
-      } else if (range === '50-100') {
-        params.append('filter.v.price.gte', '50')
-        params.append('filter.v.price.lte', '100')
-      } else if (range === '100-200') {
-        params.append('filter.v.price.gte', '100')
-        params.append('filter.v.price.lte', '200')
-      } else if (range === '200+') {
-        params.append('filter.v.price.gte', '200')
-      }
+      params.append('filter.price.range', range)
     })
   }
   
@@ -329,8 +320,11 @@ onMounted(() => {
     filters.value.vendors = vendorParams
   }
   
-  // Price range filters are more complex to parse back
-  // For now, we'll skip loading them from URL
+  // Check price range filters
+  const priceRangeParams = params.getAll('filter.price.range')
+  if (priceRangeParams.length > 0) {
+    filters.value.priceRanges = priceRangeParams
+  }
 })
 
 // Clean up on unmount

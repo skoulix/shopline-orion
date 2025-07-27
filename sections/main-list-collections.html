@@ -13,10 +13,10 @@
           <!-- Collection Image -->
           {{#if ../section.settings.show_collection_image}}
             {{#if this.image}}
-              <div class="aspect-square bg-gray-100">
+              <div class="aspect-square bg-gray-100 overflow-hidden">
                 <img src="{{image_url this.image width=600}}" 
                      alt="{{this.title}}"
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
               </div>
             {{else}}
               <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">

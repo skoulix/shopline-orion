@@ -14868,7 +14868,7 @@ const X1 = { class: "sticky-header-container" }, Q1 = {
     }, d = () => {
       const p = new URLSearchParams(window.location.search);
       p.delete("filter.v.availability"), p.delete("filter.v.price"), p.delete("filter.p.product_type"), p.delete("filter.p.vendor"), s.value.inStock && p.set("filter.v.availability", "1"), s.value.priceRanges.length > 0 && s.value.priceRanges.forEach((g) => {
-        g === "0-50" ? (p.append("filter.v.price.gte", "0"), p.append("filter.v.price.lte", "50")) : g === "50-100" ? (p.append("filter.v.price.gte", "50"), p.append("filter.v.price.lte", "100")) : g === "100-200" ? (p.append("filter.v.price.gte", "100"), p.append("filter.v.price.lte", "200")) : g === "200+" && p.append("filter.v.price.gte", "200");
+        p.append("filter.price.range", g);
       }), s.value.types.length > 0 && s.value.types.forEach((g) => {
         p.append("filter.p.product_type", g);
       }), s.value.vendors.length > 0 && s.value.vendors.forEach((g) => {
@@ -14897,6 +14897,8 @@ const X1 = { class: "sticky-header-container" }, Q1 = {
       m.length > 0 && (s.value.types = m);
       const g = p.getAll("filter.p.vendor");
       g.length > 0 && (s.value.vendors = g);
+      const v = p.getAll("filter.price.range");
+      v.length > 0 && (s.value.priceRanges = v);
     }), Be(() => () => {
       document.body.style.overflow = "";
     }), (p, m) => (x(), S("div", null, [
@@ -15068,7 +15070,7 @@ const X1 = { class: "sticky-header-container" }, Q1 = {
       ]))
     ]));
   }
-}, z2 = /* @__PURE__ */ We(q2, [["__scopeId", "data-v-8e30472f"]]), K2 = { class: "product-gallery" }, W2 = { class: "main-image-wrapper" }, G2 = ["src", "alt"], Y2 = {
+}, z2 = /* @__PURE__ */ We(q2, [["__scopeId", "data-v-5d8cdc55"]]), K2 = { class: "product-gallery" }, W2 = { class: "main-image-wrapper" }, G2 = ["src", "alt"], Y2 = {
   key: 0,
   class: "absolute inset-0 flex items-center justify-center"
 }, J2 = {
