@@ -7,32 +7,30 @@
     {{/if}}
     
     {{#if section.settings.collection}}
-      {{!-- Simple approach: Loop through all_collections to find matching ID --}}
-      {{assign "products_displayed" false}}
-      
+      {{!-- Loop through all_collections to find matching ID --}}
       {{#each all_collections}}
         {{#if (eq this.id ../section.settings.collection)}}
-          {{assign "products_displayed" true}}
-          
           {{#if this.products}}
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {{#each this.products limit=../../section.settings.products_to_show}}
+            {{!-- Dynamic grid with data attribute for products count --}}
+            <div class="product-grid max-w-7xl mx-auto" data-products-count="{{@root.section.settings.products_to_show}}">
+              {{#each this.products limit=@root.section.settings.products_to_show}}
                 <div class="product-card-wrapper">
                   <product-card
                     product-id="{{this.id}}"
                     variant-id="{{this.variants.[0].id}}"
                     title="{{this.title}}"
                     handle="{{this.handle}}"
+                    vendor="{{this.vendor}}"
                     price="{{this.price}}"
                     compare-at-price="{{this.compare_at_price}}"
-                    image="{{this.images.[0].src}}"
+                    image="{{image_url this.images.[0] width=800}}"
                     :available="{{#if this.available}}true{{else}}false{{/if}}"
                   ></product-card>
                 </div>
               {{/each}}
             </div>
             
-            {{#if ../../section.settings.show_view_all}}
+            {{#if @root.section.settings.show_view_all}}
               <div class="text-center mt-8">
                 <a 
                   href="{{this.url}}" 
@@ -47,11 +45,6 @@
           {{/if}}
         {{/if}}
       {{/each}}
-      
-      {{#unless products_displayed}}
-        <p class="text-center text-gray-500 py-8">Collection not found.</p>
-      {{/unless}}
-      
     {{else}}
       <p class="text-center text-gray-500">Please select a collection to display products.</p>
     {{/if}}

@@ -211,6 +211,54 @@ Reference these CSS variables from arise-pro theme:
     - Cross-browser testing
     - Always check the Shopline CLI output for template compilation errors
 
+## Shopline Image Optimization
+
+### Image Filters
+Shopline provides image optimization filters similar to Shopify:
+
+1. **`image_url` filter** - Optimizes images with size parameters
+   ```handlebars
+   {{image_url product.images.[0] width=400}}
+   {{image_url item.image width=300}}
+   {{image_url data quality=quality}}
+   ```
+
+2. **`image_tag` helper** - Creates responsive img tags with srcset
+   ```handlebars
+   {{image_tag
+     (image_url data quality=quality)
+     class="product-image"
+     widths="375, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160"
+     loading="lazy"
+     sizes="(max-width: 959px) 100vw, 50vw"
+     alt=data.alt
+   }}
+   ```
+
+### Usage in Templates
+- For product cards: `{{image_url this.images.[0] width=800}}` (2x for retina displays)
+- For cart items: `{{image_url item.image width=150}}`
+- For thumbnails: `{{image_url image width=100}}`
+- For responsive images: Use `image_tag` with multiple widths
+
+### Recommended Sizes
+- Product cards in grid: 800px (serves 400px display size on retina)
+- Product detail images: 1200px or use responsive `image_tag`
+- Cart drawer items: 150px
+- Thumbnails: 100-150px
+
+### Best Practices
+- Always specify width to avoid loading full-size images
+- Use lazy loading for images below the fold
+- The arise theme uses predefined width breakpoints for responsive images
+- Images are automatically served in optimal formats (WebP when supported)
+
+### Important Notes
+- **URL parameters (like `?w=150&h=150`) do NOT work with Shopline's CDN for image resizing**
+- The `image_url` filter only works in Handlebars templates, not in JavaScript
+- Cart API returns pre-optimized images that should be used as-is
+- For dynamic image optimization in JavaScript, consider using CSS to constrain display size rather than trying to modify URLs
+
 ## API Endpoints
 
 ### Cart Routes (v20251201)

@@ -152,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
       variantId: mount.getAttribute('variant-id'),
       title: mount.getAttribute('title'),
       handle: mount.getAttribute('handle'),
+      vendor: mount.getAttribute('vendor'),
       price: mount.getAttribute('price'),
       compareAtPrice: mount.getAttribute('compare-at-price'),
       image: mount.getAttribute('image'),
@@ -207,6 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const response = await fetch(window.routes.cart_url + '.js')
         const cart = await response.json()
+        
+        // Note: Cart images from the API are already processed by Shopline
+        // Manual URL parameters don't work with Shopline's CDN for PNG files
+        
         this.state.items = cart.items
         this.state.totalPrice = cart.total_price
         this.state.itemCount = cart.item_count
