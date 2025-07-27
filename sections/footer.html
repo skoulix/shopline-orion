@@ -359,7 +359,6 @@
     
     if (copyrightText) {
       let html = copyrightText.innerHTML.trim();
-      console.log('Original copyright text:', html);
       
       // Check if there's already a year (2020-2099)
       if (/20\d{2}/.test(html)) {
@@ -370,7 +369,6 @@
         html = html.replace(/©\s*/g, `© ${currentYear} `);
       }
       
-      console.log('Updated copyright text:', html);
       copyrightText.innerHTML = html;
     }
     

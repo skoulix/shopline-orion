@@ -34,7 +34,7 @@
         {{/if}}>
   
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
+    <div class="flex items-center justify-between py-1">
       
       <!-- Mobile menu button -->
       <div class="md:hidden">
@@ -53,10 +53,10 @@
       <div class="flex-shrink-0">
         {{#if section.settings.logo}}
           <a href="/" class="flex items-center">
-            <img src="{{image_url section.settings.logo width=section.settings.logo_width}}" 
+            <img src="{{image_url section.settings.logo width=300}}" 
                  alt="{{shop.name}}" 
-                 class="h-8"
-                 style="max-width: {{section.settings.logo_width}}px;">
+                 class="h-auto"
+                 style="width: {{section.settings.logo_width}}px; max-width: {{section.settings.logo_width}}px;">
           </a>
         {{else}}
           <a href="/" class="flex items-center">
