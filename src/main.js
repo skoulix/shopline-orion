@@ -142,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
       variantId: mount.getAttribute('variant-id'),
       title: mount.getAttribute('title'),
       handle: mount.getAttribute('handle'),
+      url: mount.getAttribute('url'),
       vendor: mount.getAttribute('vendor'),
       price: mount.getAttribute('price'),
       compareAtPrice: mount.getAttribute('compare-at-price'),

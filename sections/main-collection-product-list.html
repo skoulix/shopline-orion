@@ -1,4 +1,4 @@
-<div class="collection-page pt-{{section.settings.padding_top}} pb-{{section.settings.padding_bottom}}">
+<div class="collection-page" style="padding-top: {{section.settings.padding_top}}px; padding-bottom: {{section.settings.padding_bottom}}px;">
   <div class="{{#if section.settings.full_width}}w-full{{else}}max-w-7xl mx-auto{{/if}} px-4 sm:px-6 lg:px-8">
     {{#if collection.products}}
       <!-- Filters and Sorting Bar -->
@@ -31,6 +31,7 @@
               variant-id="{{this.variants.[0].id}}"
               title="{{this.title}}"
               handle="{{this.handle}}"
+              url="{{this.url}}"
               vendor="{{this.vendor}}"
               price="{{this.price}}"
               compare-at-price="{{this.compare_at_price}}"
@@ -41,11 +42,59 @@
         {{/each}}
       </div>
     {{else}}
-      <div class="text-center py-12">
-        <p class="text-gray-500">No products found in this collection.</p>
-        <p class="text-sm text-gray-400 mt-2">Collection: {{collection.title}}</p>
-        <p class="text-sm text-gray-400 mt-2">Collection ID: {{collection.id}}</p>
-        <p class="text-sm text-gray-400 mt-2">Products Count: {{collection.products_count}}</p>
+      <div class="text-center py-16">
+        <!-- Empty State Icon -->
+        <div class="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+        
+        <!-- No Products Message -->
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
+        <p class="text-gray-500 mb-6 max-w-md mx-auto">
+          {{#if request.params.sort_by}}
+            Try adjusting your filters or search terms to find what you're looking for.
+          {{else}}
+            This collection doesn't have any products yet.
+          {{/if}}
+        </p>
+        
+        <!-- Reset Filters Button -->
+        <button
+          id="resetFiltersBtn"
+          onclick="window.location.href = window.location.pathname"
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors duration-200"
+          style="display: none;"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Reset all filters
+        </button>
+        
+        <script>
+          // Show reset button if there are any URL parameters that indicate filtering/sorting
+          (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hasFilters = urlParams.has('sort_by') || 
+                              Array.from(urlParams.keys()).some(key => key.startsWith('filter.'));
+            
+            if (hasFilters) {
+              const resetBtn = document.getElementById('resetFiltersBtn');
+              if (resetBtn) {
+                resetBtn.style.display = 'inline-flex';
+              }
+            }
+          })();
+        </script>
+        
+        <!-- Debug info (can be removed in production) -->
+        <div class="mt-8 text-xs text-gray-400 space-y-1">
+          <p>Collection: {{collection.title}}</p>
+          <p>Total Products: {{collection.products_count}}</p>
+          {{#if request.params.sort_by}}<p>Sort: {{request.params.sort_by}}</p>{{/if}}
+        </div>
       </div>
     {{/if}}
   </div>
@@ -153,21 +202,21 @@
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 20,
+      "max": 100,
       "step": 2,
-      "unit": "spacing units",
+      "unit": "px",
       "label": "t:sections.main-collection-product-list.settings.padding_top.label",
-      "default": 8
+      "default": 40
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 20,
+      "max": 100,
       "step": 2,
-      "unit": "spacing units",
+      "unit": "px",
       "label": "t:sections.main-collection-product-list.settings.padding_bottom.label",
-      "default": 8
+      "default": 80
     }
   ]
 }
