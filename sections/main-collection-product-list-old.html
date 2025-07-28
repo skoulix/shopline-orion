@@ -1,0 +1,448 @@
+<div class="collection-page" style="padding-top: {{section.settings.padding_top}}px; padding-bottom: {{section.settings.padding_bottom}}px;">
+  <div class="{{#if section.settings.full_width}}w-full{{else}}max-w-7xl mx-auto{{/if}} px-4 sm:px-6 lg:px-8">
+    {{#paginate collection.products by=section.settings.products_per_page}}
+      {{#if collection.products}}
+        {{#if (eq section.settings.filter_position "sidebar")}}
+          <!-- Sidebar Layout -->
+          <div class="flex gap-8">
+            <!-- Sidebar Filters -->
+            {{#if section.settings.enable_filtering}}
+              <aside class="w-64 flex-shrink-0 hidden lg:block">
+                <collection-filter-sidebar
+                  collection-handle="{{collection.handle}}"
+                  :show-sort="{{#if section.settings.enable_sorting}}true{{else}}false{{/if}}"
+                ></collection-filter-sidebar>
+              </aside>
+            {{/if}}
+            
+            <!-- Main Content -->
+            <div class="flex-1">
+              <!-- Mobile Filter Button -->
+              {{#if section.settings.enable_filtering}}
+                <div class="mb-6 lg:hidden">
+                  <collection-filter-drawer
+                    collection-handle="{{collection.handle}}"
+                  ></collection-filter-drawer>
+                </div>
+              {{/if}}
+              <div class="product-grid grid gap-4" 
+                   style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
+                   data-products-count="{{collection.products_count}}"
+                   data-desktop-columns="{{section.settings.columns_desktop}}"
+                   data-mobile-columns="{{section.settings.columns_mobile}}">
+                {{#each collection.products as |product|}}
+                  <div class="product-card-wrapper">
+                    <product-card
+                      product-id="{{product.id}}"
+                      variant-id="{{product.variants.[0].id}}"
+                      title="{{product.title}}"
+                      handle="{{product.handle}}"
+                      url="{{product.url}}"
+                      vendor="{{product.vendor}}"
+                      price="{{product.price}}"
+                      compare-at-price="{{product.compare_at_price}}"
+                      image="{{image_url product.images.[0] width=800}}"
+                      :available="{{#if product.available}}true{{else}}false{{/if}}"
+                    ></product-card>
+                  </div>
+                {{/each}}
+              </div>
+              
+              <!-- Pagination (only show if infinite scroll is disabled) -->
+              {{#unless section.settings.enable_infinite_scroll}}
+                {{#if (gt paginate.pages 1)}}
+                  <nav class="pagination mt-8 flex justify-center">
+                    {{snippet "pagination" paginate=paginate}}
+                  </nav>
+                {{/if}}
+              {{/unless}}
+            </div>
+          </div>
+        {{else}}
+          <!-- Drawer Layout (Default) -->
+          <!-- Filters and Sorting Bar -->
+          {{#if (or section.settings.enable_filtering section.settings.enable_sorting)}}
+            <div class="mb-6 flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                {{#if section.settings.enable_filtering}}
+                  <collection-filter-drawer
+                    collection-handle="{{collection.handle}}"
+                  ></collection-filter-drawer>
+                {{/if}}
+              </div>
+              
+              {{#if section.settings.enable_sorting}}
+                <collection-sort
+                  collection-handle="{{collection.handle}}"
+                  current-sort="{{#if request.params.sort_by}}{{request.params.sort_by}}{{else}}manual{{/if}}"
+                ></collection-sort>
+              {{/if}}
+            </div>
+          {{/if}}
+          
+          <!-- Products Grid -->
+          <div class="product-grid grid gap-4" 
+               style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
+               data-products-count="{{collection.products_count}}"
+               data-desktop-columns="{{section.settings.columns_desktop}}"
+               data-mobile-columns="{{section.settings.columns_mobile}}">
+            {{#each collection.products as |product|}}
+              <div class="product-card-wrapper">
+                <product-card
+                  product-id="{{product.id}}"
+                  variant-id="{{product.variants.[0].id}}"
+                  title="{{product.title}}"
+                  handle="{{product.handle}}"
+                  url="{{product.url}}"
+                  vendor="{{product.vendor}}"
+                  price="{{product.price}}"
+                  compare-at-price="{{product.compare_at_price}}"
+                  image="{{image_url product.images.[0] width=800}}"
+                  :available="{{#if product.available}}true{{else}}false{{/if}}"
+                ></product-card>
+              </div>
+            {{/each}}
+          </div>
+          
+          <!-- Pagination (only show if infinite scroll is disabled) -->
+          {{#unless section.settings.enable_infinite_scroll}}
+            {{#if (gt paginate.pages 1)}}
+              <nav class="pagination mt-8 flex justify-center">
+                {{snippet "pagination" paginate=paginate}}
+              </nav>
+            {{/if}}
+          {{/unless}}
+        {{/if}}
+      {{else}}
+        <div class="text-center py-16">
+          <!-- Empty State Icon -->
+          <div class="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          
+          <!-- No Products Message -->
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
+          <p class="text-gray-500 mb-6 max-w-md mx-auto">
+            {{#if request.params.sort_by}}
+              Try adjusting your filters or search terms to find what you're looking for.
+            {{else}}
+              This collection doesn't have any products yet.
+            {{/if}}
+          </p>
+          
+          <!-- Reset Filters Button -->
+          <button
+            id="resetFiltersBtn"
+            onclick="window.location.href = window.location.pathname"
+            class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors duration-200"
+            style="display: none;"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Reset all filters
+          </button>
+          
+          <script>
+            // Show reset button if there are any URL parameters that indicate filtering/sorting
+            (function() {
+              const urlParams = new URLSearchParams(window.location.search);
+              const hasFilters = urlParams.has('sort_by') || 
+                                Array.from(urlParams.keys()).some(key => key.startsWith('filter.'));
+              
+              if (hasFilters) {
+                const resetBtn = document.getElementById('resetFiltersBtn');
+                if (resetBtn) {
+                  resetBtn.style.display = 'inline-flex';
+                }
+              }
+            })();
+          </script>
+          
+          <!-- Debug info (can be removed in production) -->
+          <div class="mt-8 text-xs text-gray-400 space-y-1">
+            <p>Collection: {{collection.title}}</p>
+            <p>Total Products: {{collection.products_count}}</p>
+            {{#if request.params.sort_by}}<p>Sort: {{request.params.sort_by}}</p>{{/if}}
+          </div>
+        </div>
+      {{/if}}
+    {{/paginate}}
+  </div>
+</div>
+
+{{#if section.settings.enable_infinite_scroll}}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Infinite scroll implementation
+    const productGrids = document.querySelectorAll('.product-grid');
+    if (productGrids.length === 0) return;
+    
+    const productsPerPage = {{section.settings.products_per_page}};
+    const totalProducts = {{collection.products_count}};
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+    let currentPage = parseInt('{{#if request.params.page}}{{request.params.page}}{{else}}1{{/if}}');
+    let isLoading = false;
+    
+    // Create loading indicator
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'infinite-scroll-loading text-center py-8 hidden';
+    loadingDiv.innerHTML = `
+      <div class="inline-flex items-center gap-2">
+        <svg class="animate-spin h-5 w-5 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span class="text-gray-600">Loading more products...</span>
+      </div>
+    `;
+    
+    // Insert loading indicator after the last product grid
+    const lastGrid = productGrids[productGrids.length - 1];
+    lastGrid.parentNode.insertBefore(loadingDiv, lastGrid.nextSibling);
+    
+    // Function to load more products
+    async function loadMore() {
+      if (isLoading || currentPage >= totalPages) return;
+      
+      isLoading = true;
+      loadingDiv.classList.remove('hidden');
+      
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', currentPage + 1);
+        
+        const response = await fetch(url.toString());
+        const html = await response.text();
+        
+        // Parse the HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        
+        // Find new products
+        const newProducts = tempDiv.querySelectorAll('.product-grid .product-card-wrapper');
+        
+        if (newProducts.length > 0) {
+          // Find the appropriate grid to append to
+          const targetGrid = document.querySelector('.product-grid');
+          
+          // Append new products
+          newProducts.forEach(product => {
+            targetGrid.appendChild(product.cloneNode(true));
+          });
+          
+          // Mount Vue components for new products
+          if (window.mountVueComponents) {
+            window.mountVueComponents(targetGrid);
+          }
+          
+          currentPage++;
+          
+          // Update URL without reload
+          const newUrl = new URL(window.location.href);
+          newUrl.searchParams.set('page', currentPage);
+          window.history.replaceState({}, '', newUrl.toString());
+        }
+        
+        // Hide loading if no more pages
+        if (currentPage >= totalPages) {
+          loadingDiv.innerHTML = '<p class="text-gray-500">No more products to load</p>';
+        }
+      } catch (error) {
+        console.error('Error loading more products:', error);
+        loadingDiv.innerHTML = '<p class="text-red-600">Error loading products. Please try again.</p>';
+      } finally {
+        if (currentPage < totalPages) {
+          loadingDiv.classList.add('hidden');
+        }
+        isLoading = false;
+      }
+    }
+    
+    // Setup intersection observer
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !isLoading && currentPage < totalPages) {
+            loadMore();
+          }
+        });
+      }, {
+        rootMargin: '200px',
+        threshold: 0.1
+      });
+      
+      observer.observe(loadingDiv);
+    } else {
+      // Fallback: Add load more button
+      const loadMoreBtn = document.createElement('button');
+      loadMoreBtn.className = 'w-full mt-8 px-6 py-3 bg-gray-900 text-white rounded hover:bg-gray-800 transition-colors';
+      loadMoreBtn.textContent = 'Load More Products';
+      loadMoreBtn.onclick = loadMore;
+      loadingDiv.parentNode.insertBefore(loadMoreBtn, loadingDiv);
+    }
+  });
+</script>
+{{/if}}
+
+<style>
+  /* Ensure product grid has consistent spacing */
+  .product-grid {
+    width: 100%;
+  }
+  
+  /* Desktop columns - using data attributes to set grid columns */
+  @media (min-width: 768px) {
+    .product-grid[data-desktop-columns="2"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .product-grid[data-desktop-columns="3"] {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+    .product-grid[data-desktop-columns="4"] {
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+    .product-grid[data-desktop-columns="5"] {
+      grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    }
+  }
+  
+  /* Tablet columns - fixed at 3 for medium screens */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .product-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+  }
+  
+  /* Adjust grid columns when sidebar is present */
+  @media (min-width: 1024px) {
+    .collection-page .flex-1 .product-grid {
+      /* Ensure grid takes full width of the flex-1 container */
+      width: 100%;
+    }
+  }
+</style>
+
+{{#schema}}
+{
+  "name": "t:sections.main-collection-product-list.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "t:sections.main-collection-product-list.settings.group_header__0.label"
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "default": false,
+      "label": "t:sections.main-collection-product-list.settings.full_width.label",
+      "info": "t:sections.main-collection-product-list.settings.full_width.info"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 1,
+      "max": 48,
+      "step": 1,
+      "default": 24,
+      "label": "t:sections.main-collection-product-list.settings.products_per_page.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.main-collection-product-list.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.main-collection-product-list.settings.columns_mobile.options__0.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.main-collection-product-list.settings.columns_mobile.options__1.label"
+        }
+      ],
+      "default": "2",
+      "label": "t:sections.main-collection-product-list.settings.columns_mobile.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.main-collection-product-list.settings.group_header__1.label"
+    },
+    {
+      "type": "switch",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "t:sections.main-collection-product-list.settings.enable_filtering.label"
+    },
+    {
+      "type": "select",
+      "id": "filter_position",
+      "label": "t:sections.main-collection-product-list.settings.filter_position.label",
+      "default": "drawer",
+      "options": [
+        {
+          "value": "sidebar",
+          "label": "t:sections.main-collection-product-list.settings.filter_position.options__0.label"
+        },
+        {
+          "value": "drawer",
+          "label": "t:sections.main-collection-product-list.settings.filter_position.options__1.label"
+        }
+      ],
+      "info": "t:sections.main-collection-product-list.settings.filter_position.info"
+    },
+    {
+      "type": "switch",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "t:sections.main-collection-product-list.settings.enable_sorting.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.main-collection-product-list.settings.group_header__2.label"
+    },
+    {
+      "type": "switch",
+      "id": "enable_infinite_scroll",
+      "default": false,
+      "label": "t:sections.main-collection-product-list.settings.enable_infinite_scroll.label",
+      "info": "t:sections.main-collection-product-list.settings.enable_infinite_scroll.info"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.main-collection-product-list.settings.group_header__3.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.main-collection-product-list.settings.padding_top.label",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.main-collection-product-list.settings.padding_bottom.label",
+      "default": 80
+    }
+  ]
+}
+{{/schema}}

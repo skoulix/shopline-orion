@@ -264,6 +264,7 @@ function mountVueComponents(container = document) {
     app.mount(mount)
   })
 
+
   // Initialize sticky header behavior (only once, not per mount)
   if (container === document) {
     const stickyHeaders = document.querySelectorAll('.sticky-header')
@@ -423,6 +424,9 @@ if (!window.OrionCart) {
     })
   })
 }
+
+// Expose mountVueComponents globally for infinite scroll
+window.mountVueComponents = mountVueComponents
 
 // Mount Vue components on DOM ready
 document.addEventListener('DOMContentLoaded', () => {

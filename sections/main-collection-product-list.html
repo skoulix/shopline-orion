@@ -9,7 +9,6 @@
             <aside class="w-64 flex-shrink-0 hidden lg:block">
               <collection-filter-sidebar
                 collection-handle="{{collection.handle}}"
-                :products='{{json collection.products}}'
                 :show-sort="{{#if section.settings.enable_sorting}}true{{else}}false{{/if}}"
               ></collection-filter-sidebar>
             </aside>
@@ -22,19 +21,18 @@
               <div class="mb-6 lg:hidden">
                 <collection-filter-drawer
                   collection-handle="{{collection.handle}}"
-                  :products='{{json collection.products}}'
                 ></collection-filter-drawer>
               </div>
             {{/if}}
             
-            <!-- Products Grid -->
             <div class="product-grid grid gap-4" 
                  style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
-                 data-products-count="{{collection.products.length}}"
+                 data-products-count="{{collection.products_count}}"
                  data-desktop-columns="{{section.settings.columns_desktop}}"
-                 data-mobile-columns="{{section.settings.columns_mobile}}">
+                 data-mobile-columns="{{section.settings.columns_mobile}}"
+                 data-products-per-page="{{section.settings.products_per_page}}">
               {{#each collection.products}}
-                <div class="product-card-wrapper">
+                <div class="product-card-wrapper" data-product-index="{{@index}}">
                   <product-card
                     product-id="{{this.id}}"
                     variant-id="{{this.variants.[0].id}}"
@@ -61,7 +59,6 @@
               {{#if section.settings.enable_filtering}}
                 <collection-filter-drawer
                   collection-handle="{{collection.handle}}"
-                  :products='{{json collection.products}}'
                 ></collection-filter-drawer>
               {{/if}}
             </div>
@@ -78,11 +75,12 @@
         <!-- Products Grid -->
         <div class="product-grid grid gap-4" 
              style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
-             data-products-count="{{collection.products.length}}"
+             data-products-count="{{collection.products_count}}"
              data-desktop-columns="{{section.settings.columns_desktop}}"
-             data-mobile-columns="{{section.settings.columns_mobile}}">
+             data-mobile-columns="{{section.settings.columns_mobile}}"
+             data-products-per-page="{{section.settings.products_per_page}}">
           {{#each collection.products}}
-            <div class="product-card-wrapper">
+            <div class="product-card-wrapper" data-product-index="{{@index}}">
               <product-card
                 product-id="{{this.id}}"
                 variant-id="{{this.variants.[0].id}}"
@@ -117,42 +115,6 @@
             This collection doesn't have any products yet.
           {{/if}}
         </p>
-        
-        <!-- Reset Filters Button -->
-        <button
-          id="resetFiltersBtn"
-          onclick="window.location.href = window.location.pathname"
-          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors duration-200"
-          style="display: none;"
-        >
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-          </svg>
-          Reset all filters
-        </button>
-        
-        <script>
-          // Show reset button if there are any URL parameters that indicate filtering/sorting
-          (function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const hasFilters = urlParams.has('sort_by') || 
-                              Array.from(urlParams.keys()).some(key => key.startsWith('filter.'));
-            
-            if (hasFilters) {
-              const resetBtn = document.getElementById('resetFiltersBtn');
-              if (resetBtn) {
-                resetBtn.style.display = 'inline-flex';
-              }
-            }
-          })();
-        </script>
-        
-        <!-- Debug info (can be removed in production) -->
-        <div class="mt-8 text-xs text-gray-400 space-y-1">
-          <p>Collection: {{collection.title}}</p>
-          <p>Total Products: {{collection.products_count}}</p>
-          {{#if request.params.sort_by}}<p>Sort: {{request.params.sort_by}}</p>{{/if}}
-        </div>
       </div>
     {{/if}}
   </div>
@@ -196,6 +158,155 @@
   }
 </style>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const productGrids = document.querySelectorAll('.product-grid');
+  
+  productGrids.forEach(grid => {
+    const productsPerPage = parseInt(grid.getAttribute('data-products-per-page')) || 24;
+    const allProducts = Array.from(grid.querySelectorAll('.product-card-wrapper'));
+    const totalProducts = allProducts.length;
+    
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+    let currentPage = 1;
+    
+    // Get current page from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('page')) {
+      currentPage = parseInt(urlParams.get('page')) || 1;
+    }
+    
+    // Create pagination container
+    const paginationContainer = document.createElement('nav');
+    paginationContainer.className = 'pagination mt-8 flex justify-center items-center gap-2';
+    
+    function showPage(page) {
+      // Hide all products
+      allProducts.forEach(product => {
+        product.style.display = 'none';
+      });
+      
+      // Calculate start and end indices
+      const startIndex = (page - 1) * productsPerPage;
+      const endIndex = Math.min(startIndex + productsPerPage, totalProducts);
+      
+      // Show products for current page
+      for (let i = startIndex; i < endIndex; i++) {
+        if (allProducts[i]) {
+          allProducts[i].style.display = 'block';
+        }
+      }
+      
+      // Update pagination controls
+      updatePaginationControls(page);
+      
+      // Update URL
+      const newUrl = new URL(window.location.href);
+      if (page > 1) {
+        newUrl.searchParams.set('page', page);
+      } else {
+        newUrl.searchParams.delete('page');
+      }
+      window.history.replaceState({}, '', newUrl.toString());
+      
+      // Scroll to top of products
+      grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    function updatePaginationControls(page) {
+      // Only update if pagination exists
+      if (totalPages <= 1) return;
+      
+      paginationContainer.innerHTML = '';
+      
+      // Previous button
+      if (page > 1) {
+        const prevBtn = createPaginationButton('← Previous', () => showPage(page - 1));
+        paginationContainer.appendChild(prevBtn);
+      }
+      
+      // Page numbers
+      const pageNumbers = getPageNumbers(page, totalPages);
+      pageNumbers.forEach(num => {
+        if (num === '...') {
+          const dots = document.createElement('span');
+          dots.className = 'px-3 py-2 text-sm';
+          dots.textContent = '...';
+          paginationContainer.appendChild(dots);
+        } else {
+          const pageBtn = createPaginationButton(num, () => showPage(num), num === page);
+          paginationContainer.appendChild(pageBtn);
+        }
+      });
+      
+      // Next button
+      if (page < totalPages) {
+        const nextBtn = createPaginationButton('Next →', () => showPage(page + 1));
+        paginationContainer.appendChild(nextBtn);
+      }
+    }
+    
+    function createPaginationButton(text, onClick, isActive = false) {
+      const btn = document.createElement('button');
+      btn.textContent = text;
+      btn.onclick = onClick;
+      
+      if (isActive) {
+        btn.className = 'px-3 py-2 text-sm border border-red-600 bg-red-600 text-white rounded';
+      } else {
+        btn.className = 'px-3 py-2 text-sm border border-gray-300 rounded hover:bg-gray-50 transition-colors';
+      }
+      
+      return btn;
+    }
+    
+    function getPageNumbers(current, total) {
+      const delta = 2;
+      const range = [];
+      const rangeWithDots = [];
+      let l;
+      
+      for (let i = 1; i <= total; i++) {
+        if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+          range.push(i);
+        }
+      }
+      
+      range.forEach((i) => {
+        if (l) {
+          if (i - l !== 1) {
+            rangeWithDots.push('...');
+          }
+        }
+        rangeWithDots.push(i);
+        l = i;
+      });
+      
+      return rangeWithDots;
+    }
+    
+    // Only show pagination if there are multiple pages
+    if (totalPages > 1) {
+      // Insert pagination after the grid
+      grid.parentNode.insertBefore(paginationContainer, grid.nextSibling);
+    }
+    
+    // Initialize pagination
+    showPage(currentPage);
+    
+    // Mount Vue components for visible products
+    if (window.mountVueComponents) {
+      window.mountVueComponents(grid);
+    }
+  });
+  
+  // Re-initialize on browser back/forward
+  window.addEventListener('popstate', function() {
+    location.reload();
+  });
+});
+</script>
+
 {{#schema}}
 {
   "name": "t:sections.main-collection-product-list.name",
@@ -215,9 +326,9 @@
     {
       "type": "range",
       "id": "products_per_page",
-      "min": 8,
+      "min": 1,
       "max": 48,
-      "step": 4,
+      "step": 1,
       "default": 24,
       "label": "t:sections.main-collection-product-list.settings.products_per_page.label"
     },
@@ -260,7 +371,7 @@
       "type": "select",
       "id": "filter_position",
       "label": "t:sections.main-collection-product-list.settings.filter_position.label",
-      "default": "sidebar",
+      "default": "drawer",
       "options": [
         {
           "value": "sidebar",
@@ -282,17 +393,6 @@
     {
       "type": "group_header",
       "label": "t:sections.main-collection-product-list.settings.group_header__2.label"
-    },
-    {
-      "type": "switch",
-      "id": "enable_infinite_scroll",
-      "default": false,
-      "label": "t:sections.main-collection-product-list.settings.enable_infinite_scroll.label",
-      "info": "t:sections.main-collection-product-list.settings.enable_infinite_scroll.info"
-    },
-    {
-      "type": "group_header",
-      "label": "t:sections.main-collection-product-list.settings.group_header__3.label"
     },
     {
       "type": "range",
