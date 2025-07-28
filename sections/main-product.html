@@ -1,5 +1,6 @@
+<div class="product-section-wrapper" style="padding-top: {{default section.settings.padding_top 32}}px !important; padding-bottom: {{default section.settings.padding_bottom 32}}px !important;">
 <main-product-detail class="product-page bg-white" data-product-id="{{product.id}}">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     {{#if product}}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
       
@@ -221,6 +222,7 @@
     {{/if}}
   </div>
 </main-product-detail>
+</div>
 
 <script>
   // Define the main-product-detail custom element required by Shopline
@@ -651,6 +653,30 @@
       "id": "show_buy_now",
       "label": "Show Buy Now button",
       "default": true
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.main-product.settings.group_header__2.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.main-product.settings.padding_top.label",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.main-product.settings.padding_bottom.label",
+      "default": 32
     }
   ]
 }

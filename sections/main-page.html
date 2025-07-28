@@ -1,4 +1,4 @@
-<div class="page-content py-12">
+<div class="page-content" style="background-color: {{default section.settings.background_color '#ffffff'}}; padding-top: {{default section.settings.padding_top 48}}px !important; padding-bottom: {{default section.settings.padding_bottom 48}}px !important;">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     <h1 class="text-3xl font-bold text-gray-900 mb-8">{{page.title}}</h1>
     
@@ -11,6 +11,38 @@
 {{#schema}}
 {
   "name": "Page",
-  "class": "section"
+  "class": "section",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "t:sections.main-page.settings.group_header__0.label"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "t:sections.main-page.settings.background_color.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.main-page.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.main-page.settings.padding_bottom.label",
+      "default": 48
+    }
+  ]
 }
 {{/schema}}

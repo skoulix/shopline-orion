@@ -1,49 +1,220 @@
-<div class="product-recommendations-section py-12 bg-gray-50" id="product-recommendations-{{section.id}}">
+{{#if product}}
+<div class="product-recommendations-section" 
+     style="background-color: {{default section.settings.background_color '#f9fafb'}}; padding-top: {{default section.settings.padding_top 48}}px !important; padding-bottom: {{default section.settings.padding_bottom 48}}px !important;"
+     data-url="{{routes.product_recommendations_url}}" 
+     data-product-id="{{product.id}}" 
+     data-limit="{{section.settings.products_to_show}}" 
+     data-section-id="{{section.id}}">
+  
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">
       {{section.settings.heading}}
     </h2>
     
-    <!-- Recommendations will be loaded here -->
-    <div class="recommendations-container" 
-         data-section-id="{{section.id}}"
-         data-product-id="{{product.id}}"
-         data-limit="{{section.settings.products_to_show}}">
-      <div class="text-center py-8">
-        <p class="text-gray-500">Recommendations will appear here</p>
-      </div>
+    <div class="recommendations-container">
+      <!-- Check if recommendations object is available and performed -->
+      {{#if recommendations}}
+        {{#if recommendations.performed}}
+          {{#if recommendations.products}}
+            {{#if (gt recommendations.products_count 0)}}
+              <div class="recommendations-grid grid gap-6" 
+                   data-desktop-columns="{{section.settings.columns_desktop}}"
+                   style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));">
+                
+                {{#each recommendations.products limit=section.settings.products_to_show}}
+                  <div class="product-card-wrapper">
+                    <product-card
+                      product-id="{{this.id}}"
+                      variant-id="{{this.variants.[0].id}}"
+                      title="{{this.title}}"
+                      handle="{{this.handle}}"
+                      url="{{this.url}}"
+                      vendor="{{this.vendor}}"
+                      price="{{this.price}}"
+                      compare-at-price="{{this.compare_at_price}}"
+                      image="{{image_url this.images.[0] width=800}}"
+                      :available="{{#if this.available}}true{{else}}false{{/if}}"
+                    ></product-card>
+                  </div>
+                {{/each}}
+                
+              </div>
+            {{else}}
+              <!-- No recommended products available, use AJAX fallback -->
+              <div class="recommendations-grid grid gap-6" 
+                   data-desktop-columns="{{section.settings.columns_desktop}}"
+                   style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
+                   id="recommendations-ajax">
+                <div class="col-span-full text-center py-8 text-gray-500">
+                  <div class="animate-pulse">Loading recommendations...</div>
+                </div>
+              </div>
+            {{/if}}
+          {{else}}
+            <!-- Recommendations object exists but no products, use AJAX fallback -->
+            <div class="recommendations-grid grid gap-6" 
+                 data-desktop-columns="{{section.settings.columns_desktop}}"
+                 style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
+                 id="recommendations-ajax">
+              <div class="col-span-full text-center py-8 text-gray-500">
+                <div class="flex items-center justify-center space-x-2">
+                  <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-400"></div>
+                  <span>Loading recommendations...</span>
+                </div>
+              </div>
+            </div>
+          {{/if}}
+        {{else}}
+          <!-- Recommendations not performed (recommendations.performed = false), use AJAX -->
+          <div class="recommendations-grid grid gap-6" 
+               data-desktop-columns="{{section.settings.columns_desktop}}"
+               style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
+               id="recommendations-ajax">
+            <div class="col-span-full text-center py-8 text-gray-500">
+              <div class="flex items-center justify-center space-x-2">
+                <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-400"></div>
+                <span>Loading recommendations...</span>
+              </div>
+            </div>
+          </div>
+        {{/if}}
+      {{else}}
+        <!-- Recommendations object not available, use AJAX -->
+        <div class="recommendations-grid grid gap-6" 
+             data-desktop-columns="{{section.settings.columns_desktop}}"
+             style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
+             id="recommendations-ajax">
+          <div class="col-span-full text-center py-8 text-gray-500">
+            <div class="flex items-center justify-center space-x-2">
+              <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-400"></div>
+              <span>Loading recommendations...</span>
+            </div>
+          </div>
+        </div>
+      {{/if}}
     </div>
   </div>
 </div>
+{{/if}}
 
 <script>
-// Simple approach - just show a message for now
 document.addEventListener('DOMContentLoaded', function() {
-  const container = document.querySelector('.recommendations-container');
-  if (!container) return;
+  // Mount Vue components for product cards that are already rendered
+  const recommendationsGrid = document.querySelector('.recommendations-grid');
+  if (recommendationsGrid && window.mountVueComponents) {
+    window.mountVueComponents(recommendationsGrid);
+  }
   
-  const productId = container.dataset.productId;
-  const limit = container.dataset.limit || 4;
-  
-  console.log('Product recommendations:', {
-    productId: productId,
-    limit: limit,
-    product: {{#if product}}true{{else}}false{{/if}},
-    routes: window.routes
-  });
-  
-  // For now, just show a placeholder message
-  // In a real implementation, this would fetch from Shopline's recommendations API
-  container.innerHTML = `
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <div class="col-span-full text-center py-8 text-gray-500">
-        <p>Product recommendations are not currently available.</p>
-        <p class="text-sm mt-2">This feature requires Shopline's recommendation API to be enabled.</p>
+  // Handle AJAX loading if needed
+  const ajaxContainer = document.getElementById('recommendations-ajax');
+  if (ajaxContainer) {
+    const section = document.querySelector('.product-recommendations-section');
+    const productId = section.dataset.productId;
+    const limit = section.dataset.limit || 4;
+    const sectionId = section.dataset.sectionId;
+    
+    // Show enhanced loading state
+    ajaxContainer.innerHTML = `
+      <div class="col-span-full text-center py-12 text-gray-500">
+        <div class="flex flex-col items-center justify-center space-y-4">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600"></div>
+          <span class="text-sm">Finding products you might like...</span>
+        </div>
       </div>
-    </div>
-  `;
+    `;
+    
+    // Use the official Shopline recommendations route
+    const baseUrl = section.dataset.url || '/recommendations/products';
+    const url = `${baseUrl}?section_id=${sectionId}&product_id=${productId}&limit=${limit}`;
+    
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text(); // Get HTML response from Shopline
+      })
+      .then(html => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        const recommendationsContent = tempDiv.querySelector('.recommendations-grid');
+        
+        if (recommendationsContent && recommendationsContent.children.length > 0) {
+          ajaxContainer.innerHTML = recommendationsContent.innerHTML;
+          
+          // Mount Vue components for the new products
+          if (window.mountVueComponents) {
+            window.mountVueComponents(ajaxContainer);
+          }
+        } else {
+          showNoRecommendations(ajaxContainer);
+        }
+      })
+      .catch(error => {
+        console.log('Recommendations API not available:', error);
+        showNoRecommendations(ajaxContainer);
+      });
+  }
+  
+  function renderProducts(products, container) {
+    const limit = parseInt(document.querySelector('.product-recommendations-section').dataset.limit) || 4;
+    const productsToShow = products.slice(0, limit);
+    
+    container.innerHTML = '';
+    
+    productsToShow.forEach(product => {
+      const productHtml = `
+        <div class="product-card-wrapper">
+          <product-card
+            product-id="${product.id}"
+            variant-id="${product.variants && product.variants[0] ? product.variants[0].id : ''}"
+            title="${product.title || ''}"
+            handle="${product.handle || ''}"
+            url="/products/${product.handle || ''}"
+            vendor="${product.brand || ''}"
+            price="${product.price || 0}"
+            compare-at-price="${product.compare_at_price || 0}"
+            image="${product.images && product.images[0] ? product.images[0] : ''}"
+            :available="${!product.sold_out ? 'true' : 'false'}"
+          ></product-card>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', productHtml);
+    });
+    
+    // Mount Vue components
+    if (window.mountVueComponents) {
+      window.mountVueComponents(container);
+    }
+  }
+  
+  function showNoRecommendations(container) {
+    // Hide the whole section instead of showing an error
+    const section = document.querySelector('.product-recommendations-section');
+    if (section) {
+      section.style.display = 'none';
+    }
+  }
 });
 </script>
+
+<style>
+  /* Responsive grid for recommendations */
+  @media (min-width: 768px) {
+    .recommendations-grid[data-desktop-columns="2"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .recommendations-grid[data-desktop-columns="3"] {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+    .recommendations-grid[data-desktop-columns="4"] {
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+    .recommendations-grid[data-desktop-columns="5"] {
+      grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    }
+  }
+</style>
 
 {{#schema}}
 {
@@ -89,6 +260,36 @@ document.addEventListener('DOMContentLoaded', function() {
       ],
       "default": 2,
       "label": "t:sections.product-recommendations.settings.columns_mobile.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.product-recommendations.settings.group_header__0.label"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#f9fafb",
+      "label": "t:sections.product-recommendations.settings.background_color.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.product-recommendations.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.product-recommendations.settings.padding_bottom.label",
+      "default": 48
     }
   ]
 }

@@ -10,7 +10,9 @@
         "show_sku": false,
         "show_availability": true,
         "show_buy_now": true,
-        "show_breadcrumb": true
+        "show_breadcrumb": true,
+        "padding_top": 32,
+        "padding_bottom": 32
       }
     },
     "recommendations": {

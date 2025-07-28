@@ -1,4 +1,4 @@
-<div class="featured-collection py-12 bg-white">
+<div class="featured-collection bg-white" style="padding-top: {{default section.settings.padding_top 48}}px !important; padding-bottom: {{default section.settings.padding_bottom 48}}px !important;">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     {{#if section.settings.title}}
       <h2 class="text-3xl font-bold text-gray-900 mb-8 {{#if (eq section.settings.title_alignment 'left')}}text-left{{else if (eq section.settings.title_alignment 'right')}}text-right{{else}}text-center{{/if}}">
@@ -128,6 +128,30 @@
       "id": "show_view_all",
       "default": true,
       "label": "t:sections.featured-collection.settings.show_view_all.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.featured-collection.settings.group_header__1.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.featured-collection.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.featured-collection.settings.padding_bottom.label",
+      "default": 48
     }
   ]
 }
