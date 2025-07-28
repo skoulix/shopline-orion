@@ -113,34 +113,39 @@ customElements.define('video-player', VideoPlayerElement)
 customElements.define('password-modal', PasswordModalElement)
 customElements.define('search-overlay', SearchOverlayElement)
 
-// Mount Vue components on regular HTML elements
-document.addEventListener('DOMContentLoaded', () => {
-  // Theme settings are available via Shopline.theme.settings
-  
-  // Button settings are available via Shopline.theme.settings
-  
+// Function to mount all Vue components
+function mountVueComponents(container = document) {
   // Mount MainHeader components
-  const mainHeaderMounts = document.querySelectorAll('.main-header-mount')
+  const mainHeaderMounts = container.querySelectorAll('.main-header-mount')
   mainHeaderMounts.forEach(mount => {
+    // Skip if already mounted
+    if (mount._vueApp) return
+    
     const app = createApp(MainHeader, {
       shopName: mount.dataset.shopName || 'Orion Store',
       logoUrl: mount.dataset.logoUrl || '',
       navigationLinks: JSON.parse(mount.dataset.navigationLinks || '[]')
     })
+    mount._vueApp = app
     app.mount(mount)
   })
 
 
   // Mount CartDrawer components
-  const cartDrawerMounts = document.querySelectorAll('.cart-drawer-mount')
+  const cartDrawerMounts = container.querySelectorAll('.cart-drawer-mount')
   cartDrawerMounts.forEach(mount => {
+    if (mount._vueApp) return
+    
     const app = createApp(CartDrawer)
+    mount._vueApp = app
     app.mount(mount)
   })
 
   // Mount ProductCard components (as Vue apps to avoid style isolation)
-  const productCardMounts = document.querySelectorAll('product-card')
+  const productCardMounts = container.querySelectorAll('product-card')
   productCardMounts.forEach(mount => {
+    if (mount._vueApp) return
+    
     // Extract props from attributes
     const props = {
       productId: mount.getAttribute('product-id'),
@@ -156,24 +161,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const app = createApp(ProductCard, props)
+    mount._vueApp = app
     app.mount(mount)
   })
 
   // Mount CollectionSort components (as Vue apps to avoid style isolation)
-  const collectionSortMounts = document.querySelectorAll('collection-sort')
+  const collectionSortMounts = container.querySelectorAll('collection-sort')
   collectionSortMounts.forEach(mount => {
+    if (mount._vueApp) return
+    
     const props = {
       collectionHandle: mount.getAttribute('collection-handle'),
       currentSort: mount.getAttribute('current-sort') || 'manual'
     }
     
     const app = createApp(CollectionSort, props)
+    mount._vueApp = app
     app.mount(mount)
   })
   
   // Mount Button components (as Vue apps to access CSS variables)
-  const buttonMounts = document.querySelectorAll('orion-button')
+  const buttonMounts = container.querySelectorAll('orion-button')
   buttonMounts.forEach(mount => {
+    if (mount._vueApp) return
+    
     const props = {
       variant: mount.getAttribute('variant') || 'primary',
       size: mount.getAttribute('size') || 'medium',
@@ -190,24 +201,30 @@ document.addEventListener('DOMContentLoaded', () => {
       template: `<Button v-bind="$attrs">${mount.innerHTML}</Button>`
     }, props)
     
+    mount._vueApp = app
     app.mount(mount)
   })
 
   // Mount CollectionFilterDrawer components (as Vue apps to avoid style isolation)
-  const filterDrawerMounts = document.querySelectorAll('collection-filter-drawer')
+  const filterDrawerMounts = container.querySelectorAll('collection-filter-drawer')
   filterDrawerMounts.forEach(mount => {
+    if (mount._vueApp) return
+    
     const props = {
       collectionHandle: mount.getAttribute('collection-handle'),
       products: JSON.parse(mount.getAttribute(':products') || '[]')
     }
     
     const app = createApp(CollectionFilterDrawer, props)
+    mount._vueApp = app
     app.mount(mount)
   })
 
   // Mount ArticleCard components (as Vue apps to avoid style isolation)
-  const articleCardMounts = document.querySelectorAll('article-card')
+  const articleCardMounts = container.querySelectorAll('article-card')
   articleCardMounts.forEach(mount => {
+    if (mount._vueApp) return
+    
     const props = {
       title: mount.getAttribute('title'),
       url: mount.getAttribute('url'),
@@ -227,42 +244,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const app = createApp(ArticleCard, props)
+    mount._vueApp = app
     app.mount(mount)
   })
 
-  // Initialize sticky header behavior
-  const stickyHeaders = document.querySelectorAll('.sticky-header')
-  stickyHeaders.forEach(header => {
-    if (header.dataset.sticky === 'true') {
-      let lastScrollY = window.scrollY
-      
-      window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY
-        const isTransparent = header.dataset.transparent === 'true'
-        const hideOnScroll = header.dataset.hideOnScroll === 'true'
+  // Initialize sticky header behavior (only once, not per mount)
+  if (container === document) {
+    const stickyHeaders = document.querySelectorAll('.sticky-header')
+    stickyHeaders.forEach(header => {
+      if (header.dataset.sticky === 'true' && !header._stickyInitialized) {
+        header._stickyInitialized = true
+        let lastScrollY = window.scrollY
         
-        if (currentScrollY > 100 && !isTransparent) {
-          header.classList.add('sticky', 'top-0', 'shadow-md')
-          header.style.backgroundColor = header.dataset.stickyBackground || '#ffffff'
-        } else {
-          header.classList.remove('sticky', 'shadow-md')
-          header.style.backgroundColor = ''
-        }
-        
-        if (hideOnScroll) {
-          if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            header.style.transform = 'translateY(-100%)'
+        window.addEventListener('scroll', () => {
+          const currentScrollY = window.scrollY
+          const isTransparent = header.dataset.transparent === 'true'
+          const hideOnScroll = header.dataset.hideOnScroll === 'true'
+          
+          if (currentScrollY > 100 && !isTransparent) {
+            header.classList.add('sticky', 'top-0', 'shadow-md')
+            header.style.backgroundColor = header.dataset.stickyBackground || '#ffffff'
           } else {
-            header.style.transform = 'translateY(0)'
+            header.classList.remove('sticky', 'shadow-md')
+            header.style.backgroundColor = ''
           }
-        }
-        
-        lastScrollY = currentScrollY
-      })
-    }
-  })
+          
+          if (hideOnScroll) {
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+              header.style.transform = 'translateY(-100%)'
+            } else {
+              header.style.transform = 'translateY(0)'
+            }
+          }
+          
+          lastScrollY = currentScrollY
+        })
+      }
+    })
+  }
+}
 
-  // Cart state management
+// Cart state management (initialize once)
+if (!window.OrionCart) {
   window.OrionCart = {
     state: {
       isOpen: false,
@@ -383,6 +406,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
-  
-  
+}
+
+// Mount Vue components on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+  mountVueComponents()
 })
+
+// Handle Shopline theme editor events
+if (window.Shopline?.designMode || window.location.href.includes('theme_preview_mode')) {
+  // Section load event - when a section is added or its settings change
+  document.addEventListener('shopline:section:load', (event) => {
+    const sectionElement = document.querySelector(`[data-section-id="${event.detail.sectionId}"]`) || document
+    mountVueComponents(sectionElement)
+  })
+  
+  // Section reorder event
+  document.addEventListener('shopline:section:reorder', () => {
+    mountVueComponents()
+  })
+  
+  // Block select/deselect events for interactive components
+  document.addEventListener('shopline:block:select', (event) => {
+    const blockElement = document.querySelector(`[data-block-id="${event.detail.blockId}"]`)
+    if (blockElement) {
+      mountVueComponents(blockElement)
+    }
+  })
+}
