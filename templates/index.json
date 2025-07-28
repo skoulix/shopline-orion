@@ -1,23 +1,28 @@
 {
   "sections": {
     "hero": {
+      "disabled": false,
       "type": "hero-banner",
       "settings": {
         "title": "Welcome to Orion",
         "subtitle": "Discover amazing products",
         "button_label": "Shop Now",
         "button_link": "/collections/all",
-        "image": "",
-        "height": "large"
-      }
+        "height": "large",
+        "image": ""
+      },
+      "blocks": {}
     },
     "featured-collection": {
+      "disabled": false,
       "type": "featured-collection",
       "settings": {
         "title": "Featured Products",
-        "collection": "",
-        "products_to_show": 8
-      }
+        "products_to_show": 2,
+        "collection": "12271001045702405491553770"
+      },
+      "blocks": {},
+      "custom_css": []
     }
   },
   "order": [
