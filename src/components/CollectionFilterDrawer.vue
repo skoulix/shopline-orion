@@ -10,9 +10,10 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
       </svg>
       <span>Filter</span>
-      <span v-if="activeFilterCount > 0" class="ml-1 px-2 py-0.5 text-xs bg-gray-900 text-white"
-        :style="{ borderRadius: '9999px' }">
-        {{ activeFilterCount }}
+      <span class="ml-1 px-2 py-0.5 text-xs bg-gray-900 text-white transition-opacity duration-200"
+        :style="{ borderRadius: '9999px' }"
+        :class="{ 'opacity-0': activeFilterCount === 0, 'opacity-100': activeFilterCount > 0 }">
+        {{ activeFilterCount || '0' }}
       </span>
     </button>
 
@@ -38,10 +39,11 @@
                   <div class="h-full flex flex-col bg-white shadow-xl transition-shadow duration-300">
                     <!-- Header -->
                     <div class="flex items-center justify-between px-4 py-6 sm:px-6 border-b border-gray-200">
-                      <div>
+                      <div class="h-12 flex flex-col justify-between">
                         <h2 class="text-lg font-medium text-gray-900">Filters</h2>
-                        <p v-if="activeFilterCount > 0" class="text-sm text-gray-500 mt-1">
-                          {{ activeFilterCount }} {{ activeFilterCount === 1 ? 'filter' : 'filters' }} active
+                        <p class="text-sm text-gray-500 h-5 transition-opacity duration-200"
+                           :class="{ 'opacity-0': activeFilterCount === 0, 'opacity-100': activeFilterCount > 0 }">
+                          {{ activeFilterCount || '0' }} {{ (activeFilterCount || 0) === 1 ? 'filter' : 'filters' }} active
                         </p>
                       </div>
                       <button
@@ -161,7 +163,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
   products: {
@@ -222,6 +224,8 @@ const activeFilterCount = computed(() => {
 const toggleDrawer = () => {
   isOpen.value = !isOpen.value
   if (isOpen.value) {
+    // Sync filters with URL when opening drawer
+    loadFiltersFromURL()
     document.body.style.overflow = 'hidden'
   } else {
     document.body.style.overflow = ''
@@ -236,11 +240,19 @@ const closeDrawer = () => {
 const applyFilters = () => {
   const params = new URLSearchParams(window.location.search)
   
-  // Clear existing filter params
-  params.delete('filter.v.availability')
-  params.delete('filter.v.price')
-  params.delete('filter.p.product_type')
-  params.delete('filter.p.vendor')
+  // Clear ALL existing filter params (including multiple values)
+  const keysToDelete = []
+  for (const [key] of params) {
+    if (key.startsWith('filter.')) {
+      keysToDelete.push(key)
+    }
+  }
+  keysToDelete.forEach(key => {
+    // Delete all instances of this key
+    while (params.has(key)) {
+      params.delete(key)
+    }
+  })
   
   // Add active filters
   if (filters.value.inStock) {
@@ -270,6 +282,7 @@ const applyFilters = () => {
   
   // Update URL and reload
   const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`
+  console.log('Applying filters, new URL:', newUrl)
   window.location.href = newUrl
 }
 
@@ -299,9 +312,17 @@ const clearFilters = () => {
   window.location.href = newUrl
 }
 
-// Load filters from URL on mount
-onMounted(() => {
+// Function to load filters from URL
+const loadFiltersFromURL = () => {
   const params = new URLSearchParams(window.location.search)
+  
+  // Reset filters first
+  filters.value = {
+    inStock: false,
+    priceRanges: [],
+    types: [],
+    vendors: []
+  }
   
   // Check availability filter
   if (params.get('filter.v.availability') === '1') {
@@ -325,13 +346,26 @@ onMounted(() => {
   if (priceRangeParams.length > 0) {
     filters.value.priceRanges = priceRangeParams
   }
+  
+  console.log('URL Params loaded:', Object.fromEntries(params.entries()))
+  console.log('Loaded filters:', filters.value)
+}
+
+// Handle popstate events (back/forward navigation)
+const handlePopState = () => {
+  loadFiltersFromURL()
+}
+
+// Load filters from URL on mount
+onMounted(() => {
+  loadFiltersFromURL()
+  window.addEventListener('popstate', handlePopState)
 })
 
-// Clean up on unmount
-onMounted(() => {
-  return () => {
-    document.body.style.overflow = ''
-  }
+// Clean up event listener and body overflow
+onBeforeUnmount(() => {
+  window.removeEventListener('popstate', handlePopState)
+  document.body.style.overflow = ''
 })
 </script>
 

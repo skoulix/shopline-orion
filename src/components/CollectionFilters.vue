@@ -35,6 +35,20 @@
         </select>
       </div>
 
+      <!-- Availability -->
+      <div class="filter-group">
+        <h3 class="font-medium text-secondary-900 mb-3">Availability</h3>
+        <label class="flex items-center">
+          <input
+            type="checkbox"
+            v-model="inStockOnly"
+            @change="updateFilters"
+            class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
+          />
+          <span class="ml-2 text-sm">In stock only</span>
+        </label>
+      </div>
+
       <!-- Price Range -->
       <div class="filter-group">
         <h3 class="font-medium text-secondary-900 mb-3">Price</h3>
@@ -116,20 +130,6 @@
         </div>
       </div>
 
-      <!-- Availability -->
-      <div class="filter-group">
-        <h3 class="font-medium text-secondary-900 mb-3">Availability</h3>
-        <label class="flex items-center">
-          <input
-            type="checkbox"
-            v-model="inStockOnly"
-            @change="updateFilters"
-            class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
-          />
-          <span class="ml-2 text-sm">In stock only</span>
-        </label>
-      </div>
-
         <!-- Clear Filters -->
         <button
           v-if="hasActiveFilters"
@@ -187,6 +187,20 @@
                     <option value="created-ascending">Date, old to new</option>
                     <option value="created-descending">Date, new to old</option>
                   </select>
+                </div>
+
+                <!-- Availability -->
+                <div class="filter-group">
+                  <h3 class="font-medium text-secondary-900 mb-3">Availability</h3>
+                  <label class="flex items-center">
+                    <input
+                      type="checkbox"
+                      v-model="inStockOnly"
+                      @change="updateFilters"
+                      class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
+                    />
+                    <span class="ml-2 text-sm">In stock only</span>
+                  </label>
                 </div>
 
                 <!-- Price Range -->
@@ -270,20 +284,6 @@
                   </div>
                 </div>
 
-                <!-- Availability -->
-                <div class="filter-group">
-                  <h3 class="font-medium text-secondary-900 mb-3">Availability</h3>
-                  <label class="flex items-center">
-                    <input
-                      type="checkbox"
-                      v-model="inStockOnly"
-                      @change="updateFilters"
-                      class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
-                    />
-                    <span class="ml-2 text-sm">In stock only</span>
-                  </label>
-                </div>
-
                 <!-- Clear Filters -->
                 <button
                   v-if="hasActiveFilters"
@@ -312,7 +312,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
   products: {
@@ -331,34 +331,61 @@ const props = defineProps({
 
 const emit = defineEmits(['update-filters'])
 
-// Get initial values from URL params
-const urlParams = new URLSearchParams(window.location.search)
-const initialSort = urlParams.get('sort_by') || 'manual'
+// Filter state
+const selectedSort = ref('manual')
+const selectedPriceRanges = ref([])
+const selectedTypes = ref([])
+const selectedVendors = ref([])
+const inStockOnly = ref(false)
+const mobileFiltersOpen = ref(false)
 
-// Initialize filter values from URL
-const getInitialFilterValues = () => {
-  const priceParam = urlParams.get('filter.price')
-  const typeParam = urlParams.get('filter.type')
-  const vendorParam = urlParams.get('filter.vendor')
-  const availabilityParam = urlParams.get('filter.availability')
+// Function to load filters from URL (matching CollectionFilterDrawer)
+const loadFiltersFromURL = () => {
+  const params = new URLSearchParams(window.location.search)
   
-  return {
-    priceRanges: priceParam ? priceParam.split(',') : [],
-    types: typeParam ? typeParam.split(',') : [],
-    vendors: vendorParam ? vendorParam.split(',') : [],
-    inStockOnly: availabilityParam === 'in_stock'
+  // Reset filters first
+  selectedPriceRanges.value = []
+  selectedTypes.value = []
+  selectedVendors.value = []
+  inStockOnly.value = false
+  selectedSort.value = params.get('sort_by') || 'manual'
+  
+  // Check availability filter
+  if (params.get('filter.v.availability') === '1') {
+    inStockOnly.value = true
   }
+  
+  // Check product type filters
+  const typeParams = params.getAll('filter.p.product_type')
+  if (typeParams.length > 0) {
+    selectedTypes.value = typeParams
+  }
+  
+  // Check vendor filters
+  const vendorParams = params.getAll('filter.p.vendor')
+  if (vendorParams.length > 0) {
+    selectedVendors.value = vendorParams
+  }
+  
+  // Check price range filters
+  const priceRangeParams = params.getAll('filter.price.range')
+  if (priceRangeParams.length > 0) {
+    selectedPriceRanges.value = priceRangeParams
+  }
+  
+  console.log('Sidebar filters loaded from URL:', {
+    sort: selectedSort.value,
+    priceRanges: selectedPriceRanges.value,
+    types: selectedTypes.value,
+    vendors: selectedVendors.value,
+    inStockOnly: inStockOnly.value
+  })
 }
 
-const initialFilters = getInitialFilterValues()
-
-// Filter state
-const selectedSort = ref(initialSort)
-const selectedPriceRanges = ref(initialFilters.priceRanges)
-const selectedTypes = ref(initialFilters.types)
-const selectedVendors = ref(initialFilters.vendors)
-const inStockOnly = ref(initialFilters.inStockOnly)
-const mobileFiltersOpen = ref(false)
+// Handle popstate events (back/forward navigation)
+const handlePopState = () => {
+  loadFiltersFromURL()
+}
 
 // Card styles from theme settings
 const cardStyles = computed(() => {
@@ -418,57 +445,49 @@ const updateFilters = () => {
 }
 
 const applyFilters = () => {
-  // For now, emit an event that the parent can handle
-  // In a real implementation, this would make an AJAX request to Shopline's filtering API
-  emit('apply-filters', {
-    priceRanges: selectedPriceRanges.value,
-    types: selectedTypes.value,
-    vendors: selectedVendors.value,
-    inStockOnly: inStockOnly.value
-  })
+  const params = new URLSearchParams(window.location.search)
   
-  // Show a temporary message
-  const message = document.createElement('div')
-  message.className = 'fixed top-4 right-4 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded z-50'
-  message.innerHTML = `
-    <p class="font-medium">Note: Product filtering requires Shopline's facets API</p>
-    <p class="text-sm mt-1">The filters have been applied to the URL, but product filtering needs server-side implementation.</p>
-  `
-  document.body.appendChild(message)
-  
-  setTimeout(() => {
-    message.remove()
-  }, 5000)
-  
-  // Still update the URL for demonstration
-  const url = new URL(window.location.href)
-  
-  // Clear existing filter params
-  Array.from(url.searchParams.keys()).forEach(key => {
+  // Clear ALL existing filter params (matching CollectionFilterDrawer logic)
+  const keysToDelete = []
+  for (const [key] of params) {
     if (key.startsWith('filter.')) {
-      url.searchParams.delete(key)
+      keysToDelete.push(key)
+    }
+  }
+  keysToDelete.forEach(key => {
+    // Delete all instances of this key
+    while (params.has(key)) {
+      params.delete(key)
     }
   })
   
-  // Add filters to URL
+  // Add active filters (using same format as CollectionFilterDrawer)
+  if (inStockOnly.value) {
+    params.set('filter.v.availability', '1')
+  }
+  
   if (selectedPriceRanges.value.length > 0) {
-    url.searchParams.set('filter.price', selectedPriceRanges.value.join(','))
+    selectedPriceRanges.value.forEach(range => {
+      params.append('filter.price.range', range)
+    })
   }
   
   if (selectedTypes.value.length > 0) {
-    url.searchParams.set('filter.type', selectedTypes.value.join(','))
+    selectedTypes.value.forEach(type => {
+      params.append('filter.p.product_type', type)
+    })
   }
   
   if (selectedVendors.value.length > 0) {
-    url.searchParams.set('filter.vendor', selectedVendors.value.join(','))
+    selectedVendors.value.forEach(vendor => {
+      params.append('filter.p.vendor', vendor)
+    })
   }
   
-  if (inStockOnly.value) {
-    url.searchParams.set('filter.availability', 'in_stock')
-  }
-  
-  // Update URL without reload
-  window.history.pushState({}, '', url.toString())
+  // Update URL and reload (matching CollectionFilterDrawer behavior)
+  const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`
+  console.log('Sidebar applying filters, new URL:', newUrl)
+  window.location.href = newUrl
 }
 
 const clearFilters = () => {
@@ -477,24 +496,22 @@ const clearFilters = () => {
   selectedVendors.value = []
   inStockOnly.value = false
   
-  // Clear URL parameters
-  const url = new URL(window.location.href)
-  Array.from(url.searchParams.keys()).forEach(key => {
+  // Remove all filter params from URL (matching CollectionFilterDrawer logic)
+  const params = new URLSearchParams(window.location.search)
+  const keysToDelete = []
+  
+  for (const [key] of params) {
     if (key.startsWith('filter.')) {
-      url.searchParams.delete(key)
+      keysToDelete.push(key)
     }
-  })
-  window.history.pushState({}, '', url.toString())
+  }
   
-  // Emit event
-  emit('apply-filters', {
-    priceRanges: [],
-    types: [],
-    vendors: [],
-    inStockOnly: false
-  })
+  keysToDelete.forEach(key => params.delete(key))
   
-  emitFilterUpdate()
+  // Keep sort param if exists
+  const sortParam = params.get('sort_by')
+  const newUrl = `${window.location.pathname}${sortParam ? '?sort_by=' + sortParam : ''}`
+  window.location.href = newUrl
 }
 
 const applyMobileFilters = () => {
@@ -511,6 +528,17 @@ const emitFilterUpdate = () => {
     inStockOnly: inStockOnly.value
   })
 }
+
+// Load filters from URL on mount and listen for changes
+onMounted(() => {
+  loadFiltersFromURL()
+  window.addEventListener('popstate', handlePopState)
+})
+
+// Clean up event listener
+onBeforeUnmount(() => {
+  window.removeEventListener('popstate', handlePopState)
+})
 </script>
 
 <style scoped>
