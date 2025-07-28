@@ -1,8 +1,16 @@
 <template>
   <div class="variant-picker">
-    <div v-for="option in productOptions" :key="option.name" class="variant-option mb-6">
+    <!-- Single variant display -->
+    <div v-if="variants.length === 1 && productOptions.length === 0" class="single-variant-info mb-6 p-4 bg-gray-50 rounded-lg">
+      <div class="text-sm text-gray-600 mb-2">Selected Option:</div>
+      <div class="font-medium text-gray-900">{{ variants[0].title }}</div>
+    </div>
+    
+    <!-- Multiple variants or options -->
+    <div v-else-if="productOptions.length > 0">
+      <div v-for="option in productOptions" :key="option.name" class="variant-option mb-6">
       <h3 class="text-sm font-medium text-gray-900 mb-3">
-        {{ option.name }}: <span class="font-normal text-gray-600">{{ getSelectedValue(option.name) }}</span>
+        {{ option.name || 'Option' }}: <span class="font-normal text-gray-600">{{ getSelectedValue(option.name) || 'Select' }}</span>
       </h3>
       
       <!-- Image-based variant options -->
@@ -46,7 +54,7 @@
           :title="value"
           :aria-label="`Select ${option.name} ${value}`"
           :disabled="!isOptionAvailable(option.name, value)"
-          @click="selectOption(option.name, value)"
+          @click.stop="selectOption(option.name, value)"
         >
           <span class="sr-only">{{ value }}</span>
           <span v-if="isOptionSelected(option.name, value)" class="color-swatch__checkmark">
@@ -70,53 +78,49 @@
           ]"
           :aria-label="`Select ${option.name} ${value}`"
           :disabled="!isOptionAvailable(option.name, value)"
-          @click="selectOption(option.name, value)"
+          @click.stop="selectOption(option.name, value)"
         >
           {{ value }}
         </button>
       </div>
     </div>
+    </div>
     
-    <!-- Selected variant info -->
-    <div v-if="selectedVariant" class="variant-info mt-6">
-      <div class="flex items-center justify-between mb-3">
-        <div class="flex items-center gap-4">
-          <span class="text-2xl font-bold text-gray-900">
-            {{ formatMoney(selectedVariant.price) }}
-          </span>
-          <span v-if="selectedVariant.compare_at_price > selectedVariant.price" class="text-lg text-gray-500 line-through">
-            {{ formatMoney(selectedVariant.compare_at_price) }}
-          </span>
-        </div>
-        
-        <div v-if="selectedVariant.sku" class="text-sm text-gray-600">
-          SKU: {{ selectedVariant.sku }}
+    <!-- Single variant with options -->
+    <div v-else-if="variants.length === 1 && productOptions.length > 0" class="single-variant-options">
+      <div v-for="option in productOptions" :key="option.name" class="mb-4">
+        <h3 class="text-sm font-medium text-gray-900 mb-2">{{ option.name }}:</h3>
+        <div class="px-4 py-2 bg-gray-50 rounded-lg inline-block">
+          <span class="text-sm font-medium text-gray-700">{{ variants[0][`option${productOptions.indexOf(option) + 1}`] || option.values[0] }}</span>
         </div>
       </div>
-      
-      <div class="flex items-center justify-between">
-        <div v-if="selectedVariant.inventory_quantity !== undefined" class="text-sm text-gray-600">
-          {{ getInventoryMessage() }}
-        </div>
-        
-        <div v-if="selectedVariant.available" class="text-sm text-green-600 font-medium">
-          In Stock
-        </div>
-        <div v-else class="text-sm text-red-600 font-medium">
-          Out of Stock
-        </div>
-      </div>
+    </div>
+    
+    
+    <!-- Debug info when no variants/options -->
+    <div v-if="variants.length === 0 && productOptions.length === 0" class="variant-picker-empty">
+    <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+      <p class="text-sm text-yellow-800 font-medium mb-2">Variant Picker Debug Info:</p>
+      <p class="text-xs text-yellow-700">Product Data Loaded: {{ productData ? 'Yes' : 'No' }}</p>
+      <p class="text-xs text-yellow-700">Number of Options: {{ productOptions.length }}</p>
+      <p class="text-xs text-yellow-700">Number of Variants: {{ variants.length }}</p>
+      <details class="mt-2">
+        <summary class="text-xs text-yellow-700 cursor-pointer">View Raw Data</summary>
+        <pre class="text-xs mt-2 overflow-auto">{{ JSON.stringify(productData, null, 2) }}</pre>
+      </details>
+    </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, nextTick } from 'vue'
 
 const props = defineProps({
   product: {
     type: Object,
-    required: true
+    required: false,
+    default: () => ({})
   },
   selectedVariantId: {
     type: [String, Number],
@@ -134,23 +138,151 @@ const props = defineProps({
 
 const emit = defineEmits(['variant-change', 'media-change', 'product-info-update'])
 
+// For custom element compatibility
+const dispatchEvent = (eventName, detail) => {
+  const el = document.getElementById('variantPicker')
+  if (el) {
+    el.dispatchEvent(new CustomEvent(eventName, { detail, bubbles: true }))
+  }
+}
+
 const selectedOptions = ref({})
 const selectedVariant = ref(null)
 
-const productOptions = computed(() => props.product.options || [])
-const variants = computed(() => props.product.variants || [])
-const optionsWithValues = computed(() => props.product.options_with_values || [])
+// Initialize product data from global variable if needed
+const initProduct = () => {
+  // Check if product was passed as prop
+  if (props.product && props.product.id) {
+    console.log('Using product from props:', props.product)
+    return props.product
+  }
+  
+  // Try to get from global variable
+  if (window.productPageData && window.productPageData.product) {
+    console.log('Using product from window.productPageData:', window.productPageData.product)
+    return window.productPageData.product
+  }
+  
+  console.log('No product data found, returning empty object')
+  return {}
+}
+
+const productData = ref(initProduct())
+
+const variants = computed(() => productData.value.variants || [])
+
+// Generate options from variants if not provided
+const productOptions = computed(() => {
+  if (productData.value.options && productData.value.options.length > 0) {
+    // Fix position values if they're 0-indexed
+    return productData.value.options.map((option, index) => ({
+      ...option,
+      position: option.position || index + 1
+    }))
+  }
+  
+  // Generate options from variants
+  const options = []
+  if (variants.value.length > 0) {
+    // Check for option1
+    if (variants.value[0].option1) {
+      const option1Values = [...new Set(variants.value.map(v => v.option1).filter(Boolean))]
+      options.push({
+        name: 'Size',
+        position: 1,
+        values: option1Values
+      })
+    }
+    
+    // Check for option2
+    if (variants.value[0].option2) {
+      const option2Values = [...new Set(variants.value.map(v => v.option2).filter(Boolean))]
+      options.push({
+        name: 'Color',
+        position: 2,
+        values: option2Values
+      })
+    }
+    
+    // Check for option3
+    if (variants.value[0].option3) {
+      const option3Values = [...new Set(variants.value.map(v => v.option3).filter(Boolean))]
+      options.push({
+        name: 'Option',
+        position: 3,
+        values: option3Values
+      })
+    }
+  }
+  
+  return options
+})
+
+const optionsWithValues = computed(() => productData.value.options_with_values || productOptions.value)
 
 onMounted(() => {
-  // Initialize with first available variant or selected variant
-  if (props.selectedVariantId) {
-    const variant = variants.value.find(v => v.id == props.selectedVariantId)
-    if (variant) {
-      selectVariant(variant)
+  // Update product data if needed
+  productData.value = initProduct()
+  
+  // Debug logging
+  console.log('ProductVariantPicker mounted with data:', productData.value)
+  console.log('Product options:', productOptions.value)
+  console.log('Variants:', variants.value)
+  console.log('Options with values:', optionsWithValues.value)
+  
+  // Debug first variant structure
+  if (variants.value.length > 0) {
+    console.log('First variant structure:', variants.value[0])
+  }
+  
+  // Debug first option structure
+  if (productOptions.value.length > 0) {
+    console.log('First option structure:', productOptions.value[0])
+  }
+  
+  // Initialize selected options first
+  if (variants.value.length > 0) {
+    // Initialize with first available variant or selected variant
+    let variantToSelect = null
+    
+    if (props.selectedVariantId) {
+      variantToSelect = variants.value.find(v => v.id == props.selectedVariantId)
     }
-  } else if (variants.value.length > 0) {
-    const firstAvailable = variants.value.find(v => v.available) || variants.value[0]
-    selectVariant(firstAvailable)
+    
+    if (!variantToSelect) {
+      variantToSelect = variants.value.find(v => v.available) || variants.value[0]
+    }
+    
+    if (variantToSelect) {
+      console.log('Initializing with variant:', variantToSelect)
+      
+      // Pre-populate selected options based on the variant
+      if (variantToSelect.option1) {
+        const option1 = productOptions.value.find(opt => opt.position === 1)
+        if (option1) {
+          selectedOptions.value[option1.name] = variantToSelect.option1
+        }
+      }
+      
+      if (variantToSelect.option2) {
+        const option2 = productOptions.value.find(opt => opt.position === 2)
+        if (option2) {
+          selectedOptions.value[option2.name] = variantToSelect.option2
+        }
+      }
+      
+      if (variantToSelect.option3) {
+        const option3 = productOptions.value.find(opt => opt.position === 3)
+        if (option3) {
+          selectedOptions.value[option3.name] = variantToSelect.option3
+        }
+      }
+      
+      // Use nextTick to ensure DOM is ready
+      nextTick(() => {
+        selectVariant(variantToSelect)
+      })
+    }
   }
 })
 
@@ -170,9 +302,13 @@ const selectVariant = (variant) => {
   // Emit media change event if variant has featured media
   if (variant && variant.featured_media) {
     emit('media-change', variant.featured_media)
+    dispatchEvent('media-change', variant.featured_media)
   }
   
   emit('variant-change', variant)
+  dispatchEvent('variant-change', variant)
+  
+  console.log('Variant selected:', variant)
 }
 
 const updateURL = (variant) => {
@@ -186,6 +322,8 @@ const updateURL = (variant) => {
 }
 
 const selectOption = (optionName, value) => {
+  console.log('Option clicked:', optionName, value)
+  
   selectedOptions.value[optionName] = value
   
   // Find matching variant
@@ -195,6 +333,8 @@ const selectOption = (optionName, value) => {
       return variant[`option${index + 1}`] === selectedValue
     })
   })
+  
+  console.log('Matching variant found:', matchingVariant)
   
   if (matchingVariant) {
     selectVariant(matchingVariant)
@@ -238,6 +378,16 @@ const fetchProductInfo = async (variant) => {
 const getSelectedValue = (optionName) => {
   return selectedOptions.value[optionName] || ''
 }
+
+// Watch for external variant changes
+watch(() => props.selectedVariantId, (newId) => {
+  if (newId) {
+    const variant = variants.value.find(v => v.id == newId)
+    if (variant) {
+      selectVariant(variant)
+    }
+  }
+})
 
 const isOptionSelected = (optionName, value) => {
   return selectedOptions.value[optionName] === value
@@ -334,57 +484,67 @@ const getInventoryMessage = () => {
 }
 </script>
 
-<style scoped>
-.color-swatch {
+<style>
+/* Variant Picker Styles - Using specific selectors to avoid conflicts */
+.variant-picker .color-swatch {
   @apply w-10 h-10 rounded-full border-2 border-gray-300 relative overflow-hidden transition-all duration-200;
 }
 
-.color-swatch--selected {
+.variant-picker .color-swatch--selected {
   @apply border-gray-900 shadow-md;
 }
 
-.color-swatch--unavailable {
+.variant-picker .color-swatch--unavailable {
   @apply opacity-30 cursor-not-allowed;
 }
 
-.color-swatch--unavailable::after {
+.variant-picker .color-swatch--unavailable::after {
   content: '';
   @apply absolute inset-0 bg-white bg-opacity-70;
   background-image: linear-gradient(45deg, transparent 45%, currentColor 45%, currentColor 55%, transparent 55%);
 }
 
-.color-swatch__checkmark {
+.variant-picker .color-swatch__checkmark {
   @apply absolute inset-0 flex items-center justify-center text-white;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.variant-button {
+.variant-picker .variant-button {
   @apply px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200;
 }
 
-.variant-button--selected {
+.variant-picker .variant-button--selected {
   @apply border-gray-900 bg-gray-900 text-white hover:bg-gray-800;
 }
 
-.variant-button--unavailable {
+.variant-picker .variant-button--unavailable {
   @apply opacity-30 cursor-not-allowed hover:bg-white line-through;
 }
 
-.variant-image-button {
+.variant-picker .variant-image-button {
   @apply w-16 h-16 rounded-lg border-2 border-gray-300 overflow-hidden transition-all duration-200 flex items-center justify-center;
 }
 
-.variant-image-button--selected {
+.variant-picker .variant-image-button--selected {
   @apply border-gray-900 shadow-md ring-2 ring-gray-900 ring-offset-2;
 }
 
-.variant-image-button--unavailable {
+.variant-picker .variant-image-button--unavailable {
   @apply opacity-30 cursor-not-allowed;
 }
 
-.variant-image-button--unavailable::after {
+.variant-picker .variant-image-button--unavailable::after {
   content: '';
   @apply absolute inset-0 bg-white bg-opacity-70;
   background-image: linear-gradient(45deg, transparent 45%, currentColor 45%, currentColor 55%, transparent 55%);
+}
+
+/* Additional styles for the variant option wrapper */
+.variant-picker .variant-option {
+  @apply space-y-2;
+}
+
+.variant-picker h3 {
+  @apply text-sm font-medium text-gray-900;
 }
 </style>

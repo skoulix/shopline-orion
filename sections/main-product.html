@@ -118,6 +118,14 @@
           {{/if}}
         </div>
         
+        <!-- Variant Picker -->
+        <product-variant-picker 
+          id="variantPicker"
+          data-product-source="window.productPageData.product"
+          selected-variant-id="{{product.first_available_variant.id}}"
+          section-id="{{section.id}}"
+        ></product-variant-picker>
+        
         <!-- Description -->
         {{#if product.description}}
           <div class="prose prose-gray max-w-none mb-8">
@@ -254,11 +262,31 @@
     variantId: '{{product.first_available_variant.id}}',
     title: '{{product.title}}',
     price: '{{product.price}}',
-    image: '{{image_url product.images.[0] width=300}}'
+    image: '{{image_url product.images.[0] width=300}}',
+    variants: [
+      {{#each product.variants}}
+      {
+        id: '{{this.id}}',
+        price: '{{this.price}}',
+        compare_at_price: {{#if this.compare_at_price}}'{{this.compare_at_price}}'{{else}}null{{/if}},
+        available: {{this.available}},
+        title: '{{this.title}}',
+        sku: '{{this.sku}}',
+        option1: '{{this.option1}}',
+        option2: '{{this.option2}}',
+        option3: '{{this.option3}}',
+        featured_media: {{#if this.featured_media}}{
+          id: '{{this.featured_media.id}}',
+          position: {{this.featured_media.position}}
+        }{{else}}null{{/if}}
+      }{{#unless @last}},{{/unless}}
+      {{/each}}
+    ]
   };
 
-  // Track current image index
+  // Track current image index and selected options
   let currentImageIndex = 0;
+  let selectedOptions = {};
   
   // Image gallery functionality
   function changeMainImage(src, button) {
@@ -411,9 +439,163 @@
     });
   }
   
+  // Handle variant change from Vue component
+  function handleVariantChange(event) {
+    const variant = event.detail;
+    
+    if (variant) {
+      // Update product data
+      productData.variantId = variant.id;
+      
+      // Update price display
+      const productInfo = document.querySelector('.product-info');
+      const priceElement = productInfo?.querySelector('.text-3xl.font-bold');
+      const comparePriceElement = productInfo?.querySelector('.text-xl.text-gray-500.line-through');
+      const saveElement = productInfo?.querySelector('.text-sm.font-medium.px-2\\.5');
+      const priceContainer = productInfo?.querySelector('.mb-6'); // Price container
+      
+      if (priceElement) {
+        priceElement.textContent = formatMoney(variant.price);
+      }
+      
+      if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+        // Show sale price
+        if (!comparePriceElement && priceContainer) {
+          // Create compare price elements if they don't exist
+          priceContainer.innerHTML = `
+            <div class="flex items-center gap-3">
+              <span class="text-3xl font-bold" style="color: var(--color-primary);">${formatMoney(variant.price)}</span>
+              <span class="text-xl text-gray-500 line-through">${formatMoney(variant.compare_at_price)}</span>
+              <span class="text-sm font-medium px-2.5 py-0.5 rounded-full" style="background-color: var(--color-primary); color: white; opacity: 0.9;">
+                Save ${formatMoney(variant.compare_at_price - variant.price)}
+              </span>
+            </div>
+          `;
+        } else if (comparePriceElement) {
+          comparePriceElement.textContent = formatMoney(variant.compare_at_price);
+          comparePriceElement.style.display = 'inline';
+          if (saveElement) {
+            saveElement.textContent = `Save ${formatMoney(variant.compare_at_price - variant.price)}`;
+            saveElement.style.display = 'inline-block';
+          }
+        }
+      } else {
+        // No sale price - show regular price only
+        if (priceContainer) {
+          priceContainer.innerHTML = `<span class="text-3xl font-bold text-gray-900">${formatMoney(variant.price)}</span>`;
+        }
+      }
+      
+      // Update availability
+      const addToCartBtn = document.getElementById('addToCartBtn');
+      const availabilityElement = productInfo?.querySelector('.inline-flex.items-center.text-sm');
+      
+      if (!variant.available) {
+        addToCartBtn.disabled = true;
+        addToCartBtn.querySelector('.add-to-cart-text').textContent = 'Out of Stock';
+        
+        // Update availability indicator
+        if (availabilityElement) {
+          availabilityElement.className = 'inline-flex items-center text-sm text-primary';
+          availabilityElement.innerHTML = `
+            <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+            Out of stock
+          `;
+        }
+      } else {
+        addToCartBtn.disabled = false;
+        addToCartBtn.querySelector('.add-to-cart-text').textContent = 'Add to Cart';
+        
+        // Update availability indicator
+        if (availabilityElement) {
+          availabilityElement.className = 'inline-flex items-center text-sm text-green-600';
+          availabilityElement.innerHTML = `
+            <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            In stock
+          `;
+        }
+      }
+      
+      // Update SKU if displayed
+      const skuElement = productInfo?.querySelector('.text-sm.text-gray-600.mb-2');
+      if (skuElement && variant.sku) {
+        skuElement.textContent = `SKU: ${variant.sku}`;
+      }
+    }
+  }
+  
+  function formatMoney(cents) {
+    const amount = (parseFloat(cents) / 100).toFixed(2);
+    return `$${amount}`;
+  }
+  
+  // Store product data globally for variant picker
+  window.productPageData = {
+    product: {
+      id: '{{product.id}}',
+      title: '{{product.title}}',
+      handle: '{{product.handle}}',
+      available: {{product.available}},
+      price: '{{product.price}}',
+      compare_at_price: {{#if product.compare_at_price}}'{{product.compare_at_price}}'{{else}}null{{/if}},
+      options: [
+        {{#each product.options_with_values}}
+        {
+          name: '{{this.name}}',
+          position: {{#if this.position}}{{this.position}}{{else}}{{plus @index 1}}{{/if}},
+          values: [
+            {{#each this.values}}
+            '{{this}}'{{#unless @last}},{{/unless}}
+            {{/each}}
+          ]
+        }{{#unless @last}},{{/unless}}
+        {{/each}}
+      ],
+      options_with_values: [
+        {{#each product.options_with_values}}
+        {
+          name: '{{this.name}}',
+          position: {{#if this.position}}{{this.position}}{{else}}{{plus @index 1}}{{/if}},
+          values: [
+            {{#each this.values}}
+            '{{this}}'{{#unless @last}},{{/unless}}
+            {{/each}}
+          ]
+        }{{#unless @last}},{{/unless}}
+        {{/each}}
+      ],
+      variants: productData.variants,
+      images: [
+        {{#each product.images}}
+        {
+          id: '{{this.id}}',
+          src: '{{this.src}}',
+          alt: '{{this.alt}}',
+          position: {{this.position}}
+        }{{#unless @last}},{{/unless}}
+        {{/each}}
+      ]
+    }
+  };
+  
   // Initialize on page load
   document.addEventListener('DOMContentLoaded', function() {
     updateQuantityButtons();
+    
+    // Add event listener for variant change
+    const variantPicker = document.getElementById('variantPicker');
+    if (variantPicker) {
+      variantPicker.addEventListener('variant-change', handleVariantChange);
+      
+      // Debug: Log product data
+      console.log('Product data for variant picker:', window.productPageData);
+      console.log('Product options:', window.productPageData.product.options);
+      console.log('Product variants:', window.productPageData.product.variants);
+    }
   });
   
   // PhotoSwipe Lightbox functionality
@@ -535,6 +717,7 @@
   .thumbnail-btn:hover {
     transform: scale(1.05);
   }
+  
   
   /* Scrollbar styling for thumbnails left layout */
   .product-images .overflow-y-auto {
