@@ -12468,7 +12468,7 @@ const Ye = (e, t) => {
       ])
     ], 8, uy));
   }
-}, If = /* @__PURE__ */ Ye(Ly, [["__scopeId", "data-v-44c314e9"]]), Fy = {
+}, If = /* @__PURE__ */ Ye(Ly, [["__scopeId", "data-v-6f2d5a63"]]), Fy = {
   key: 0,
   class: "fixed inset-0 z-50 overflow-hidden"
 }, By = { class: "absolute inset-0 overflow-hidden" }, jy = { class: "fixed inset-y-0 right-0 max-w-full flex pointer-events-none" }, Hy = {
@@ -13559,7 +13559,7 @@ const eb = { class: "sticky-header-container" }, tb = {
       ]))
     ]));
   }
-}, Rf = /* @__PURE__ */ Ye(hb, [["__scopeId", "data-v-3988ea0d"]]), mb = { class: "site-footer" }, gb = {
+}, Rf = /* @__PURE__ */ Ye(hb, [["__scopeId", "data-v-2dc4d29f"]]), mb = { class: "site-footer" }, gb = {
   key: 0,
   class: "newsletter-section"
 }, vb = { class: "container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" }, yb = { class: "newsletter-content" }, bb = { class: "newsletter-text" }, _b = { class: "text-xl font-semibold mb-2" }, Eb = { class: "text-gray-600" }, wb = ["disabled"], xb = ["disabled"], Nb = { key: 0 }, Sb = { key: 1 }, kb = { class: "footer-main" }, Cb = { class: "container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" }, Ob = { class: "footer-grid" }, $b = { class: "footer-column" }, Tb = { class: "footer-heading" }, Db = { class: "text-gray-600 mb-4" }, Vb = {
@@ -14237,7 +14237,8 @@ const eb = { class: "sticky-header-container" }, tb = {
       d("div", b_, [
         d("button", {
           onClick: S[0] || (S[0] = (O) => c.value = !0),
-          class: "flex items-center justify-between w-full px-4 py-2 bg-white border border-secondary-300 rounded-lg hover:bg-secondary-50 transition-colors"
+          class: "flex items-center justify-between w-full px-4 py-2 bg-white border border-secondary-300 hover:bg-secondary-50 transition-colors",
+          style: { borderRadius: "var(--card-radius, 8px)" }
         }, S[20] || (S[20] = [
           d("span", { class: "font-medium" }, "Filters", -1),
           d("svg", {
@@ -14267,7 +14268,7 @@ const eb = { class: "sticky-header-container" }, tb = {
               onChange: $,
               class: "w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
             }, S[21] || (S[21] = [
-              ls('<option value="manual" data-v-16b588fe>Featured</option><option value="best-selling" data-v-16b588fe>Best Selling</option><option value="title-ascending" data-v-16b588fe>Alphabetically, A-Z</option><option value="title-descending" data-v-16b588fe>Alphabetically, Z-A</option><option value="price-ascending" data-v-16b588fe>Price, low to high</option><option value="price-descending" data-v-16b588fe>Price, high to low</option><option value="created-ascending" data-v-16b588fe>Date, old to new</option><option value="created-descending" data-v-16b588fe>Date, new to old</option>', 8)
+              ls('<option value="manual" data-v-308e1139>Featured</option><option value="best-selling" data-v-308e1139>Best Selling</option><option value="title-ascending" data-v-308e1139>Alphabetically, A-Z</option><option value="title-descending" data-v-308e1139>Alphabetically, Z-A</option><option value="price-ascending" data-v-308e1139>Price, low to high</option><option value="price-descending" data-v-308e1139>Price, high to low</option><option value="created-ascending" data-v-308e1139>Date, old to new</option><option value="created-descending" data-v-308e1139>Date, new to old</option>', 8)
             ]), 544), [
               [Ds, o.value]
             ])
@@ -14566,7 +14567,7 @@ const eb = { class: "sticky-header-container" }, tb = {
       ]))
     ]));
   }
-}, Lf = /* @__PURE__ */ Ye(i2, [["__scopeId", "data-v-16b588fe"]]), l2 = { class: "collection-grid" }, a2 = {
+}, Lf = /* @__PURE__ */ Ye(i2, [["__scopeId", "data-v-308e1139"]]), l2 = { class: "collection-grid" }, a2 = {
   key: 0,
   class: "mb-8"
 }, c2 = { class: "text-3xl font-bold text-secondary-900 mb-4" }, u2 = {
@@ -14952,7 +14953,8 @@ const eb = { class: "sticky-header-container" }, tb = {
               d("div", { class: "absolute top-0 right-0 pt-4 pr-4" }, [
                 d("button", {
                   onClick: A,
-                  class: "bg-white rounded-md text-secondary-400 hover:text-secondary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                  class: "bg-white text-secondary-400 hover:text-secondary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500",
+                  style: { borderRadius: "var(--card-radius, 8px)" }
                 }, T[11] || (T[11] = [
                   d("svg", {
                     class: "h-6 w-6",
@@ -15861,7 +15863,10 @@ const eb = { class: "sticky-header-container" }, tb = {
       ])
     ]));
   }
-}, rw = /* @__PURE__ */ Ye(ow, [["__scopeId", "data-v-9e2c3b5c"]]), iw = { class: "cart-summary bg-gray-50 rounded-lg p-6 lg:sticky lg:top-24" }, lw = { class: "space-y-3 mb-4" }, aw = { class: "flex justify-between text-sm" }, cw = { class: "text-gray-600" }, uw = { class: "font-medium text-gray-900" }, dw = {
+}, rw = /* @__PURE__ */ Ye(ow, [["__scopeId", "data-v-9e2c3b5c"]]), iw = {
+  class: "cart-summary bg-gray-50 p-6 lg:sticky lg:top-24",
+  style: { borderRadius: "var(--card-radius, 8px)" }
+}, lw = { class: "space-y-3 mb-4" }, aw = { class: "flex justify-between text-sm" }, cw = { class: "text-gray-600" }, uw = { class: "font-medium text-gray-900" }, dw = {
   key: 0,
   class: "flex justify-between text-sm text-green-600"
 }, fw = {
@@ -16004,7 +16009,8 @@ const eb = { class: "sticky-header-container" }, tb = {
                 "onUpdate:modelValue": C[0] || (C[0] = (_) => o.value = _),
                 type: "text",
                 placeholder: "Enter promo code",
-                class: "flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent",
+                class: "flex-1 px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent",
+                style: { borderRadius: "var(--card-radius, 8px)" },
                 disabled: l.value
               }, null, 8, Nw), [
                 [Fn, o.value]
@@ -16071,10 +16077,10 @@ const eb = { class: "sticky-header-container" }, tb = {
           ], -1)
         ])))
       ], 44, Ow),
-      C[11] || (C[11] = ls('<div class="mt-6 space-y-2" data-v-bd5cec1c><div class="flex items-center gap-2 text-xs text-gray-600" data-v-bd5cec1c><svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" data-v-bd5cec1c><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" data-v-bd5cec1c></path></svg> Secure checkout </div><div class="flex items-center gap-2 text-xs text-gray-600" data-v-bd5cec1c><svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" data-v-bd5cec1c><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" data-v-bd5cec1c></path><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" data-v-bd5cec1c></path></svg> Free shipping on orders over $50 </div><div class="flex items-center gap-2 text-xs text-gray-600" data-v-bd5cec1c><svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" data-v-bd5cec1c><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" data-v-bd5cec1c></path></svg> 30-day return policy </div></div><div class="mt-6 pt-6 border-t" data-v-bd5cec1c><p class="text-xs text-gray-600 mb-2" data-v-bd5cec1c>We accept</p><div class="flex gap-2" data-v-bd5cec1c><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-bd5cec1c><path d="M0 0h48v32H0z" fill="#1A1F71" data-v-bd5cec1c></path><path d="M19.654 12.7l-2.365 7.3h-2.287l2.365-7.3h2.287zm9.524 4.696l1.502-3.862.859 3.862h-2.361zm3.174 2.604h2.115l-1.849-7.3h-1.953c-.44 0-.811.242-1.007.615l-3.545 6.685h2.479l.493-1.277h3.025l.242 1.277zm-6.372-2.383c.011-2.297-3.331-2.424-3.31-3.449.007-.312.32-.644 1.003-.729a4.6 4.6 0 012.172.366l.387-1.703a6.34 6.34 0 00-2.061-.361c-2.178 0-3.71 1.105-3.721 2.688-.013 1.17 1.094 1.824 1.929 2.214.859.4 1.147.656 1.143.1013-.006.547-.685.788-1.318.797a4.746 4.746 0 01-2.194-.494l-.388 1.712a6.922 6.922 0 002.357.416c2.235 0 3.697-1.053 3.701-2.683m-8.813-4.917l-3.849 7.3h-2.491l-1.897-6.776c-.115-.428-.215-.585-.564-.766-.571-.295-1.516-.571-2.345-.743l.056-.265h4.046c.515 0 .979.317 1.097.867l1.002 4.771 2.473-5.638h2.472z" fill="#fff" data-v-bd5cec1c></path></svg><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-bd5cec1c><rect width="48" height="32" rx="4" fill="#EB001B" data-v-bd5cec1c></rect><circle cx="19" cy="16" r="8" fill="#FF5F00" data-v-bd5cec1c></circle><circle cx="29" cy="16" r="8" fill="#F79E1B" data-v-bd5cec1c></circle></svg><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-bd5cec1c><rect width="48" height="32" rx="4" fill="#2E7BC4" data-v-bd5cec1c></rect><path d="M20 10h8l-1 12h-6z" fill="#fff" data-v-bd5cec1c></path></svg><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-bd5cec1c><rect width="48" height="32" rx="4" fill="#253B80" data-v-bd5cec1c></rect><path d="M19 11h10v10H19z" fill="#179BD7" data-v-bd5cec1c></path></svg></div></div>', 2))
+      C[11] || (C[11] = ls('<div class="mt-6 space-y-2" data-v-daaa8299><div class="flex items-center gap-2 text-xs text-gray-600" data-v-daaa8299><svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" data-v-daaa8299><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" data-v-daaa8299></path></svg> Secure checkout </div><div class="flex items-center gap-2 text-xs text-gray-600" data-v-daaa8299><svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" data-v-daaa8299><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" data-v-daaa8299></path><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" data-v-daaa8299></path></svg> Free shipping on orders over $50 </div><div class="flex items-center gap-2 text-xs text-gray-600" data-v-daaa8299><svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" data-v-daaa8299><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" data-v-daaa8299></path></svg> 30-day return policy </div></div><div class="mt-6 pt-6 border-t" data-v-daaa8299><p class="text-xs text-gray-600 mb-2" data-v-daaa8299>We accept</p><div class="flex gap-2" data-v-daaa8299><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-daaa8299><path d="M0 0h48v32H0z" fill="#1A1F71" data-v-daaa8299></path><path d="M19.654 12.7l-2.365 7.3h-2.287l2.365-7.3h2.287zm9.524 4.696l1.502-3.862.859 3.862h-2.361zm3.174 2.604h2.115l-1.849-7.3h-1.953c-.44 0-.811.242-1.007.615l-3.545 6.685h2.479l.493-1.277h3.025l.242 1.277zm-6.372-2.383c.011-2.297-3.331-2.424-3.31-3.449.007-.312.32-.644 1.003-.729a4.6 4.6 0 012.172.366l.387-1.703a6.34 6.34 0 00-2.061-.361c-2.178 0-3.71 1.105-3.721 2.688-.013 1.17 1.094 1.824 1.929 2.214.859.4 1.147.656 1.143.1013-.006.547-.685.788-1.318.797a4.746 4.746 0 01-2.194-.494l-.388 1.712a6.922 6.922 0 002.357.416c2.235 0 3.697-1.053 3.701-2.683m-8.813-4.917l-3.849 7.3h-2.491l-1.897-6.776c-.115-.428-.215-.585-.564-.766-.571-.295-1.516-.571-2.345-.743l.056-.265h4.046c.515 0 .979.317 1.097.867l1.002 4.771 2.473-5.638h2.472z" fill="#fff" data-v-daaa8299></path></svg><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-daaa8299><rect width="48" height="32" rx="4" fill="#EB001B" data-v-daaa8299></rect><circle cx="19" cy="16" r="8" fill="#FF5F00" data-v-daaa8299></circle><circle cx="29" cy="16" r="8" fill="#F79E1B" data-v-daaa8299></circle></svg><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-daaa8299><rect width="48" height="32" rx="4" fill="#2E7BC4" data-v-daaa8299></rect><path d="M20 10h8l-1 12h-6z" fill="#fff" data-v-daaa8299></path></svg><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-daaa8299><rect width="48" height="32" rx="4" fill="#253B80" data-v-daaa8299></rect><path d="M19 11h10v10H19z" fill="#179BD7" data-v-daaa8299></path></svg></div></div>', 2))
     ]));
   }
-}, Vw = /* @__PURE__ */ Ye(Dw, [["__scopeId", "data-v-bd5cec1c"]]), Aw = { class: "slideshow-banner" }, Iw = {
+}, Vw = /* @__PURE__ */ Ye(Dw, [["__scopeId", "data-v-daaa8299"]]), Aw = { class: "slideshow-banner" }, Iw = {
   __name: "SlideshowBanner",
   props: {
     autoRotate: {

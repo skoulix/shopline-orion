@@ -4,7 +4,8 @@
     <div class="lg:hidden mb-4">
       <button
         @click="mobileFiltersOpen = true"
-        class="flex items-center justify-between w-full px-4 py-2 bg-white border border-secondary-300 rounded-lg hover:bg-secondary-50 transition-colors"
+        class="flex items-center justify-between w-full px-4 py-2 bg-white border border-secondary-300 hover:bg-secondary-50 transition-colors"
+        :style="{ borderRadius: 'var(--card-radius, 8px)' }"
       >
         <span class="font-medium">Filters</span>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

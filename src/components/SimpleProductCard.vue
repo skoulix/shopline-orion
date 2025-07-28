@@ -1,6 +1,6 @@
 <template>
   <div class="product-card group relative">
-    <div class="relative overflow-hidden rounded-lg bg-gray-50">
+    <div class="relative overflow-hidden bg-gray-50" :style="{ borderRadius: 'var(--card-radius, 8px)' }">
       <!-- Product Image -->
       <a :href="productUrl" class="block aspect-[3/4]">
         <img
@@ -19,7 +19,7 @@
         v-if="!available"
         class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"
       >
-        <span class="bg-white text-gray-900 px-4 py-2 font-medium rounded-md shadow-lg">
+        <span class="bg-white text-gray-900 px-4 py-2 font-medium shadow-lg" :style="{ borderRadius: 'var(--card-radius, 8px)' }">
           Out of Stock
         </span>
       </div>

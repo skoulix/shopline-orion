@@ -1,5 +1,5 @@
 <template>
-  <div class="cart-summary bg-gray-50 rounded-lg p-6 lg:sticky lg:top-24">
+  <div class="cart-summary bg-gray-50 p-6 lg:sticky lg:top-24" :style="{ borderRadius: 'var(--card-radius, 8px)' }">
     <h2 class="text-lg font-semibold text-gray-900 mb-4">Order Summary</h2>
     
     <!-- Subtotals -->
@@ -61,7 +61,8 @@
               v-model="promoCode"
               type="text"
               placeholder="Enter promo code"
-              class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              class="flex-1 px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              :style="{ borderRadius: 'var(--card-radius, 8px)' }"
               :disabled="applyingPromo"
             >
             <button
@@ -258,6 +259,7 @@ const handleCheckout = async () => {
 
 <style scoped>
 .cart-summary {
-  @apply shadow-sm border border-gray-200;
+  @apply border border-gray-200;
+  box-shadow: var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
 }
 </style>

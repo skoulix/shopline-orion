@@ -23,7 +23,7 @@
     {{else}}
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div class="lg:col-span-2">
-          <div class="bg-white rounded-lg shadow-sm">
+          <div class="bg-white" style="border-radius: var(--card-radius, 8px); box-shadow: var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1));">
             {{#each cart.items}}
               <div class="p-6 border-b border-gray-200 last:border-b-0">
                 <div class="flex gap-4">
@@ -104,7 +104,7 @@
         </div>
         
         <div class="lg:col-span-1">
-          <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+          <div class="bg-white border border-gray-100 p-6" style="border-radius: var(--card-radius, 8px); box-shadow: var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1));">
             <h2 class="text-xl font-semibold text-gray-900 mb-6">Order Summary</h2>
             
             <div class="space-y-3 mb-6">

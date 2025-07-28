@@ -181,7 +181,8 @@
             <div class="absolute top-0 right-0 pt-4 pr-4">
               <button
                 @click="closeQuickView"
-                class="bg-white rounded-md text-secondary-400 hover:text-secondary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                class="bg-white text-secondary-400 hover:text-secondary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                :style="{ borderRadius: 'var(--card-radius, 8px)' }"
               >
                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

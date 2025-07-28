@@ -221,7 +221,8 @@ onUnmounted(() => {
 }
 
 .search-overlay__container {
-  @apply bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 relative;
+  @apply bg-white shadow-xl max-w-2xl w-full mx-4 relative;
+  border-radius: var(--card-radius, 8px);
 }
 
 .search-form {

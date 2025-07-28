@@ -296,7 +296,7 @@ watch(() => props.item.quantity, (newQuantity) => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0.375rem;
+  border-radius: var(--card-radius, 8px);
 }
 
 .cart-item__details {
@@ -404,7 +404,7 @@ watch(() => props.item.quantity, (newQuantity) => {
   margin: 0.25rem 0 0 0;
   background-color: #d1fae5;
   padding: 0.125rem 0.375rem;
-  border-radius: 0.25rem;
+  border-radius: var(--card-radius, 8px);
   display: inline-block;
 }
 
@@ -420,7 +420,7 @@ watch(() => props.item.quantity, (newQuantity) => {
   color: #059669;
   background-color: #d1fae5;
   padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+  border-radius: var(--card-radius, 8px);
 }
 
 .cart-item__discount-icon {
@@ -453,7 +453,7 @@ watch(() => props.item.quantity, (newQuantity) => {
   cursor: pointer;
   transition: all 0.2s;
   padding: 0.375rem;
-  border-radius: 0.375rem;
+  border-radius: var(--card-radius, 8px);
 }
 
 .cart-item__remove:hover {
