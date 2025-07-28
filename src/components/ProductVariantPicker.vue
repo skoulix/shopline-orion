@@ -148,29 +148,12 @@
 
 		<!-- Debug info when no variants/options -->
 		<div
-			v-if="variants.length === 0 && productOptions.length === 0"
+			v-if="variants.length === 0 && productOptions.length === 0 && !isInitialized"
 			class="variant-picker-empty">
-			<div class="p-4 bg-yellow-50 border border-yellow-200 rounded-md">
-				<p class="text-sm text-yellow-800 font-medium mb-2">
-					Variant Picker Debug Info:
+			<div class="p-4 bg-gray-50 border border-gray-200 rounded-md">
+				<p class="text-sm text-gray-600">
+					Loading variant options...
 				</p>
-				<p class="text-xs text-yellow-700">
-					Product Data Loaded: {{ productData ? 'Yes' : 'No' }}
-				</p>
-				<p class="text-xs text-yellow-700">
-					Number of Options: {{ productOptions.length }}
-				</p>
-				<p class="text-xs text-yellow-700">
-					Number of Variants: {{ variants.length }}
-				</p>
-				<details class="mt-2">
-					<summary class="text-xs text-yellow-700 cursor-pointer">
-						View Raw Data
-					</summary>
-					<pre class="text-xs mt-2 overflow-auto">{{
-						JSON.stringify(productData, null, 2)
-					}}</pre>
-				</details>
 			</div>
 		</div>
 	</div>
@@ -215,29 +198,27 @@ const dispatchEvent = (eventName, detail) => {
 
 const selectedOptions = ref({});
 const selectedVariant = ref(null);
+const isInitialized = ref(false);
 
 // Initialize product data from global variable if needed
 const initProduct = () => {
 	// Check if product was passed as prop
 	if (props.product && props.product.id) {
-		console.log('Using product from props:', props.product);
+		// Using product from props
 		return props.product;
 	}
 
 	// Try to get from global variable
 	if (window.productPageData && window.productPageData.product) {
-		console.log(
-			'Using product from window.productPageData:',
-			window.productPageData.product
-		);
+		// Using product from window.productPageData
 		return window.productPageData.product;
 	}
 
-	console.log('No product data found, returning empty object');
+	// No product data found, returning empty object
 	return {};
 };
 
-const productData = ref(initProduct());
+const productData = ref({});
 
 const variants = computed(() => productData.value.variants || []);
 
@@ -304,25 +285,31 @@ const optionsWithValues = computed(
 	() => productData.value.options_with_values || productOptions.value
 );
 
-onMounted(() => {
-	// Update product data if needed
-	productData.value = initProduct();
+// Try to initialize product data with a retry mechanism
+const tryInitializeProduct = async (retries = 5) => {
+	for (let i = 0; i < retries; i++) {
+		const data = initProduct();
+		if (data && data.id) {
+			productData.value = data;
+			return true;
+		}
+		// Wait 100ms before retrying
+		if (i < retries - 1) {
+			await new Promise(resolve => setTimeout(resolve, 100));
+		}
+	}
+	return false;
+};
 
-	// Debug logging
-	// console.log('ProductVariantPicker mounted with data:', productData.value)
-	// console.log('Product options:', productOptions.value)
-	// console.log('Variants:', variants.value)
-	// console.log('Options with values:', optionsWithValues.value)
+onMounted(async () => {
+	// Try to initialize product data
+	const initialized = await tryInitializeProduct();
+	
+	if (!initialized) {
+		// Failed to initialize product data after retries
+	}
 
-	// Debug first variant structure
-	// if (variants.value.length > 0) {
-	//   console.log('First variant structure:', variants.value[0])
-	// }
-
-	// // Debug first option structure
-	// if (productOptions.value.length > 0) {
-	//   console.log('First option structure:', productOptions.value[0])
-	// }
+	// Component has mounted and initialized
 
 	// Initialize selected options first
 	if (variants.value.length > 0) {
@@ -341,11 +328,11 @@ onMounted(() => {
 		}
 
 		if (variantToSelect) {
-			console.log('Initializing with variant:', variantToSelect);
+			// Initializing with variant
 
 			// Always select the variant, even if it's the only one
-			if (variants.value.length === 1) {
-				// For single variant, directly select it
+			if (variants.value.length === 1 && productOptions.value.length === 0) {
+				// For single variant with no options, directly select it
 				nextTick(() => {
 					selectVariant(variantToSelect);
 				});
@@ -387,11 +374,19 @@ onMounted(() => {
 				});
 			}
 		}
+	} else {
+		// No variants found during initialization
 	}
 });
 
 const selectVariant = (variant) => {
+	if (!variant) {
+		// Attempted to select null/undefined variant
+		return;
+	}
+	
 	selectedVariant.value = variant;
+	isInitialized.value = true;
 
 	// Update selected options based on variant
 	productOptions.value.forEach((option, index) => {
@@ -412,7 +407,7 @@ const selectVariant = (variant) => {
 	emit('variant-change', variant);
 	dispatchEvent('variant-change', variant);
 
-	console.log('Variant selected:', variant);
+	// Variant selected
 };
 
 const updateURL = (variant) => {
@@ -426,7 +421,7 @@ const updateURL = (variant) => {
 };
 
 const selectOption = (optionName, value) => {
-	console.log('Option clicked:', optionName, value);
+	// Option clicked
 
 	selectedOptions.value[optionName] = value;
 
@@ -438,7 +433,7 @@ const selectOption = (optionName, value) => {
 		});
 	});
 
-	console.log('Matching variant found:', matchingVariant);
+	// Matching variant found
 
 	if (matchingVariant) {
 		selectVariant(matchingVariant);
@@ -475,7 +470,7 @@ const fetchProductInfo = async (variant) => {
 			html: doc,
 		});
 	} catch (error) {
-		console.error('Error fetching product info:', error);
+		// Error fetching product info
 	}
 };
 

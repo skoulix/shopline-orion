@@ -17,12 +17,11 @@
         {{#if recommendations.performed}}
           {{#if recommendations.products}}
             {{#if (gt recommendations.products_count 0)}}
-              <div class="recommendations-grid grid gap-6" 
-                   data-desktop-columns="{{section.settings.columns_desktop}}"
-                   style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));">
+              <div class="recommendations-grid flex flex-wrap justify-center gap-6" 
+                   data-desktop-columns="{{section.settings.columns_desktop}}">
                 
                 {{#each recommendations.products limit=section.settings.products_to_show}}
-                  <div class="product-card-wrapper">
+                  <div class="product-card-wrapper flex-shrink-0" style="width: 100%; max-width: 300px;">
                     <product-card
                       product-id="{{this.id}}"
                       variant-id="{{this.variants.[0].id}}"
@@ -41,9 +40,8 @@
               </div>
             {{else}}
               <!-- No recommended products available, use AJAX fallback -->
-              <div class="recommendations-grid grid gap-6" 
+              <div class="recommendations-grid flex flex-wrap justify-center gap-6" 
                    data-desktop-columns="{{section.settings.columns_desktop}}"
-                   style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
                    id="recommendations-ajax">
                 <div class="col-span-full text-center py-8 text-gray-500">
                   <div class="animate-pulse">Loading recommendations...</div>
@@ -52,9 +50,8 @@
             {{/if}}
           {{else}}
             <!-- Recommendations object exists but no products, use AJAX fallback -->
-            <div class="recommendations-grid grid gap-6" 
+            <div class="recommendations-grid flex flex-wrap justify-center gap-6" 
                  data-desktop-columns="{{section.settings.columns_desktop}}"
-                 style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
                  id="recommendations-ajax">
               <div class="col-span-full text-center py-8 text-gray-500">
                 <div class="flex items-center justify-center space-x-2">
@@ -66,9 +63,8 @@
           {{/if}}
         {{else}}
           <!-- Recommendations not performed (recommendations.performed = false), use AJAX -->
-          <div class="recommendations-grid grid gap-6" 
+          <div class="recommendations-grid flex flex-wrap justify-center gap-6" 
                data-desktop-columns="{{section.settings.columns_desktop}}"
-               style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
                id="recommendations-ajax">
             <div class="col-span-full text-center py-8 text-gray-500">
               <div class="flex items-center justify-center space-x-2">
@@ -80,9 +76,8 @@
         {{/if}}
       {{else}}
         <!-- Recommendations object not available, use AJAX -->
-        <div class="recommendations-grid grid gap-6" 
+        <div class="recommendations-grid flex flex-wrap justify-center gap-6" 
              data-desktop-columns="{{section.settings.columns_desktop}}"
-             style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
              id="recommendations-ajax">
           <div class="col-span-full text-center py-8 text-gray-500">
             <div class="flex items-center justify-center space-x-2">
@@ -164,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     productsToShow.forEach(product => {
       const productHtml = `
-        <div class="product-card-wrapper">
+        <div class="product-card-wrapper flex-shrink-0" style="width: 100%; max-width: 300px;">
           <product-card
             product-id="${product.id}"
             variant-id="${product.variants && product.variants[0] ? product.variants[0].id : ''}"
@@ -199,19 +194,44 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-  /* Responsive grid for recommendations */
-  @media (min-width: 768px) {
-    .recommendations-grid[data-desktop-columns="2"] {
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  /* Responsive sizing for centered product cards */
+  .product-card-wrapper {
+    flex: 0 0 auto;
+  }
+  
+  /* Mobile: 2 columns */
+  @media (max-width: 767px) {
+    .product-card-wrapper {
+      width: calc(50% - 0.75rem);
+      max-width: 200px;
     }
-    .recommendations-grid[data-desktop-columns="3"] {
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+  
+  /* Tablet and desktop: dynamic columns based on settings */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .product-card-wrapper {
+      width: calc(33.333% - 1rem);
+      max-width: 280px;
     }
-    .recommendations-grid[data-desktop-columns="4"] {
-      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+  
+  /* Large desktop: use settings */
+  @media (min-width: 1024px) {
+    .recommendations-grid[data-desktop-columns="2"] .product-card-wrapper {
+      width: calc(50% - 0.75rem);
+      max-width: 400px;
     }
-    .recommendations-grid[data-desktop-columns="5"] {
-      grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    .recommendations-grid[data-desktop-columns="3"] .product-card-wrapper {
+      width: calc(33.333% - 1rem);
+      max-width: 350px;
+    }
+    .recommendations-grid[data-desktop-columns="4"] .product-card-wrapper {
+      width: calc(25% - 1.125rem);
+      max-width: 300px;
+    }
+    .recommendations-grid[data-desktop-columns="5"] .product-card-wrapper {
+      width: calc(20% - 1.2rem);
+      max-width: 250px;
     }
   }
 </style>
