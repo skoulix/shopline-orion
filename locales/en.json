@@ -898,6 +898,7 @@
     },
     "product_list": {
       "add_to_cart": "Add to cart",
+      "buy_it_now": "Buy it now",
       "filter": "Filter",
       "filters_selected": "{{count}} selected",
       "from_price_html": "From {{price}}",
@@ -907,6 +908,10 @@
       "load_more_tip": "Loading more items",
       "more": "more",
       "new_arrivals": "New arrivals",
+      "free_shipping": "Free shipping",
+      "day_returns": "30-day returns",
+      "secure_payment": "Secure payment",
+      "fast_delivery": "Fast delivery",
       "new_products": "New to old creation time",
       "no_product": "Sorry, there are no products in this category",
       "price_break_tag": "Volume pricing available",

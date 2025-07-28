@@ -5,8 +5,34 @@
         {{ option.name }}: <span class="font-normal text-gray-600">{{ getSelectedValue(option.name) }}</span>
       </h3>
       
+      <!-- Image-based variant options -->
+      <div v-if="hasImageOptions(option)" class="flex flex-wrap gap-3">
+        <button
+          v-for="(item, index) in getOptionValuesWithImages(option)"
+          :key="item.value"
+          type="button"
+          :class="[
+            'variant-image-button',
+            isOptionSelected(option.name, item.value) ? 'variant-image-button--selected' : '',
+            !isOptionAvailable(option.name, item.value) ? 'variant-image-button--unavailable' : ''
+          ]"
+          :title="item.value"
+          :aria-label="`Select ${option.name} ${item.value}`"
+          :disabled="!isOptionAvailable(option.name, item.value)"
+          @click="selectOption(option.name, item.value)"
+        >
+          <img
+            v-if="item.image"
+            :src="getImageUrl(item.image, 100)"
+            :alt="item.value"
+            class="w-full h-full object-cover"
+          />
+          <span v-else class="text-xs">{{ item.value }}</span>
+        </button>
+      </div>
+      
       <!-- Color swatches -->
-      <div v-if="isColorOption(option.name)" class="flex flex-wrap gap-2">
+      <div v-else-if="isColorOption(option.name)" class="flex flex-wrap gap-2">
         <button
           v-for="value in option.values"
           :key="value"
@@ -52,21 +78,33 @@
     </div>
     
     <!-- Selected variant info -->
-    <div v-if="selectedVariant" class="mt-6 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <span class="text-2xl font-bold text-gray-900">
-          {{ formatMoney(selectedVariant.price) }}
-        </span>
-        <span v-if="selectedVariant.compare_at_price > selectedVariant.price" class="text-lg text-gray-500 line-through">
-          {{ formatMoney(selectedVariant.compare_at_price) }}
-        </span>
+    <div v-if="selectedVariant" class="variant-info mt-6">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-4">
+          <span class="text-2xl font-bold text-gray-900">
+            {{ formatMoney(selectedVariant.price) }}
+          </span>
+          <span v-if="selectedVariant.compare_at_price > selectedVariant.price" class="text-lg text-gray-500 line-through">
+            {{ formatMoney(selectedVariant.compare_at_price) }}
+          </span>
+        </div>
+        
+        <div v-if="selectedVariant.sku" class="text-sm text-gray-600">
+          SKU: {{ selectedVariant.sku }}
+        </div>
       </div>
       
-      <div v-if="selectedVariant.available" class="text-sm text-green-600 font-medium">
-        In Stock
-      </div>
-      <div v-else class="text-sm text-red-600 font-medium">
-        Out of Stock
+      <div class="flex items-center justify-between">
+        <div v-if="selectedVariant.inventory_quantity !== undefined" class="text-sm text-gray-600">
+          {{ getInventoryMessage() }}
+        </div>
+        
+        <div v-if="selectedVariant.available" class="text-sm text-green-600 font-medium">
+          In Stock
+        </div>
+        <div v-else class="text-sm text-red-600 font-medium">
+          Out of Stock
+        </div>
       </div>
     </div>
   </div>
@@ -83,16 +121,25 @@ const props = defineProps({
   selectedVariantId: {
     type: [String, Number],
     default: null
+  },
+  updateUrl: {
+    type: Boolean,
+    default: true
+  },
+  sectionId: {
+    type: String,
+    default: ''
   }
 })
 
-const emit = defineEmits(['variant-change'])
+const emit = defineEmits(['variant-change', 'media-change', 'product-info-update'])
 
 const selectedOptions = ref({})
 const selectedVariant = ref(null)
 
 const productOptions = computed(() => props.product.options || [])
 const variants = computed(() => props.product.variants || [])
+const optionsWithValues = computed(() => props.product.options_with_values || [])
 
 onMounted(() => {
   // Initialize with first available variant or selected variant
@@ -115,7 +162,27 @@ const selectVariant = (variant) => {
     selectedOptions.value[option.name] = variant[`option${index + 1}`]
   })
   
+  // Update URL if enabled
+  if (props.updateUrl && variant) {
+    updateURL(variant)
+  }
+  
+  // Emit media change event if variant has featured media
+  if (variant && variant.featured_media) {
+    emit('media-change', variant.featured_media)
+  }
+  
   emit('variant-change', variant)
+}
+
+const updateURL = (variant) => {
+  const url = new URL(window.location)
+  if (variant && variant.id) {
+    url.searchParams.set('sku', variant.id)
+  } else {
+    url.searchParams.delete('sku')
+  }
+  window.history.replaceState({}, document.title, url.toString())
 }
 
 const selectOption = (optionName, value) => {
@@ -130,8 +197,41 @@ const selectOption = (optionName, value) => {
   })
   
   if (matchingVariant) {
-    selectedVariant.value = matchingVariant
-    emit('variant-change', matchingVariant)
+    selectVariant(matchingVariant)
+    
+    // Fetch updated product info via AJAX if section ID is provided
+    if (props.sectionId) {
+      fetchProductInfo(matchingVariant)
+    }
+  }
+}
+
+const fetchProductInfo = async (variant) => {
+  if (!variant || !variant.id) return
+  
+  try {
+    const response = await fetch(
+      `${window.location.pathname}?sku=${variant.id}&section_id=${props.sectionId}`,
+      {
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      }
+    )
+    
+    if (!response.ok) throw new Error('Failed to fetch product info')
+    
+    const html = await response.text()
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(html, 'text/html')
+    
+    // Emit event with parsed HTML for parent to handle updates
+    emit('product-info-update', {
+      variant: variant,
+      html: doc
+    })
+  } catch (error) {
+    console.error('Error fetching product info:', error)
   }
 }
 
@@ -189,16 +289,54 @@ const getColorValue = (colorName) => {
 }
 
 const formatMoney = (cents) => {
-  return new Intl.NumberFormat('en-US', {
+  const currency = window.Shopline?.shop?.currency || 'USD'
+  const locale = window.Shopline?.locale?.current || 'en'
+  
+  return new Intl.NumberFormat(locale, {
     style: 'currency',
-    currency: window.Shopify?.currency?.active || 'USD'
+    currency: currency
   }).format(cents / 100)
+}
+
+const hasImageOptions = (option) => {
+  // Check if this option has associated images
+  return optionsWithValues.value.some(opt => 
+    opt.name === option.name && opt.values_images && opt.values_images.length > 0
+  )
+}
+
+const getOptionValuesWithImages = (option) => {
+  const optionData = optionsWithValues.value.find(opt => opt.name === option.name)
+  if (!optionData || !optionData.values_images) {
+    return option.values.map(value => ({ value, image: null }))
+  }
+  return optionData.values_images
+}
+
+const getImageUrl = (image, width = 100) => {
+  if (!image) return ''
+  // If it's already a URL, return it
+  if (typeof image === 'string') return image
+  // If it's an image object with src
+  if (image.src) return image.src
+  return ''
+}
+
+const getInventoryMessage = () => {
+  if (!selectedVariant.value) return ''
+  const quantity = selectedVariant.value.inventory_quantity
+  
+  if (quantity === undefined || quantity === null) return ''
+  if (quantity <= 0) return 'Out of stock'
+  if (quantity <= 5) return `Only ${quantity} left in stock`
+  if (quantity <= 20) return `${quantity} in stock`
+  return 'In stock'
 }
 </script>
 
 <style scoped>
 .color-swatch {
-  @apply w-10 h-10 rounded-full border-2 border-gray-300 relative overflow-hidden transition-all duration-200 hover:scale-110;
+  @apply w-10 h-10 rounded-full border-2 border-gray-300 relative overflow-hidden transition-all duration-200;
 }
 
 .color-swatch--selected {
@@ -206,7 +344,7 @@ const formatMoney = (cents) => {
 }
 
 .color-swatch--unavailable {
-  @apply opacity-30 cursor-not-allowed hover:scale-100;
+  @apply opacity-30 cursor-not-allowed;
 }
 
 .color-swatch--unavailable::after {
@@ -230,5 +368,23 @@ const formatMoney = (cents) => {
 
 .variant-button--unavailable {
   @apply opacity-30 cursor-not-allowed hover:bg-white line-through;
+}
+
+.variant-image-button {
+  @apply w-16 h-16 rounded-lg border-2 border-gray-300 overflow-hidden transition-all duration-200 flex items-center justify-center;
+}
+
+.variant-image-button--selected {
+  @apply border-gray-900 shadow-md ring-2 ring-gray-900 ring-offset-2;
+}
+
+.variant-image-button--unavailable {
+  @apply opacity-30 cursor-not-allowed;
+}
+
+.variant-image-button--unavailable::after {
+  content: '';
+  @apply absolute inset-0 bg-white bg-opacity-70;
+  background-image: linear-gradient(45deg, transparent 45%, currentColor 45%, currentColor 55%, transparent 55%);
 }
 </style>
