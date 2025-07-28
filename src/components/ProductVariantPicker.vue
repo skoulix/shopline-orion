@@ -343,41 +343,49 @@ onMounted(() => {
 		if (variantToSelect) {
 			console.log('Initializing with variant:', variantToSelect);
 
-			// Pre-populate selected options based on the variant
-			if (variantToSelect.option1) {
-				const option1 = productOptions.value.find(
-					(opt) => opt.position === 1
-				);
-				if (option1) {
-					selectedOptions.value[option1.name] =
-						variantToSelect.option1;
+			// Always select the variant, even if it's the only one
+			if (variants.value.length === 1) {
+				// For single variant, directly select it
+				nextTick(() => {
+					selectVariant(variantToSelect);
+				});
+			} else {
+				// Pre-populate selected options based on the variant
+				if (variantToSelect.option1) {
+					const option1 = productOptions.value.find(
+						(opt) => opt.position === 1
+					);
+					if (option1) {
+						selectedOptions.value[option1.name] =
+							variantToSelect.option1;
+					}
 				}
-			}
 
-			if (variantToSelect.option2) {
-				const option2 = productOptions.value.find(
-					(opt) => opt.position === 2
-				);
-				if (option2) {
-					selectedOptions.value[option2.name] =
-						variantToSelect.option2;
+				if (variantToSelect.option2) {
+					const option2 = productOptions.value.find(
+						(opt) => opt.position === 2
+					);
+					if (option2) {
+						selectedOptions.value[option2.name] =
+							variantToSelect.option2;
+					}
 				}
-			}
 
-			if (variantToSelect.option3) {
-				const option3 = productOptions.value.find(
-					(opt) => opt.position === 3
-				);
-				if (option3) {
-					selectedOptions.value[option3.name] =
-						variantToSelect.option3;
+				if (variantToSelect.option3) {
+					const option3 = productOptions.value.find(
+						(opt) => opt.position === 3
+					);
+					if (option3) {
+						selectedOptions.value[option3.name] =
+							variantToSelect.option3;
+					}
 				}
-			}
 
-			// Use nextTick to ensure DOM is ready
-			nextTick(() => {
-				selectVariant(variantToSelect);
-			});
+				// Use nextTick to ensure DOM is ready
+				nextTick(() => {
+					selectVariant(variantToSelect);
+				});
+			}
 		}
 	}
 });
