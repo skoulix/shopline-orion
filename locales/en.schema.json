@@ -501,6 +501,21 @@
           "options__2": {
             "label": "Right"
           }
+        },
+        "group_header__0": {
+          "label": "Appearance"
+        },
+        "background_color": {
+          "label": "Background color"
+        },
+        "group_header__1": {
+          "label": "Section spacing"
+        },
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
         }
       },
       "presets": {
@@ -547,6 +562,12 @@
       "name": "Page",
       "settings": {
         "group_header__0": {
+          "label": "Appearance"
+        },
+        "background_color": {
+          "label": "Background color"
+        },
+        "group_header__1": {
           "label": "Section spacing"
         },
         "padding_top": {
@@ -666,6 +687,12 @@
       "name": "Contact form",
       "settings": {
         "group_header__0": {
+          "label": "Appearance"
+        },
+        "background_color": {
+          "label": "Background color"
+        },
+        "group_header__1": {
           "label": "Section spacing"
         },
         "padding_top": {
