@@ -652,6 +652,19 @@ Shopline's search functionality primarily focuses on product search. The `search
 
 Note: While some themes may show support for searching other content types (collections, articles, pages), in practice Shopline's search typically only returns product results.
 
+### Shopline Collection Filtering
+Shopline uses a facets-based filtering system for collections that requires server-side implementation:
+
+1. **Facets System**: The Arise theme uses a `facets` snippet and `component-facets.js` for filtering
+2. **AJAX Requests**: Filters are applied via AJAX requests to Shopline's filtering API
+3. **URL Parameters**: While filter parameters can be added to URLs (e.g., `?filter.price=0-50`), the `paginate` helper doesn't automatically filter products based on these parameters
+4. **Implementation**: Full filtering requires:
+   - Using Shopline's facets components
+   - Making AJAX requests to filter endpoints
+   - Server-side rendering of filtered results
+
+For the Orion theme, we've implemented a UI for filters that updates URL parameters, but actual product filtering requires integration with Shopline's facets API or a custom server-side implementation.
+
 ### Cart Routes (v20251201)
 
 Cart routes are available via the Shopline global object:

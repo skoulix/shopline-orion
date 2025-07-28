@@ -1,46 +1,104 @@
 <div class="collection-page" style="padding-top: {{section.settings.padding_top}}px; padding-bottom: {{section.settings.padding_bottom}}px;">
   <div class="{{#if section.settings.full_width}}w-full{{else}}max-w-7xl mx-auto{{/if}} px-4 sm:px-6 lg:px-8">
     {{#if collection.products}}
-      <!-- Filters and Sorting Bar -->
-      {{#if (or section.settings.enable_filtering section.settings.enable_sorting)}}
-        <div class="mb-6 flex items-center justify-between">
-          <div class="flex items-center gap-4">
-            {{#if section.settings.enable_filtering}}
-              <collection-filter-drawer
+      {{#if (eq section.settings.filter_position "sidebar")}}
+        <!-- Sidebar Layout -->
+        <div class="flex gap-8">
+          <!-- Sidebar Filters -->
+          {{#if section.settings.enable_filtering}}
+            <aside class="w-64 flex-shrink-0 hidden lg:block">
+              <collection-filter-sidebar
                 collection-handle="{{collection.handle}}"
                 :products='{{json collection.products}}'
-              ></collection-filter-drawer>
+                :show-sort="{{#if section.settings.enable_sorting}}true{{else}}false{{/if}}"
+              ></collection-filter-sidebar>
+            </aside>
+          {{/if}}
+          
+          <!-- Main Content -->
+          <div class="flex-1">
+            <!-- Mobile Filter Button -->
+            {{#if section.settings.enable_filtering}}
+              <div class="mb-6 lg:hidden">
+                <collection-filter-drawer
+                  collection-handle="{{collection.handle}}"
+                  :products='{{json collection.products}}'
+                ></collection-filter-drawer>
+              </div>
+            {{/if}}
+            
+            <!-- Products Grid -->
+            <div class="product-grid grid gap-4" 
+                 style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
+                 data-products-count="{{collection.products.length}}"
+                 data-desktop-columns="{{section.settings.columns_desktop}}"
+                 data-mobile-columns="{{section.settings.columns_mobile}}">
+              {{#each collection.products}}
+                <div class="product-card-wrapper">
+                  <product-card
+                    product-id="{{this.id}}"
+                    variant-id="{{this.variants.[0].id}}"
+                    title="{{this.title}}"
+                    handle="{{this.handle}}"
+                    url="{{this.url}}"
+                    vendor="{{this.vendor}}"
+                    price="{{this.price}}"
+                    compare-at-price="{{this.compare_at_price}}"
+                    image="{{image_url this.images.[0] width=800}}"
+                    :available="{{#if this.available}}true{{else}}false{{/if}}"
+                  ></product-card>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      {{else}}
+        <!-- Drawer Layout (Default) -->
+        <!-- Filters and Sorting Bar -->
+        {{#if (or section.settings.enable_filtering section.settings.enable_sorting)}}
+          <div class="mb-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              {{#if section.settings.enable_filtering}}
+                <collection-filter-drawer
+                  collection-handle="{{collection.handle}}"
+                  :products='{{json collection.products}}'
+                ></collection-filter-drawer>
+              {{/if}}
+            </div>
+            
+            {{#if section.settings.enable_sorting}}
+              <collection-sort
+                collection-handle="{{collection.handle}}"
+                current-sort="{{#if request.params.sort_by}}{{request.params.sort_by}}{{else}}manual{{/if}}"
+              ></collection-sort>
             {{/if}}
           </div>
-          
-          {{#if section.settings.enable_sorting}}
-            <collection-sort
-              collection-handle="{{collection.handle}}"
-              current-sort="{{#if request.params.sort_by}}{{request.params.sort_by}}{{else}}manual{{/if}}"
-            ></collection-sort>
-          {{/if}}
+        {{/if}}
+        
+        <!-- Products Grid -->
+        <div class="product-grid grid gap-4" 
+             style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
+             data-products-count="{{collection.products.length}}"
+             data-desktop-columns="{{section.settings.columns_desktop}}"
+             data-mobile-columns="{{section.settings.columns_mobile}}">
+          {{#each collection.products}}
+            <div class="product-card-wrapper">
+              <product-card
+                product-id="{{this.id}}"
+                variant-id="{{this.variants.[0].id}}"
+                title="{{this.title}}"
+                handle="{{this.handle}}"
+                url="{{this.url}}"
+                vendor="{{this.vendor}}"
+                price="{{this.price}}"
+                compare-at-price="{{this.compare_at_price}}"
+                image="{{image_url this.images.[0] width=800}}"
+                :available="{{#if this.available}}true{{else}}false{{/if}}"
+              ></product-card>
+            </div>
+          {{/each}}
         </div>
       {{/if}}
-      
-      <!-- Products Grid -->
-      <div class="product-grid" data-products-count="{{collection.products.length}}">
-        {{#each collection.products}}
-          <div class="product-card-wrapper">
-            <product-card
-              product-id="{{this.id}}"
-              variant-id="{{this.variants.[0].id}}"
-              title="{{this.title}}"
-              handle="{{this.handle}}"
-              url="{{this.url}}"
-              vendor="{{this.vendor}}"
-              price="{{this.price}}"
-              compare-at-price="{{this.compare_at_price}}"
-              image="{{image_url this.images.[0] width=800}}"
-              :available="{{#if this.available}}true{{else}}false{{/if}}"
-            ></product-card>
-          </div>
-        {{/each}}
-      </div>
     {{else}}
       <div class="text-center py-16">
         <!-- Empty State Icon -->
@@ -99,6 +157,44 @@
     {{/if}}
   </div>
 </div>
+
+<style>
+  /* Ensure product grid has consistent spacing */
+  .product-grid {
+    width: 100%;
+  }
+  
+  /* Desktop columns - using data attributes to set grid columns */
+  @media (min-width: 768px) {
+    .product-grid[data-desktop-columns="2"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .product-grid[data-desktop-columns="3"] {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+    .product-grid[data-desktop-columns="4"] {
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+    .product-grid[data-desktop-columns="5"] {
+      grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    }
+  }
+  
+  /* Tablet columns - fixed at 3 for medium screens */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .product-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+  }
+  
+  /* Adjust grid columns when sidebar is present */
+  @media (min-width: 1024px) {
+    .collection-page .flex-1 .product-grid {
+      /* Ensure grid takes full width of the flex-1 container */
+      width: 100%;
+    }
+  }
+</style>
 
 {{#schema}}
 {

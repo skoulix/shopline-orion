@@ -220,6 +220,22 @@ function mountVueComponents(container = document) {
     app.mount(mount)
   })
 
+  // Mount CollectionFilterSidebar components (using CollectionFilters component)
+  const filterSidebarMounts = container.querySelectorAll('collection-filter-sidebar')
+  filterSidebarMounts.forEach(mount => {
+    if (mount._vueApp) return
+    
+    const props = {
+      collectionHandle: mount.getAttribute('collection-handle'),
+      products: JSON.parse(mount.getAttribute(':products') || '[]'),
+      showSort: mount.getAttribute(':show-sort') === 'true'
+    }
+    
+    const app = createApp(CollectionFilters, props)
+    mount._vueApp = app
+    app.mount(mount)
+  })
+
   // Mount ArticleCard components (as Vue apps to avoid style isolation)
   const articleCardMounts = container.querySelectorAll('article-card')
   articleCardMounts.forEach(mount => {

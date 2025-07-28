@@ -14,9 +14,10 @@
     </div>
 
     <!-- Desktop Filters -->
-    <div class="hidden lg:block space-y-6">
+    <div class="hidden lg:block filters-card" :style="cardStyles">
+      <div class="space-y-6">
       <!-- Sort By -->
-      <div class="filter-group">
+      <div v-if="showSort" class="filter-group">
         <h3 class="font-medium text-secondary-900 mb-3">Sort By</h3>
         <select
           v-model="selectedSort"
@@ -129,14 +130,15 @@
         </label>
       </div>
 
-      <!-- Clear Filters -->
-      <button
-        v-if="hasActiveFilters"
-        @click="clearFilters"
-        class="text-sm text-primary-600 hover:text-primary-700 font-medium"
-      >
-        Clear all filters
-      </button>
+        <!-- Clear Filters -->
+        <button
+          v-if="hasActiveFilters"
+          @click="clearFilters"
+          class="text-sm text-primary-600 hover:text-primary-700 font-medium"
+        >
+          Clear all filters
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Filters Drawer -->
@@ -166,9 +168,131 @@
             </div>
             
             <!-- Filters Content -->
-            <div class="flex-1 overflow-y-auto p-4 space-y-6">
-              <!-- Copy of desktop filters content here -->
-              <!-- This is simplified for brevity, but would include all the same filter groups -->
+            <div class="flex-1 overflow-y-auto p-4">
+              <div class="space-y-6">
+                <!-- Sort By (if enabled) -->
+                <div v-if="showSort" class="filter-group">
+                  <h3 class="font-medium text-secondary-900 mb-3">Sort By</h3>
+                  <select
+                    v-model="selectedSort"
+                    @change="updateSort"
+                    class="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  >
+                    <option value="manual">Featured</option>
+                    <option value="best-selling">Best Selling</option>
+                    <option value="title-ascending">Alphabetically, A-Z</option>
+                    <option value="title-descending">Alphabetically, Z-A</option>
+                    <option value="price-ascending">Price, low to high</option>
+                    <option value="price-descending">Price, high to low</option>
+                    <option value="created-ascending">Date, old to new</option>
+                    <option value="created-descending">Date, new to old</option>
+                  </select>
+                </div>
+
+                <!-- Price Range -->
+                <div class="filter-group">
+                  <h3 class="font-medium text-secondary-900 mb-3">Price</h3>
+                  <div class="space-y-2">
+                    <label class="flex items-center">
+                      <input
+                        type="checkbox"
+                        value="0-50"
+                        v-model="selectedPriceRanges"
+                        @change="updateFilters"
+                        class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
+                      />
+                      <span class="ml-2 text-sm">Under $50</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input
+                        type="checkbox"
+                        value="50-100"
+                        v-model="selectedPriceRanges"
+                        @change="updateFilters"
+                        class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
+                      />
+                      <span class="ml-2 text-sm">$50 - $100</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input
+                        type="checkbox"
+                        value="100-200"
+                        v-model="selectedPriceRanges"
+                        @change="updateFilters"
+                        class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
+                      />
+                      <span class="ml-2 text-sm">$100 - $200</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input
+                        type="checkbox"
+                        value="200+"
+                        v-model="selectedPriceRanges"
+                        @change="updateFilters"
+                        class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
+                      />
+                      <span class="ml-2 text-sm">Over $200</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Product Type -->
+                <div v-if="productTypes.length > 0" class="filter-group">
+                  <h3 class="font-medium text-secondary-900 mb-3">Product Type</h3>
+                  <div class="space-y-2">
+                    <label v-for="type in productTypes" :key="type" class="flex items-center">
+                      <input
+                        type="checkbox"
+                        :value="type"
+                        v-model="selectedTypes"
+                        @change="updateFilters"
+                        class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
+                      />
+                      <span class="ml-2 text-sm">{{ type }}</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Vendor -->
+                <div v-if="vendors.length > 0" class="filter-group">
+                  <h3 class="font-medium text-secondary-900 mb-3">Brand</h3>
+                  <div class="space-y-2">
+                    <label v-for="vendor in vendors" :key="vendor" class="flex items-center">
+                      <input
+                        type="checkbox"
+                        :value="vendor"
+                        v-model="selectedVendors"
+                        @change="updateFilters"
+                        class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
+                      />
+                      <span class="ml-2 text-sm">{{ vendor }}</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Availability -->
+                <div class="filter-group">
+                  <h3 class="font-medium text-secondary-900 mb-3">Availability</h3>
+                  <label class="flex items-center">
+                    <input
+                      type="checkbox"
+                      v-model="inStockOnly"
+                      @change="updateFilters"
+                      class="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
+                    />
+                    <span class="ml-2 text-sm">In stock only</span>
+                  </label>
+                </div>
+
+                <!-- Clear Filters -->
+                <button
+                  v-if="hasActiveFilters"
+                  @click="clearFilters"
+                  class="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                >
+                  Clear all filters
+                </button>
+              </div>
             </div>
             
             <!-- Footer -->
@@ -198,18 +322,51 @@ const props = defineProps({
   initialFilters: {
     type: Object,
     default: () => ({})
+  },
+  showSort: {
+    type: Boolean,
+    default: false
   }
 })
 
 const emit = defineEmits(['update-filters'])
 
+// Get initial values from URL params
+const urlParams = new URLSearchParams(window.location.search)
+const initialSort = urlParams.get('sort_by') || 'manual'
+
+// Initialize filter values from URL
+const getInitialFilterValues = () => {
+  const priceParam = urlParams.get('filter.price')
+  const typeParam = urlParams.get('filter.type')
+  const vendorParam = urlParams.get('filter.vendor')
+  const availabilityParam = urlParams.get('filter.availability')
+  
+  return {
+    priceRanges: priceParam ? priceParam.split(',') : [],
+    types: typeParam ? typeParam.split(',') : [],
+    vendors: vendorParam ? vendorParam.split(',') : [],
+    inStockOnly: availabilityParam === 'in_stock'
+  }
+}
+
+const initialFilters = getInitialFilterValues()
+
 // Filter state
-const selectedSort = ref('manual')
-const selectedPriceRanges = ref([])
-const selectedTypes = ref([])
-const selectedVendors = ref([])
-const inStockOnly = ref(false)
+const selectedSort = ref(initialSort)
+const selectedPriceRanges = ref(initialFilters.priceRanges)
+const selectedTypes = ref(initialFilters.types)
+const selectedVendors = ref(initialFilters.vendors)
+const inStockOnly = ref(initialFilters.inStockOnly)
 const mobileFiltersOpen = ref(false)
+
+// Card styles from theme settings
+const cardStyles = computed(() => {
+  const settings = window.Shopline?.theme?.settings || {}
+  return {
+    '--card-radius': settings.card_border_radius ? `${settings.card_border_radius}px` : '8px'
+  }
+})
 
 // Computed filter options from products
 const productTypes = computed(() => {
@@ -241,11 +398,77 @@ const hasActiveFilters = computed(() => {
 
 // Filter methods
 const updateSort = () => {
-  emitFilterUpdate()
+  // Update URL with new sort parameter
+  const url = new URL(window.location.href)
+  if (selectedSort.value === 'manual') {
+    url.searchParams.delete('sort_by')
+  } else {
+    url.searchParams.set('sort_by', selectedSort.value)
+  }
+  window.location.href = url.toString()
 }
 
 const updateFilters = () => {
+  // For desktop sidebar, apply filters immediately
+  if (!mobileFiltersOpen.value) {
+    applyFilters()
+  }
+  // For mobile, just emit the update event (will apply when drawer closes)
   emitFilterUpdate()
+}
+
+const applyFilters = () => {
+  // For now, emit an event that the parent can handle
+  // In a real implementation, this would make an AJAX request to Shopline's filtering API
+  emit('apply-filters', {
+    priceRanges: selectedPriceRanges.value,
+    types: selectedTypes.value,
+    vendors: selectedVendors.value,
+    inStockOnly: inStockOnly.value
+  })
+  
+  // Show a temporary message
+  const message = document.createElement('div')
+  message.className = 'fixed top-4 right-4 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded z-50'
+  message.innerHTML = `
+    <p class="font-medium">Note: Product filtering requires Shopline's facets API</p>
+    <p class="text-sm mt-1">The filters have been applied to the URL, but product filtering needs server-side implementation.</p>
+  `
+  document.body.appendChild(message)
+  
+  setTimeout(() => {
+    message.remove()
+  }, 5000)
+  
+  // Still update the URL for demonstration
+  const url = new URL(window.location.href)
+  
+  // Clear existing filter params
+  Array.from(url.searchParams.keys()).forEach(key => {
+    if (key.startsWith('filter.')) {
+      url.searchParams.delete(key)
+    }
+  })
+  
+  // Add filters to URL
+  if (selectedPriceRanges.value.length > 0) {
+    url.searchParams.set('filter.price', selectedPriceRanges.value.join(','))
+  }
+  
+  if (selectedTypes.value.length > 0) {
+    url.searchParams.set('filter.type', selectedTypes.value.join(','))
+  }
+  
+  if (selectedVendors.value.length > 0) {
+    url.searchParams.set('filter.vendor', selectedVendors.value.join(','))
+  }
+  
+  if (inStockOnly.value) {
+    url.searchParams.set('filter.availability', 'in_stock')
+  }
+  
+  // Update URL without reload
+  window.history.pushState({}, '', url.toString())
 }
 
 const clearFilters = () => {
@@ -253,12 +476,30 @@ const clearFilters = () => {
   selectedTypes.value = []
   selectedVendors.value = []
   inStockOnly.value = false
+  
+  // Clear URL parameters
+  const url = new URL(window.location.href)
+  Array.from(url.searchParams.keys()).forEach(key => {
+    if (key.startsWith('filter.')) {
+      url.searchParams.delete(key)
+    }
+  })
+  window.history.pushState({}, '', url.toString())
+  
+  // Emit event
+  emit('apply-filters', {
+    priceRanges: [],
+    types: [],
+    vendors: [],
+    inStockOnly: false
+  })
+  
   emitFilterUpdate()
 }
 
 const applyMobileFilters = () => {
   mobileFiltersOpen.value = false
-  emitFilterUpdate()
+  applyFilters()
 }
 
 const emitFilterUpdate = () => {
@@ -273,12 +514,28 @@ const emitFilterUpdate = () => {
 </script>
 
 <style scoped>
-.filter-group {
+.filters-card {
+  background-color: white;
+  border: 1px solid rgb(var(--color-secondary-200));
+  border-radius: var(--card-radius, 8px);
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.filters-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.filters-card .filter-group {
   padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
   border-bottom: 1px solid rgb(var(--color-secondary-200));
 }
 
-.filter-group:last-child {
+.filters-card .filter-group:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
   border-bottom: none;
 }
 </style>
