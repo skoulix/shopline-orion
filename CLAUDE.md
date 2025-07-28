@@ -642,6 +642,16 @@ console.log('Shopline.locale:', Shopline.locale)
 
 ## API Endpoints
 
+### Shopline Search
+Shopline's search functionality primarily focuses on product search. The `search` object returns product results with the following properties:
+- Product ID, variants, pricing information
+- Product images (featured_image, images array)
+- Availability status
+- Product handle and URL
+- Vendor information
+
+Note: While some themes may show support for searching other content types (collections, articles, pages), in practice Shopline's search typically only returns product results.
+
 ### Cart Routes (v20251201)
 
 Cart routes are available via the Shopline global object:

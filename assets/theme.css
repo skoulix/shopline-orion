@@ -4778,6 +4778,11 @@ sticky-header.sticky-header-wrapper.not-sticky {
   color: rgb(220 38 38 / var(--tw-text-opacity, 1));
 }
 
+.group:hover .group-hover\:text-red-700 {
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity, 1));
+}
+
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;
 }
