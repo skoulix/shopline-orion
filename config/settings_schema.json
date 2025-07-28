@@ -205,6 +205,51 @@
 		]
 	},
 	{
+		"name": "Search",
+		"settings": [
+			{
+				"type": "group_header",
+				"label": "Popular searches"
+			},
+			{
+				"type": "text",
+				"id": "popular_search_1",
+				"label": "Search term 1",
+				"default": "New Arrivals"
+			},
+			{
+				"type": "text",
+				"id": "popular_search_2",
+				"label": "Search term 2",
+				"default": "Best Sellers"
+			},
+			{
+				"type": "text",
+				"id": "popular_search_3",
+				"label": "Search term 3",
+				"default": "Sale"
+			},
+			{
+				"type": "text",
+				"id": "popular_search_4",
+				"label": "Search term 4",
+				"default": "Summer Collection"
+			},
+			{
+				"type": "text",
+				"id": "popular_search_5",
+				"label": "Search term 5",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"id": "popular_search_6",
+				"label": "Search term 6",
+				"default": ""
+			}
+		]
+	},
+	{
 		"name": "Cart",
 		"settings": [
 			{

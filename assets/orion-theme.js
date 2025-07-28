@@ -222,7 +222,7 @@ function Rn(e, t) {
 function Ar(e, t) {
   return e.findIndex((n) => Rn(n, t));
 }
-const Lc = (e) => !!(e && e.__v_isRef === !0), q = (e) => le(e) ? e : e == null ? "" : Y(e) || me(e) && (e.toString === Dc || !oe(e.toString)) ? Lc(e) ? q(e.value) : JSON.stringify(e, Fc, 2) : String(e), Fc = (e, t) => Lc(t) ? Fc(e, t.value) : Jn(t) ? {
+const Lc = (e) => !!(e && e.__v_isRef === !0), U = (e) => le(e) ? e : e == null ? "" : Y(e) || me(e) && (e.toString === Dc || !oe(e.toString)) ? Lc(e) ? U(e.value) : JSON.stringify(e, Fc, 2) : String(e), Fc = (e, t) => Lc(t) ? Fc(e, t.value) : Jn(t) ? {
   [`Map(${t.size})`]: [...t.entries()].reduce(
     (n, [s, o], r) => (n[oi(s, r) + " =>"] = o, n),
     {}
@@ -1106,7 +1106,7 @@ const Qe = (e) => me(e) ? Ns(e) : e, rr = (e) => me(e) ? Rr(e) : e;
 function Ae(e) {
   return e ? e.__v_isRef === !0 : !1;
 }
-function U(e) {
+function q(e) {
   return iu(e, !1);
 }
 function ru(e) {
@@ -1208,7 +1208,7 @@ class jp {
   }
 }
 function Hp(e, t, n) {
-  return Ae(e) ? e : oe(e) ? new jp(e) : me(e) && arguments.length > 1 ? au(e, t, n) : U(e);
+  return Ae(e) ? e : oe(e) ? new jp(e) : me(e) && arguments.length > 1 ? au(e, t, n) : q(e);
 }
 function au(e, t, n) {
   const s = e[t];
@@ -2942,7 +2942,7 @@ function Mh(e) {
         return m().then((h) => () => di(h, g)).catch((h) => (v(h), () => s ? ue(s, {
           error: h
         }) : null));
-      const $ = U(!1), k = U(), y = U(!!o);
+      const $ = q(!1), k = q(), y = q(!!o);
       return o && setTimeout(() => {
         y.value = !1;
       }, o), i != null && setTimeout(() => {
@@ -5256,10 +5256,10 @@ function sd(e, t) {
 function Im(e, t, n = pe) {
   const s = ct();
   if (N.NODE_ENV !== "production" && !s)
-    return R("useModel() called without active instance."), U();
+    return R("useModel() called without active instance."), q();
   const o = Ce(t);
   if (N.NODE_ENV !== "production" && !s.propsOptions[0][o])
-    return R(`useModel() called with prop "${t}" which is not declared.`), U();
+    return R(`useModel() called with prop "${t}" which is not declared.`), q();
   const r = nt(t), i = od(e, o), l = lu((a, u) => {
     let d, c = pe, p;
     return nd(() => {
@@ -7915,7 +7915,7 @@ const Y0 = () => {
   queuePostFlushCb: ks,
   reactive: Ns,
   readonly: Rr,
-  ref: U,
+  ref: q,
   registerRuntimeCompiler: bd,
   render: Bd,
   renderList: be,
@@ -7934,7 +7934,7 @@ const Y0 = () => {
   ssrContextKey: ed,
   ssrUtils: i0,
   stop: mp,
-  toDisplayString: q,
+  toDisplayString: U,
   toHandlerKey: tn,
   toHandlers: Uh,
   toRaw: ce,
@@ -12044,7 +12044,7 @@ const We = (e, t) => {
   },
   emits: ["click"],
   setup(e, { emit: t }) {
-    const n = e, s = t, o = U(!1), r = Z(() => n.href ? "a" : "button"), i = (d, c = "") => {
+    const n = e, s = t, o = q(!1), r = Z(() => n.href ? "a" : "button"), i = (d, c = "") => {
       var g, v, $;
       const p = {
         button_border_radius: n.buttonRadius,
@@ -12309,7 +12309,7 @@ const We = (e, t) => {
   },
   emits: ["update", "remove"],
   setup(e, { emit: t }) {
-    const n = e, s = t, o = U(n.item.quantity), r = U(!1), i = U(""), l = Z(() => !n.item.variant || n.item.variant.inventory_policy === "continue" ? 999 : Math.min(n.item.variant.inventory_quantity || 999, 999)), a = Z(() => {
+    const n = e, s = t, o = q(n.item.quantity), r = q(!1), i = q(""), l = Z(() => !n.item.variant || n.item.variant.inventory_policy === "continue" ? 999 : Math.min(n.item.variant.inventory_quantity || 999, 999)), a = Z(() => {
       var p;
       return ((p = n.item.variant) == null ? void 0 : p.inventory_quantity) && n.item.variant.inventory_quantity <= 10 && n.item.variant.inventory_policy !== "continue";
     }), u = (p) => {
@@ -12375,22 +12375,22 @@ const We = (e, t) => {
                 f("a", {
                   href: e.item.url,
                   class: "cart-item__title-link"
-                }, q(e.item.product_title), 9, yy)
+                }, U(e.item.product_title), 9, yy)
               ]),
-              e.item.variant_title && e.item.variant_title !== "Default Title" ? (x(), S("p", by, q(e.item.variant_title), 1)) : L("", !0),
+              e.item.variant_title && e.item.variant_title !== "Default Title" ? (x(), S("p", by, U(e.item.variant_title), 1)) : L("", !0),
               e.item.properties && Object.keys(e.item.properties).length ? (x(), S("div", _y, [
                 (x(!0), S(ie, null, be(e.item.properties, (g, v) => (x(), S("p", {
                   key: v,
                   class: "cart-item__property"
                 }, [
-                  f("span", Ey, q(v) + ":", 1),
-                  Fe(" " + q(g), 1)
+                  f("span", Ey, U(v) + ":", 1),
+                  Fe(" " + U(g), 1)
                 ]))), 128))
               ])) : L("", !0)
             ]),
             f("div", wy, [
-              f("p", xy, q(u(e.item.line_price || e.item.price * e.item.quantity)), 1),
-              e.item.original_price && e.item.price < e.item.original_price ? (x(), S("p", Ny, q(u(e.item.original_price * e.item.quantity)), 1)) : L("", !0)
+              f("p", xy, U(u(e.item.line_price || e.item.price * e.item.quantity)), 1),
+              e.item.original_price && e.item.price < e.item.original_price ? (x(), S("p", Ny, U(u(e.item.original_price * e.item.quantity)), 1)) : L("", !0)
             ])
           ]),
           e.item.discounts && e.item.discounts.length ? (x(), S("div", Sy, [
@@ -12409,7 +12409,7 @@ const We = (e, t) => {
                   "clip-rule": "evenodd"
                 })
               ], -1)),
-              Fe(" " + q(g.title) + " (-" + q(u(g.amount || g.total_allocated_amount)) + ") ", 1)
+              Fe(" " + U(g.title) + " (-" + U(u(g.amount || g.total_allocated_amount)) + ") ", 1)
             ]))), 128))
           ])) : L("", !0),
           f("div", ky, [
@@ -12457,13 +12457,13 @@ const We = (e, t) => {
               ], 8, Oy)
             ]),
             f("div", Dy, [
-              f("p", Vy, q(u(e.item.line_price || e.item.price * e.item.quantity)), 1),
-              e.item.original_price && e.item.price < e.item.original_price ? (x(), S("p", Ay, q(u(e.item.original_price * e.item.quantity)), 1)) : L("", !0),
-              e.item.original_price && e.item.price < e.item.original_price ? (x(), S("p", Iy, " Save " + q(Math.round((e.item.original_price - e.item.price) / e.item.original_price * 100)) + "% ", 1)) : L("", !0)
+              f("p", Vy, U(u(e.item.line_price || e.item.price * e.item.quantity)), 1),
+              e.item.original_price && e.item.price < e.item.original_price ? (x(), S("p", Ay, U(u(e.item.original_price * e.item.quantity)), 1)) : L("", !0),
+              e.item.original_price && e.item.price < e.item.original_price ? (x(), S("p", Iy, " Save " + U(Math.round((e.item.original_price - e.item.price) / e.item.original_price * 100)) + "% ", 1)) : L("", !0)
             ])
           ]),
-          a.value ? (x(), S("p", My, " Only " + q(e.item.variant.inventory_quantity) + " left in stock ", 1)) : L("", !0),
-          i.value ? (x(), S("p", Py, q(i.value), 1)) : L("", !0)
+          a.value ? (x(), S("p", My, " Only " + U(e.item.variant.inventory_quantity) + " left in stock ", 1)) : L("", !0),
+          i.value ? (x(), S("p", Py, U(i.value), 1)) : L("", !0)
         ])
       ])
     ], 8, cy));
@@ -12498,7 +12498,7 @@ const We = (e, t) => {
 }, Zy = { class: "flex justify-between text-base font-medium text-gray-900" }, e1 = { class: "space-y-3" }, t1 = {
   __name: "CartDrawer",
   setup(e) {
-    const t = U(!1), n = U([]), s = U(0), o = Z(() => {
+    const t = q(!1), n = q([]), s = q(0), o = Z(() => {
       var g;
       return ((g = Shopline == null ? void 0 : Shopline.routes) == null ? void 0 : g.cart) || "/cart";
     }), r = Z(() => {
@@ -12561,7 +12561,7 @@ const We = (e, t) => {
                         f("div", Uy, [
                           f("div", null, [
                             v[0] || (v[0] = f("h2", { class: "text-lg font-medium text-gray-900" }, " Shopping Cart ", -1)),
-                            n.value.length > 0 ? (x(), S("p", qy, q(n.value.length) + " " + q(n.value.length === 1 ? "item" : "items"), 1)) : L("", !0)
+                            n.value.length > 0 ? (x(), S("p", qy, U(n.value.length) + " " + U(n.value.length === 1 ? "item" : "items"), 1)) : L("", !0)
                           ]),
                           f("button", {
                             type: "button",
@@ -12659,7 +12659,7 @@ const We = (e, t) => {
                                   d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                                 })
                               ], -1)),
-                              f("p", Xy, " Add " + q(l(
+                              f("p", Xy, " Add " + U(l(
                                 r.value - s.value
                               )) + " more for free shipping! ", 1)
                             ])),
@@ -12676,7 +12676,7 @@ const We = (e, t) => {
                           f("div", null, [
                             f("div", Zy, [
                               v[8] || (v[8] = f("p", null, "Subtotal", -1)),
-                              f("p", null, q(l(s.value)), 1)
+                              f("p", null, U(l(s.value)), 1)
                             ]),
                             v[9] || (v[9] = f("p", { class: "mt-0.5 text-sm text-gray-500" }, " Shipping and taxes calculated at checkout. ", -1))
                           ]),
@@ -12751,7 +12751,7 @@ const We = (e, t) => {
     }
   },
   setup(e, { expose: t }) {
-    const n = e, s = Z(() => n.menuItems && n.menuItems.length > 0 ? n.menuItems : window.mobileMenuData || []), o = Z(() => n.customerUrl || window.mobileMenuCustomerUrl || "/account"), r = Z(() => n.showLocalization || window.mobileMenuShowLocalization || !1), i = U(!1), l = U([]), a = () => {
+    const n = e, s = Z(() => n.menuItems && n.menuItems.length > 0 ? n.menuItems : window.mobileMenuData || []), o = Z(() => n.customerUrl || window.mobileMenuCustomerUrl || "/account"), r = Z(() => n.showLocalization || window.mobileMenuShowLocalization || !1), i = q(!1), l = q([]), a = () => {
       console.log("openMenu called"), i.value = !0, document.body.style.overflow = "hidden";
     }, u = () => {
       i.value = !1, document.body.style.overflow = "";
@@ -12836,7 +12836,7 @@ const We = (e, t) => {
                                       ),
                                       class: "w-full flex items-center justify-between px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
                                     }, [
-                                      f("span", null, q(m.title), 1),
+                                      f("span", null, U(m.title), 1),
                                       (x(), S("svg", {
                                         class: ke(["h-5 w-5 transition-transform duration-200", {
                                           "rotate-180": l.value.includes(
@@ -12870,7 +12870,7 @@ const We = (e, t) => {
                                                 ),
                                                 class: "w-full flex items-center justify-between pl-8 pr-3 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-50"
                                               }, [
-                                                f("span", null, q(g.title), 1),
+                                                f("span", null, U(g.title), 1),
                                                 (x(), S("svg", {
                                                   class: ke(["h-4 w-4 transition-transform duration-200", {
                                                     "rotate-180": l.value.includes(
@@ -12901,7 +12901,7 @@ const We = (e, t) => {
                                                         href: v.url,
                                                         class: "block pl-12 pr-3 py-2 text-sm text-gray-600 rounded-md hover:bg-gray-50",
                                                         onClick: p[0] || (p[0] = (...$) => u && u(...$))
-                                                      }, q(v.title), 9, v1)
+                                                      }, U(v.title), 9, v1)
                                                     ]))), 128))
                                                   ])) : L("", !0)
                                                 ]),
@@ -12912,7 +12912,7 @@ const We = (e, t) => {
                                               href: g.url,
                                               class: "block pl-8 pr-3 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-50",
                                               onClick: p[1] || (p[1] = (...v) => u && u(...v))
-                                            }, q(g.title), 9, y1))
+                                            }, U(g.title), 9, y1))
                                           ]))), 128))
                                         ])) : L("", !0)
                                       ]),
@@ -12923,7 +12923,7 @@ const We = (e, t) => {
                                     href: m.url,
                                     class: "block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50",
                                     onClick: u
-                                  }, q(m.title), 9, b1))
+                                  }, U(m.title), 9, b1))
                                 ]))), 128))
                               ])
                             ]),
@@ -13026,7 +13026,7 @@ const We = (e, t) => {
   },
   emits: ["variant-change"],
   setup(e, { emit: t }) {
-    const n = e, s = t, o = U({}), r = U(null), i = Z(() => n.product.options || []), l = Z(() => n.product.variants || []);
+    const n = e, s = t, o = q({}), r = q(null), i = Z(() => n.product.options || []), l = Z(() => n.product.variants || []);
     Be(() => {
       if (n.selectedVariantId) {
         const $ = l.value.find((k) => k.id == n.selectedVariantId);
@@ -13085,8 +13085,8 @@ const We = (e, t) => {
         class: "variant-option mb-6"
       }, [
         f("h3", C1, [
-          Fe(q(y.name) + ": ", 1),
-          f("span", O1, q(d(y.name)), 1)
+          Fe(U(y.name) + ": ", 1),
+          f("span", O1, U(d(y.name)), 1)
         ]),
         m(y.name) ? (x(), S("div", T1, [
           (x(!0), S(ie, null, be(y.values, (h) => (x(), S("button", {
@@ -13103,7 +13103,7 @@ const We = (e, t) => {
             disabled: !p(y.name, h),
             onClick: (E) => u(y.name, h)
           }, [
-            f("span", D1, q(h), 1),
+            f("span", D1, U(h), 1),
             c(y.name, h) ? (x(), S("span", V1, k[0] || (k[0] = [
               f("svg", {
                 class: "w-4 h-4",
@@ -13130,13 +13130,13 @@ const We = (e, t) => {
             "aria-label": `Select ${y.name} ${h}`,
             disabled: !p(y.name, h),
             onClick: (E) => u(y.name, h)
-          }, q(h), 11, I1))), 128))
+          }, U(h), 11, I1))), 128))
         ]))
       ]))), 128)),
       r.value ? (x(), S("div", M1, [
         f("div", P1, [
-          f("span", R1, q(v(r.value.price)), 1),
-          r.value.compare_at_price > r.value.price ? (x(), S("span", L1, q(v(r.value.compare_at_price)), 1)) : L("", !0)
+          f("span", R1, U(v(r.value.price)), 1),
+          r.value.compare_at_price > r.value.price ? (x(), S("span", L1, U(v(r.value.compare_at_price)), 1)) : L("", !0)
         ]),
         r.value.available ? (x(), S("div", F1, " In Stock ")) : (x(), S("div", B1, " Out of Stock "))
       ])) : L("", !0)
@@ -13219,7 +13219,7 @@ function X1(e, t = {}) {
     onSwipeStart: r,
     passive: i = !0,
     window: l = Pf
-  } = t, a = Ns({ x: 0, y: 0 }), u = Ns({ x: 0, y: 0 }), d = Z(() => a.x - u.x), c = Z(() => a.y - u.y), { max: p, abs: m } = Math, g = Z(() => p(m(d.value), m(c.value)) >= n), v = U(!1), $ = Z(() => g.value ? m(d.value) > m(c.value) ? d.value > 0 ? "left" : "right" : c.value > 0 ? "up" : "down" : "none"), k = (w) => [w.touches[0].clientX, w.touches[0].clientY], y = (w, T) => {
+  } = t, a = Ns({ x: 0, y: 0 }), u = Ns({ x: 0, y: 0 }), d = Z(() => a.x - u.x), c = Z(() => a.y - u.y), { max: p, abs: m } = Math, g = Z(() => p(m(d.value), m(c.value)) >= n), v = q(!1), $ = Z(() => g.value ? m(d.value) > m(c.value) ? d.value > 0 ? "left" : "right" : c.value > 0 ? "up" : "down" : "none"), k = (w) => [w.touches[0].clientX, w.touches[0].clientY], y = (w, T) => {
     a.x = w, a.y = T;
   }, h = (w, T) => {
     u.x = w, u.y = T;
@@ -13280,7 +13280,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const t = e, n = U(null), s = U(!1), o = U(!1), r = U(!1), i = U(!1), l = U("#ffffff"), a = U(0), u = U(0), d = Z(() => $.value ? `${u.value}px` : "0");
+    const t = e, n = q(null), s = q(!1), o = q(!1), r = q(!1), i = q(!1), l = q("#ffffff"), a = q(0), u = q(0), d = Z(() => $.value ? `${u.value}px` : "0");
     let c = 0;
     const p = Z(() => {
       const y = {};
@@ -13302,7 +13302,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
       } else
         o.value = !1;
       Math.abs(y - c) > 1 && (c = y), m();
-    }, 50), v = U(t.hideOnScrollDown), $ = U(t.sticky), k = () => {
+    }, 50), v = q(t.hideOnScrollDown), $ = q(t.sticky), k = () => {
       n.value && (u.value = n.value.offsetHeight || 80);
     };
     return Be(() => {
@@ -13375,7 +13375,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const t = e, n = U(null), s = U(!1), o = U(0), r = Z(() => {
+    const t = e, n = q(null), s = q(!1), o = q(0), r = Z(() => {
       var d, c;
       return t.customer ? ((d = Shopline == null ? void 0 : Shopline.routes) == null ? void 0 : d.account) || "/account" : ((c = Shopline == null ? void 0 : Shopline.routes) == null ? void 0 : c.account_login) || "/account/login";
     }), i = () => {
@@ -13421,14 +13421,14 @@ const Z1 = { class: "sticky-header-container" }, eb = {
             src: e.logoUrl,
             alt: e.shopName,
             class: "h-8 md:h-10"
-          }, null, 8, ob)) : (x(), S("span", rb, q(e.shopName), 1))
+          }, null, 8, ob)) : (x(), S("span", rb, U(e.shopName), 1))
         ]),
         f("nav", ib, [
           (x(!0), S(ie, null, be(e.navigationLinks, (p) => (x(), S("a", {
             key: p.url,
             href: p.url,
             class: "nav-link"
-          }, q(p.title), 9, lb))), 128))
+          }, U(p.title), 9, lb))), 128))
         ]),
         f("div", ab, [
           f("button", {
@@ -13489,7 +13489,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                 d: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
               })
             ], -1)),
-            o.value > 0 ? (x(), S("span", ub, q(o.value), 1)) : L("", !0)
+            o.value > 0 ? (x(), S("span", ub, U(o.value), 1)) : L("", !0)
           ])
         ])
       ]),
@@ -13633,7 +13633,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const t = U(""), n = U(!1), s = Z(() => (/* @__PURE__ */ new Date()).getFullYear()), o = async () => {
+    const t = q(""), n = q(!1), s = Z(() => (/* @__PURE__ */ new Date()).getFullYear()), o = async () => {
       n.value = !0;
       try {
         const i = new FormData();
@@ -13668,8 +13668,8 @@ const Z1 = { class: "sticky-header-container" }, eb = {
         f("div", gb, [
           f("div", vb, [
             f("div", yb, [
-              f("h3", bb, q(e.newsletterTitle), 1),
-              f("p", _b, q(e.newsletterDescription), 1)
+              f("h3", bb, U(e.newsletterTitle), 1),
+              f("p", _b, U(e.newsletterDescription), 1)
             ]),
             f("form", {
               onSubmit: qt(o, ["prevent"]),
@@ -13700,8 +13700,8 @@ const Z1 = { class: "sticky-header-container" }, eb = {
         f("div", kb, [
           f("div", Cb, [
             f("div", Ob, [
-              f("h4", Tb, q(e.companyName), 1),
-              f("p", $b, q(e.companyDescription), 1),
+              f("h4", Tb, U(e.companyName), 1),
+              f("p", $b, U(e.companyDescription), 1),
               e.socialLinks.length > 0 ? (x(), S("div", Db, [
                 (x(!0), S(ie, null, be(e.socialLinks, (a) => (x(), S("a", {
                   key: a.name,
@@ -13719,7 +13719,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
               key: a.title,
               class: "footer-column"
             }, [
-              f("h4", Ab, q(a.title), 1),
+              f("h4", Ab, U(a.title), 1),
               f("ul", Ib, [
                 (x(!0), S(ie, null, be(a.links, (u) => (x(), S("li", {
                   key: u.title
@@ -13727,7 +13727,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                   f("a", {
                     href: u.url,
                     class: "footer-link"
-                  }, q(u.title), 9, Mb)
+                  }, U(u.title), 9, Mb)
                 ]))), 128))
               ])
             ]))), 128)),
@@ -13748,7 +13748,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                       d: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     })
                   ], -1)),
-                  Fe(" " + q(e.contactEmail), 1)
+                  Fe(" " + U(e.contactEmail), 1)
                 ])) : L("", !0),
                 e.contactPhone ? (x(), S("p", Fb, [
                   l[2] || (l[2] = f("svg", {
@@ -13764,7 +13764,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                       d: "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                     })
                   ], -1)),
-                  Fe(" " + q(e.contactPhone), 1)
+                  Fe(" " + U(e.contactPhone), 1)
                 ])) : L("", !0),
                 e.contactAddress ? (x(), S("p", Bb, [
                   l[3] || (l[3] = f("svg", {
@@ -13786,7 +13786,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                       d: "M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     })
                   ], -1)),
-                  Fe(" " + q(e.contactAddress), 1)
+                  Fe(" " + U(e.contactAddress), 1)
                 ])) : L("", !0)
               ])
             ])) : L("", !0)
@@ -13803,7 +13803,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
             ])
           ])) : L("", !0),
           f("div", qb, [
-            f("p", zb, " © " + q(s.value) + " " + q(e.companyName) + ". All rights reserved. ", 1),
+            f("p", zb, " © " + U(s.value) + " " + U(e.companyName) + ". All rights reserved. ", 1),
             l[6] || (l[6] = f("div", { class: "footer-bottom-links" }, [
               f("a", {
                 href: "/pages/privacy-policy",
@@ -13882,7 +13882,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
   },
   emits: ["add-to-cart"],
   setup(e, { emit: t }) {
-    const n = e, s = t, o = U(""), r = U(!1), i = U(!1), l = U(!1), a = U(!1), u = Z(() => n.product ? n.product : {
+    const n = e, s = t, o = q(""), r = q(!1), i = q(!1), l = q(!1), a = q(!1), u = Z(() => n.product ? n.product : {
       id: n.productId,
       title: n.title,
       handle: n.handle,
@@ -14014,7 +14014,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
             })
           ], -1)
         ]))),
-        $.value ? (x(), S("div", Xb, " -" + q(k.value) + "% ", 1)) : L("", !0),
+        $.value ? (x(), S("div", Xb, " -" + U(k.value) + "% ", 1)) : L("", !0),
         u.value.available && h.value ? (x(), S("button", {
           key: 3,
           class: "absolute top-3 right-3 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110",
@@ -14063,12 +14063,12 @@ const Z1 = { class: "sticky-header-container" }, eb = {
             ], 14, n_))), 128))
           ])
         ])) : L("", !0),
-        u.value.vendor ? (x(), S("p", o_, q(u.value.vendor), 1)) : L("", !0),
+        u.value.vendor ? (x(), S("p", o_, U(u.value.vendor), 1)) : L("", !0),
         f("h3", r_, [
           f("a", {
             href: d.value,
             class: "hover:text-gray-700 transition-colors"
-          }, q(u.value.title || "Untitled"), 9, i_)
+          }, U(u.value.title || "Untitled"), 9, i_)
         ]),
         f("div", l_, [
           f("div", a_, [
@@ -14083,8 +14083,8 @@ const Z1 = { class: "sticky-header-container" }, eb = {
           C[9] || (C[9] = f("span", { class: "text-xs text-gray-500" }, "(24)", -1))
         ]),
         f("div", c_, [
-          f("span", u_, q(E(g.value)), 1),
-          v.value > g.value ? (x(), S("span", d_, q(E(v.value)), 1)) : L("", !0)
+          f("span", u_, U(E(g.value)), 1),
+          v.value > g.value ? (x(), S("span", d_, U(E(v.value)), 1)) : L("", !0)
         ]),
         u.value.available ? (x(), S("button", {
           key: 2,
@@ -14146,7 +14146,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
   },
   emits: ["update-filters"],
   setup(e, { emit: t }) {
-    const n = e, s = t, o = U("manual"), r = U([]), i = U([]), l = U([]), a = U(!1), u = U(!1), d = Z(() => {
+    const n = e, s = t, o = q("manual"), r = q([]), i = q([]), l = q([]), a = q(!1), u = q(!1), d = Z(() => {
       const y = /* @__PURE__ */ new Set();
       return n.products.forEach((h) => {
         h.product_type && y.add(h.product_type);
@@ -14277,7 +14277,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
               }, null, 40, T_), [
                 [_t, i.value]
               ]),
-              f("span", $_, q(E), 1)
+              f("span", $_, U(E), 1)
             ]))), 128))
           ])
         ])) : L("", !0),
@@ -14297,7 +14297,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
               }, null, 40, A_), [
                 [_t, l.value]
               ]),
-              f("span", I_, q(E), 1)
+              f("span", I_, U(E), 1)
             ]))), 128))
           ])
         ])) : L("", !0),
@@ -14469,7 +14469,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const t = e, n = U(!1), s = U(!1), o = U(t.currentPage), r = U(t.products.length), i = U("manual"), l = U({}), a = U(null), u = U(null), d = Z(() => {
+    const t = e, n = q(!1), s = q(!1), o = q(t.currentPage), r = q(t.products.length), i = q("manual"), l = q({}), a = q(null), u = q(null), d = Z(() => {
       const w = Number(t.columnsMobile), T = t.columnsDesktop, V = w === 1 ? "grid-cols-1" : "grid-cols-2", C = T <= 3 ? `md:grid-cols-${T}` : "md:grid-cols-3", M = `lg:grid-cols-${T}`;
       return `grid ${V} ${C} ${M} gap-4 lg:gap-6`;
     }), c = Z(() => {
@@ -14558,10 +14558,10 @@ const Z1 = { class: "sticky-header-container" }, eb = {
       D();
     }), (w, T) => (x(), S("div", H_, [
       e.showHeader ? (x(), S("div", U_, [
-        f("h1", q_, q(e.collectionTitle), 1),
-        e.collectionDescription ? (x(), S("div", z_, q(e.collectionDescription), 1)) : L("", !0),
+        f("h1", q_, U(e.collectionTitle), 1),
+        e.collectionDescription ? (x(), S("div", z_, U(e.collectionDescription), 1)) : L("", !0),
         f("div", K_, [
-          f("p", W_, q(e.totalProducts || c.value.length) + " products ", 1),
+          f("p", W_, U(e.totalProducts || c.value.length) + " products ", 1),
           e.enableSorting ? (x(), S("div", G_, [
             Ue(f("select", {
               "onUpdate:modelValue": T[0] || (T[0] = (V) => i.value = V),
@@ -14666,7 +14666,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                 class: "inline-flex items-center px-6 py-3 border border-secondary-300 text-sm font-medium text-secondary-700 bg-white hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed",
                 style: { borderRadius: "var(--button-radius)" }
               }, [
-                s.value ? (x(), S("span", o2, "Loading...")) : (x(), S("span", r2, "Load More (" + q(v.value) + " remaining)", 1))
+                s.value ? (x(), S("span", o2, "Loading...")) : (x(), S("span", r2, "Load More (" + U(v.value) + " remaining)", 1))
               ], 8, s2)
             ])) : L("", !0),
             !e.enableInfiniteScroll && m.value > 1 ? (x(), S("nav", i2, [
@@ -14712,7 +14712,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                         "relative inline-flex items-center px-4 py-2 border text-sm font-medium",
                         o.value === V ? "z-10 bg-primary-50 border-primary-500 text-primary-600" : "bg-white border-secondary-300 text-secondary-500 hover:bg-secondary-50"
                       ])
-                    }, q(V), 11, p2))), 128)),
+                    }, U(V), 11, p2))), 128)),
                     f("button", {
                       onClick: T[4] || (T[4] = (V) => o.value++),
                       disabled: o.value === m.value,
@@ -14771,7 +14771,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                 ]))
               ]),
               f("div", v2, [
-                f("h3", y2, q(a.value.title), 1),
+                f("h3", y2, U(a.value.title), 1),
                 T[12] || (T[12] = f("p", { class: "mt-2 text-sm text-secondary-500" }, "Quick view functionality would be implemented here", -1))
               ])
             ])
@@ -14793,7 +14793,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const n = U(e.currentSort), s = () => new URLSearchParams(window.location.search), o = (i) => {
+    const n = q(e.currentSort), s = () => new URLSearchParams(window.location.search), o = (i) => {
       const l = s();
       i === "manual" ? l.delete("sort_by") : l.set("sort_by", i);
       const a = `${window.location.pathname}${l.toString() ? "?" + l.toString() : ""}`;
@@ -14849,7 +14849,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const t = e, n = U(!1), s = U({
+    const t = e, n = q(!1), s = q({
       inStock: !1,
       priceRanges: [],
       types: [],
@@ -14932,7 +14932,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
           })
         ], -1)),
         m[5] || (m[5] = f("span", null, "Filter", -1)),
-        l.value > 0 ? (x(), S("span", w2, q(l.value), 1)) : L("", !0)
+        l.value > 0 ? (x(), S("span", w2, U(l.value), 1)) : L("", !0)
       ]),
       (x(), at(bn, { to: "body" }, [
         ue(st, { name: "drawer" }, {
@@ -14960,7 +14960,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                           f("div", O2, [
                             f("div", null, [
                               m[6] || (m[6] = f("h2", { class: "text-lg font-medium text-gray-900" }, "Filters", -1)),
-                              l.value > 0 ? (x(), S("p", T2, q(l.value) + " " + q(l.value === 1 ? "filter" : "filters") + " active ", 1)) : L("", !0)
+                              l.value > 0 ? (x(), S("p", T2, U(l.value) + " " + U(l.value === 1 ? "filter" : "filters") + " active ", 1)) : L("", !0)
                             ]),
                             f("button", {
                               type: "button",
@@ -15012,7 +15012,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                                   }, null, 8, M2), [
                                     [_t, s.value.priceRanges]
                                   ]),
-                                  f("span", P2, q(g.label), 1)
+                                  f("span", P2, U(g.label), 1)
                                 ])), 64))
                               ])
                             ]),
@@ -15031,7 +15031,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                                   }, null, 8, F2), [
                                     [_t, s.value.types]
                                   ]),
-                                  f("span", B2, q(g), 1)
+                                  f("span", B2, U(g), 1)
                                 ]))), 128))
                               ])
                             ])) : L("", !0),
@@ -15050,7 +15050,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                                   }, null, 8, U2), [
                                     [_t, s.value.vendors]
                                   ]),
-                                  f("span", q2, q(g), 1)
+                                  f("span", q2, U(g), 1)
                                 ]))), 128))
                               ])
                             ])) : L("", !0)
@@ -15112,7 +15112,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const t = e, n = U(0), s = U(!1), o = U(!1), r = U(!1), i = U(!1), l = U(0), a = U(null), u = U(0), d = U(0), c = U({}), p = Z(() => t.images.map((P) => {
+    const t = e, n = q(0), s = q(!1), o = q(!1), r = q(!1), i = q(!1), l = q(0), a = q(null), u = q(0), d = q(0), c = q({}), p = Z(() => t.images.map((P) => {
       if (P.src)
         return P;
       const D = P.url || P;
@@ -15365,7 +15365,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
               })
             ], -1)
           ]))) : L("", !0),
-          f("div", rE, q(n.value + 1) + " / " + q(p.value.length), 1)
+          f("div", rE, U(n.value + 1) + " / " + U(p.value.length), 1)
         ])) : L("", !0)
       ]))
     ]));
@@ -15421,7 +15421,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
   emits: ["variant-change"],
   setup(e, { emit: t }) {
     var $;
-    const n = e, s = t, o = U(n.product.selected_or_first_available_variant || (($ = n.product.variants) == null ? void 0 : $[0]) || {}), r = U(1), i = U(!1), l = U(!1), a = Z(() => o.value.inventory_policy === "continue" ? 999 : Math.min(o.value.inventory_quantity || 10, 10)), u = Z(() => {
+    const n = e, s = t, o = q(n.product.selected_or_first_available_variant || (($ = n.product.variants) == null ? void 0 : $[0]) || {}), r = q(1), i = q(!1), l = q(!1), a = Z(() => o.value.inventory_policy === "continue" ? 999 : Math.min(o.value.inventory_quantity || 10, 10)), u = Z(() => {
       var k;
       return (k = n.product.options) == null ? void 0 : k.some(
         (y) => y.name.toLowerCase() === "size" || y.name.toLowerCase() === "taille"
@@ -15467,14 +15467,14 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     return sn(() => n.product.selected_variant, (k) => {
       k && (o.value = k);
     }), (k, y) => (x(), S("div", cE, [
-      f("h1", uE, q(e.product.title), 1),
-      e.product.vendor ? (x(), S("p", dE, " by " + q(e.product.vendor), 1)) : L("", !0),
+      f("h1", uE, U(e.product.title), 1),
+      e.product.vendor ? (x(), S("p", dE, " by " + U(e.product.vendor), 1)) : L("", !0),
       f("div", fE, [
         f("div", pE, [
-          f("span", hE, q(d(o.value.price)), 1),
-          o.value.compare_at_price > o.value.price ? (x(), S("span", mE, q(d(o.value.compare_at_price)), 1)) : L("", !0)
+          f("span", hE, U(d(o.value.price)), 1),
+          o.value.compare_at_price > o.value.price ? (x(), S("span", mE, U(d(o.value.compare_at_price)), 1)) : L("", !0)
         ]),
-        o.value.compare_at_price > o.value.price ? (x(), S("p", gE, " Save " + q(d(o.value.compare_at_price - o.value.price)) + " (" + q(Math.round((1 - o.value.price / o.value.compare_at_price) * 100)) + "% off) ", 1)) : L("", !0)
+        o.value.compare_at_price > o.value.price ? (x(), S("p", gE, " Save " + U(d(o.value.compare_at_price - o.value.price)) + " (" + U(Math.round((1 - o.value.price / o.value.compare_at_price) * 100)) + "% off) ", 1)) : L("", !0)
       ]),
       e.product.has_only_default_variant ? L("", !0) : (x(), S("div", vE, [
         f("product-variant-picker", {
@@ -15503,7 +15503,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
           ])
         ]),
         f("div", wE, [
-          o.value.available ? o.value.inventory_quantity && o.value.inventory_quantity <= 10 ? (x(), S("p", NE, " Only " + q(o.value.inventory_quantity) + " left in stock ", 1)) : (x(), S("p", SE, " ✓ In Stock ")) : (x(), S("p", xE, " Out of Stock "))
+          o.value.available ? o.value.inventory_quantity && o.value.inventory_quantity <= 10 ? (x(), S("p", NE, " Only " + U(o.value.inventory_quantity) + " left in stock ", 1)) : (x(), S("p", SE, " ✓ In Stock ")) : (x(), S("p", xE, " Out of Stock "))
         ]),
         f("div", kE, [
           f("button", {
@@ -15689,7 +15689,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
   },
   emits: ["checkout"],
   setup(e, { emit: t }) {
-    const n = e, s = t, o = U(""), r = U(""), i = U(""), l = U(!1), a = U(!1), u = U(!1), d = Z(() => n.cart.item_count || 0), c = Z(() => n.cart.total_price || 0), p = Z(() => n.cart.original_total_price || n.cart.total_price || 0), m = Z(() => n.cart.total_discount || 0), g = Z(() => c.value >= 5e3 ? 0 : 500), v = Z(() => Math.round(c.value * 0.1)), $ = (h) => `$${(h / 100).toFixed(2)}`, k = async () => {
+    const n = e, s = t, o = q(""), r = q(""), i = q(""), l = q(!1), a = q(!1), u = q(!1), d = Z(() => n.cart.item_count || 0), c = Z(() => n.cart.total_price || 0), p = Z(() => n.cart.original_total_price || n.cart.total_price || 0), m = Z(() => n.cart.total_discount || 0), g = Z(() => c.value >= 5e3 ? 0 : 500), v = Z(() => Math.round(c.value * 0.1)), $ = (h) => `$${(h / 100).toFixed(2)}`, k = async () => {
       var h;
       if (!(!o.value.trim() || l.value)) {
         l.value = !0, r.value = "", i.value = "";
@@ -15728,8 +15728,8 @@ const Z1 = { class: "sticky-header-container" }, eb = {
       E[10] || (E[10] = f("h2", { class: "text-lg font-semibold text-gray-900 mb-4" }, "Order Summary", -1)),
       f("div", UE, [
         f("div", qE, [
-          f("span", zE, "Subtotal (" + q(d.value) + " " + q(d.value === 1 ? "item" : "items") + ")", 1),
-          f("span", KE, q($(p.value)), 1)
+          f("span", zE, "Subtotal (" + U(d.value) + " " + U(d.value === 1 ? "item" : "items") + ")", 1),
+          f("span", KE, U($(p.value)), 1)
         ]),
         m.value > 0 ? (x(), S("div", WE, [
           E[3] || (E[3] = f("span", { class: "flex items-center gap-1" }, [
@@ -15746,23 +15746,23 @@ const Z1 = { class: "sticky-header-container" }, eb = {
             ]),
             Fe(" Discounts ")
           ], -1)),
-          f("span", null, "-" + q($(m.value)), 1)
+          f("span", null, "-" + U($(m.value)), 1)
         ])) : L("", !0),
         e.showShipping ? (x(), S("div", GE, [
           E[4] || (E[4] = f("span", { class: "text-gray-600" }, "Estimated Shipping", -1)),
-          f("span", YE, q(g.value === 0 ? "Free" : $(g.value)), 1)
+          f("span", YE, U(g.value === 0 ? "Free" : $(g.value)), 1)
         ])) : L("", !0),
         e.showTax ? (x(), S("div", JE, [
           E[5] || (E[5] = f("span", { class: "text-gray-600" }, "Estimated Tax", -1)),
-          f("span", XE, q($(v.value)), 1)
+          f("span", XE, U($(v.value)), 1)
         ])) : L("", !0)
       ]),
       f("div", QE, [
         f("div", ZE, [
           E[6] || (E[6] = f("span", { class: "text-lg font-semibold" }, "Total", -1)),
           f("div", ew, [
-            f("span", tw, q($(c.value)), 1),
-            m.value > 0 ? (x(), S("p", nw, " You saved " + q($(m.value)) + "! ", 1)) : L("", !0)
+            f("span", tw, U($(c.value)), 1),
+            m.value > 0 ? (x(), S("p", nw, " You saved " + U($(m.value)) + "! ", 1)) : L("", !0)
           ])
         ])
       ]),
@@ -15803,10 +15803,10 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                 class: "px-4 py-2 bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
                 style: { borderRadius: "var(--button-radius)" },
                 disabled: !o.value.trim() || l.value
-              }, q(l.value ? "Applying..." : "Apply"), 9, lw)
+              }, U(l.value ? "Applying..." : "Apply"), 9, lw)
             ], 32),
-            r.value ? (x(), S("p", aw, q(r.value), 1)) : L("", !0),
-            i.value ? (x(), S("p", cw, q(i.value), 1)) : L("", !0)
+            r.value ? (x(), S("p", aw, U(r.value), 1)) : L("", !0),
+            i.value ? (x(), S("p", cw, U(i.value), 1)) : L("", !0)
           ])
         ])
       ]),
@@ -15876,7 +15876,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const t = e, n = U(0), s = U([]), o = U(null), r = Z(() => t.autoRotate === !0 || t.autoRotate === "true"), i = Z(() => parseInt(t.changeSlidesSpeed) * 1e3 || 5e3), l = () => {
+    const t = e, n = q(0), s = q([]), o = q(null), r = Z(() => t.autoRotate === !0 || t.autoRotate === "true"), i = Z(() => parseInt(t.changeSlidesSpeed) * 1e3 || 5e3), l = () => {
       if (s.value = Array.from(document.querySelectorAll(".slide")), s.value.length <= 1) return;
       const v = document.querySelector(".slideshow-prev"), $ = document.querySelector(".slideshow-next"), k = document.querySelectorAll(".slide-indicator");
       v && v.addEventListener("click", d), $ && $.addEventListener("click", u), k.forEach((y, h) => {
@@ -15940,7 +15940,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const t = e, n = U(0), s = U([]), o = U(null), r = U(null), i = Z(() => t.autoRotate === !0 || t.autoRotate === "true"), l = Z(() => parseInt(t.changeSlidesSpeed) * 1e3 || 5e3), a = () => {
+    const t = e, n = q(0), s = q([]), o = q(null), r = q(null), i = Z(() => t.autoRotate === !0 || t.autoRotate === "true"), l = Z(() => parseInt(t.changeSlidesSpeed) * 1e3 || 5e3), a = () => {
       if (s.value = Array.from(document.querySelectorAll(".testimonial-slide")), r.value = document.querySelector(".testimonials-track"), s.value.length <= 1) return;
       const b = document.querySelector(".testimonials-prev"), A = document.querySelector(".testimonials-next"), P = document.querySelectorAll(".testimonial-indicator");
       b && b.addEventListener("click", c), A && A.addEventListener("click", d), P.forEach((D, w) => {
@@ -16019,7 +16019,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const t = e, n = U(!1), s = U(""), o = U(""), r = Z(() => t.autoplay === !0 || t.autoplay === "true"), i = Z(() => t.muted === !0 || t.muted === "true"), l = Z(() => t.controls === !0 || t.controls === "true"), a = Z(() => `${s.value} video player`), u = Z(() => {
+    const t = e, n = q(!1), s = q(""), o = q(""), r = Z(() => t.autoplay === !0 || t.autoplay === "true"), i = Z(() => t.muted === !0 || t.muted === "true"), l = Z(() => t.controls === !0 || t.controls === "true"), a = Z(() => `${s.value} video player`), u = Z(() => {
       if (!o.value || !s.value) return "";
       let m = "";
       const g = r.value ? "1" : "0", v = i.value ? "1" : "0", $ = l.value ? "1" : "0";
@@ -16077,7 +16077,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
 }, Sw = /* @__PURE__ */ We(Nw, [["__scopeId", "data-v-540fecb2"]]), kw = { class: "password-modal" }, Cw = {
   __name: "PasswordModal",
   setup(e) {
-    const t = U(!1), n = () => {
+    const t = q(!1), n = () => {
       t.value = !0, document.body.style.overflow = "hidden";
     }, s = () => {
       t.value = !1, document.body.style.overflow = "";
@@ -16154,18 +16154,21 @@ const Z1 = { class: "sticky-header-container" }, eb = {
 }, ux = ["href"], dx = {
   __name: "SearchOverlay",
   setup(e) {
-    const t = U(!1), n = U(""), s = U(null), o = U(!1), r = U({
+    const t = q(!1), n = q(""), s = q(null), o = q(!1), r = q({
       products: [],
       collections: []
-    }), i = U(null), l = Z(() => {
+    }), i = q(null), l = Z(() => {
       var k;
       return ((k = Shopline == null ? void 0 : Shopline.routes) == null ? void 0 : k.search) || "/search";
-    }), a = Z(() => n.value.length > 0), u = U([
-      "New Arrivals",
-      "Best Sellers",
-      "Sale",
-      "Summer Collection"
-    ]), d = (k) => {
+    }), a = Z(() => n.value.length > 0), u = Z(() => {
+      var h, E;
+      const k = [], y = ((E = (h = window.Shopline) == null ? void 0 : h.theme) == null ? void 0 : E.settings) || {};
+      for (let b = 1; b <= 6; b++) {
+        const A = y[`popular_search_${b}`];
+        A && A.trim() && k.push(A.trim());
+      }
+      return k.length === 0 ? ["New Arrivals", "Best Sellers", "Sale", "Summer Collection"] : k;
+    }), d = (k) => {
       var A, P;
       if (!k && k !== 0) return "$0.00";
       const y = ((A = Shopline == null ? void 0 : Shopline.shop) == null ? void 0 : A.money_format) || "${{amount}}", h = ((P = Shopline == null ? void 0 : Shopline.locale) == null ? void 0 : P.current) || "en", b = new Intl.NumberFormat(h, {
@@ -16337,7 +16340,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                                     n.value = b, m();
                                   },
                                   class: "px-4 py-2 text-sm text-gray-600 bg-gray-100/50 hover:bg-gray-200/50 rounded-full transition-colors duration-200"
-                                }, q(b), 9, jw))), 128))
+                                }, U(b), 9, jw))), 128))
                               ])
                             ])) : L("", !0)
                           ]),
@@ -16391,10 +16394,10 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                                       ])))
                                     ]),
                                     f("div", Zw, [
-                                      f("p", ex, q(b.title), 1),
+                                      f("p", ex, U(b.title), 1),
                                       f("div", tx, [
-                                        f("p", nx, q(d(b.price)), 1),
-                                        b.compareAtPrice && b.compareAtPrice > b.price ? (x(), S("p", sx, q(d(b.compareAtPrice)), 1)) : L("", !0)
+                                        f("p", nx, U(d(b.price)), 1),
+                                        b.compareAtPrice && b.compareAtPrice > b.price ? (x(), S("p", sx, U(d(b.compareAtPrice)), 1)) : L("", !0)
                                       ])
                                     ])
                                   ], 8, Yw))), 128))
@@ -16409,7 +16412,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                                     class: "group flex items-center justify-between px-4 py-3 bg-gray-50/50 hover:bg-gray-100/50 rounded-xl transition-all duration-200",
                                     onClick: p
                                   }, [
-                                    f("span", lx, q(b.title), 1),
+                                    f("span", lx, U(b.title), 1),
                                     y[11] || (y[11] = f("svg", {
                                       class: "w-4 h-4 text-gray-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all",
                                       fill: "none",
@@ -16452,7 +16455,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                                 class: "inline-flex items-center gap-2 text-sm font-medium text-red-600 hover:text-red-700 transition-colors",
                                 onClick: p
                               }, [
-                                Fe(' View all results for "' + q(n.value) + '" ', 1),
+                                Fe(' View all results for "' + U(n.value) + '" ', 1),
                                 y[14] || (y[14] = f("svg", {
                                   class: "w-4 h-4",
                                   fill: "none",
@@ -16483,7 +16486,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
       })
     ]));
   }
-}, fx = /* @__PURE__ */ We(dx, [["__scopeId", "data-v-1372fc4f"]]), px = {
+}, fx = /* @__PURE__ */ We(dx, [["__scopeId", "data-v-4aaebea7"]]), px = {
   name: "ArticleCard",
   props: {
     title: {
@@ -16549,7 +16552,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
     }
   },
   setup(e) {
-    const t = U(!1), n = Z(() => {
+    const t = q(!1), n = Z(() => {
       switch (e.imageRatio) {
         case "square":
           return "aspect-square";
@@ -16669,24 +16672,24 @@ function Tx(e, t, n, s, o, r) {
         (x(!0), S(ie, null, be(s.processedTags.slice(0, 3), (i) => (x(), S("span", {
           key: i,
           class: "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-sm hover:shadow-md transition-shadow duration-300"
-        }, q(i), 1))), 128))
+        }, U(i), 1))), 128))
       ])) : L("", !0),
       f("h3", yx, [
         f("a", {
           href: n.url,
           class: "hover:underline decoration-2 underline-offset-2"
-        }, q(n.title), 9, bx)
+        }, U(n.title), 9, bx)
       ]),
       n.showAuthor && n.author || n.showDate && s.formattedDate ? (x(), S("div", _x, [
-        n.showAuthor && n.author ? (x(), S("span", Ex, q(n.author), 1)) : L("", !0),
+        n.showAuthor && n.author ? (x(), S("span", Ex, U(n.author), 1)) : L("", !0),
         n.showAuthor && n.author && n.showDate && s.formattedDate ? (x(), S("span", wx, "•")) : L("", !0),
         n.showDate && s.formattedDate ? (x(), S("time", {
           key: 2,
           datetime: n.rawPublishedAt || n.publishedAt
-        }, q(s.formattedDate), 9, xx)) : L("", !0)
+        }, U(s.formattedDate), 9, xx)) : L("", !0)
       ])) : L("", !0),
       f("div", Nx, [
-        n.excerpt ? (x(), S("p", Sx, q(n.excerpt), 1)) : n.content ? (x(), S("div", {
+        n.excerpt ? (x(), S("p", Sx, U(n.excerpt), 1)) : n.content ? (x(), S("div", {
           key: 1,
           class: "text-gray-600 leading-relaxed line-clamp-3",
           innerHTML: s.truncatedContent

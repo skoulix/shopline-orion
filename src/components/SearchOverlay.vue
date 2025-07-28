@@ -212,13 +212,26 @@ const showResults = computed(() => {
   return searchQuery.value.length > 0
 })
 
-// Popular search suggestions
-const popularSearches = ref([
-  'New Arrivals',
-  'Best Sellers',
-  'Sale',
-  'Summer Collection'
-])
+// Popular search suggestions from theme settings
+const popularSearches = computed(() => {
+  const searches = []
+  const settings = window.Shopline?.theme?.settings || {}
+  
+  // Collect all popular search terms from settings
+  for (let i = 1; i <= 6; i++) {
+    const searchTerm = settings[`popular_search_${i}`]
+    if (searchTerm && searchTerm.trim()) {
+      searches.push(searchTerm.trim())
+    }
+  }
+  
+  // Return default values if no searches are configured
+  if (searches.length === 0) {
+    return ['New Arrivals', 'Best Sellers', 'Sale', 'Summer Collection']
+  }
+  
+  return searches
+})
 
 const formatMoney = (price) => {
   if (!price && price !== 0) return '$0.00'

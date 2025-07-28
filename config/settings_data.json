@@ -18,6 +18,12 @@
     "card_border_radius": 8,
     "card_shadow": 10,
     "show_product_card_wishlist": true,
+    "popular_search_1": "New Arrivals",
+    "popular_search_2": "Best Sellers",
+    "popular_search_3": "Sale",
+    "popular_search_4": "Summer Collection",
+    "popular_search_5": "",
+    "popular_search_6": "",
     "sections": {
       "header": {
         "disabled": false,
