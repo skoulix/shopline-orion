@@ -16218,7 +16218,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
         o.value = !1;
       }
     }, v = () => {
-      n.value && (window.location.href = `${l.value}?q=${encodeURIComponent(n.value)}`);
+      n.value && (window.location.href = `${l.value}?keyword=${encodeURIComponent(n.value)}`);
     }, $ = (k) => {
       k.key === "Escape" && t.value && p();
     };
@@ -16337,7 +16337,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                                 (x(!0), S(ie, null, be(u.value, (b) => (x(), S("button", {
                                   key: b,
                                   onClick: (A) => {
-                                    n.value = b, m();
+                                    n.value = b, v();
                                   },
                                   class: "px-4 py-2 text-sm text-gray-600 bg-gray-100/50 hover:bg-gray-200/50 rounded-full transition-colors duration-200"
                                 }, U(b), 9, jw))), 128))
@@ -16451,7 +16451,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
                             ]),
                             n.value && (((h = r.value.products) == null ? void 0 : h.length) > 0 || ((E = r.value.collections) == null ? void 0 : E.length) > 0) ? (x(), S("div", cx, [
                               f("a", {
-                                href: `${l.value}?q=${encodeURIComponent(n.value)}`,
+                                href: `${l.value}?keyword=${encodeURIComponent(n.value)}`,
                                 class: "inline-flex items-center gap-2 text-sm font-medium text-red-600 hover:text-red-700 transition-colors",
                                 onClick: p
                               }, [
@@ -16486,7 +16486,7 @@ const Z1 = { class: "sticky-header-container" }, eb = {
       })
     ]));
   }
-}, fx = /* @__PURE__ */ We(dx, [["__scopeId", "data-v-4aaebea7"]]), px = {
+}, fx = /* @__PURE__ */ We(dx, [["__scopeId", "data-v-985e236a"]]), px = {
   name: "ArticleCard",
   props: {
     title: {

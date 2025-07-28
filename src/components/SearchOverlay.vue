@@ -69,7 +69,7 @@
                         <button
                           v-for="suggestion in popularSearches"
                           :key="suggestion"
-                          @click="searchQuery = suggestion; handleSearchInput()"
+                          @click="searchQuery = suggestion; submitSearch()"
                           class="px-4 py-2 text-sm text-gray-600 bg-gray-100/50 hover:bg-gray-200/50 rounded-full transition-colors duration-200">
                           {{ suggestion }}
                         </button>
@@ -169,7 +169,7 @@
                     <!-- View All Results -->
                     <div v-if="searchQuery && (results.products?.length > 0 || results.collections?.length > 0)" class="border-t border-gray-100 px-6 py-4 bg-gray-50/50">
                       <a
-                        :href="`${searchUrl}?q=${encodeURIComponent(searchQuery)}`"
+                        :href="`${searchUrl}?keyword=${encodeURIComponent(searchQuery)}`"
                         class="inline-flex items-center gap-2 text-sm font-medium text-red-600 hover:text-red-700 transition-colors"
                         @click="closeSearch">
                         View all results for "{{ searchQuery }}"
@@ -323,7 +323,7 @@ const performSearch = async () => {
 
 const submitSearch = () => {
   if (searchQuery.value) {
-    window.location.href = `${searchUrl.value}?q=${encodeURIComponent(searchQuery.value)}`
+    window.location.href = `${searchUrl.value}?keyword=${encodeURIComponent(searchQuery.value)}`
   }
 }
 

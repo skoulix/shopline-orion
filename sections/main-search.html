@@ -1,28 +1,39 @@
-<div class="search-page py-8">
+<div class="search-page py-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 mb-4">
+    <!-- Centered Header Section -->
+    <div class="mb-12 text-center">
+      <h1 class="text-4xl font-bold text-gray-900 mb-6">
         {{#if search.performed}}
           {{#if search.results_count}}
-            {{search.results_count}} results for "{{search.terms}}"
+            {{search.results_count}} {{#if (eq search.results_count 1)}}result{{else}}results{{/if}} for "{{search.terms}}"
           {{else}}
             No results found for "{{search.terms}}"
           {{/if}}
         {{else}}
-          Search
+          Search our store
         {{/if}}
       </h1>
       
-      <form action="{{routes.search_url}}" method="get" class="max-w-2xl">
-        <div class="flex gap-2">
-          <input
-            type="search"
-            name="q"
-            value="{{search.terms}}"
-            placeholder="Search our store..."
-            class="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-          <button type="submit" class="px-6 py-2 transition-colors"
+      <!-- Centered Search Form -->
+      <form action="{{routes.search_url}}" method="get" class="max-w-2xl mx-auto">
+        <div class="flex gap-3">
+          <div class="flex-1 relative">
+            <input
+              type="search"
+              name="keyword"
+              value="{{search.terms}}"
+              placeholder="Search products, collections, articles..."
+              class="w-full px-5 py-3 pr-12 border border-gray-300 text-lg focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+              style="border-radius: var(--button-radius); --tw-ring-color: var(--color-primary);"
+              autocomplete="off"
+            >
+            <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+          </div>
+          <button type="submit" class="px-8 py-3 font-medium transition-all hover:shadow-lg"
                   style="background-color: var(--button-primary-bg); color: var(--button-primary-text); border-radius: var(--button-radius);"
                   onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover)'"
                   onmouseout="this.style.backgroundColor='var(--button-primary-bg)'">
@@ -34,42 +45,207 @@
 
     {{#if search.performed}}
       {{#if search.results_count}}
-        <div class="grid grid-cols-{{section.settings.columns_mobile}} md:grid-cols-3 lg:grid-cols-{{section.settings.columns_desktop}} gap-6">
-          {{#paginate search.results by=24}}
+        <!-- Results Count -->
+        <div class="mb-6 flex items-center justify-between">
+          <p class="text-gray-600">
+            Showing {{search.results_count}} {{#if (eq search.results_count 1)}}result{{else}}results{{/if}}
+          </p>
+        </div>
+        
+        <!-- Search Results Grid -->
+        <div class="search-results">
+          <!-- Try without pagination first -->
+          <div class="grid grid-cols-{{section.settings.columns_mobile}} md:grid-cols-3 lg:grid-cols-{{section.settings.columns_desktop}} gap-6">
             {{#each search.results}}
-              {{#if this.object_type}}
-                <product-card
-                  :product='{{json this}}'
-                  :enable-quick-add="true"
-                  :enable-quick-view="true"
-                ></product-card>
-              {{/if}}
-            {{/each}}
-            
-            {{#if paginate.pages}}
-              <div class="col-span-full mt-8">
-                {{snippet "pagination" paginate=paginate}}
-              </div>
-            {{/if}}
-          {{/paginate}}
+              {{#if (eq this.object_type "product")}}
+                  <product-card
+                    product-id="{{this.id}}"
+                    variant-id="{{this.variants.[0].id}}"
+                    title="{{this.title}}"
+                    handle="{{this.handle}}"
+                    url="{{this.url}}"
+                    vendor="{{this.vendor}}"
+                    price="{{this.price}}"
+                    compare-at-price="{{this.compare_at_price}}"
+                    image="{{#if this.featured_image}}{{image_url this.featured_image width=800}}{{else if this.image}}{{image_url this.image width=800}}{{else}}{{image_url this.images.[0] width=800}}{{/if}}"
+                    :available="{{#if this.available}}true{{else}}false{{/if}}"
+                  ></product-card>
+                {{else if (eq this.object_type "collection")}}
+                  <a href="{{this.url}}" class="group block">
+                    <div class="relative overflow-hidden bg-gray-100 aspect-square" style="border-radius: var(--card-radius, 8px);">
+                      {{#if this.image}}
+                        <img
+                          src="{{image_url this.image width=400}}"
+                          alt="{{this.title}}"
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        >
+                      {{else if this.featured_image}}
+                        <img
+                          src="{{image_url this.featured_image width=400}}"
+                          alt="{{this.title}}"
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        >
+                      {{else}}
+                        <div class="w-full h-full flex items-center justify-center">
+                          <svg class="w-20 h-20 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                          </svg>
+                        </div>
+                      {{/if}}
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <h3 class="mt-3 text-sm font-medium text-gray-900 group-hover:text-red-600 transition-colors">{{this.title}}</h3>
+                    {{#if this.products_count}}<p class="text-sm text-gray-500">{{this.products_count}} products</p>{{/if}}
+                  </a>
+                {{else if (eq this.object_type "article")}}
+                  <article-card
+                    :title="'{{this.title}}'"
+                    :url="'{{this.url}}'"
+                    :excerpt="'{{#if this.summary}}{{truncate this.summary 150}}{{else if this.excerpt}}{{truncate this.excerpt 150}}{{/if}}'"
+                    :author="'{{this.author}}'"
+                    :published-at="'{{#if this.published_at}}{{date this.published_at}}{{/if}}'"
+                    :image="'{{#if this.image}}{{image_url this.image width=600}}{{/if}}'"
+                    :tags='{{#if this.tags}}{{json this.tags}}{{else}}[]{{/if}}'
+                  ></article-card>
+                {{else}}
+                  <!-- Fallback for any unhandled object type -->
+                  <product-card
+                    :product='{{json this}}'
+                    :title="'{{this.title}}'"
+                    :url="'{{this.url}}'"
+                    :price="{{#if this.price}}{{this.price}}{{else}}0{{/if}}"
+                    :available="true"
+                  ></product-card>
+                {{/if}}
+              {{/each}}
+          </div>
         </div>
       {{else}}
-        <div class="text-center py-12">
-          <p class="text-gray-600 mb-4">No products found. Try different keywords or browse our collections.</p>
-          <a href="/collections/all" class="inline-block bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition-colors">
-            Browse All Products
-          </a>
+        <div class="text-center py-16">
+          <div class="max-w-md mx-auto">
+            <svg class="mx-auto h-24 w-24 text-gray-300 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-2">No results found</h2>
+            <p class="text-gray-600 mb-8">We couldn't find any results for "{{search.terms}}". Try checking your spelling or using different keywords.</p>
+            
+            <!-- Suggestions -->
+            <div class="space-y-4">
+              <p class="text-sm text-gray-500">Popular searches:</p>
+              <div class="flex flex-wrap justify-center gap-2" id="popular-searches-no-results">
+                <!-- Popular searches will be inserted via JS -->
+              </div>
+              <script>
+                // Get popular searches from theme settings
+                document.addEventListener('DOMContentLoaded', function() {
+                  const container = document.getElementById('popular-searches-no-results');
+                  const settings = window.Shopline?.theme?.settings || {};
+                  const searchUrl = '{{routes.search_url}}';
+                  
+                  for (let i = 1; i <= 6; i++) {
+                    const searchTerm = settings[`popular_search_${i}`];
+                    if (searchTerm && searchTerm.trim()) {
+                      const link = document.createElement('a');
+                      link.href = `${searchUrl}?keyword=${encodeURIComponent(searchTerm)}`;
+                      link.className = 'px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors text-sm';
+                      link.textContent = searchTerm;
+                      container.appendChild(link);
+                    }
+                  }
+                  
+                  // If no popular searches configured, show defaults
+                  if (container.children.length === 0) {
+                    ['New Arrivals', 'Best Sellers', 'Sale'].forEach(term => {
+                      const link = document.createElement('a');
+                      link.href = `${searchUrl}?keyword=${encodeURIComponent(term)}`;
+                      link.className = 'px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors text-sm';
+                      link.textContent = term;
+                      container.appendChild(link);
+                    });
+                  }
+                });
+              </script>
+            </div>
+              
+              <div class="pt-4">
+                <a href="/collections/all" class="inline-block px-6 py-3 font-medium transition-colors hover:shadow-lg"
+                   style="background-color: var(--button-primary-bg); color: var(--button-primary-text); border-radius: var(--button-radius);"
+                   onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover)'"
+                   onmouseout="this.style.backgroundColor='var(--button-primary-bg)'">
+                  Browse All Products
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       {{/if}}
+    {{else}}
+      <!-- Initial Search State -->
+      <div class="text-center py-16">
+        <svg class="mx-auto h-24 w-24 text-gray-300 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <p class="text-gray-600 mb-8">Enter a search term to find products, collections, and articles.</p>
+        
+        <div class="space-y-4">
+          <p class="text-sm text-gray-500">Popular searches:</p>
+          <div class="flex flex-wrap justify-center gap-2" id="popular-searches-initial">
+            <!-- Popular searches will be inserted via JS -->
+          </div>
+          <script>
+            // Get popular searches from theme settings for initial state
+            document.addEventListener('DOMContentLoaded', function() {
+              const container = document.getElementById('popular-searches-initial');
+              const settings = window.Shopline?.theme?.settings || {};
+              const searchUrl = '{{routes.search_url}}';
+              
+              for (let i = 1; i <= 6; i++) {
+                const searchTerm = settings[`popular_search_${i}`];
+                if (searchTerm && searchTerm.trim()) {
+                  const link = document.createElement('a');
+                  link.href = `${searchUrl}?keyword=${encodeURIComponent(searchTerm)}`;
+                  link.className = 'px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors text-sm';
+                  link.textContent = searchTerm;
+                  container.appendChild(link);
+                }
+              }
+              
+              // If no popular searches configured, show defaults
+              if (container.children.length === 0) {
+                ['New Arrivals', 'Best Sellers', 'Sale'].forEach(term => {
+                  const link = document.createElement('a');
+                  link.href = `${searchUrl}?keyword=${encodeURIComponent(term)}`;
+                  link.className = 'px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors text-sm';
+                  link.textContent = term;
+                  container.appendChild(link);
+                });
+              }
+            });
+          </script>
+        </div>
+      </div>
     {{/if}}
   </div>
 </div>
 
 {{#schema}}
 {
-  "name": "Search results",
+  "name": "t:sections.main-search.name",
   "class": "section",
   "settings": [
+    {
+      "type": "group_header",
+      "label": "t:sections.main-search.settings.group_header__0.label"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 12,
+      "max": 48,
+      "step": 12,
+      "default": 24,
+      "label": "t:sections.main-search.settings.products_per_page.label"
+    },
     {
       "type": "range",
       "id": "columns_desktop",
@@ -77,7 +253,7 @@
       "max": 5,
       "step": 1,
       "default": 4,
-      "label": "Number of columns on desktop"
+      "label": "t:sections.main-search.settings.columns_desktop.label"
     },
     {
       "type": "select",
@@ -85,15 +261,15 @@
       "options": [
         {
           "value": 1,
-          "label": "1 column"
+          "label": "t:sections.main-search.settings.columns_mobile.options__0.label"
         },
         {
           "value": 2,
-          "label": "2 columns"
+          "label": "t:sections.main-search.settings.columns_mobile.options__1.label"
         }
       ],
       "default": 2,
-      "label": "Number of columns on mobile"
+      "label": "t:sections.main-search.settings.columns_mobile.label"
     }
   ]
 }

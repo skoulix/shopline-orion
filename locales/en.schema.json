@@ -1163,6 +1163,29 @@
           "label": "Bottom padding"
         }
       }
+    },
+    "main-search": {
+      "name": "Search results",
+      "settings": {
+        "group_header__0": {
+          "label": "Layout"
+        },
+        "products_per_page": {
+          "label": "Products per page"
+        },
+        "columns_desktop": {
+          "label": "Number of columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Number of columns on mobile",
+          "options__0": {
+            "label": "1 column"
+          },
+          "options__1": {
+            "label": "2 columns"
+          }
+        }
+      }
     }
   },
   "settings_schema": {
