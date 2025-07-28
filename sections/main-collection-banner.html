@@ -1,10 +1,10 @@
 <div class="collection-banner">
   {{#if section.settings.show_collection_image}}
-    {{#if (or collection.banner_image section.settings.default_image)}}
+    {{#if (or collection.banner_image collection.image collection.featured_image section.settings.default_image)}}
       <!-- Banner with image -->
       <div class="relative overflow-hidden {{#if section.settings.image_height '==' 'small'}}h-48 md:h-64{{/if}}{{#if section.settings.image_height '==' 'medium'}}h-64 md:h-96{{/if}}{{#if section.settings.image_height '==' 'large'}}h-96 md:h-[32rem]{{/if}}">
         <img 
-          src="{{#if collection.banner_image}}{{image_url collection.banner_image width=1920}}{{else}}{{image_url section.settings.default_image width=1920}}{{/if}}" 
+          src="{{#if collection.banner_image}}{{image_url collection.banner_image width=1920}}{{else if collection.image}}{{image_url collection.image width=1920}}{{else if collection.featured_image}}{{image_url collection.featured_image width=1920}}{{else if section.settings.default_image}}{{image_url section.settings.default_image width=1920}}{{else}}/placeholder.svg{{/if}}" 
           alt="{{collection.title}}"
           class="w-full h-full object-cover"
           loading="eager"

@@ -357,6 +357,18 @@
             "label": "Right"
           }
         },
+        "title_alignment": {
+          "label": "Title alignment",
+          "options__0": {
+            "label": "Left"
+          },
+          "options__1": {
+            "label": "Center"
+          },
+          "options__2": {
+            "label": "Right"
+          }
+        },
         "full_width": {
           "label": "Full screen width on desktop"
         },
