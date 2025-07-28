@@ -12,6 +12,16 @@
         "logo_width": {
           "label": "Logo width"
         },
+        "logo_layout": {
+          "label": "Logo position",
+          "info": "Choose how the logo is positioned in the header",
+          "options__0": {
+            "label": "Left (Traditional)"
+          },
+          "options__1": {
+            "label": "Center"
+          }
+        },
         "group_header__1": {
           "label": "Navigation"
         },
