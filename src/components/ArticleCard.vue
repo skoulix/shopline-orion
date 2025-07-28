@@ -1,5 +1,8 @@
 <template>
-  <article class="group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-gray-200/50 h-full flex flex-col border border-gray-100">
+  <article class="group relative bg-white overflow-hidden transition-all duration-500 h-full flex flex-col border border-gray-100"
+           :style="cardStyles"
+           @mouseenter="isHovered = true"
+           @mouseleave="isHovered = false">
     <!-- Gradient Overlay Background -->
     <div class="absolute inset-0 bg-gradient-to-br from-white via-gray-50/30 to-gray-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
     
@@ -65,7 +68,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 export default {
   name: 'ArticleCard',
@@ -133,6 +136,8 @@ export default {
     }
   },
   setup(props) {
+    const isHovered = ref(false)
+    
     const imageAspectClass = computed(() => {
       switch (props.imageRatio) {
         case 'square':
@@ -141,6 +146,17 @@ export default {
           return 'aspect-[3/4]'
         default:
           return 'aspect-[4/3]'
+      }
+    })
+    
+    const cardStyles = computed(() => {
+      const baseRadius = 'var(--card-radius, 8px)'
+      const baseShadow = 'var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1))'
+      const hoverShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+      
+      return {
+        borderRadius: baseRadius,
+        boxShadow: isHovered.value ? hoverShadow : baseShadow
       }
     })
 
@@ -248,7 +264,9 @@ export default {
       processedTags,
       processedImage,
       formattedDate,
-      truncatedContent
+      truncatedContent,
+      cardStyles,
+      isHovered
     }
   }
 }

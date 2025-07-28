@@ -99,6 +99,26 @@
 						settings.button_primary_bg
 					);
 				}
+				
+				// Card styles
+				if (settings.card_border_radius !== undefined) {
+					root.style.setProperty(
+						'--card-radius',
+						settings.card_border_radius + 'px'
+					);
+				}
+				if (settings.card_shadow !== undefined) {
+					// Convert percentage to actual shadow values
+					const shadowIntensity = settings.card_shadow / 100;
+					const shadowColor = `rgba(0, 0, 0, ${0.1 * shadowIntensity})`;
+					const shadowBlur = 20 * shadowIntensity;
+					const shadowY = 10 * shadowIntensity;
+					
+					root.style.setProperty(
+						'--card-shadow',
+						shadowIntensity > 0 ? `0 ${shadowY}px ${shadowBlur}px -5px ${shadowColor}` : 'none'
+					);
+				}
 			});
 		</script>
 
@@ -117,6 +137,8 @@
 				--color-secondary: #1f2937;
 				--focus-ring-color: #dc2626;
 				--focus-border-color: #dc2626;
+				--card-radius: 8px;
+				--card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 			}
 			
 			/* Custom focus utilities using CSS variables */

@@ -1,5 +1,8 @@
 <template>
-  <div class="product-card group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+  <div class="product-card group relative bg-white transition-all duration-300 overflow-hidden" 
+       :style="cardStyles"
+       @mouseenter="isHovered = true"
+       @mouseleave="isHovered = false">
       <!-- Product Image -->
       <a :href="productUrl" class="block aspect-[3/4] relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
         <img
@@ -26,7 +29,7 @@
         
         <!-- Wishlist Button -->
         <button
-          v-if="productData.available"
+          v-if="productData.available && showWishlist"
           class="absolute top-3 right-3 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
           @click.prevent="toggleWishlist"
         >
@@ -166,6 +169,7 @@ const selectedColor = ref('')
 const hovering = ref(false)
 const isAddingToCart = ref(false)
 const isWishlisted = ref(false)
+const isHovered = ref(false)
 
 // Create unified product data from either object or individual props
 const productData = computed(() => {
@@ -236,6 +240,21 @@ const isOnSale = computed(() => {
 const salePercentage = computed(() => {
   if (!isOnSale.value) return 0
   return Math.round(((compareAtPrice.value - currentPrice.value) / compareAtPrice.value) * 100)
+})
+
+const cardStyles = computed(() => {
+  const baseRadius = 'var(--card-radius, 8px)'
+  const baseShadow = 'var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1))'
+  const hoverShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+  
+  return {
+    borderRadius: baseRadius,
+    boxShadow: isHovered.value ? hoverShadow : baseShadow
+  }
+})
+
+const showWishlist = computed(() => {
+  return window.Shopline?.theme?.settings?.show_product_card_wishlist !== false
 })
 
 const formatPrice = (price) => {

@@ -15,6 +15,9 @@
     "button_secondary_bg_hover": "#f9fafb",
     "button_secondary_text": "#374151",
     "button_secondary_border": "#d1d5db",
+    "card_border_radius": 8,
+    "card_shadow": 10,
+    "show_product_card_wishlist": true,
     "sections": {
       "header": {
         "disabled": false,
