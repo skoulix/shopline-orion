@@ -1,7 +1,7 @@
 <footer class="site-footer bg-gradient-to-b from-gray-50 to-white">
   <!-- Newsletter Section -->
   {{#if section.settings.show_newsletter}}
-  <div class="newsletter-section bg-gray-900 text-white">
+  <div class="newsletter-section bg-gray-900 text-white" id="newsletter-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
         <div class="text-center lg:text-left lg:flex-1">
@@ -9,7 +9,7 @@
           <p class="text-gray-300 text-lg">{{section.settings.newsletter_subheading}}</p>
         </div>
         
-        <form action="/contact#newsletter" method="post" class="w-full lg:w-auto">
+        {{#form "customer" class="w-full lg:w-auto newsletter-form" id="newsletter-form"}}
           <div class="flex max-w-md mx-auto lg:mx-0">
             <input type="email" 
                    name="contact[email]" 
@@ -27,7 +27,19 @@
               Subscribe
             </button>
           </div>
-        </form>
+          
+          {{#if form.posted_successfully}}
+            <div class="mt-4 p-4 bg-green-100 text-green-700 rounded-lg newsletter-success-message">
+              ✓ Thank you for subscribing!
+            </div>
+          {{/if}}
+          
+          {{#if form.errors}}
+            <div class="mt-4 p-4 bg-red-100 text-red-700 rounded-lg newsletter-error-message">
+              {{form.errors.messages}}
+            </div>
+          {{/if}}
+        {{/form}}
       </div>
     </div>
   </div>
@@ -487,3 +499,46 @@
   ]
 }
 {{/schema}}
+
+<script>
+  // Auto-scroll to newsletter section after successful submission
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check if there's a success message (meaning form was just submitted)
+    const successMessage = document.querySelector('.newsletter-success-message');
+    const errorMessage = document.querySelector('.newsletter-error-message');
+    const newsletterSection = document.getElementById('newsletter-section');
+    
+    if ((successMessage || errorMessage) && newsletterSection) {
+      // Wait a brief moment for the page to fully render
+      setTimeout(function() {
+        // Calculate the position to scroll to (accounting for any sticky header)
+        const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+        const targetPosition = newsletterSection.offsetTop - headerHeight - 20; // 20px padding
+        
+        // Smooth scroll to the newsletter section
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+        
+        // Optional: Add a subtle highlight animation to the success message
+        if (successMessage) {
+          successMessage.style.animation = 'pulse 2s ease-in-out';
+        }
+      }, 100);
+    }
+  });
+</script>
+
+<style>
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+  }
+</style>
