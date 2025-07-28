@@ -47,7 +47,9 @@
           "newsletter_subheading": "Get the latest updates on new products and upcoming sales",
           "show_social": true,
           "copyright_text": "© Orion Theme. All rights reserved.",
-          "footer_menu": "7015096016845168856"
+          "footer_menu": "7015096016845168856",
+          "padding_top": 40,
+          "padding_bottom": 40
         },
         "blocks": {},
         "custom_css": []

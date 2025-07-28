@@ -428,6 +428,9 @@
         "show_view_all": {
           "label": "Show 'View all' button"
         },
+        "background_color": {
+          "label": "Background color"
+        },
         "group_header__1": {
           "label": "Section spacing"
         },
@@ -1154,6 +1157,15 @@
         },
         "payment_icons": {
           "label": "Payment icons"
+        },
+        "group_header__1": {
+          "label": "Section spacing"
+        },
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
         }
       }
     },

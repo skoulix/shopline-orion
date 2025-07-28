@@ -1,4 +1,4 @@
-<div class="featured-collection bg-white" style="background-color: {{default section.settings.background_color '#ffffff'}}; padding-top: {{default section.settings.padding_top 48}}px !important; padding-bottom: {{default section.settings.padding_bottom 48}}px !important;">
+<div class="featured-collection bg-white" style="background-color: {{default section.settings.background_color '#ffffff'}}; padding-top: {{default section.settings.padding_top 40}}px !important; padding-bottom: {{default section.settings.padding_bottom 40}}px !important;">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     {{#if section.settings.title}}
       <h2 class="text-3xl font-bold text-gray-900 mb-8 {{#if (eq section.settings.title_alignment 'left')}}text-left{{else if (eq section.settings.title_alignment 'right')}}text-right{{else}}text-center{{/if}}">
@@ -147,7 +147,7 @@
       "step": 2,
       "unit": "px",
       "label": "t:sections.featured-collection.settings.padding_top.label",
-      "default": 48
+      "default": 40
     },
     {
       "type": "range",
@@ -157,7 +157,7 @@
       "step": 2,
       "unit": "px",
       "label": "t:sections.featured-collection.settings.padding_bottom.label",
-      "default": 48
+      "default": 40
     }
   ]
 }

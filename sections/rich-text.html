@@ -1,4 +1,4 @@
-<div class="rich-text {{#if section.settings.full_width}}px-0{{/if}}" style="background-color: {{default section.settings.background_color '#ffffff'}}; padding-top: {{default section.settings.padding_top 48}}px !important; padding-bottom: {{default section.settings.padding_bottom 48}}px !important;">
+<div class="rich-text {{#if section.settings.full_width}}px-0{{/if}}" style="background-color: {{default section.settings.background_color '#ffffff'}}; padding-top: {{default section.settings.padding_top 40}}px !important; padding-bottom: {{default section.settings.padding_bottom 40}}px !important;">
   <div class="{{#unless section.settings.full_width}}max-w-4xl mx-auto px-4 sm:px-6 lg:px-8{{/unless}} text-{{section.settings.text_alignment}}">
     {{#if section.settings.heading}}
       <h2 class="text-3xl font-bold text-gray-900 mb-6">
@@ -142,7 +142,7 @@
       "type": "range",
       "id": "padding_top",
       "label": "t:sections.rich-text.settings.padding_top.label",
-      "default": 60,
+      "default": 40,
       "max": 100,
       "min": 0,
       "step": 2,
@@ -152,7 +152,7 @@
       "type": "range",
       "id": "padding_bottom",
       "label": "t:sections.rich-text.settings.padding_bottom.label",
-      "default": 60,
+      "default": 40,
       "max": 100,
       "min": 0,
       "step": 2,
