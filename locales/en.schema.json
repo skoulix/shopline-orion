@@ -342,6 +342,9 @@
     "featured-collection": {
       "name": "Featured collection",
       "settings": {
+        "group_header__0": {
+          "label": "Content"
+        },
         "title": {
           "label": "Heading"
         },
