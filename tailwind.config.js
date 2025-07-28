@@ -73,6 +73,18 @@ export default {
         'button': 'var(--button-radius, 0.375rem)', // Uses CSS variable from theme settings
         'button-lg': 'calc(var(--button-radius, 0.375rem) * 1.5)', // 1.5x the base radius
         'button-pill': '9999px', // fully rounded/pill buttons
+      },
+      borderColor: {
+        'primary': 'var(--color-primary, #dc2626)',
+      },
+      ringColor: {
+        'primary': 'var(--color-primary, #dc2626)',
+      },
+      backgroundColor: {
+        'primary': 'var(--color-primary, #dc2626)',
+      },
+      textColor: {
+        'primary': 'var(--color-primary, #dc2626)',
       }
     },
   },
