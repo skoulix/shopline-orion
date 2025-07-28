@@ -1,23 +1,4 @@
 <main-product-detail class="product-page bg-white" data-product-id="{{product.id}}">
-  <!-- Breadcrumb -->
-  <div class="bg-gray-50 border-b">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <nav class="text-sm" aria-label="Breadcrumb">
-        <ol class="flex items-center space-x-2 text-gray-500">
-          <li><a href="/" class="hover:opacity-80 transition-opacity" style="color: var(--color-primary);">Home</a></li>
-          {{#if product}}
-            <li><span class="mx-2">/</span></li>
-            {{#if product.collections.first}}
-              <li><a href="{{product.collections.first.url}}" class="hover:opacity-80 transition-opacity" style="color: var(--color-primary);">{{product.collections.first.title}}</a></li>
-              <li><span class="mx-2">/</span></li>
-            {{/if}}
-            <li class="text-gray-900 font-medium">{{product.title}}</li>
-          {{/if}}
-        </ol>
-      </nav>
-    </div>
-  </div>
-
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     {{#if product}}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -25,29 +6,62 @@
       <!-- Product Images -->
       <div class="product-images">
         {{#if product.images}}
-          <!-- Main Image -->
-          <div class="mb-6">
-            <div class="aspect-square bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
-              <img id="mainImage" 
-                   src="{{image_url product.images.[0] width=800}}" 
-                   alt="{{product.title}}" 
-                   class="w-full h-full object-cover transition-opacity duration-300">
+          {{#if (eq section.settings.gallery_layout "thumbnails_left")}}
+            <!-- Thumbnails Left Layout -->
+            <div class="flex gap-4">
+              <!-- Thumbnails Column -->
+              {{#if product.images.[1]}}
+                <div class="flex flex-col gap-3 overflow-y-auto overflow-x-hidden max-h-[600px] pr-1" style="width: 88px;">
+                  {{#each product.images}}
+                    <button type="button" 
+                            class="thumbnail-btn block w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 {{#if @first}}border-red-500 ring-2 ring-red-200{{else}}border-gray-200 hover:border-gray-300{{/if}}"
+                            onclick="changeMainImage('{{image_url this width=800}}', this)">
+                      <img src="{{image_url this width=120}}" 
+                           alt="{{../product.title}}" 
+                           class="w-full h-full object-cover">
+                    </button>
+                  {{/each}}
+                </div>
+              {{/if}}
+              
+              <!-- Main Image -->
+              <div class="flex-1">
+                <div class="aspect-square bg-gray-100 rounded-2xl overflow-hidden shadow-lg {{#if section.settings.enable_lightbox}}cursor-zoom-in{{/if}}"
+                     {{#if section.settings.enable_lightbox}}onclick="openLightbox(0)"{{/if}}>
+                  <img id="mainImage" 
+                       src="{{image_url product.images.[0] width=800}}" 
+                       alt="{{product.title}}" 
+                       class="w-full h-full object-cover transition-opacity duration-300">
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <!-- Thumbnail Gallery -->
-          {{#if product.images.[1]}}
-            <div class="flex gap-3 overflow-x-auto pb-2">
-              {{#each product.images}}
-                <button type="button" 
-                        class="thumbnail-btn flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 {{#if @first}}border-red-500 ring-2 ring-red-200{{else}}border-gray-200 hover:border-gray-300{{/if}}"
-                        onclick="changeMainImage('{{image_url this width=800}}', this)">
-                  <img src="{{image_url this width=120}}" 
-                       alt="{{../product.title}}" 
-                       class="w-full h-full object-cover">
-                </button>
-              {{/each}}
+          {{else}}
+            <!-- Thumbnails Bottom Layout (Default) -->
+            <!-- Main Image -->
+            <div class="mb-6">
+              <div class="aspect-square bg-gray-100 rounded-2xl overflow-hidden shadow-lg {{#if section.settings.enable_lightbox}}cursor-zoom-in{{/if}}"
+                   {{#if section.settings.enable_lightbox}}onclick="openLightbox(0)"{{/if}}>
+                <img id="mainImage" 
+                     src="{{image_url product.images.[0] width=800}}" 
+                     alt="{{product.title}}" 
+                     class="w-full h-full object-cover transition-opacity duration-300">
+              </div>
             </div>
+            
+            <!-- Thumbnail Gallery -->
+            {{#if product.images.[1]}}
+              <div class="flex gap-3 overflow-x-auto pb-2">
+                {{#each product.images}}
+                  <button type="button" 
+                          class="thumbnail-btn flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 {{#if @first}}border-red-500 ring-2 ring-red-200{{else}}border-gray-200 hover:border-gray-300{{/if}}"
+                          onclick="changeMainImage('{{image_url this width=800}}', this)">
+                    <img src="{{image_url this width=120}}" 
+                         alt="{{../product.title}}" 
+                         class="w-full h-full object-cover">
+                  </button>
+                {{/each}}
+              </div>
+            {{/if}}
           {{/if}}
         {{/if}}
       </div>
@@ -55,12 +69,38 @@
       <!-- Product Info -->
       <div class="product-info">
         <!-- Vendor -->
-        {{#if product.vendor}}
+        {{#if (and section.settings.show_vendor product.vendor)}}
           <p class="text-sm font-medium text-gray-600 uppercase tracking-wide mb-2">{{product.vendor}}</p>
         {{/if}}
         
         <!-- Title -->
         <h1 class="text-4xl font-bold text-gray-900 mb-4 leading-tight">{{product.title}}</h1>
+        
+        <!-- SKU -->
+        {{#if (and section.settings.show_sku product.variants.first.sku)}}
+          <p class="text-sm text-gray-600 mb-2">SKU: {{product.variants.first.sku}}</p>
+        {{/if}}
+        
+        <!-- Availability -->
+        {{#if section.settings.show_availability}}
+          <div class="mb-4">
+            {{#if product.available}}
+              <span class="inline-flex items-center text-sm text-green-600">
+                <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                In stock
+              </span>
+            {{else}}
+              <span class="inline-flex items-center text-sm text-red-600">
+                <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+                Out of stock
+              </span>
+            {{/if}}
+          </div>
+        {{/if}}
         
         <!-- Price -->
         <div class="mb-6">
@@ -130,12 +170,14 @@
               <span class="add-to-cart-text">Add to Cart</span>
               <span class="add-to-cart-loading hidden">Adding...</span>
             </button>
-            <button type="button" 
-                    onclick="buyNow()"
-                    class="w-full bg-gray-900 text-white py-4 px-8 font-semibold text-lg hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-500/20 transition-all duration-200"
-                    style="border-radius: var(--button-radius);">
-              Buy Now
-            </button>
+            {{#if section.settings.show_buy_now}}
+              <button type="button" 
+                      onclick="buyNow()"
+                      class="w-full bg-gray-900 text-white py-4 px-8 font-semibold text-lg hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-500/20 transition-all duration-200"
+                      style="border-radius: var(--button-radius);">
+                Buy Now
+              </button>
+            {{/if}}
           </div>
         </div>
         
@@ -213,6 +255,9 @@
     image: '{{image_url product.images.[0] width=300}}'
   };
 
+  // Track current image index
+  let currentImageIndex = 0;
+  
   // Image gallery functionality
   function changeMainImage(src, button) {
     const mainImage = document.getElementById('mainImage');
@@ -221,14 +266,23 @@
     // Update main image
     mainImage.src = src;
     
-    // Update thumbnail active state
-    thumbnails.forEach(thumb => {
+    // Update current index
+    thumbnails.forEach((thumb, index) => {
+      if (thumb === button) {
+        currentImageIndex = index;
+      }
       thumb.classList.remove('border-red-500', 'ring-2', 'ring-red-200');
       thumb.classList.add('border-gray-200');
     });
     
     button.classList.remove('border-gray-200');
     button.classList.add('border-red-500', 'ring-2', 'ring-red-200');
+    
+    // Update onclick handler for main image if lightbox is enabled
+    {{#if section.settings.enable_lightbox}}
+    const mainImageContainer = mainImage.parentElement;
+    mainImageContainer.setAttribute('onclick', `openLightbox(${currentImageIndex})`);
+    {{/if}}
   }
   
   // Quantity selector functionality
@@ -359,6 +413,80 @@
   document.addEventListener('DOMContentLoaded', function() {
     updateQuantityButtons();
   });
+  
+  // PhotoSwipe Lightbox functionality
+  {{#if section.settings.enable_lightbox}}
+  let lightbox = null;
+  
+  function initLightbox() {
+    // Load PhotoSwipe CSS
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe.css';
+    document.head.appendChild(link);
+    
+    // Load PhotoSwipe modules
+    Promise.all([
+      import('https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe.esm.js'),
+      import('https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe-lightbox.esm.js')
+    ]).then(([PhotoSwipeModule, PhotoSwipeLightboxModule]) => {
+      const PhotoSwipe = PhotoSwipeModule.default;
+      const PhotoSwipeLightbox = PhotoSwipeLightboxModule.default;
+      
+      // Prepare data source from product images
+      const dataSource = [
+        {{#each product.images}}
+        {
+          src: '{{image_url this width=1600}}',
+          width: 1600,
+          height: 1600,
+          alt: '{{../product.title}}'
+        }{{#unless @last}},{{/unless}}
+        {{/each}}
+      ];
+      
+      // Initialize lightbox
+      lightbox = new PhotoSwipeLightbox({
+        dataSource,
+        pswpModule: PhotoSwipe,
+        bgOpacity: 0.9,
+        showHideAnimationType: 'zoom',
+        spacing: 0.1,
+        allowPanToNext: true,
+        maxZoomLevel: 3,
+        pinchToClose: true,
+        closeOnVerticalDrag: true,
+        padding: { top: 40, bottom: 40, left: 100, right: 100 },
+        imageClickAction: 'close',
+        tapAction: 'toggle-controls',
+        doubleTapAction: 'zoom',
+        escKey: true,
+        arrowKey: true,
+        returnFocus: true
+      });
+      
+      lightbox.init();
+    });
+  }
+  
+  function openLightbox(index) {
+    if (!lightbox) {
+      initLightbox();
+      // Try again after a short delay to allow initialization
+      setTimeout(() => openLightbox(index), 100);
+      return;
+    }
+    
+    lightbox.loadAndOpen(index || 0);
+  }
+  
+  // Initialize lightbox on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLightbox);
+  } else {
+    initLightbox();
+  }
+  {{/if}}
 </script>
 
 <style>
@@ -381,6 +509,35 @@
   
   .thumbnail-btn:hover {
     transform: scale(1.05);
+  }
+  
+  /* Scrollbar styling for thumbnails left layout */
+  .product-images .overflow-y-auto {
+    scrollbar-width: thin;
+    scrollbar-color: #e5e7eb #f9fafb;
+  }
+  
+  .product-images .overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .product-images .overflow-y-auto::-webkit-scrollbar-track {
+    background: #f9fafb;
+    border-radius: 3px;
+  }
+  
+  .product-images .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: #e5e7eb;
+    border-radius: 3px;
+  }
+  
+  .product-images .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background: #d1d5db;
+  }
+  
+  /* Cursor zoom in for lightbox */
+  .cursor-zoom-in {
+    cursor: zoom-in;
   }
   
   /* Prose styling for product description */
@@ -439,15 +596,10 @@
     },
     {
       "type": "switch",
-      "id": "enable_zoom",
-      "label": "Enable image zoom",
-      "default": true
-    },
-    {
-      "type": "switch",
       "id": "enable_lightbox",
       "label": "Enable lightbox",
-      "default": true
+      "default": true,
+      "info": "Click product images to open in fullscreen with zoom"
     },
     {
       "type": "group_header",
