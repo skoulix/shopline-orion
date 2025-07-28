@@ -342,14 +342,11 @@
     "featured-collection": {
       "name": "Featured collection",
       "settings": {
-        "group_header__0": {
-          "label": "Content"
-        },
         "title": {
-          "label": "Heading"
+          "label": "Title"
         },
-        "title_alignment": {
-          "label": "Heading alignment",
+        "title_algin": {
+          "label": "Title alignment style",
           "options__0": {
             "label": "Left"
           },
@@ -360,11 +357,51 @@
             "label": "Right"
           }
         },
+        "full_width": {
+          "label": "Full screen width on desktop"
+        },
         "collection": {
-          "label": "Collection"
+          "label": "Collection list"
+        },
+        "group_header__0": {
+          "label": "List"
         },
         "products_to_show": {
-          "label": "Maximum products to show"
+          "label": "Max number of products displayed"
+        },
+        "columns_desktop": {
+          "label": "No. of rows on desktop"
+        },
+        "columns_mobile": {
+          "label": "Number of columns on mobile",
+          "options__0": {
+            "label": "1 column"
+          },
+          "options__1": {
+            "label": "2 columns"
+          }
+        },
+        "enable_desktop_slider": {
+          "label": "Scroll left and right to view on desktop"
+        },
+        "enable_mobile_slider": {
+          "label": "Turn on left-right scroll to View all"
+        },
+        "button_text": {
+          "label": "Button text",
+          "info": "Display this button only if 'Maximum products displayed' is less than the product quantity of this collection"
+        },
+        "button_follow_end_of_list": {
+          "label": "Button follows the end of the list"
+        },
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
+        },
+        "full_in_mobile": {
+          "label": "Full width on mobile"
         },
         "show_view_all": {
           "label": "Show 'View all' button"
@@ -1020,6 +1057,90 @@
     },
     "main-password-footer": {
       "name": "Password footer"
+    },
+    "main-list-collections": {
+      "name": "Collection list",
+      "block_info": "Selected option will be effective only when you choose to display assigned product collections in Setting",
+      "settings": {
+        "sort": {
+          "label": "Sort by",
+          "info": "This configuration item does not take effect when the specified category display is selected.",
+          "options__0": {
+            "label": "Name: A-Z"
+          },
+          "options__1": {
+            "label": "Name: Z-A"
+          },
+          "options__2": {
+            "label": "Date, from latest to earliest"
+          },
+          "options__3": {
+            "label": "Date, from earliest to latest"
+          },
+          "options__4": {
+            "label": "Products: most - least"
+          },
+          "options__5": {
+            "label": "Products: least - most"
+          }
+        },
+        "collection_image_ratio": {
+          "label": "Collection image ratio",
+          "options__0": {
+            "label": "Original image ratio"
+          },
+          "options__1": {
+            "label": "Square"
+          },
+          "options__2": {
+            "label": "Portrait"
+          },
+          "options__3": {
+            "label": "Landscape"
+          }
+        },
+        "collection_grid_shape": {
+          "label": "Collection grid shape",
+          "options__0": {
+            "label": "Default"
+          },
+          "options__1": {
+            "label": "Rounded corners"
+          },
+          "options__2": {
+            "label": "Circle"
+          }
+        },
+        "columns_desktop": {
+          "label": "Number of columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Number of columns on mobile",
+          "options__0": {
+            "label": "1 column"
+          },
+          "options__1": {
+            "label": "2 columns"
+          }
+        },
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
+        }
+      }
+    },
+    "main-register": {
+      "name": "Customer registration",
+      "settings": {
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        }
+      }
     }
   }
 }
