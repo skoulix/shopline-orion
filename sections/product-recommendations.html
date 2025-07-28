@@ -1,62 +1,94 @@
-<div class="product-recommendations py-12 bg-gray-50">
+<div class="product-recommendations-section py-12 bg-gray-50" id="product-recommendations-{{section.id}}">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    {{#if section.settings.heading}}
-      <h2 class="text-2xl font-bold text-gray-900 text-center mb-8">
-        {{section.settings.heading}}
-      </h2>
-    {{/if}}
+    <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">
+      {{section.settings.heading}}
+    </h2>
     
-    <div class="recommendations-container" data-product-id="{{product.id}}" data-limit="{{section.settings.products_to_show}}">
-      <!-- This would be populated by JavaScript with recommended products -->
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {{#comment}}
-          Placeholder - In production, this would be populated via JavaScript
-          using the Shopline recommendations API
-        {{/comment}}
-        <div class="text-center col-span-full py-8 text-gray-500">
-          Loading recommendations...
-        </div>
+    <!-- Recommendations will be loaded here -->
+    <div class="recommendations-container" 
+         data-section-id="{{section.id}}"
+         data-product-id="{{product.id}}"
+         data-limit="{{section.settings.products_to_show}}">
+      <div class="text-center py-8">
+        <p class="text-gray-500">Recommendations will appear here</p>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  // Simple recommendations loader
-  document.addEventListener('DOMContentLoaded', function() {
-    const container = document.querySelector('.recommendations-container');
-    if (container) {
-      const productId = container.dataset.productId;
-      const limit = container.dataset.limit || 4;
-      
-      // In production, this would call the Shopline API
-      // For now, we'll just show a message
-      setTimeout(() => {
-        container.innerHTML = '<p class="text-center text-gray-500">Recommendations would appear here</p>';
-      }, 1000);
-    }
+// Simple approach - just show a message for now
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.querySelector('.recommendations-container');
+  if (!container) return;
+  
+  const productId = container.dataset.productId;
+  const limit = container.dataset.limit || 4;
+  
+  console.log('Product recommendations:', {
+    productId: productId,
+    limit: limit,
+    product: {{#if product}}true{{else}}false{{/if}},
+    routes: window.routes
   });
+  
+  // For now, just show a placeholder message
+  // In a real implementation, this would fetch from Shopline's recommendations API
+  container.innerHTML = `
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div class="col-span-full text-center py-8 text-gray-500">
+        <p>Product recommendations are not currently available.</p>
+        <p class="text-sm mt-2">This feature requires Shopline's recommendation API to be enabled.</p>
+      </div>
+    </div>
+  `;
+});
 </script>
 
 {{#schema}}
 {
-  "name": "Product recommendations",
+  "name": "t:sections.product-recommendations.name",
   "class": "section",
   "settings": [
     {
       "type": "text",
       "id": "heading",
       "default": "You may also like",
-      "label": "Heading"
+      "label": "t:sections.product-recommendations.settings.heading.label"
     },
     {
       "type": "range",
       "id": "products_to_show",
       "min": 2,
-      "max": 10,
+      "max": 12,
       "step": 1,
       "default": 4,
-      "label": "Maximum products to show"
+      "label": "t:sections.product-recommendations.settings.products_to_show.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.product-recommendations.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": 1,
+          "label": "t:sections.product-recommendations.settings.columns_mobile.options__0.label"
+        },
+        {
+          "value": 2,
+          "label": "t:sections.product-recommendations.settings.columns_mobile.options__1.label"
+        }
+      ],
+      "default": 2,
+      "label": "t:sections.product-recommendations.settings.columns_mobile.label"
     }
   ]
 }
