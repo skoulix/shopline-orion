@@ -437,9 +437,9 @@
       const dataSource = [
         {{#each product.images}}
         {
-          src: '{{image_url this width=1600}}',
-          width: 1600,
-          height: 1600,
+          src: '{{image_url this width=2048}}',
+          w: 0, // Will be calculated automatically
+          h: 0, // Will be calculated automatically
           alt: '{{../product.title}}'
         }{{#unless @last}},{{/unless}}
         {{/each}}
@@ -463,6 +463,29 @@
         escKey: true,
         arrowKey: true,
         returnFocus: true
+      });
+      
+      // Add filter to calculate image dimensions
+      lightbox.addFilter('itemData', (itemData, index) => {
+        if (itemData.w === 0 && itemData.h === 0) {
+          // Create a temporary image to get dimensions
+          const img = new Image();
+          img.onload = function() {
+            itemData.w = this.naturalWidth;
+            itemData.h = this.naturalHeight;
+            
+            // Update the slide if it's already open
+            if (lightbox.pswp && lightbox.pswp.currSlide && lightbox.pswp.currSlide.index === index) {
+              lightbox.pswp.currSlide.updateContentSize(true);
+            }
+          };
+          img.src = itemData.src;
+          
+          // Set temporary dimensions to prevent errors
+          itemData.w = itemData.w || 1600;
+          itemData.h = itemData.h || 1600;
+        }
+        return itemData;
       });
       
       lightbox.init();
