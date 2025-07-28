@@ -14170,13 +14170,7 @@ const eb = { class: "sticky-header-container" }, tb = {
       const O = A.getAll("filter.p.vendor");
       O.length > 0 && (l.value = O);
       const b = A.getAll("filter.price.range");
-      b.length > 0 && (r.value = b), console.log("Sidebar filters loaded from URL:", {
-        sort: o.value,
-        priceRanges: r.value,
-        types: i.value,
-        vendors: l.value,
-        inStockOnly: a.value
-      });
+      b.length > 0 && (r.value = b);
     }, u = () => {
       f();
     }, p = Z(() => {
@@ -14215,7 +14209,7 @@ const eb = { class: "sticky-header-container" }, tb = {
         A.append("filter.p.vendor", b);
       });
       const O = `${window.location.pathname}${A.toString() ? "?" + A.toString() : ""}`;
-      console.log("Sidebar applying filters, new URL:", O), window.location.href = O;
+      window.location.href = O;
     }, g = () => {
       r.value = [], i.value = [], l.value = [], a.value = !1;
       const A = new URLSearchParams(window.location.search), S = [];
@@ -14273,7 +14267,7 @@ const eb = { class: "sticky-header-container" }, tb = {
               onChange: $,
               class: "w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
             }, S[21] || (S[21] = [
-              ls('<option value="manual" data-v-f105bce4>Featured</option><option value="best-selling" data-v-f105bce4>Best Selling</option><option value="title-ascending" data-v-f105bce4>Alphabetically, A-Z</option><option value="title-descending" data-v-f105bce4>Alphabetically, Z-A</option><option value="price-ascending" data-v-f105bce4>Price, low to high</option><option value="price-descending" data-v-f105bce4>Price, high to low</option><option value="created-ascending" data-v-f105bce4>Date, old to new</option><option value="created-descending" data-v-f105bce4>Date, new to old</option>', 8)
+              ls('<option value="manual" data-v-16b588fe>Featured</option><option value="best-selling" data-v-16b588fe>Best Selling</option><option value="title-ascending" data-v-16b588fe>Alphabetically, A-Z</option><option value="title-descending" data-v-16b588fe>Alphabetically, Z-A</option><option value="price-ascending" data-v-16b588fe>Price, low to high</option><option value="price-descending" data-v-16b588fe>Price, high to low</option><option value="created-ascending" data-v-16b588fe>Date, old to new</option><option value="created-descending" data-v-16b588fe>Date, new to old</option>', 8)
             ]), 544), [
               [Ds, o.value]
             ])
@@ -14572,7 +14566,7 @@ const eb = { class: "sticky-header-container" }, tb = {
       ]))
     ]));
   }
-}, Lf = /* @__PURE__ */ Ye(i2, [["__scopeId", "data-v-f105bce4"]]), l2 = { class: "collection-grid" }, a2 = {
+}, Lf = /* @__PURE__ */ Ye(i2, [["__scopeId", "data-v-16b588fe"]]), l2 = { class: "collection-grid" }, a2 = {
   key: 0,
   class: "mb-8"
 }, c2 = { class: "text-3xl font-bold text-secondary-900 mb-4" }, u2 = {
@@ -15089,7 +15083,7 @@ const eb = { class: "sticky-header-container" }, tb = {
         v.append("filter.p.vendor", x);
       });
       const $ = `${window.location.pathname}${v.toString() ? "?" + v.toString() : ""}`;
-      console.log("Applying filters, new URL:", $), window.location.href = $;
+      window.location.href = $;
     }, u = () => {
       s.value = {
         inStock: !1,
@@ -15116,7 +15110,7 @@ const eb = { class: "sticky-header-container" }, tb = {
       const $ = v.getAll("filter.p.vendor");
       $.length > 0 && (s.value.vendors = $);
       const x = v.getAll("filter.price.range");
-      x.length > 0 && (s.value.priceRanges = x), console.log("URL Params loaded:", Object.fromEntries(v.entries())), console.log("Loaded filters:", s.value);
+      x.length > 0 && (s.value.priceRanges = x);
     }, m = () => {
       p();
     };
@@ -15298,7 +15292,7 @@ const eb = { class: "sticky-header-container" }, tb = {
       ]))
     ]));
   }
-}, uE = /* @__PURE__ */ Ye(cE, [["__scopeId", "data-v-27f1a355"]]), dE = { class: "product-gallery" }, fE = { class: "main-image-wrapper" }, pE = ["src", "alt"], hE = {
+}, uE = /* @__PURE__ */ Ye(cE, [["__scopeId", "data-v-7b26bf02"]]), dE = { class: "product-gallery" }, fE = { class: "main-image-wrapper" }, pE = ["src", "alt"], hE = {
   key: 0,
   class: "absolute inset-0 flex items-center justify-center"
 }, mE = {

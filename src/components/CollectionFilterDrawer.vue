@@ -282,7 +282,6 @@ const applyFilters = () => {
   
   // Update URL and reload
   const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`
-  console.log('Applying filters, new URL:', newUrl)
   window.location.href = newUrl
 }
 
@@ -347,8 +346,6 @@ const loadFiltersFromURL = () => {
     filters.value.priceRanges = priceRangeParams
   }
   
-  console.log('URL Params loaded:', Object.fromEntries(params.entries()))
-  console.log('Loaded filters:', filters.value)
 }
 
 // Handle popstate events (back/forward navigation)

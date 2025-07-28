@@ -373,13 +373,6 @@ const loadFiltersFromURL = () => {
     selectedPriceRanges.value = priceRangeParams
   }
   
-  console.log('Sidebar filters loaded from URL:', {
-    sort: selectedSort.value,
-    priceRanges: selectedPriceRanges.value,
-    types: selectedTypes.value,
-    vendors: selectedVendors.value,
-    inStockOnly: inStockOnly.value
-  })
 }
 
 // Handle popstate events (back/forward navigation)
@@ -486,7 +479,6 @@ const applyFilters = () => {
   
   // Update URL and reload (matching CollectionFilterDrawer behavior)
   const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`
-  console.log('Sidebar applying filters, new URL:', newUrl)
   window.location.href = newUrl
 }
 
