@@ -154,33 +154,58 @@ document.addEventListener('DOMContentLoaded', function() {
   placeholder.style.display = 'none';
   stickyHeader.parentNode.insertBefore(placeholder, stickyHeader.nextSibling);
   
+  // Add top padding to main content to prevent overlap (except index page with transparent header)
+  const mainContent = document.getElementById('MainContent');
+  const isIndexPage = document.body.classList.contains('template-index');
+  
+  if (mainContent && !(isTransparent && isIndexPage)) {
+    const updateMainPadding = () => {
+      const headerHeight = stickyHeader.offsetHeight;
+      mainContent.style.paddingTop = headerHeight + 'px';
+    };
+    
+    // Set initial padding
+    updateMainPadding();
+    
+    // Update padding when window resizes
+    window.addEventListener('resize', updateMainPadding);
+  }
+  
   const handleScroll = throttle(function() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const headerHeight = stickyHeader.offsetHeight;
     
-    // Handle sticky behavior - different logic for transparent vs normal headers
-    if (isTransparent) {
-      // For transparent headers, only become sticky when scrolled
+    // Handle sticky behavior - transparent header logic only applies to index page
+    if (isTransparent && isIndexPage) {
+      // For transparent headers on index page, only become sticky when scrolled
       if (scrollTop > 0) {
         if (!stickyHeader.classList.contains('is-sticky')) {
           stickyHeader.classList.add('is-sticky');
-          placeholder.style.height = headerHeight + 'px';
-          placeholder.style.display = 'block';
+          // No placeholder for transparent header on index page
         }
         stickyHeader.classList.add('is-transparent--active');
       } else {
         // At top - remove sticky and transparency active state
         stickyHeader.classList.remove('is-sticky');
         stickyHeader.classList.remove('is-transparent--active');
-        placeholder.style.display = 'none';
       }
     } else {
-      // For normal headers, make sticky immediately
+      // For all other pages (including non-index with transparent setting), make sticky immediately
       if (!stickyHeader.classList.contains('is-sticky')) {
         stickyHeader.classList.add('is-sticky');
-        placeholder.style.height = headerHeight + 'px';
-        placeholder.style.display = 'block';
-        stickyHeader.style.backgroundColor = stickyBackground;
+        // Don't use placeholder for non-index pages since they have CSS padding
+        if (!isTransparent) {
+          stickyHeader.style.backgroundColor = stickyBackground;
+        }
+      }
+      
+      // Handle transparency state for non-index pages
+      if (isTransparent) {
+        if (scrollTop > 0) {
+          stickyHeader.classList.add('is-transparent--active');
+        } else {
+          stickyHeader.classList.remove('is-transparent--active');
+        }
       }
     }
     
@@ -196,14 +221,22 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (!hideOnScroll) {
       // If hide on scroll is disabled, move header up by announcement bar height
       const announcementBar = stickyHeader.querySelector('.announcement-bar');
-      if (announcementBar) {
+      if (announcementBar && mainContent) {
         const announcementHeight = announcementBar.offsetHeight;
         if (scrollTop > 50) {
           stickyHeader.style.transform = `translateY(-${announcementHeight}px)`;
           stickyHeader.classList.add('announcement-hidden');
+          // Adjust main content padding when announcement hides (not for index with transparent header)
+          if (!(isTransparent && isIndexPage)) {
+            mainContent.style.paddingTop = (stickyHeader.offsetHeight - announcementHeight) + 'px';
+          }
         } else {
           stickyHeader.style.transform = '';
           stickyHeader.classList.remove('announcement-hidden');
+          // Restore full padding when announcement shows (not for index with transparent header)
+          if (!(isTransparent && isIndexPage)) {
+            mainContent.style.paddingTop = stickyHeader.offsetHeight + 'px';
+          }
         }
       }
     }
@@ -279,25 +312,25 @@ document.addEventListener('DOMContentLoaded', function() {
       border-bottom: 1px solid #e5e7eb !important;
     }
     
-    /* Transparent header link styling */
-    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header a,
-    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header button,
-    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header h1 {
+    /* Transparent header link styling - only for index page */
+    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header a,
+    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header button,
+    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header h1 {
       color: #ffffff !important;
     }
     
-    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header a:hover,
-    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header button:hover {
+    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header a:hover,
+    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header button:hover {
       color: #ffffff !important;
       opacity: 0.8;
     }
     
-    /* Keep dropdown menus with dark text on white background */
-    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header .absolute a {
+    /* Keep dropdown menus with dark text on white background - only for index page */
+    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header .absolute a {
       color: #374151 !important;
     }
     
-    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header .absolute a:hover {
+    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header .absolute a:hover {
       color: var(--color-primary) !important;
       opacity: 1;
     }
