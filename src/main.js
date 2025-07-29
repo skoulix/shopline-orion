@@ -296,12 +296,13 @@ function mountVueComponents(container = document) {
 				spacer.className = 'sticky-spacer';
 				header.parentNode.insertBefore(spacer, header.nextSibling);
 				
-				// Set initial spacer height immediately for non-transparent headers
-				if (!(isTransparent && isHomepage)) {
-					spacer.style.height = header.offsetHeight + 'px';
-				} else {
+				// Set initial spacer height based on header type
+				if (isTransparent && isHomepage) {
 					// For transparent headers, add the class immediately
 					header.classList.add('transparent-header');
+					spacer.style.height = header.offsetHeight + 'px'; // Still need spacer for fixed positioning
+				} else {
+					// For normal sticky headers, no spacer needed initially (using position: sticky)
 					spacer.style.height = '0px';
 				}
 				
@@ -324,21 +325,6 @@ function mountVueComponents(container = document) {
 					// Check if we're on the homepage
 					const isHomepage = document.body.classList.contains('template-index');
 
-					// Handle sticky header positioning
-					if (isTransparent && isHomepage) {
-						// Transparent headers on homepage
-						if (currentScrollY > 50) {
-							// When scrolled, switch to fixed positioning
-							header.style.position = '';
-							updateSpacerHeight();
-						} else {
-							// At top, use absolute positioning to overlay hero
-							header.style.position = 'absolute';
-							header.style.width = '100%';
-							spacer.style.height = '0px';
-						}
-					}
-
 					// Handle transparent header on homepage
 					if (isTransparent && isHomepage) {
 						if (currentScrollY > 50) {
@@ -356,11 +342,19 @@ function mountVueComponents(container = document) {
 						}
 					} else {
 						// Normal non-transparent behavior
-						if (currentScrollY > 50) {
-							header.classList.add('scrolled');
+						if (currentScrollY > 0) {
+							// Add scrolled class and update spacer when scrolling starts
+							if (!header.classList.contains('scrolled')) {
+								header.classList.add('scrolled');
+								updateSpacerHeight(); // Update spacer when switching to fixed
+							}
 							header.style.backgroundColor = stickyBackground;
 						} else {
-							header.classList.remove('scrolled');
+							// At top position
+							if (header.classList.contains('scrolled')) {
+								header.classList.remove('scrolled');
+								spacer.style.height = '0px'; // Remove spacer when back to sticky
+							}
 							header.style.backgroundColor = '';
 						}
 					}
@@ -430,19 +424,18 @@ function mountVueComponents(container = document) {
 					}
 				});
 
-				// Apply initial styles
-				if (isTransparent && isHomepage) {
-					header.classList.add('transparent-header');
-					header.classList.remove('bg-white'); // Remove the default white background
-					header.style.backgroundColor = 'transparent';
-					header.style.borderBottomColor = 'transparent';
-					header.style.position = 'absolute';
-					header.style.width = '100%';
-					spacer.style.height = '0px';
-					
-					// Apply negative margin to first section equal to header height
-					setTimeout(() => {
-						// Target the first Shopline section wrapper
+				// Apply initial styles immediately
+				const applyInitialStyles = () => {
+					if (isTransparent && isHomepage) {
+						header.classList.add('transparent-header');
+						header.classList.remove('bg-white'); // Remove the default white background
+						header.style.backgroundColor = 'transparent';
+						header.style.borderBottomColor = 'transparent';
+						header.style.position = 'absolute';
+						header.style.width = '100%';
+						spacer.style.height = '0px';
+						
+						// Apply negative margin to first section equal to header height
 						const firstSection = document.querySelector(
 							'#MainContent > .shopline-section:first-child, ' +
 							'#MainContent > div[id^="shopline-section-"]:first-child, ' +
@@ -454,10 +447,8 @@ function mountVueComponents(container = document) {
 							firstSection.style.marginTop = `-${headerHeight}px`;
 							firstSection.style.paddingTop = `${headerHeight}px`;
 						}
-					}, 100); // Small delay to ensure header is rendered
-				} else {
-					// Normal headers - immediately set spacer height
-					setTimeout(() => {
+					} else {
+						// Normal sticky headers - ensure spacer height is set
 						updateSpacerHeight();
 						
 						// For sticky headers with hero sections, apply both negative margin and padding
@@ -481,8 +472,12 @@ function mountVueComponents(container = document) {
 								firstSection.style.marginTop = '0px';
 							}
 						}
-					}, 100);
-				}
+					}
+				};
+				
+				// Apply styles immediately and also after a small delay to ensure proper rendering
+				applyInitialStyles();
+				setTimeout(applyInitialStyles, 100);
 				
 				// Start monitoring scroll
 				updateHeader();

@@ -146,7 +146,7 @@ a {
 
 /* Default sticky header */
 .site-header.sticky-header {
-  position: fixed !important;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -154,9 +154,14 @@ a {
   width: 100%;
 }
 
-/* Override for transparent header on homepage */
+/* Override for transparent header on homepage - use fixed positioning */
 .template-index .site-header.sticky-header.transparent-header {
-  position: absolute !important;
+  position: fixed !important;
+}
+
+/* When scrolled, ensure it stays fixed */
+.site-header.sticky-header.scrolled {
+  position: fixed !important;
 }
 
 /* Spacer needs to be visible by default for sticky headers */
