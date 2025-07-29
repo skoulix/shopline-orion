@@ -17208,10 +17208,10 @@ function uo(e = document) {
         const y = document.querySelector(
           '#MainContent > .shopline-section:first-child, #MainContent > div[id^="shopline-section-"]:first-child, main > .shopline-section:first-child'
         );
-        if (y) {
+        if (y && m) {
           const A = u.offsetHeight;
           p && m ? (y.style.marginTop = `-${A}px`, y.style.paddingTop = `${A}px`) : y.querySelector(".hero-banner") ? (y.style.marginTop = `-${A}px`, y.style.paddingTop = `${A}px`) : (y.style.paddingTop = `${A}px`, y.style.marginTop = "0px");
-        }
+        } else y && !m && (y.style.paddingTop = "0px", y.style.marginTop = "0px");
       });
       const C = () => {
         if (p && m) {
@@ -17223,7 +17223,7 @@ function uo(e = document) {
             const A = u.offsetHeight;
             y.style.marginTop = `-${A}px`, y.style.paddingTop = `${A}px`;
           }
-        } else {
+        } else if (m) {
           x();
           const y = document.querySelector(
             '#MainContent > .shopline-section:first-child, #MainContent > div[id^="shopline-section-"]:first-child, main > .shopline-section:first-child'
@@ -17232,7 +17232,8 @@ function uo(e = document) {
             const A = u.offsetHeight;
             y.querySelector(".hero-banner") ? (y.style.marginTop = `-${A}px`, y.style.paddingTop = `${A}px`) : (y.style.paddingTop = `${A}px`, y.style.marginTop = "0px");
           }
-        }
+        } else
+          x();
       };
       C(), setTimeout(C, 100), v();
     }

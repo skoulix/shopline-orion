@@ -401,7 +401,7 @@ function mountVueComponents(container = document) {
 						'main > .shopline-section:first-child'
 					);
 					
-					if (firstSection) {
+					if (firstSection && isHomepage) {
 						const headerHeight = header.offsetHeight;
 						
 						if (isTransparent && isHomepage) {
@@ -421,6 +421,10 @@ function mountVueComponents(container = document) {
 								firstSection.style.marginTop = '0px';
 							}
 						}
+					} else if (firstSection && !isHomepage) {
+						// Non-homepage: clear any padding/margin
+						firstSection.style.paddingTop = '0px';
+						firstSection.style.marginTop = '0px';
 					}
 				});
 
@@ -447,11 +451,11 @@ function mountVueComponents(container = document) {
 							firstSection.style.marginTop = `-${headerHeight}px`;
 							firstSection.style.paddingTop = `${headerHeight}px`;
 						}
-					} else {
-						// Normal sticky headers - ensure spacer height is set
+					} else if (isHomepage) {
+						// Only apply padding on index page for sticky headers
 						updateSpacerHeight();
 						
-						// For sticky headers with hero sections, apply both negative margin and padding
+						// For sticky headers with hero sections on homepage
 						const firstSection = document.querySelector(
 							'#MainContent > .shopline-section:first-child, ' +
 							'#MainContent > div[id^="shopline-section-"]:first-child, ' +
@@ -472,6 +476,9 @@ function mountVueComponents(container = document) {
 								firstSection.style.marginTop = '0px';
 							}
 						}
+					} else {
+						// Non-homepage: no special padding for first section
+						updateSpacerHeight();
 					}
 				};
 				

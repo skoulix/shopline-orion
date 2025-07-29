@@ -287,6 +287,57 @@
   window.mobileMenuShowLocalization = {{section.settings.show_localization}};
   
   document.addEventListener('DOMContentLoaded', function() {
+    // Check if header is transparent for hover handling
+    const header = document.querySelector('.site-header');
+    const isTransparentHeader = () => header && header.classList.contains('transparent-header');
+    
+    // Update all hover elements to respect transparent header state
+    const setupHoverHandlers = () => {
+      const hoverElements = header.querySelectorAll('[onmouseover]');
+      hoverElements.forEach(el => {
+        const originalMouseover = el.getAttribute('onmouseover');
+        const originalMouseout = el.getAttribute('onmouseout');
+        
+        el.removeAttribute('onmouseover');
+        el.removeAttribute('onmouseout');
+        
+        // Check if this is a dropdown item
+        const isDropdownItem = el.closest('.absolute') || el.classList.contains('text-sm');
+        
+        el.addEventListener('mouseover', function() {
+          if (isDropdownItem) {
+            // Dropdown items always use primary color on hover
+            this.style.color = 'var(--color-primary)';
+          } else if (!isTransparentHeader()) {
+            // Main nav items only use primary color when not transparent
+            this.style.color = 'var(--color-primary)';
+          }
+        });
+        
+        el.addEventListener('mouseout', function() {
+          if (isDropdownItem || !isTransparentHeader()) {
+            this.style.color = '';
+          }
+        });
+      });
+    };
+    
+    // Initial setup
+    setupHoverHandlers();
+    
+    // Re-setup when header transparency changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          setupHoverHandlers();
+        }
+      });
+    });
+    
+    if (header) {
+      observer.observe(header, { attributes: true, attributeFilter: ['class'] });
+    }
+    
     // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     if (mobileMenuToggle) {

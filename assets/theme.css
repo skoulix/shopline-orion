@@ -4040,7 +4040,8 @@ a {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 40;
+  /* z-40 in Tailwind = 40, below drawers (z-50) */
   width: 100%;
 }
 
@@ -4090,15 +4091,43 @@ main > .shopline-section:first-child {
   border-color: transparent !important;
 }
 
-.site-header.transparent-header a,
-.site-header.transparent-header button,
-.site-header.transparent-header svg {
+.site-header.transparent-header > div > div a,
+.site-header.transparent-header > div > div button,
+.site-header.transparent-header > div > div svg {
   color: white;
 }
 
-.site-header.transparent-header a:hover,
-.site-header.transparent-header button:hover {
+.site-header.transparent-header > div > div a:hover,
+.site-header.transparent-header > div > div button:hover {
   opacity: 0.8;
+  color: white !important;
+}
+
+/* Prevent onmouseover color changes for transparent headers */
+
+.site-header.transparent-header a[onmouseover],
+.site-header.transparent-header button[onmouseover] {
+  color: white !important;
+}
+
+/* Dropdown menus should always have white background with dark text */
+
+.site-header .group:hover > div,
+.site-header [class*="absolute"][class*="bg-white"] {
+  background-color: white !important;
+}
+
+.site-header .group:hover > div a,
+.site-header [class*="absolute"][class*="bg-white"] a {
+  color: rgb(55 65 81) !important;
+  /* gray-700 */
+}
+
+.site-header .group:hover > div a:hover,
+.site-header [class*="absolute"][class*="bg-white"] a:hover {
+  background-color: rgb(243 244 246) !important;
+  /* gray-100 */
+  color: var(--color-primary) !important;
 }
 
 /* Override logo text color for transparent header */
