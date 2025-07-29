@@ -87,7 +87,7 @@
 						settings.color_secondary
 					);
 				}
-				
+
 				// Focus state colors using primary color
 				if (settings.button_primary_bg) {
 					root.style.setProperty(
@@ -99,7 +99,7 @@
 						settings.button_primary_bg
 					);
 				}
-				
+
 				// Card styles
 				if (settings.card_border_radius !== undefined) {
 					root.style.setProperty(
@@ -110,13 +110,17 @@
 				if (settings.card_shadow !== undefined) {
 					// Convert percentage to actual shadow values
 					const shadowIntensity = settings.card_shadow / 100;
-					const shadowColor = `rgba(0, 0, 0, ${0.1 * shadowIntensity})`;
+					const shadowColor = `rgba(0, 0, 0, ${
+						0.1 * shadowIntensity
+					})`;
 					const shadowBlur = 20 * shadowIntensity;
 					const shadowY = 10 * shadowIntensity;
-					
+
 					root.style.setProperty(
 						'--card-shadow',
-						shadowIntensity > 0 ? `0 ${shadowY}px ${shadowBlur}px -5px ${shadowColor}` : 'none'
+						shadowIntensity > 0
+							? `0 ${shadowY}px ${shadowBlur}px -5px ${shadowColor}`
+							: 'none'
 					);
 				}
 			});
@@ -140,16 +144,16 @@
 				--card-radius: 8px;
 				--card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 			}
-			
+
 			/* Custom focus utilities using CSS variables */
 			.focus\:ring-primary:focus {
 				--tw-ring-color: var(--focus-ring-color);
 			}
-			
+
 			.focus\:border-primary:focus {
 				border-color: var(--focus-border-color);
 			}
-			
+
 			.focus\:ring-primary\/20:focus {
 				--tw-ring-color: var(--focus-ring-color);
 				--tw-ring-opacity: 0.2;
@@ -158,15 +162,16 @@
 
 		<link rel="stylesheet" href="{{asset_url 'theme.css'}}" />
 		<link rel="stylesheet" href="{{asset_url 'style.css'}}" />
-		
+
 		<!-- Global JS - Essential for Shopline functionality -->
 		<script src="{{asset_url 'global.js'}}" defer="defer"></script>
-		
+
 		<!-- Theme Vue Components -->
 		<script src="{{asset_url 'orion-theme.umd.js'}}" defer></script>
 	</head>
 
-	<body class="template-{{template.name}}">
+	<body
+		class="template-{{request.page_type}}{{#if request.template_suffix}} template-suffix-{{request.template_suffix}}{{/if}}">
 		<a class="skip-to-content-link sr-only" href="#MainContent">
 			Skip to content
 		</a>
@@ -189,7 +194,7 @@
 		<search-overlay></search-overlay>
 
 		{{content_for_footer}}
-		
+
 		<script>
 			// Initialize Shopline routes
 			window.shopUrl = '{{ request.origin }}';
@@ -210,7 +215,7 @@
 				address_country_template_url: '{{ routes.address_country_template_url }}',
 				address_next_url: '{{ routes.address_next_url }}',
 			};
-			
+
 			// Initialize translations
 			window.__I18N__ = window.__I18N__ || {};
 			window.__I18N__['unvisiable'] = {{{ json (t 'unvisiable') }}};

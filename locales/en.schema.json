@@ -68,6 +68,15 @@
         },
         "show_localization": {
           "label": "Show language/country selector"
+        },
+        "group_header__6": {
+          "label": "Section spacing"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
         }
       }
     },

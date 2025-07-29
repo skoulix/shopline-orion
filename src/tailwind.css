@@ -140,49 +140,88 @@ a {
 }
 
 /* Sticky header styles */
-sticky-header {
-  display: block;
-  width: 100%;
+.site-header {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-sticky-header.sticky-header-wrapper {
-  display: block;
-  width: 100%;
-  background-color: white;
-  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), 
-              box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
-              background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-sticky-header.sticky-header-wrapper.is-sticky {
+/* Default sticky header */
+.site-header.sticky-header {
   position: fixed !important;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 40;
-  transform: translateY(0);
+  z-index: 1000;
+  width: 100%;
 }
 
-sticky-header.sticky-header-wrapper.is-sticky.is-hidden {
+/* Override for transparent header on homepage */
+.template-index .site-header.sticky-header.transparent-header {
+  position: absolute !important;
+}
+
+/* Spacer needs to be visible by default for sticky headers */
+.sticky-spacer {
+  display: block;
+  transition: height 0.3s ease;
+}
+
+.sticky-header.scrolled {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sticky-header.hide-on-scroll {
   transform: translateY(-100%);
 }
 
-sticky-header.sticky-header-wrapper.has-shadow {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-}
-
-sticky-header.sticky-header-wrapper.is-transparent {
-  background-color: transparent;
-}
-
-sticky-header.sticky-header-wrapper.is-transparent .main-header {
-  background-color: transparent;
-  border-color: transparent;
-}
-
-sticky-header.sticky-header-wrapper.not-sticky {
-  position: static;
+.sticky-header.show-on-scroll {
   transform: translateY(0);
+}
+
+/* Transparent header styles */
+.site-header.transparent-header {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.site-header.transparent-header a,
+.site-header.transparent-header button,
+.site-header.transparent-header svg {
+  color: white;
+}
+
+.site-header.transparent-header a:hover,
+.site-header.transparent-header button:hover {
+  opacity: 0.8;
+}
+
+/* Override logo text color for transparent header */
+.site-header.transparent-header h1 {
+  color: white;
+}
+
+
+/* Homepage with transparent header - hero should go under header */
+.template-index .site-header.transparent-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.template-index .site-header.transparent-header:not(.scrolled) {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.template-index .site-header.transparent-header ~ main {
+  margin-top: 0 !important;
+}
+
+/* When scrolled, switch to fixed */
+.template-index .site-header.transparent-header.sticky-header {
+  position: fixed;
 }
 
 /* Utility styles */

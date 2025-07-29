@@ -23,7 +23,7 @@
   ];
 </script>
 
-<header class="site-header bg-white border-b border-gray-200 {{#if section.settings.enable_sticky_header}}sticky-header{{/if}}"
+<header class="site-header {{#unless section.settings.transparent_header_homepage}}bg-white{{/unless}} border-b border-gray-200 {{#if section.settings.enable_sticky_header}}sticky-header{{/if}}"
         {{#if section.settings.enable_sticky_header}}
         data-sticky="true"
         data-hide-on-scroll="{{section.settings.sticky_hide_on_scroll_down}}"
@@ -31,11 +31,12 @@
         {{/if}}
         {{#if section.settings.transparent_header_homepage}}
         data-transparent="true"
-        {{/if}}>
+        {{/if}}
+        style="padding-top: {{default section.settings.padding_top 16}}px !important; padding-bottom: {{default section.settings.padding_bottom 16}}px !important;">
   
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Mobile Layout: 3-column grid -->
-    <div class="md:hidden grid grid-cols-3 items-center py-1">
+    <div class="md:hidden grid grid-cols-3 items-center">
       <!-- Left column: Mobile menu -->
       <div class="flex justify-start">
         <button type="button" 
@@ -91,7 +92,7 @@
     <!-- Desktop Layout: Standard or Centered -->
     {{#if (eq section.settings.logo_layout "center")}}
       <!-- Centered Logo Layout -->
-      <div class="hidden md:grid grid-cols-3 items-center py-1">
+      <div class="hidden md:grid grid-cols-3 items-center">
         <!-- Left: Navigation -->
         <nav class="flex space-x-6 justify-start">
           {{#each linklists.main-menu.links}}
@@ -171,7 +172,7 @@
       </div>
     {{else}}
       <!-- Standard Left-aligned Logo Layout -->
-      <div class="hidden md:flex items-center justify-between py-1">
+      <div class="hidden md:flex items-center justify-between">
         <!-- Logo -->
         <div class="flex-shrink-0">
           {{#if section.settings.logo}}
@@ -447,6 +448,30 @@
       "id": "show_localization",
       "default": false,
       "label": "t:sections.header.settings.show_localization.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.header.settings.group_header__6.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.header.settings.padding_top.label",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.header.settings.padding_bottom.label",
+      "default": 16
     }
   ]
 }
