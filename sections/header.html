@@ -291,7 +291,6 @@
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     if (mobileMenuToggle) {
       mobileMenuToggle.addEventListener('click', function() {
-        console.log('Mobile menu toggle clicked');
         document.dispatchEvent(new CustomEvent('mobile-menu:open'));
       });
     }
@@ -301,7 +300,6 @@
     searchToggles.forEach(toggle => {
       toggle.addEventListener('click', function(e) {
         e.preventDefault();
-        console.log('Search toggle clicked');
         document.dispatchEvent(new CustomEvent('search-overlay:open'));
       });
     });
@@ -315,10 +313,8 @@
         const cartType = Shopline?.theme?.settings?.cart_type || 'drawer';
         
         if (cartType === 'drawer' && window.OrionCart) {
-          console.log('Opening cart drawer...');
           window.OrionCart.openDrawer();
         } else {
-          console.log('Redirecting to cart page...');
           window.location.href = Shopline?.routes?.cart || '/cart';
         }
       });
