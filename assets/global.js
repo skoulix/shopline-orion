@@ -131,3 +131,123 @@ window.Shopline.addListener = function (target, eventName, callback) {
 if (window.Shopline && window.Shopline.designMode) {
   console.log('Theme editor mode detected');
 }
+
+// Sticky Header Implementation
+document.addEventListener('DOMContentLoaded', function() {
+  const stickyHeader = document.querySelector('.header-group.sticky-header');
+  
+  if (!stickyHeader) return;
+  
+  // Get sticky settings from data attributes
+  const isSticky = stickyHeader.dataset.sticky === 'true';
+  const hideOnScroll = stickyHeader.dataset.hideOnScroll === 'true';
+  const stickyBackground = stickyHeader.dataset.stickyBackground || '#ffffff';
+  const isTransparent = stickyHeader.dataset.transparent === 'true';
+  
+  if (!isSticky) return;
+  
+  let lastScrollTop = 0;
+  let isScrolling = false;
+  
+  // Create a placeholder to prevent content jump
+  const placeholder = document.createElement('div');
+  placeholder.style.display = 'none';
+  stickyHeader.parentNode.insertBefore(placeholder, stickyHeader.nextSibling);
+  
+  const handleScroll = throttle(function() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const headerHeight = stickyHeader.offsetHeight;
+    
+    // Make header sticky after scrolling past its height
+    if (scrollTop > headerHeight) {
+      if (!stickyHeader.classList.contains('is-sticky')) {
+        stickyHeader.classList.add('is-sticky');
+        placeholder.style.height = headerHeight + 'px';
+        placeholder.style.display = 'block';
+        
+        // Apply sticky background
+        stickyHeader.style.backgroundColor = stickyBackground;
+        
+        // Remove transparency when sticky
+        if (isTransparent) {
+          stickyHeader.classList.add('is-transparent--active');
+        }
+      }
+      
+      // Hide/show on scroll direction
+      if (hideOnScroll) {
+        if (scrollTop > lastScrollTop && scrollTop > headerHeight * 2) {
+          // Scrolling down
+          stickyHeader.classList.add('is-hidden');
+        } else {
+          // Scrolling up
+          stickyHeader.classList.remove('is-hidden');
+        }
+      }
+    } else {
+      // Not sticky
+      if (stickyHeader.classList.contains('is-sticky')) {
+        stickyHeader.classList.remove('is-sticky');
+        stickyHeader.classList.remove('is-hidden');
+        placeholder.style.display = 'none';
+        
+        // Restore original background
+        stickyHeader.style.backgroundColor = '';
+        
+        // Restore transparency
+        if (isTransparent) {
+          stickyHeader.classList.remove('is-transparent--active');
+        }
+      }
+    }
+    
+    lastScrollTop = scrollTop;
+  }, 16);
+  
+  // Throttle helper
+  function throttle(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  
+  window.addEventListener('scroll', handleScroll);
+  
+  // Add necessary CSS
+  const style = document.createElement('style');
+  style.textContent = `
+    .header-group.sticky-header {
+      position: relative;
+      z-index: 50;
+      transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+    }
+    
+    .header-group.sticky-header.is-sticky {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .header-group.sticky-header.is-hidden {
+      transform: translateY(-100%);
+    }
+    
+    .site-header.is-transparent {
+      background-color: transparent;
+    }
+    
+    .header-group.sticky-header.is-transparent--active .site-header {
+      background-color: var(--sticky-header-background, #ffffff) !important;
+    }
+  `;
+  document.head.appendChild(style);
+});
