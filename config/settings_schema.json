@@ -197,6 +197,20 @@
 			},
 			{
 				"type": "switch",
+				"id": "card_show_vendor",
+				"label": "Show vendor",
+				"default": true,
+				"info": "Display product vendor/brand name in product cards"
+			},
+			{
+				"type": "switch",
+				"id": "card_show_reviews",
+				"label": "Show reviews",
+				"default": true,
+				"info": "Display star ratings and review count in product cards"
+			},
+			{
+				"type": "switch",
 				"id": "show_product_card_wishlist",
 				"label": "Show wishlist button",
 				"default": true,
