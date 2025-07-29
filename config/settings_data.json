@@ -34,9 +34,15 @@
           "show_account": true,
           "show_cart": true,
           "enable_sticky_header": true,
-          "main_menu_link_list": "main-menu"
+          "main_menu_link_list": "main-menu",
+          "sticky_hide_on_scroll_down": true,
+          "transparent_header_homepage": true,
+          "sticky_header_background": "#ffffff",
+          "padding_top": 20,
+          "padding_bottom": 30
         },
-        "blocks": {}
+        "blocks": {},
+        "custom_css": []
       },
       "footer": {
         "disabled": false,
