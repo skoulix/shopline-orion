@@ -16999,7 +16999,7 @@ const hE = { class: "product-gallery" }, mE = { class: "main-image-wrapper" }, g
   class: "text-gray-300"
 }, qx = ["datetime"], zx = { class: "flex-1 mb-6" }, Wx = {
   key: 0,
-  class: "text-gray-600 leading-relaxed line-clamp-3"
+  class: "text-gray-600 leading-relaxed line-clamp-2"
 }, Kx = ["innerHTML"], Gx = { class: "mt-auto" }, Yx = ["href"];
 function Jx(e, t, n, s, o, r) {
   return b(), w("article", {
@@ -17050,7 +17050,7 @@ function Jx(e, t, n, s, o, r) {
       d("div", zx, [
         n.excerpt ? (b(), w("p", Wx, q(n.excerpt), 1)) : n.content ? (b(), w("div", {
           key: 1,
-          class: "text-gray-600 leading-relaxed line-clamp-3",
+          class: "text-gray-600 leading-relaxed line-clamp-2",
           innerHTML: s.truncatedContent
         }, null, 8, Kx)) : j("", !0)
       ]),
@@ -17078,7 +17078,7 @@ function Jx(e, t, n, s, o, r) {
     ])
   ], 36);
 }
-const Bf = /* @__PURE__ */ Ye(Ix, [["render", Jx], ["__scopeId", "data-v-4d9d9306"]]), Xx = {
+const Bf = /* @__PURE__ */ Ye(Ix, [["render", Jx], ["__scopeId", "data-v-61f2b83c"]]), Xx = {
   name: "BlogArticles",
   components: {
     ArticleCard: Bf
