@@ -4852,6 +4852,10 @@ main > .shopline-section:first-child {
     width: 100%;
   }
 
+  .sm\:w-auto {
+    width: auto;
+  }
+
   .sm\:max-w-2xl {
     max-width: 42rem;
   }

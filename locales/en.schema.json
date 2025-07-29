@@ -772,6 +772,9 @@
         "group_header__2": {
           "label": "Section spacing"
         },
+        "background_color": {
+          "label": "Background color"
+        },
         "padding_top": {
           "label": "Top padding"
         },
