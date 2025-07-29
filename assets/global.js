@@ -158,45 +158,52 @@ document.addEventListener('DOMContentLoaded', function() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const headerHeight = stickyHeader.offsetHeight;
     
-    // Make header sticky after scrolling past its height
-    if (scrollTop > headerHeight) {
+    // Handle sticky behavior - different logic for transparent vs normal headers
+    if (isTransparent) {
+      // For transparent headers, only become sticky when scrolled
+      if (scrollTop > 0) {
+        if (!stickyHeader.classList.contains('is-sticky')) {
+          stickyHeader.classList.add('is-sticky');
+          placeholder.style.height = headerHeight + 'px';
+          placeholder.style.display = 'block';
+        }
+        stickyHeader.classList.add('is-transparent--active');
+      } else {
+        // At top - remove sticky and transparency active state
+        stickyHeader.classList.remove('is-sticky');
+        stickyHeader.classList.remove('is-transparent--active');
+        placeholder.style.display = 'none';
+      }
+    } else {
+      // For normal headers, make sticky immediately
       if (!stickyHeader.classList.contains('is-sticky')) {
         stickyHeader.classList.add('is-sticky');
         placeholder.style.height = headerHeight + 'px';
         placeholder.style.display = 'block';
-        
-        // Apply sticky background
         stickyHeader.style.backgroundColor = stickyBackground;
-        
-        // Remove transparency when sticky
-        if (isTransparent) {
-          stickyHeader.classList.add('is-transparent--active');
-        }
       }
-      
-      // Hide/show on scroll direction
-      if (hideOnScroll) {
-        if (scrollTop > lastScrollTop && scrollTop > headerHeight * 2) {
-          // Scrolling down
-          stickyHeader.classList.add('is-hidden');
-        } else {
-          // Scrolling up
-          stickyHeader.classList.remove('is-hidden');
-        }
-      }
-    } else {
-      // Not sticky
-      if (stickyHeader.classList.contains('is-sticky')) {
-        stickyHeader.classList.remove('is-sticky');
+    }
+    
+    // Hide/show on scroll direction
+    if (hideOnScroll && scrollTop > headerHeight) {
+      if (scrollTop > lastScrollTop && scrollTop > headerHeight * 2) {
+        // Scrolling down
+        stickyHeader.classList.add('is-hidden');
+      } else {
+        // Scrolling up
         stickyHeader.classList.remove('is-hidden');
-        placeholder.style.display = 'none';
-        
-        // Restore original background
-        stickyHeader.style.backgroundColor = '';
-        
-        // Restore transparency
-        if (isTransparent) {
-          stickyHeader.classList.remove('is-transparent--active');
+      }
+    } else if (!hideOnScroll) {
+      // If hide on scroll is disabled, move header up by announcement bar height
+      const announcementBar = stickyHeader.querySelector('.announcement-bar');
+      if (announcementBar) {
+        const announcementHeight = announcementBar.offsetHeight;
+        if (scrollTop > 50) {
+          stickyHeader.style.transform = `translateY(-${announcementHeight}px)`;
+          stickyHeader.classList.add('announcement-hidden');
+        } else {
+          stickyHeader.style.transform = '';
+          stickyHeader.classList.remove('announcement-hidden');
         }
       }
     }
@@ -228,6 +235,31 @@ document.addEventListener('DOMContentLoaded', function() {
       transition: transform 0.3s ease-in-out, background-color 0.3s ease;
     }
     
+    .header-group[data-transparent="true"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      width: 100%;
+    }
+    
+    /* Ensure announcement bar keeps its own color */
+    .header-group[data-transparent="true"] .announcement-bar {
+      background-color: var(--announcement-bg-color) !important;
+      opacity: 1 !important;
+    }
+    
+    .header-group[data-transparent="true"].sticky-header.is-sticky:not(.is-transparent--active) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      width: 100%;
+      box-shadow: none;
+    }
+    
     .header-group.sticky-header.is-sticky {
       position: fixed;
       top: 0;
@@ -241,12 +273,33 @@ document.addEventListener('DOMContentLoaded', function() {
       transform: translateY(-100%);
     }
     
-    .site-header.is-transparent {
-      background-color: transparent;
-    }
     
     .header-group.sticky-header.is-transparent--active .site-header {
       background-color: var(--sticky-header-background, #ffffff) !important;
+      border-bottom: 1px solid #e5e7eb !important;
+    }
+    
+    /* Transparent header link styling */
+    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header a,
+    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header button,
+    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header h1 {
+      color: #ffffff !important;
+    }
+    
+    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header a:hover,
+    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header button:hover {
+      color: #ffffff !important;
+      opacity: 0.8;
+    }
+    
+    /* Keep dropdown menus with dark text on white background */
+    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header .absolute a {
+      color: #374151 !important;
+    }
+    
+    .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header .absolute a:hover {
+      color: var(--color-primary) !important;
+      opacity: 1;
     }
   `;
   document.head.appendChild(style);

@@ -23,15 +23,25 @@
   ];
 </script>
 
-<header class="site-header {{#unless section.settings.transparent_header_homepage}}bg-white{{/unless}} border-b border-gray-200 {{#if section.settings.enable_sticky_header}}sticky-header{{/if}}"
-        {{#if section.settings.enable_sticky_header}}
-        data-sticky="true"
-        data-hide-on-scroll="{{section.settings.sticky_hide_on_scroll_down}}"
-        data-sticky-background="{{section.settings.sticky_header_background}}"
-        {{/if}}
-        {{#if section.settings.transparent_header_homepage}}
-        data-transparent="true"
-        {{/if}}
+<div class="header-group {{#if section.settings.enable_sticky_header}}sticky-header{{/if}}"
+     {{#if section.settings.enable_sticky_header}}
+     data-sticky="true"
+     data-hide-on-scroll="{{section.settings.sticky_hide_on_scroll_down}}"
+     data-sticky-background="{{section.settings.sticky_header_background}}"
+     {{/if}}
+     {{#if section.settings.transparent_header_homepage}}
+     data-transparent="true"
+     {{/if}}>
+
+{{#if section.settings.show_announcement}}
+<div class="announcement-bar text-center py-3 text-sm" style="background-color: {{section.settings.announcement_bg_color}} !important; background-image: none !important; color: {{section.settings.announcement_text_color}} !important;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{section.settings.announcement_text}}
+  </div>
+</div>
+{{/if}}
+
+<header class="site-header {{#unless section.settings.transparent_header_homepage}}bg-white{{/unless}} {{#unless section.settings.transparent_header_homepage}}border-b border-gray-200{{/unless}}"
         style="padding-top: {{default section.settings.padding_top 16}}px !important; padding-bottom: {{default section.settings.padding_bottom 16}}px !important;">
   
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -254,6 +264,7 @@
   </div>
   
 </header>
+</div>
 
 
 <script>
@@ -378,6 +389,34 @@
   "name": "t:sections.header.name",
   "class": "header-section",
   "settings": [
+    {
+      "type": "group_header",
+      "label": "Announcement Bar"
+    },
+    {
+      "type": "switch",
+      "id": "show_announcement",
+      "default": false,
+      "label": "Show announcement bar"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "default": "Welcome to our store!",
+      "label": "Announcement text"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bg_color",
+      "default": "#dc2626",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "announcement_text_color",
+      "default": "#ffffff",
+      "label": "Text color"
+    },
     {
       "type": "group_header",
       "label": "t:sections.header.settings.group_header__0.label"
