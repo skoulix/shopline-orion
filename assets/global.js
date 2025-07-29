@@ -171,45 +171,48 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', updateMainPadding);
   }
   
+  // Initialize header as fixed from the start if sticky is enabled
+  if (isSticky) {
+    stickyHeader.classList.add('is-sticky');
+    if (!isTransparent) {
+      stickyHeader.style.backgroundColor = stickyBackground;
+    }
+  }
+
   const handleScroll = throttle(function() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const headerHeight = stickyHeader.offsetHeight;
     
-    // Handle sticky behavior - transparent header logic only applies to index page
-    if (isTransparent && isIndexPage) {
-      // For transparent headers on index page, only become sticky when scrolled
-      if (scrollTop > 0) {
-        if (!stickyHeader.classList.contains('is-sticky')) {
-          stickyHeader.classList.add('is-sticky');
-          // No placeholder for transparent header on index page
-        }
+    // Add/remove shadow based on scroll position
+    if (scrollTop > 1) {
+      stickyHeader.classList.add('is-scrolled');
+    } else {
+      stickyHeader.classList.remove('is-scrolled');
+    }
+    
+    // Handle transparency state changes on scroll
+    if (isTransparent) {
+      if (scrollTop > 1) {
         stickyHeader.classList.add('is-transparent--active');
       } else {
-        // At top - remove sticky and transparency active state
-        stickyHeader.classList.remove('is-sticky');
         stickyHeader.classList.remove('is-transparent--active');
-      }
-    } else {
-      // For all other pages (including non-index with transparent setting), make sticky immediately
-      if (!stickyHeader.classList.contains('is-sticky')) {
-        stickyHeader.classList.add('is-sticky');
-        // Don't use placeholder for non-index pages since they have CSS padding
-        if (!isTransparent) {
-          stickyHeader.style.backgroundColor = stickyBackground;
-        }
-      }
-      
-      // Handle transparency state for non-index pages
-      if (isTransparent) {
-        if (scrollTop > 0) {
-          stickyHeader.classList.add('is-transparent--active');
-        } else {
-          stickyHeader.classList.remove('is-transparent--active');
-        }
       }
     }
     
-    // Hide/show on scroll direction
+    // Handle announcement bar hiding
+    const announcementBar = stickyHeader.querySelector('.announcement-bar');
+    if (announcementBar && !hideOnScroll) {
+      const announcementHeight = announcementBar.offsetHeight;
+      if (scrollTop > 50) {
+        stickyHeader.style.transform = `translateY(-${announcementHeight}px)`;
+        stickyHeader.classList.add('announcement-hidden');
+      } else {
+        stickyHeader.style.transform = '';
+        stickyHeader.classList.remove('announcement-hidden');
+      }
+    }
+    
+    // Hide/show entire header on scroll direction (if enabled)
     if (hideOnScroll && scrollTop > headerHeight) {
       if (scrollTop > lastScrollTop && scrollTop > headerHeight * 2) {
         // Scrolling down
@@ -217,27 +220,6 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         // Scrolling up
         stickyHeader.classList.remove('is-hidden');
-      }
-    } else if (!hideOnScroll) {
-      // If hide on scroll is disabled, move header up by announcement bar height
-      const announcementBar = stickyHeader.querySelector('.announcement-bar');
-      if (announcementBar && mainContent) {
-        const announcementHeight = announcementBar.offsetHeight;
-        if (scrollTop > 50) {
-          stickyHeader.style.transform = `translateY(-${announcementHeight}px)`;
-          stickyHeader.classList.add('announcement-hidden');
-          // Adjust main content padding when announcement hides (not for index with transparent header)
-          if (!(isTransparent && isIndexPage)) {
-            mainContent.style.paddingTop = (stickyHeader.offsetHeight - announcementHeight) + 'px';
-          }
-        } else {
-          stickyHeader.style.transform = '';
-          stickyHeader.classList.remove('announcement-hidden');
-          // Restore full padding when announcement shows (not for index with transparent header)
-          if (!(isTransparent && isIndexPage)) {
-            mainContent.style.paddingTop = stickyHeader.offsetHeight + 'px';
-          }
-        }
       }
     }
     
@@ -265,11 +247,20 @@ document.addEventListener('DOMContentLoaded', function() {
     .header-group.sticky-header {
       position: relative;
       z-index: 50;
-      transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+      transition: transform 0.3s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease;
     }
     
     .header-group[data-transparent="true"] {
       position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      width: 100%;
+    }
+    
+    .header-group[data-transparent="true"].sticky-header.is-sticky {
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
@@ -283,14 +274,14 @@ document.addEventListener('DOMContentLoaded', function() {
       opacity: 1 !important;
     }
     
-    .header-group[data-transparent="true"].sticky-header.is-sticky:not(.is-transparent--active) {
+    /* Transparent header on index page - overlay behavior */
+    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       z-index: 50;
       width: 100%;
-      box-shadow: none;
     }
     
     .header-group.sticky-header.is-sticky {
@@ -299,6 +290,10 @@ document.addEventListener('DOMContentLoaded', function() {
       left: 0;
       right: 0;
       width: 100%;
+    }
+    
+    /* Add shadow only when scrolled */
+    .header-group.sticky-header.is-scrolled {
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
@@ -334,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
       color: var(--color-primary) !important;
       opacity: 1;
     }
+    
   `;
   document.head.appendChild(style);
 });
