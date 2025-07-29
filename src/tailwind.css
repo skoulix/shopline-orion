@@ -165,6 +165,13 @@ a {
   transition: height 0.3s ease;
 }
 
+/* Ensure first section respects sticky header padding */
+#MainContent > .shopline-section:first-child,
+#MainContent > div[id^="shopline-section-"]:first-child,
+main > .shopline-section:first-child {
+  transition: padding-top 0.3s ease;
+}
+
 .sticky-header.scrolled {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

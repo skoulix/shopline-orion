@@ -278,20 +278,12 @@ function mountVueComponents(container = document) {
 	// Initialize sticky header behavior (only once, not per mount)
 	if (container === document) {
 		const headers = document.querySelectorAll('.site-header');
-		console.log('Found headers:', headers.length, headers);
 		
 		headers.forEach((header) => {
-			console.log('Checking header:', {
-				sticky: header.dataset.sticky,
-				initialized: header._stickyInitialized,
-				dataset: header.dataset
-			});
-			
 			if (
 				header.dataset.sticky === 'true' &&
 				!header._stickyInitialized
 			) {
-				console.log('Initializing sticky header');
 				header._stickyInitialized = true;
 				
 				// Check if transparent header is enabled
@@ -312,14 +304,6 @@ function mountVueComponents(container = document) {
 					header.classList.add('transparent-header');
 					spacer.style.height = '0px';
 				}
-				
-				console.log('Header initialization:', {
-					isTransparent: isTransparent,
-					transparentData: header.dataset.transparent,
-					isHomepage: isHomepage,
-					bodyClasses: document.body.className,
-					headerElement: header
-				});
 				
 				let lastScrollY = 0;
 				let ticking = false;
@@ -417,23 +401,37 @@ function mountVueComponents(container = document) {
 				window.addEventListener('resize', () => {
 					updateSpacerHeight();
 					
-					// Update hero margin if transparent header
-					if (isTransparent && isHomepage) {
-						const firstSection = document.querySelector(
-							'#MainContent > .shopline-section:first-child, ' +
-							'#MainContent > div[id^="shopline-section-"]:first-child, ' +
-							'main > .shopline-section:first-child'
-						);
-						if (firstSection) {
-							const headerHeight = header.offsetHeight;
+					const firstSection = document.querySelector(
+						'#MainContent > .shopline-section:first-child, ' +
+						'#MainContent > div[id^="shopline-section-"]:first-child, ' +
+						'main > .shopline-section:first-child'
+					);
+					
+					if (firstSection) {
+						const headerHeight = header.offsetHeight;
+						
+						if (isTransparent && isHomepage) {
+							// Update negative margin and padding for transparent header
 							firstSection.style.marginTop = `-${headerHeight}px`;
+							firstSection.style.paddingTop = `${headerHeight}px`;
+						} else {
+							// Check if it's a hero section
+							const heroInner = firstSection.querySelector('.hero-banner');
+							if (heroInner) {
+								// Hero sections get both negative margin and padding
+								firstSection.style.marginTop = `-${headerHeight}px`;
+								firstSection.style.paddingTop = `${headerHeight}px`;
+							} else {
+								// Non-hero sections just get padding
+								firstSection.style.paddingTop = `${headerHeight}px`;
+								firstSection.style.marginTop = '0px';
+							}
 						}
 					}
 				});
 
 				// Apply initial styles
 				if (isTransparent && isHomepage) {
-					console.log('Initializing transparent header on homepage');
 					header.classList.add('transparent-header');
 					header.classList.remove('bg-white'); // Remove the default white background
 					header.style.backgroundColor = 'transparent';
@@ -454,15 +452,36 @@ function mountVueComponents(container = document) {
 						if (firstSection) {
 							const headerHeight = header.offsetHeight;
 							firstSection.style.marginTop = `-${headerHeight}px`;
-							console.log('Transparent header: Applied negative margin to hero section:', headerHeight + 'px');
+							firstSection.style.paddingTop = `${headerHeight}px`;
 						}
 					}, 100); // Small delay to ensure header is rendered
 				} else {
 					// Normal headers - immediately set spacer height
-					console.log('Initializing regular sticky header');
 					setTimeout(() => {
 						updateSpacerHeight();
-					}, 0);
+						
+						// For sticky headers with hero sections, apply both negative margin and padding
+						const firstSection = document.querySelector(
+							'#MainContent > .shopline-section:first-child, ' +
+							'#MainContent > div[id^="shopline-section-"]:first-child, ' +
+							'main > .shopline-section:first-child'
+						);
+						
+						if (firstSection) {
+							const headerHeight = header.offsetHeight;
+							// Check if it's a hero section
+							const heroInner = firstSection.querySelector('.hero-banner');
+							if (heroInner) {
+								// Hero sections get both negative margin and padding
+								firstSection.style.marginTop = `-${headerHeight}px`;
+								firstSection.style.paddingTop = `${headerHeight}px`;
+							} else {
+								// Non-hero sections just get padding
+								firstSection.style.paddingTop = `${headerHeight}px`;
+								firstSection.style.marginTop = '0px';
+							}
+						}
+					}, 100);
 				}
 				
 				// Start monitoring scroll
