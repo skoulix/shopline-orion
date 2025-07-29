@@ -286,6 +286,24 @@ function mountVueComponents(container = document) {
 			) {
 				header._stickyInitialized = true;
 				
+				// Store initialization function on header for potential re-init
+				header._reinitialize = () => {
+					const spacer = header.nextElementSibling;
+					if (spacer && spacer.classList.contains('sticky-spacer')) {
+						const headerHeight = header.offsetHeight;
+						const isTransparent = header.dataset.transparent === 'true';
+						const isHomepage = document.body.classList.contains('template-index');
+						
+						if (isTransparent && isHomepage) {
+							spacer.style.height = headerHeight + 'px';
+						} else if (header.classList.contains('scrolled')) {
+							spacer.style.height = headerHeight + 'px';
+						} else {
+							spacer.style.height = '0px';
+						}
+					}
+				};
+				
 				// Check if transparent header is enabled
 				const isTransparent = header.dataset.transparent === 'true';
 				// Check if we're on the homepage by template class
@@ -296,13 +314,26 @@ function mountVueComponents(container = document) {
 				spacer.className = 'sticky-spacer';
 				header.parentNode.insertBefore(spacer, header.nextSibling);
 				
+				// Also create a permanent top spacer for non-homepage to prevent jumps
+				let topSpacer = null;
+				if (!isHomepage) {
+					topSpacer = document.createElement('div');
+					topSpacer.className = 'header-top-spacer';
+					topSpacer.style.height = header.offsetHeight + 'px';
+					// Insert at the very beginning of main content
+					const mainContent = document.getElementById('MainContent');
+					if (mainContent && mainContent.firstChild) {
+						mainContent.insertBefore(topSpacer, mainContent.firstChild);
+					}
+				}
+				
 				// Set initial spacer height based on header type
 				if (isTransparent && isHomepage) {
 					// For transparent headers, add the class immediately
 					header.classList.add('transparent-header');
 					spacer.style.height = header.offsetHeight + 'px'; // Still need spacer for fixed positioning
 				} else {
-					// For normal sticky headers, no spacer needed initially (using position: sticky)
+					// For all other pages, no spacer needed initially (using position: sticky)
 					spacer.style.height = '0px';
 				}
 				
@@ -343,17 +374,19 @@ function mountVueComponents(container = document) {
 					} else {
 						// Normal non-transparent behavior
 						if (currentScrollY > 0) {
-							// Add scrolled class and update spacer when scrolling starts
+							// Add scrolled class
 							if (!header.classList.contains('scrolled')) {
 								header.classList.add('scrolled');
-								updateSpacerHeight(); // Update spacer when switching to fixed
+								// All pages need spacer when switching to fixed
+								updateSpacerHeight();
 							}
 							header.style.backgroundColor = stickyBackground;
 						} else {
 							// At top position
 							if (header.classList.contains('scrolled')) {
 								header.classList.remove('scrolled');
-								spacer.style.height = '0px'; // Remove spacer when back to sticky
+								// Clear spacer when back to sticky
+								spacer.style.height = '0px';
 							}
 							header.style.backgroundColor = '';
 						}
@@ -391,41 +424,28 @@ function mountVueComponents(container = document) {
 					}
 				});
 
-				// Update spacer on resize
+				// Update on resize with debouncing
+				let resizeTimer;
 				window.addEventListener('resize', () => {
-					updateSpacerHeight();
-					
-					const firstSection = document.querySelector(
-						'#MainContent > .shopline-section:first-child, ' +
-						'#MainContent > div[id^="shopline-section-"]:first-child, ' +
-						'main > .shopline-section:first-child'
-					);
-					
-					if (firstSection && isHomepage) {
-						const headerHeight = header.offsetHeight;
+					clearTimeout(resizeTimer);
+					resizeTimer = setTimeout(() => {
+						// Update header height
+						headerHeight = header.offsetHeight;
 						
-						if (isTransparent && isHomepage) {
-							// Update negative margin and padding for transparent header
-							firstSection.style.marginTop = `-${headerHeight}px`;
-							firstSection.style.paddingTop = `${headerHeight}px`;
-						} else {
-							// Check if it's a hero section
-							const heroInner = firstSection.querySelector('.hero-banner');
-							if (heroInner) {
-								// Hero sections get both negative margin and padding
-								firstSection.style.marginTop = `-${headerHeight}px`;
-								firstSection.style.paddingTop = `${headerHeight}px`;
-							} else {
-								// Non-hero sections just get padding
-								firstSection.style.paddingTop = `${headerHeight}px`;
-								firstSection.style.marginTop = '0px';
-							}
+						// Update spacer height
+						updateSpacerHeight();
+						
+						// Update top spacer if it exists
+						if (topSpacer) {
+							topSpacer.style.height = headerHeight + 'px';
 						}
-					} else if (firstSection && !isHomepage) {
-						// Non-homepage: clear any padding/margin
-						firstSection.style.paddingTop = '0px';
-						firstSection.style.marginTop = '0px';
-					}
+						
+						// Re-apply initial styles
+						applyInitialStyles();
+						
+						// Update header state
+						updateHeader();
+					}, 250); // Debounce resize events
 				});
 
 				// Apply initial styles immediately
@@ -477,8 +497,8 @@ function mountVueComponents(container = document) {
 							}
 						}
 					} else {
-						// Non-homepage: no special padding for first section
-						updateSpacerHeight();
+						// Non-homepage: no special padding for first section, no spacer initially
+						spacer.style.height = '0px';
 					}
 				};
 				
@@ -626,6 +646,21 @@ if (!window.OrionCart) {
 
 // Expose mountVueComponents globally for infinite scroll
 window.mountVueComponents = mountVueComponents;
+
+// Global resize handler for sticky headers
+let globalResizeTimer;
+window.addEventListener('resize', () => {
+	clearTimeout(globalResizeTimer);
+	globalResizeTimer = setTimeout(() => {
+		// Reinitialize all sticky headers
+		const headers = document.querySelectorAll('.site-header.sticky-header');
+		headers.forEach(header => {
+			if (header._reinitialize) {
+				header._reinitialize();
+			}
+		});
+	}, 250);
+});
 
 // Mount Vue components on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
