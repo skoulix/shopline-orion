@@ -21,6 +21,7 @@ import VideoPlayer from './components/VideoPlayer.vue';
 import PasswordModal from './components/PasswordModal.vue';
 import SearchOverlay from './components/SearchOverlay.vue';
 import ArticleCard from './components/ArticleCard.vue';
+import BlogArticles from './components/BlogArticles.vue';
 
 // Define custom elements with global button settings
 const ButtonElement = defineCustomElement({
@@ -271,6 +272,29 @@ function mountVueComponents(container = document) {
 		};
 
 		const app = createApp(ArticleCard, props);
+		mount._vueApp = app;
+		app.mount(mount);
+	});
+
+	// Mount BlogArticles components
+	const blogArticlesMounts = container.querySelectorAll('blog-articles');
+	blogArticlesMounts.forEach((mount) => {
+		if (mount._vueApp) return;
+
+		const props = {
+			blogId: mount.getAttribute('blog-id'),
+			blogHandle: mount.getAttribute('blog-handle') || '',
+			limit: parseInt(mount.getAttribute('limit')) || 3,
+			currentArticleId: mount.getAttribute('current-article-id'),
+			columnsDesktop: parseInt(mount.getAttribute('columns-desktop')) || 3,
+			imageRatio: mount.getAttribute('image-ratio') || 'landscape',
+			showImage: mount.getAttribute('show-image') !== 'false',
+			showAuthor: mount.getAttribute('show-author') === 'true',
+			showDate: mount.getAttribute('show-date') !== 'false',
+			showTags: mount.getAttribute('show-tags') === 'true',
+		};
+
+		const app = createApp(BlogArticles, props);
 		mount._vueApp = app;
 		app.mount(mount);
 	});

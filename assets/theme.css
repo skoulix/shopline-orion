@@ -2364,6 +2364,10 @@ select {
   width: 100vw;
 }
 
+.w-2\/3 {
+  width: 66.666667%;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
