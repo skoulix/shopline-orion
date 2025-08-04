@@ -1,0 +1,30 @@
+<div class="apps-section {{#if section.settings.include_margins}}container{{/if}}" style="padding-top: {{default section.settings.padding_top 40}}px; padding-bottom: {{default section.settings.padding_bottom 40}}px;">
+  {{#with section as |section|}}
+    {{#each block_order as |blockId|}}
+      {{#with (lookup ../blocks [blockId])}}
+        {{render this}}
+      {{/with}}
+    {{/each}}
+  {{/with}}
+</div>
+{{#schema}}
+{
+  "name": "t:sections.apps.name",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "switch",
+      "id": "include_margins",
+      "label": "t:sections.apps.settings.include_margins.label",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": []
+}
+{{/schema}}
