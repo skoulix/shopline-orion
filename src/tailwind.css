@@ -266,11 +266,6 @@
   .template-index .site-header[data-transparent="true"] {
     @apply bg-transparent border-b-transparent;
   }
-
-  /* Mobile-specific hero banner adjustment */
-  .template-index:has(.site-header[data-transparent="true"]) .hero-banner {
-    @apply -mt-[64px] md:mt-0;
-  }
 }
 
 /* Base styles */

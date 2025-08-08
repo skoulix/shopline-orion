@@ -1,4 +1,5 @@
-<div class="hero-banner relative" style="
+<div class="hero-banner hero-banner-{{section.id}} relative overflow-hidden {{#if (eq request.page_type 'index')}}hero-banner-transparent{{/if}}" 
+     style="
   {{#if section.settings.use_color_scheme}}
     {{#if (eq section.settings.color_scheme '1')}}
       background-color: rgb(var(--color-scheme-1-bg));
@@ -14,45 +15,76 @@
       {{/if}}
     {{/if}}
   {{/if}}
-  padding-top: {{default section.settings.padding_top 0}}px; padding-bottom: {{default section.settings.padding_bottom 120}}px;">
-  <div class="relative overflow-hidden min-h-[400px] md:min-h-[600px] lg:min-h-[calc(62vw)] md:max-h-[800px]">
-    <!-- Mobile Image (natural height on mobile) -->
-    {{#if section.settings.mobile_image}}
-      <img 
-        src="{{image_url section.settings.mobile_image width=768}}" 
-        alt="{{section.settings.title}}"
-        class="md:hidden w-full h-auto"
-      >
-    {{else}}
-      {{#unless section.settings.image}}
-        <!-- Mobile placeholder when no images are set -->
-        <div class="md:hidden w-full h-[400px]">
-          {{render 'placeholder-image' seed=section.id}}
-        </div>
-      {{/unless}}
-    {{/if}}
-    
-    <!-- Desktop Image / Mobile Fallback (absolute positioned) -->
-    <div class="{{#if section.settings.mobile_image}}hidden md:block{{/if}} absolute inset-0">
+  height: {{default section.settings.mobile_height 60}}vh;
+  min-height: {{default section.settings.min_height 400}}px;
+  padding-top: {{default section.settings.padding_top 0}}px; 
+  padding-bottom: {{default section.settings.padding_bottom 0}}px;">
+  
+  <style>
+    /* Tablet breakpoint (md: 768px) */
+    @media (min-width: 768px) {
+      .hero-banner-{{section.id}} {
+        height: {{default section.settings.tablet_height 80}}vh !important;
+        min-height: {{default section.settings.min_height_tablet 500}}px !important;
+      }
+    }
+    /* Desktop breakpoint (lg: 1024px) */
+    @media (min-width: 1024px) {
+      .hero-banner-{{section.id}} {
+        height: {{default section.settings.desktop_height 100}}vh !important;
+        min-height: {{default section.settings.min_height_desktop 600}}px !important;
+      }
+    }
+  </style>
+  
+  <div class="relative h-full">
+    <!-- Background Image Container -->
+    <div class="absolute inset-0">
       {{#if section.settings.image}}
+        <!-- Desktop Image -->
         <img 
           src="{{image_url section.settings.image width=1920}}" 
+          srcset="{{image_url section.settings.image width=768}} 768w,
+                  {{image_url section.settings.image width=1024}} 1024w,
+                  {{image_url section.settings.image width=1440}} 1440w,
+                  {{image_url section.settings.image width=1920}} 1920w"
+          sizes="100vw"
           alt="{{section.settings.title}}"
           class="hidden md:block w-full h-full object-cover"
-          style="object-position: center {{default section.settings.image_position 50}}%;"
+          style="object-position: {{default section.settings.image_focal_point 'center center'}};"
+          loading="eager"
         >
-        <!-- Mobile fallback to desktop image when no mobile image -->
-        {{#unless section.settings.mobile_image}}
+        
+        <!-- Mobile Image -->
+        {{#if section.settings.mobile_image}}
           <img 
-            src="{{image_url section.settings.image width=768}}" 
+            src="{{image_url section.settings.mobile_image width=768}}" 
+            srcset="{{image_url section.settings.mobile_image width=375}} 375w,
+                    {{image_url section.settings.mobile_image width=768}} 768w"
+            sizes="100vw"
             alt="{{section.settings.title}}"
             class="md:hidden w-full h-full object-cover"
-            style="object-position: center {{default section.settings.mobile_image_position 50}}%;"
+            style="object-position: {{default section.settings.mobile_focal_point 'center center'}};"
+            loading="eager"
           >
-        {{/unless}}
+        {{else}}
+          <!-- Use desktop image on mobile if no mobile image -->
+          <img 
+            src="{{image_url section.settings.image width=768}}" 
+            srcset="{{image_url section.settings.image width=375}} 375w,
+                    {{image_url section.settings.image width=768}} 768w"
+            sizes="100vw"
+            alt="{{section.settings.title}}"
+            class="md:hidden w-full h-full object-cover"
+            style="object-position: {{default section.settings.mobile_focal_point 'center center'}};"
+            loading="eager"
+          >
+        {{/if}}
       {{else}}
         <!-- Placeholder when no image is set -->
-        {{render 'placeholder-image' seed=section.id}}
+        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+          {{render 'placeholder-image' seed=section.id}}
+        </div>
       {{/if}}
     </div>
     
@@ -76,8 +108,8 @@
     {{/if}}
     
     <!-- Content Overlay -->
-    <div class="{{#if section.settings.mobile_image}}absolute md:relative inset-0 top-40 md:top-0{{else}}absolute inset-0{{/if}} z-10 container-fluid mx-auto px-4 lg:px-8">
-      <div class="flex items-start md:items-center justify-center min-h-[400px] md:min-h-[600px] lg:min-h-[calc(62vw)] md:max-h-[800px]">
+    <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 z-10">
+      <div class="container mx-auto px-4 lg:px-8">
         <div class="text-center max-w-[300px] md:max-w-[600px] mx-auto">
           {{#if section.settings.title}}
             <h1 class="mb-3 md:mb-6 text-[30px] md:text-[50px] lg:text-[70px]" style="
@@ -258,15 +290,11 @@
       "info": "Desktop background image"
     },
     {
-      "type": "range",
-      "id": "image_position",
-      "label": "Desktop image position",
-      "min": 0,
-      "max": 200,
-      "step": 10,
-      "unit": "%",
-      "default": 50,
-      "info": "Adjust vertical position of the image"
+      "type": "text",
+      "id": "image_focal_point",
+      "label": "Desktop image focal point",
+      "default": "center center",
+      "info": "E.g., 'center center', 'left top', '25% 75%'"
     },
     {
       "type": "image_picker",
@@ -275,15 +303,11 @@
       "info": "Optional separate image for mobile devices"
     },
     {
-      "type": "range",
-      "id": "mobile_image_position",
-      "label": "Mobile image position",
-      "min": 0,
-      "max": 200,
-      "step": 10,
-      "unit": "%",
-      "default": 50,
-      "info": "Adjust vertical position of the mobile image"
+      "type": "text",
+      "id": "mobile_focal_point",
+      "label": "Mobile image focal point",
+      "default": "center center",
+      "info": "E.g., 'center center', 'left top', '25% 75%'"
     },
     {
       "type": "group_header",
@@ -364,6 +388,76 @@
     },
     {
       "type": "group_header",
+      "label": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "default": 60,
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "info": "Height on mobile devices (< 768px)"
+    },
+    {
+      "type": "range",
+      "id": "tablet_height",
+      "label": "Tablet height",
+      "default": 80,
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "info": "Height on tablet devices (768px - 1023px)"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Desktop height",
+      "default": 100,
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "info": "Height on desktop (≥ 1024px)"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Mobile minimum height",
+      "default": 400,
+      "min": 300,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "info": "Minimum height on mobile"
+    },
+    {
+      "type": "range",
+      "id": "min_height_tablet",
+      "label": "Tablet minimum height",
+      "default": 500,
+      "min": 400,
+      "max": 700,
+      "step": 50,
+      "unit": "px",
+      "info": "Minimum height on tablet"
+    },
+    {
+      "type": "range",
+      "id": "min_height_desktop",
+      "label": "Desktop minimum height",
+      "default": 600,
+      "min": 500,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "info": "Minimum height on desktop"
+    },
+    {
+      "type": "group_header",
       "label": "t:sections.hero-banner.settings.group_header__1.label"
     },
     {
@@ -395,8 +489,14 @@
         "subtitle": "Discover the perfect blend of taste and energy with Avvika",
         "button_label": "Shop now",
         "button_link": "/collections/all",
-        "image_position": 50,
-        "mobile_image_position": 50,
+        "image_focal_point": "center center",
+        "mobile_focal_point": "center center",
+        "mobile_height": 60,
+        "tablet_height": 80,
+        "desktop_height": 100,
+        "min_height": 400,
+        "min_height_tablet": 500,
+        "min_height_desktop": 600,
         "use_color_scheme": false,
         "color_scheme": "1",
         "title_color": "#000000",

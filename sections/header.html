@@ -78,9 +78,9 @@
     .site-header svg:not(#logo-77) {
       stroke: var(--current-header-color) !important;
     }
-    /* Logo placeholder uses fill, not stroke */
+    /* Logo placeholder uses fill from currentColor which inherits text color */
     .site-header #logo-77 {
-      fill: var(--current-header-color) !important;
+      color: var(--current-header-color) !important;
     }
     
     /* Override variable for transparent state (homepage only, not scrolled) */
