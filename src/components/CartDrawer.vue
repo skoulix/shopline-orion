@@ -62,10 +62,10 @@
                       v-if="items.length === 0"
                       class="flex flex-col items-center justify-center h-full px-4 py-12"
                     >
-                      <div class="empty-cart-icon">
-                        <div class="empty-cart-icon-bg"></div>
+                      <div class="relative w-24 h-24 mb-6">
+                        <div class="absolute inset-0 bg-gray-100 rounded-full"></div>
                         <svg
-                          class="empty-cart-icon-svg"
+                          class="absolute inset-0 w-full h-full p-6 text-gray-400"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -319,72 +319,3 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
-.drawer-enter-active,
-.drawer-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.drawer-enter-from,
-.drawer-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-enter-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.slide-leave-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.6, 1);
-}
-
-.slide-enter-from {
-  transform: translateX(100%);
-  opacity: 0.8;
-}
-
-.slide-leave-to {
-  transform: translateX(100%);
-  opacity: 0.8;
-}
-
-.slide-enter-to,
-.slide-leave-from {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-/* Empty state icon styling */
-.empty-cart-icon {
-  position: relative;
-  width: 6rem;
-  height: 6rem;
-  margin-bottom: 1.5rem;
-}
-
-.empty-cart-icon-bg {
-  position: absolute;
-  inset: 0;
-  background-color: #f3f4f6;
-  border-radius: 9999px;
-}
-
-.empty-cart-icon-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  padding: 1.5rem;
-  color: #9ca3af;
-}
-</style>

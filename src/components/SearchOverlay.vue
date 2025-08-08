@@ -45,8 +45,12 @@
                           v-model="searchQuery"
                           type="search"
                           placeholder="Search for products..."
-                          class="search-input w-full pl-12 pr-12 py-4 text-lg text-gray-900 placeholder-gray-400 bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:bg-white transition-all duration-200"
-                          style="border-radius: var(--button-radius, 16px)"
+                          class="w-full pl-12 pr-12 py-4 text-lg text-gray-900 placeholder-gray-400 bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:bg-white transition-all duration-200"
+                          :style="{
+                            borderRadius: 'var(--button-radius, 16px)',
+                            '--tw-ring-color': `rgb(${primaryColor})`,
+                            borderColor: searchInput === document.activeElement ? `rgb(${primaryColor})` : ''
+                          }"
                           @input="handleSearchInput"
                           @keydown.escape="closeSearch"
                           @keydown.enter="submitSearch"
@@ -396,6 +400,21 @@ const hasPopularSearches = computed(() => {
   return popularSearches.value.length > 0;
 });
 
+// Get primary color from theme settings
+const primaryColor = computed(() => {
+  const color = window.Shopline?.theme?.settings?.button_primary_bg || '#dc2626';
+  // Convert hex to RGB if needed
+  if (color.startsWith('#')) {
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+    return `${r}, ${g}, ${b}`;
+  }
+  // Assume it's already in RGB format
+  return color.replace('rgb(', '').replace(')', '');
+});
+
 const formatMoney = (price) => {
   if (!price && price !== 0) return "$0.00";
 
@@ -520,95 +539,3 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
-.search-overlay-enter-active,
-.search-overlay-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.search-overlay-enter-from,
-.search-overlay-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-down-enter-active {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.slide-down-leave-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
-}
-
-.slide-down-enter-from {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-
-.slide-down-leave-to {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-
-.slide-down-enter-to,
-.slide-down-leave-from {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* Custom scrollbar */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #e5e7eb #f9fafb;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #f9fafb;
-  border-radius: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #e5e7eb;
-  border-radius: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #d1d5db;
-}
-
-/* Line clamp utility */
-.line-clamp-2 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-/* Search input styling with theme colors */
-.search-input:focus {
-  --tw-ring-color: var(--color-primary, #dc2626);
-  border-color: var(--color-primary, #dc2626);
-}
-
-/* Remove native search input clear button */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  -webkit-appearance: none;
-  appearance: none;
-}
-</style>

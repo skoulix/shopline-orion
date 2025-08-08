@@ -16,7 +16,7 @@
             <div
               class="fixed inset-y-0 left-0 max-w-full flex pointer-events-none"
             >
-              <Transition name="slide" appear>
+              <Transition name="slide-left" appear>
                 <div
                   v-if="isOpen"
                   class="w-screen max-w-sm pointer-events-auto"
@@ -338,50 +338,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.menu-enter-active,
-.menu-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.menu-enter-from,
-.menu-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-enter-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.slide-leave-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.6, 1);
-}
-
-.slide-enter-from {
-  transform: translateX(-100%);
-  opacity: 0.8;
-}
-
-.slide-leave-to {
-  transform: translateX(-100%);
-  opacity: 0.8;
-}
-
-.slide-enter-to,
-.slide-leave-from {
-  transform: translateX(0);
-  opacity: 1;
-}
-
+/* Submenu specific transitions - not global */
 .submenu-enter-active,
 .submenu-leave-active {
   transition: all 0.3s ease;

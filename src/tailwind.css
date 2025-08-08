@@ -702,7 +702,7 @@ header nav a {
   @apply w-full max-w-sm;
 }
 
-/* Vue transition classes */
+/* Vue transition classes - reusable across components */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
@@ -711,6 +711,138 @@ header nav a {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+/* Drawer/Modal transitions (slide from right) */
+.drawer-enter-active,
+.drawer-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.drawer-enter-from,
+.drawer-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+  opacity: 0.8;
+}
+
+.slide-enter-to,
+.slide-leave-from {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Mobile menu transitions (slide from left) */
+.menu-enter-active,
+.menu-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.menu-enter-from,
+.menu-leave-to {
+  opacity: 0;
+}
+
+.slide-left-enter-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-left-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.slide-left-enter-from,
+.slide-left-leave-to {
+  transform: translateX(-100%);
+  opacity: 0.8;
+}
+
+.slide-left-enter-to,
+.slide-left-leave-from {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Search/Modal transitions (slide from top) */
+.search-overlay-enter-active,
+.search-overlay-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.search-overlay-enter-from,
+.search-overlay-leave-to {
+  opacity: 0;
+}
+
+.slide-down-enter-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-down-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.slide-down-enter-to,
+.slide-down-leave-from {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Custom scrollbar utilities */
+.scrollbar-thin,
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #e5e7eb #f9fafb;
+}
+
+.scrollbar-thin::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f9fafb;
+  border-radius: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover,
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #d1d5db;
+}
+
+/* Remove native search input decorations globally */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .pswp__zoom-wrap img {

@@ -366,37 +366,3 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style scoped>
-/* Drawer transitions */
-.drawer-enter-active,
-.drawer-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.drawer-enter-from,
-.drawer-leave-to {
-  opacity: 0;
-}
-
-/* Fade transitions for overlay */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-/* Slide transitions for drawer panel */
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.slide-enter-from,
-.slide-leave-to {
-  transform: translateX(-100%);
-}
-</style>
