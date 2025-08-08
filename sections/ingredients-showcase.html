@@ -9,7 +9,7 @@
           {{#if (eq settings.column 'left')}}
             <div class="mb-8 last:mb-0">
               <h3 class="text-xl lg:text-2xl uppercase mb-3" 
-                  style="color: {{default ../section.settings.heading_color '#000000'}};">
+                  style="font-family: {{#if (eq ../section.settings.heading_font 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.heading_color '#000000'}};">
                 {{settings.title}}
               </h3>
               <p class="text-base lg:text-lg leading-relaxed" 
@@ -45,7 +45,7 @@
           {{#if (eq settings.column 'right')}}
             <div class="mb-8 last:mb-0">
               <h3 class="text-xl lg:text-2xl uppercase mb-3" 
-                  style="color: {{default ../section.settings.heading_color '#000000'}};">
+                  style="font-family: {{#if (eq ../section.settings.heading_font 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.heading_color '#000000'}};">
                 {{settings.title}}
               </h3>
               <p class="text-base lg:text-lg leading-relaxed" 
@@ -84,19 +84,15 @@
       "type": "select",
       "id": "heading_font",
       "label": "Heading font",
-      "default": "font-crossten-bold",
+      "default": "title",
       "options": [
         {
-          "value": "font-crossten-book",
-          "label": "Crossten Book"
+          "value": "title",
+          "label": "Title font"
         },
         {
-          "value": "font-crossten-bold",
-          "label": "Crossten Bold"
-        },
-        {
-          "value": "font-tanmarjorie",
-          "label": "Tan Marjorie Display"
+          "value": "body",
+          "label": "Body font"
         }
       ]
     },

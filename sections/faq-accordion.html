@@ -1,7 +1,7 @@
 <div class="faq-accordion" style="padding-top: {{default section.settings.padding_top 48}}px; padding-bottom: {{default section.settings.padding_bottom 48}}px;">
   <div class="container">
     {{#if section.settings.title}}
-      <h2 class="text-3xl md:text-4xl text-center mb-10 {{#if (eq section.settings.heading_font 'tanmarjorie')}}font-tanmarjorie{{else if (eq section.settings.heading_font 'crossten-bold')}}font-crossten-bold{{else}}font-crossten-book{{/if}}" style="color: {{default section.settings.heading_color '#000000'}};">
+      <h2 class="text-3xl md:text-4xl text-center mb-10" style="font-family: {{#if (eq section.settings.heading_font 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default section.settings.heading_color '#000000'}};">
         {{section.settings.title}}
       </h2>
     {{/if}}
@@ -127,19 +127,15 @@
       "label": "Heading font",
       "options": [
         {
-          "value": "tanmarjorie",
-          "label": "Display (Tan Marjorie)"
+          "value": "title",
+          "label": "Title font"
         },
         {
-          "value": "crossten-book",
-          "label": "Body (Crossten Book)"
-        },
-        {
-          "value": "crossten-bold",
-          "label": "Heading (Crossten Bold)"
+          "value": "body",
+          "label": "Body font"
         }
       ],
-      "default": "crossten-bold"
+      "default": "title"
     },
     {
       "type": "color",

@@ -79,14 +79,14 @@
           
           {{#if section.settings.heading}}
             <h2 class="text-3xl sm:text-4xl md:text-5xl uppercase mb-6" 
-                style="color: {{default section.settings.heading_color '#3d3259'}};">
+                style="font-family: {{#if (eq section.settings.heading_font 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default section.settings.heading_color '#3d3259'}};">
               {{section.settings.heading}}
             </h2>
           {{/if}}
           
           {{#if section.settings.text}}
             <div class="text-lg lg:text-xl mb-8" 
-                 style="color: {{default section.settings.text_color '#666666'}};">
+                 style="font-family: {{#if (eq section.settings.text_font 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default section.settings.text_color '#666666'}};">
               {{section.settings.text}}
             </div>
           {{/if}}
@@ -236,19 +236,15 @@
       "type": "select",
       "id": "heading_font",
       "label": "Heading font",
-      "default": "font-crossten-bold",
+      "default": "title",
       "options": [
         {
-          "value": "font-crossten-book",
-          "label": "Crossten Book"
+          "value": "title",
+          "label": "Title font"
         },
         {
-          "value": "font-crossten-bold",
-          "label": "Crossten Bold"
-        },
-        {
-          "value": "font-tanmarjorie",
-          "label": "Tan Marjorie Display"
+          "value": "body",
+          "label": "Body font"
         }
       ]
     },
@@ -263,6 +259,22 @@
       "id": "text",
       "label": "Text",
       "default": "Keeps me focused throughout the work day and I'm not crashing by 2pm."
+    },
+    {
+      "type": "select",
+      "id": "text_font",
+      "label": "Text font",
+      "default": "body",
+      "options": [
+        {
+          "value": "title",
+          "label": "Title font"
+        },
+        {
+          "value": "body",
+          "label": "Body font"
+        }
+      ]
     },
     {
       "type": "color",

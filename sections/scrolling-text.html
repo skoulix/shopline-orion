@@ -2,19 +2,19 @@
   <div class="{{#unless section.settings.full_width}}container{{/unless}}" style="padding-top: {{default section.settings.padding_top 40}}px; padding-bottom: {{default section.settings.padding_bottom 40}}px;">
     
     <!-- Scrolling Text Container -->
-    <div class="relative overflow-hidden pt-0.5">
+    <div class="relative overflow-hidden pb-1.5">
       <div class="flex w-max {{#if (eq section.settings.direction 'right')}}animate-scroll-right{{else}}animate-scroll-left{{/if}}" style="--scroll-duration: {{default section.settings.speed 30}}s;">
         <!-- First copy -->
         <div class="inline-flex items-center whitespace-nowrap" style="gap: {{default section.settings.gap 40}}px; padding-right: {{default section.settings.gap 40}}px;">
           {{#each section.blocks}}
-            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
-                  style="color: {{default ../section.settings.text_color '#3d3259'}};">
+            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} uppercase tracking-wider" 
+                  style="font-family: {{#if (eq ../section.settings.font_family 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.text_color '#3d3259'}};">
               {{settings.text}}
             </span>
             {{#unless @last}}
               {{#if ../section.settings.separator}}
-                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
-                      style="color: {{default ../section.settings.text_color '#3d3259'}};">
+                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} uppercase tracking-wider" 
+                      style="font-family: {{#if (eq ../section.settings.font_family 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.text_color '#3d3259'}};">
                   {{../section.settings.separator}}
                 </span>
               {{/if}}
@@ -24,14 +24,14 @@
         <!-- Second copy -->
         <div class="inline-flex items-center whitespace-nowrap" style="gap: {{default section.settings.gap 40}}px; padding-right: {{default section.settings.gap 40}}px;">
           {{#each section.blocks}}
-            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
-                  style="color: {{default ../section.settings.text_color '#3d3259'}};">
+            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} uppercase tracking-wider" 
+                  style="font-family: {{#if (eq ../section.settings.font_family 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.text_color '#3d3259'}};">
               {{settings.text}}
             </span>
             {{#unless @last}}
               {{#if ../section.settings.separator}}
-                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
-                      style="color: {{default ../section.settings.text_color '#3d3259'}};">
+                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} uppercase tracking-wider" 
+                      style="font-family: {{#if (eq ../section.settings.font_family 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.text_color '#3d3259'}};">
                   {{../section.settings.separator}}
                 </span>
               {{/if}}
@@ -41,14 +41,14 @@
         <!-- Third copy -->
         <div class="inline-flex items-center whitespace-nowrap" style="gap: {{default section.settings.gap 40}}px; padding-right: {{default section.settings.gap 40}}px;">
           {{#each section.blocks}}
-            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
-                  style="color: {{default ../section.settings.text_color '#3d3259'}};">
+            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} uppercase tracking-wider" 
+                  style="font-family: {{#if (eq ../section.settings.font_family 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.text_color '#3d3259'}};">
               {{settings.text}}
             </span>
             {{#unless @last}}
               {{#if ../section.settings.separator}}
-                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
-                      style="color: {{default ../section.settings.text_color '#3d3259'}};">
+                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} uppercase tracking-wider" 
+                      style="font-family: {{#if (eq ../section.settings.font_family 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.text_color '#3d3259'}};">
                   {{../section.settings.separator}}
                 </span>
               {{/if}}
@@ -58,14 +58,14 @@
         <!-- Fourth copy -->
         <div class="inline-flex items-center whitespace-nowrap" style="gap: {{default section.settings.gap 40}}px;">
           {{#each section.blocks}}
-            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
-                  style="color: {{default ../section.settings.text_color '#3d3259'}};">
+            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} uppercase tracking-wider" 
+                  style="font-family: {{#if (eq ../section.settings.font_family 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.text_color '#3d3259'}};">
               {{settings.text}}
             </span>
             {{#unless @last}}
               {{#if ../section.settings.separator}}
-                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
-                      style="color: {{default ../section.settings.text_color '#3d3259'}};">
+                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} uppercase tracking-wider" 
+                      style="font-family: {{#if (eq ../section.settings.font_family 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.text_color '#3d3259'}};">
                   {{../section.settings.separator}}
                 </span>
               {{/if}}
@@ -201,19 +201,15 @@
       "type": "select",
       "id": "font_family",
       "label": "Font",
-      "default": "font-crossten-bold",
+      "default": "title",
       "options": [
         {
-          "value": "font-crossten-book",
-          "label": "Crossten Book"
+          "value": "title",
+          "label": "Title font"
         },
         {
-          "value": "font-crossten-bold",
-          "label": "Crossten Bold"
-        },
-        {
-          "value": "font-tanmarjorie",
-          "label": "Tan Marjorie Display"
+          "value": "body",
+          "label": "Body font"
         }
       ]
     },

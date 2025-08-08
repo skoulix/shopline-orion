@@ -5,8 +5,8 @@
         <div class="w-full px-8 lg:px-16 py-12 lg:py-16">
           
           {{#if section.settings.heading}}
-            <h2 class="mb-8 {{default section.settings.heading_font 'font-heading'}} text-3xl sm:text-4xl md:{{default section.settings.heading_size 'text-5xl'}} {{#if (eq section.settings.content_alignment 'center')}}text-center{{else}}{{#if (eq section.settings.content_alignment 'right')}}text-right{{else}}text-left{{/if}}{{/if}}" 
-                style="color: {{default section.settings.heading_color '#3d3259'}};">
+            <h2 class="mb-8 text-3xl sm:text-4xl md:{{default section.settings.heading_size 'text-5xl'}} {{#if (eq section.settings.content_alignment 'center')}}text-center{{else}}{{#if (eq section.settings.content_alignment 'right')}}text-right{{else}}text-left{{/if}}{{/if}}" 
+                style="font-family: {{#if (eq section.settings.heading_font 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default section.settings.heading_color '#3d3259'}};">
               {{section.settings.heading}}
             </h2>
           {{/if}}
@@ -177,23 +177,15 @@
       "type": "select",
       "id": "heading_font",
       "label": "Heading font",
-      "default": "font-crossten-bold",
+      "default": "title",
       "options": [
         {
-          "value": "font-crossten-book",
-          "label": "Crossten Book"
+          "value": "title",
+          "label": "Title font"
         },
         {
-          "value": "font-crossten-bold",
-          "label": "Crossten Bold"
-        },
-        {
-          "value": "font-tanmarjorie",
-          "label": "Tan Marjorie Display"
-        },
-        {
-          "value": "font-heading",
-          "label": "Default heading"
+          "value": "body",
+          "label": "Body font"
         }
       ]
     },
