@@ -14,7 +14,9 @@
         "enable_overlay": true,
         "overlay_type": "gradient",
         "image": null,
-        "mobile_image": null
+        "mobile_image": null,
+        "overlay_opacity": 0.6,
+        "overlay_gradient_direction": "top"
       },
       "blocks": {},
       "custom_css": []

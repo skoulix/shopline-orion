@@ -92,7 +92,8 @@
     {{#if section.settings.enable_overlay}}
       <div class="absolute inset-0 z-[5]" style="
         {{#if (eq section.settings.overlay_type 'color')}}
-          background-color: {{default section.settings.overlay_color 'rgba(0, 0, 0, 0.3)'}};
+          background-color: {{default section.settings.overlay_color '#000000'}};
+          opacity: {{default section.settings.overlay_opacity 0.3}};
         {{else}}
           background: linear-gradient(
             {{#if (eq section.settings.overlay_gradient_direction 'top')}}to bottom{{/if}}
@@ -100,9 +101,10 @@
             {{#if (eq section.settings.overlay_gradient_direction 'left')}}to right{{/if}}
             {{#if (eq section.settings.overlay_gradient_direction 'right')}}to left{{/if}}
             {{#if (eq section.settings.overlay_gradient_direction 'radial')}}circle{{/if}},
-            {{default section.settings.overlay_gradient_start 'rgba(0, 0, 0, 0.5)'}},
-            {{default section.settings.overlay_gradient_end 'rgba(0, 0, 0, 0)'}}
+            {{default section.settings.overlay_gradient_start '#000000'}},
+            {{default section.settings.overlay_gradient_end '#000000'}}
           );
+          opacity: {{default section.settings.overlay_opacity 0.5}};
         {{/if}}
       "></div>
     {{/if}}
@@ -340,8 +342,18 @@
       "type": "color",
       "id": "overlay_color",
       "label": "Overlay color",
-      "default": "rgba(0, 0, 0, 0.3)",
+      "default": "#000000",
       "info": "Used when overlay type is 'Solid color'"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.3,
+      "info": "Transparency of the overlay (0 = transparent, 1 = opaque)"
     },
     {
       "type": "select",
@@ -376,14 +388,14 @@
       "type": "color",
       "id": "overlay_gradient_start",
       "label": "Gradient start color",
-      "default": "rgba(0, 0, 0, 0.5)",
+      "default": "#000000",
       "info": "Used when overlay type is 'Gradient'"
     },
     {
       "type": "color",
       "id": "overlay_gradient_end",
       "label": "Gradient end color",
-      "default": "rgba(0, 0, 0, 0)",
+      "default": "#000000",
       "info": "Used when overlay type is 'Gradient'"
     },
     {
@@ -503,7 +515,8 @@
         "subtitle_color": "#666666",
         "enable_overlay": false,
         "overlay_type": "color",
-        "overlay_color": "rgba(0, 0, 0, 0.3)",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0.3,
         "padding_top": 0,
         "padding_bottom": 120
       }

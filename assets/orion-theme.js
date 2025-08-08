@@ -12678,7 +12678,7 @@ const yn = (e, t) => {
                           ], 2)) : j("", !0),
                           d("div", null, [
                             d("div", Zy, [
-                              m[8] || (m[8] = d("p", null, "Subtotal", -1)),
+                              m[8] || (m[8] = d("p", { class: "uppercase font-semibold" }, "Subtotal", -1)),
                               d("p", null, J(l(s.value)), 1)
                             ]),
                             m[9] || (m[9] = d("p", { class: "mt-0.5 text-sm text-gray-500" }, " Shipping and taxes calculated at checkout. ", -1))
