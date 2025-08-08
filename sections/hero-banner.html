@@ -40,6 +40,25 @@
       {{/if}}
     </div>
     
+    <!-- Image Overlay -->
+    {{#if section.settings.enable_overlay}}
+      <div class="absolute inset-0 z-[5]" style="
+        {{#if (eq section.settings.overlay_type 'color')}}
+          background-color: {{default section.settings.overlay_color 'rgba(0, 0, 0, 0.3)'}};
+        {{else}}
+          background: linear-gradient(
+            {{#if (eq section.settings.overlay_gradient_direction 'top')}}to bottom{{/if}}
+            {{#if (eq section.settings.overlay_gradient_direction 'bottom')}}to top{{/if}}
+            {{#if (eq section.settings.overlay_gradient_direction 'left')}}to right{{/if}}
+            {{#if (eq section.settings.overlay_gradient_direction 'right')}}to left{{/if}}
+            {{#if (eq section.settings.overlay_gradient_direction 'radial')}}circle{{/if}},
+            {{default section.settings.overlay_gradient_start 'rgba(0, 0, 0, 0.5)'}},
+            {{default section.settings.overlay_gradient_end 'rgba(0, 0, 0, 0)'}}
+          );
+        {{/if}}
+      "></div>
+    {{/if}}
+    
     <!-- Content Overlay -->
     <div class="{{#if section.settings.mobile_image}}absolute md:relative inset-0 top-40 md:top-0{{else}}absolute inset-0{{/if}} z-10 container-fluid mx-auto px-4 lg:px-8">
       <div class="flex items-start md:items-center justify-center min-h-[400px] md:min-h-[600px] lg:min-h-[calc(62vw)] md:max-h-[800px]">
@@ -162,6 +181,83 @@
     },
     {
       "type": "group_header",
+      "label": "Overlay Settings"
+    },
+    {
+      "type": "switch",
+      "id": "enable_overlay",
+      "label": "Enable overlay",
+      "default": false,
+      "info": "Add an overlay to improve text readability"
+    },
+    {
+      "type": "select",
+      "id": "overlay_type",
+      "label": "Overlay type",
+      "default": "color",
+      "options": [
+        {
+          "value": "color",
+          "label": "Solid color"
+        },
+        {
+          "value": "gradient",
+          "label": "Gradient"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "rgba(0, 0, 0, 0.3)",
+      "info": "Used when overlay type is 'Solid color'"
+    },
+    {
+      "type": "select",
+      "id": "overlay_gradient_direction",
+      "label": "Gradient direction",
+      "default": "bottom",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top to bottom"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom to top"
+        },
+        {
+          "value": "left",
+          "label": "Left to right"
+        },
+        {
+          "value": "right",
+          "label": "Right to left"
+        },
+        {
+          "value": "radial",
+          "label": "Radial (center out)"
+        }
+      ],
+      "info": "Used when overlay type is 'Gradient'"
+    },
+    {
+      "type": "color",
+      "id": "overlay_gradient_start",
+      "label": "Gradient start color",
+      "default": "rgba(0, 0, 0, 0.5)",
+      "info": "Used when overlay type is 'Gradient'"
+    },
+    {
+      "type": "color",
+      "id": "overlay_gradient_end",
+      "label": "Gradient end color",
+      "default": "rgba(0, 0, 0, 0)",
+      "info": "Used when overlay type is 'Gradient'"
+    },
+    {
+      "type": "group_header",
       "label": "t:sections.hero-banner.settings.group_header__1.label"
     },
     {
@@ -195,6 +291,9 @@
         "button_link": "/collections/all",
         "image_position": 50,
         "mobile_image_position": 50,
+        "enable_overlay": false,
+        "overlay_type": "color",
+        "overlay_color": "rgba(0, 0, 0, 0.3)",
         "padding_top": 0,
         "padding_bottom": 120
       }
