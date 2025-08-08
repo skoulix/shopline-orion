@@ -30,64 +30,19 @@
     {{snippet "meta-tags"}}
     {{snippet "theme-css-var"}}
     
-		<!-- Custom fonts preload example -->
-		<!--
-		<link
-			rel="preload"
-			href="{{asset_url 'Crossten-Book.woff2'}}"
-			as="font"
-			type="font/woff2"
-			crossorigin
-		/>
-		<link
-			rel="preload"
-			href="{{asset_url 'Crossten-Bold.woff2'}}"
-			as="font"
-			type="font/woff2"
-			crossorigin
-		/>
-		<link
-			rel="preload"
-			href="{{asset_url 'TANMARJORIE-DISPLAY.woff2'}}"
-			as="font"
-			type="font/woff2"
-			crossorigin
-		/>
-		-->
+		<!-- Preload fonts from theme settings -->
+		{{font_preload settings.title_font_family}}
+		{{font_preload settings.body_font_family}}
+		{{#unless (eq settings.title_font_family settings.body_font_family)}}
+			{{#if (eq settings.header_font 'title')}}
+				{{font_preload settings.title_font_family}}
+			{{else}}
+				{{font_preload settings.body_font_family}}
+			{{/if}}
+		{{/unless}}
 
 		<link rel="stylesheet" href="{{asset_url 'theme.css'}}" />
 		<link rel="stylesheet" href="{{asset_url 'style.css'}}" />
-
-
-		<!-- Custom Fonts -->
-		<style>
-			/* @font-face {
-				font-family: 'TANMARJORIE-DISPLAY';
-				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/TANMARJORIE-DISPLAY.woff2?v=1722547152)
-					format('woff2');
-				font-weight: normal;
-				font-style: normal;
-				font-display: swap;
-			}
-
-			@font-face {
-				font-family: 'Crossten-Book';
-				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/Crossten-Book.woff2?v=1722547570)
-					format('woff2');
-				font-weight: normal;
-				font-style: normal;
-				font-display: swap;
-			}
-
-			@font-face {
-				font-family: 'Crossten-Bold';
-				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/Crossten-Bold.woff2?v=1722547570)
-					format('woff2');
-				font-weight: bold;
-				font-style: normal;
-				font-display: swap;
-			} */
-		</style>
 
 		<!-- Global JS - Essential for Shopline functionality -->
 		<script src="{{asset_url 'global.js'}}" defer="defer"></script>

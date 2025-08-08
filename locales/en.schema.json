@@ -1682,6 +1682,18 @@
         },
         "color_scheme_3_text": {
           "label": "Font color"
+        },
+        "group_header__7": {
+          "label": "Color 4"
+        },
+        "color_scheme_4_bg": {
+          "label": "Background color"
+        },
+        "color_scheme_4_gradient": {
+          "label": "Background color(gradient)"
+        },
+        "color_scheme_4_text": {
+          "label": "Font color"
         }
       }
     },

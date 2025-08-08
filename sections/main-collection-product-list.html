@@ -26,7 +26,6 @@
             {{/if}}
             
             <div class="product-grid grid gap-4" 
-                 style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
                  data-products-count="{{collection.products_count}}"
                  data-desktop-columns="{{section.settings.columns_desktop}}"
                  data-mobile-columns="{{section.settings.columns_mobile}}"
@@ -74,7 +73,6 @@
         
         <!-- Products Grid -->
         <div class="product-grid grid gap-4" 
-             style="grid-template-columns: repeat({{section.settings.columns_mobile}}, minmax(0, 1fr));"
              data-products-count="{{collection.products_count}}"
              data-desktop-columns="{{section.settings.columns_desktop}}"
              data-mobile-columns="{{section.settings.columns_mobile}}"
@@ -139,8 +137,23 @@
     width: 100%;
   }
   
+  /* Mobile columns - using data attributes to set grid columns */
+  .product-grid[data-mobile-columns="1"] {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .product-grid[data-mobile-columns="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  /* Tablet columns - fixed at 3 for medium screens */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .product-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+  }
+  
   /* Desktop columns - using data attributes to set grid columns */
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .product-grid[data-desktop-columns="2"] {
       grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
@@ -152,13 +165,6 @@
     }
     .product-grid[data-desktop-columns="5"] {
       grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-    }
-  }
-  
-  /* Tablet columns - fixed at 3 for medium screens */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .product-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     }
   }
   

@@ -16,7 +16,28 @@
       </h2>
     {{/if}}
     
-    <div class="prose prose-lg max-w-none" style="color: {{default section.settings.text_color '#666666'}};">
+    <style>
+      #shopline-section-{{section.id}} .rich-text-content {
+        color: {{default section.settings.text_color '#666666'}};
+      }
+      #shopline-section-{{section.id}} .rich-text-content p,
+      #shopline-section-{{section.id}} .rich-text-content span,
+      #shopline-section-{{section.id}} .rich-text-content li,
+      #shopline-section-{{section.id}} .rich-text-content ul,
+      #shopline-section-{{section.id}} .rich-text-content ol,
+      #shopline-section-{{section.id}} .rich-text-content strong,
+      #shopline-section-{{section.id}} .rich-text-content em,
+      #shopline-section-{{section.id}} .rich-text-content a,
+      #shopline-section-{{section.id}} .rich-text-content h1,
+      #shopline-section-{{section.id}} .rich-text-content h2,
+      #shopline-section-{{section.id}} .rich-text-content h3,
+      #shopline-section-{{section.id}} .rich-text-content h4,
+      #shopline-section-{{section.id}} .rich-text-content h5,
+      #shopline-section-{{section.id}} .rich-text-content h6 {
+        color: inherit !important;
+      }
+    </style>
+    <div class="prose prose-lg max-w-none rich-text-content">
       {{{section.settings.text}}}
     </div>
     

@@ -151,6 +151,28 @@
         "type": "color",
         "label": "t:settings_schema.color.settings.color_scheme_3_text.label",
         "default": "#000000"
+      },
+      {
+        "type": "group_header",
+        "label": "t:settings_schema.color.settings.group_header__7.label"
+      },
+      {
+        "id": "color_scheme_4_bg",
+        "type": "color",
+        "label": "t:settings_schema.color.settings.color_scheme_4_bg.label",
+        "default": "#E8F5E9"
+      },
+      {
+        "id": "color_scheme_4_gradient",
+        "type": "color_background",
+        "label": "t:settings_schema.color.settings.color_scheme_4_gradient.label",
+        "default": ""
+      },
+      {
+        "id": "color_scheme_4_text",
+        "type": "color",
+        "label": "t:settings_schema.color.settings.color_scheme_4_text.label",
+        "default": "#1B5E20"
       }
     ]
   },

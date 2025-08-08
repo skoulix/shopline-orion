@@ -14,24 +14,50 @@
         {{/if}}
         
         <!-- Content over image -->
-        <div class="absolute inset-0 flex items-center justify-center">
+        <div class="absolute inset-0 flex items-center justify-center" style="
+          {{#if (eq section.settings.overlay_text_color 'white')}}
+            color: #ffffff;
+          {{else}}
+            {{#if (eq section.settings.overlay_text_color 'black')}}
+              color: #000000;
+            {{else}}
+              {{#if (eq section.settings.overlay_text_color '1')}}
+                color: rgb(var(--color-scheme-1-text));
+              {{else}}
+                {{#if (eq section.settings.overlay_text_color '2')}}
+                  color: rgb(var(--color-scheme-2-text));
+                {{else}}
+                  {{#if (eq section.settings.overlay_text_color '3')}}
+                    color: rgb(var(--color-scheme-3-text));
+                  {{else}}
+                    {{#if (eq section.settings.overlay_text_color '4')}}
+                      color: rgb(var(--color-scheme-4-text));
+                    {{else}}
+                      color: #ffffff;
+                    {{/if}}
+                  {{/if}}
+                {{/if}}
+              {{/if}}
+            {{/if}}
+          {{/if}}
+        ">
           <div class="container text-center">
             {{#if section.settings.show_collection_title}}
-              <h1 class="text-4xl md:text-5xl mb-4">
+              <h1 class="text-4xl md:text-5xl mb-4" style="color: inherit;">
                 {{#if collection}}{{collection.title}}{{else}}{{default section.settings.title 'All Collections'}}{{/if}}
               </h1>
             {{/if}}
             
             {{#if section.settings.show_collection_description}}
               {{#if collection.description}}
-                <div class="prose prose-lg max-w-3xl mx-auto text-white">
+                <div class="prose prose-lg max-w-3xl mx-auto" style="color: inherit;">
                   {{{collection.description}}}
                 </div>
               {{/if}}
             {{/if}}
             
             {{#if section.settings.show_product_count}}
-              <div class="mt-6 text-sm text-gray-200">
+              <div class="mt-6 text-sm opacity-75" style="color: inherit;">
                 {{collection.products_count}} {{#if collection.products_count '==' 1}}product{{else}}products{{/if}}
               </div>
             {{/if}}
@@ -40,25 +66,39 @@
       </div>
     {{else}}
       <!-- No image available -->
-      <div class="{{section.settings.background_style}}">
+      <div style="
+        {{#if (eq section.settings.background_style '1')}}
+          background-color: rgb(var(--color-scheme-1-bg)); color: rgb(var(--color-scheme-1-text));
+        {{else}}
+          {{#if (eq section.settings.background_style '2')}}
+            background-color: rgb(var(--color-scheme-2-bg)); color: rgb(var(--color-scheme-2-text));
+          {{else}}
+            {{#if (eq section.settings.background_style '3')}}
+              background-color: rgb(var(--color-scheme-3-bg)); color: rgb(var(--color-scheme-3-text));
+            {{else}}
+              background-color: rgb(var(--color-scheme-4-bg)); color: rgb(var(--color-scheme-4-text));
+            {{/if}}
+          {{/if}}
+        {{/if}}
+      ">
         <div class="container py-{{section.settings.padding_vertical}}">
           <div class="{{#if section.settings.text_alignment '==' 'left'}}text-left{{/if}}{{#if section.settings.text_alignment '==' 'center'}}text-center{{/if}}{{#if section.settings.text_alignment '==' 'right'}}text-right{{/if}}">
             {{#if section.settings.show_collection_title}}
-              <h1 class="text-4xl md:text-5xl mb-4">
+              <h1 class="text-4xl md:text-5xl mb-4" style="color: inherit;">
                 {{#if collection}}{{collection.title}}{{else}}{{default section.settings.title 'All Collections'}}{{/if}}
               </h1>
             {{/if}}
             
             {{#if section.settings.show_collection_description}}
               {{#if collection.description}}
-                <div class="prose prose-lg max-w-3xl text-gray-600 {{#if section.settings.text_alignment '==' 'center'}}mx-auto{{/if}}">
+                <div class="prose prose-lg max-w-3xl {{#if section.settings.text_alignment '==' 'center'}}mx-auto{{/if}}" style="color: inherit;">
                   {{{collection.description}}}
                 </div>
               {{/if}}
             {{/if}}
             
             {{#if section.settings.show_product_count}}
-              <div class="mt-6 text-sm text-gray-500">
+              <div class="mt-6 text-sm opacity-75" style="color: inherit;">
                 {{collection.products_count}} {{#if collection.products_count '==' 1}}product{{else}}products{{/if}}
               </div>
             {{/if}}
@@ -68,7 +108,21 @@
     {{/if}}
   {{else}}
     <!-- Image display disabled -->
-    <div class="{{section.settings.background_style}}">
+    <div style="
+      {{#if (eq section.settings.background_style '1')}}
+        background-color: rgb(var(--color-scheme-1-bg)); color: rgb(var(--color-scheme-1-text));
+      {{else}}
+        {{#if (eq section.settings.background_style '2')}}
+          background-color: rgb(var(--color-scheme-2-bg)); color: rgb(var(--color-scheme-2-text));
+        {{else}}
+          {{#if (eq section.settings.background_style '3')}}
+            background-color: rgb(var(--color-scheme-3-bg)); color: rgb(var(--color-scheme-3-text));
+          {{else}}
+            background-color: rgb(var(--color-scheme-4-bg)); color: rgb(var(--color-scheme-4-text));
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    ">
       <div class="container py-{{section.settings.padding_vertical}}">
         <div class="{{#if section.settings.text_alignment '==' 'left'}}text-left{{/if}}{{#if section.settings.text_alignment '==' 'center'}}text-center{{/if}}{{#if section.settings.text_alignment '==' 'right'}}text-right{{/if}}">
           {{#if section.settings.show_collection_title}}
@@ -184,6 +238,38 @@
       "unit": "%"
     },
     {
+      "type": "select",
+      "id": "overlay_text_color",
+      "label": "Text color (with image)",
+      "default": "white",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "1",
+          "label": "Color 1 Text"
+        },
+        {
+          "value": "2",
+          "label": "Color 2 Text"
+        },
+        {
+          "value": "3",
+          "label": "Color 3 Text"
+        },
+        {
+          "value": "4",
+          "label": "Color 4 Text"
+        }
+      ]
+    },
+    {
       "type": "group_header",
       "label": "t:sections.main-collection-banner.settings.group_header__2.label"
     },
@@ -211,23 +297,23 @@
       "type": "select",
       "id": "background_style",
       "label": "t:sections.main-collection-banner.settings.background_style.label",
-      "default": "bg-gray-50",
+      "default": "1",
       "options": [
         {
-          "value": "bg-white",
-          "label": "t:sections.main-collection-banner.settings.background_style.options__0.label"
+          "value": "1",
+          "label": "Color 1"
         },
         {
-          "value": "bg-gray-50",
-          "label": "t:sections.main-collection-banner.settings.background_style.options__1.label"
+          "value": "2",
+          "label": "Color 2"
         },
         {
-          "value": "bg-gray-100",
-          "label": "t:sections.main-collection-banner.settings.background_style.options__2.label"
+          "value": "3",
+          "label": "Color 3"
         },
         {
-          "value": "bg-gray-900",
-          "label": "t:sections.main-collection-banner.settings.background_style.options__3.label"
+          "value": "4",
+          "label": "Color 4"
         }
       ]
     },
