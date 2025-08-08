@@ -470,41 +470,90 @@ const handleSearchInput = () => {
 
 const performSearch = async () => {
   try {
-    // Mock products for testing
-    const allProducts = [
-      {
-        id: 1,
-        url: "/products/tokyo",
-        image:
-          "https://img-va.myshopline.com/image/store/1748460806554/AvvikaTokyoEnergyDrinkCan.png?w=300",
-        title: "Tokyo Energy Drink",
-        price: 3500,
-        compareAtPrice: null,
-        vendor: "Avvika",
-      },
-      {
-        id: 2,
-        url: "/products/los-angeles",
-        image:
-          "https://img-va.myshopline.com/image/store/1748460806554/AvvikaLosAngelesEnergyDrinkCan-92b2c6a0-3bf0-4e6c-a84d-195e11ea6bba.png?w=300",
-        title: "Los Angeles Energy Drink",
-        price: 3500,
-        compareAtPrice: null,
-        vendor: "Avvika",
-      },
-    ];
-
-    // Filter products based on search query
-    const query = searchQuery.value.toLowerCase();
-    const filteredProducts = allProducts.filter((product) => {
-      return (
-        product.title.toLowerCase().includes(query) ||
-        product.vendor.toLowerCase().includes(query)
-      );
+    const query = searchQuery.value;
+    console.log('Searching for:', query);
+    
+    // Use Shopline's search with keyword parameter
+    const searchUrl = Shopline?.routes?.search || "/search";
+    const fullUrl = `${searchUrl}?keyword=${encodeURIComponent(query)}`;
+    console.log('Search URL:', fullUrl);
+    
+    const response = await fetch(fullUrl, {
+      headers: {
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      }
     });
 
+    console.log('Response status:', response.status);
+    
+    if (!response.ok) {
+      throw new Error('Search request failed');
+    }
+
+    const contentType = response.headers.get('content-type');
+    console.log('Response content-type:', contentType);
+    
+    let data;
+    if (contentType && contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      // If HTML is returned, parse it to extract products
+      const html = await response.text();
+      console.log('Received HTML response, parsing...');
+      
+      // Try to extract product data from HTML
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      
+      // Look for product-card elements (custom elements from search page)
+      const productElements = doc.querySelectorAll('product-card');
+      console.log('Found product elements:', productElements.length);
+      
+      const products = [];
+      productElements.forEach(el => {
+        const productData = {
+          id: el.getAttribute('product-id'),
+          title: el.getAttribute('title'),
+          url: el.getAttribute('url'),
+          handle: el.getAttribute('handle'),
+          price: parseFloat(el.getAttribute('price') || '0'),
+          compareAtPrice: parseFloat(el.getAttribute('compare-at-price') || '0'),
+          image: el.getAttribute('image'),
+          vendor: el.getAttribute('vendor'),
+          available: el.getAttribute(':available') === 'true'
+        };
+        
+        if (productData.title && productData.id) {
+          products.push(productData);
+        }
+      });
+      
+      data = { products };
+    }
+    
+    console.log('Search data:', data);
+    
+    // Process the search results
+    const products = data.products || data.results || [];
+    console.log('Products found:', products.length);
+    
+    // Map products to expected format
+    const formattedProducts = products.map(product => ({
+      id: product.id,
+      url: product.url || `/products/${product.handle}`,
+      title: product.title,
+      image: product.featured_image || product.image || (product.images && product.images[0]),
+      price: product.price,
+      compareAtPrice: product.compare_at_price || product.compareAtPrice,
+      vendor: product.vendor,
+      available: product.available !== false
+    })).slice(0, 8); // Limit to 8 results for quick view
+
+    console.log('Formatted products:', formattedProducts);
+
     results.value = {
-      products: filteredProducts,
+      products: formattedProducts,
       collections: [],
     };
 
