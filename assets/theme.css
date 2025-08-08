@@ -646,10 +646,6 @@ select {
 
 .header-group {
   min-height: 64px;
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 @media (min-width: 768px) {
@@ -688,18 +684,17 @@ select {
 /* Announcement bar handling */
 
 .announcement-bar {
-  min-height: 40px;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  height: 40px;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
 }
 
-/* Hide announcement by moving header up */
+/* Hide announcement bar when scrolled */
 
-.header-group.announcement-hidden {
-  --tw-translate-y: -40px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+.announcement-bar.hidden {
+  height: 0;
+  margin-top: -40px;
+  opacity: 0;
 }
 
 /* Transparent header on homepage */
@@ -5012,6 +5007,30 @@ body.page-contact {
   }
 }
 */
+
+@media (min-width: 640px) {
+  .sm\:hidden.announcement-bar {
+    height: 0;
+    margin-top: -40px;
+    opacity: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:hidden.announcement-bar {
+    height: 0;
+    margin-top: -40px;
+    opacity: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:hidden.announcement-bar {
+    height: 0;
+    margin-top: -40px;
+    opacity: 0;
+  }
+}
 
 .last\:mb-0:last-child {
   margin-bottom: 0px;

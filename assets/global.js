@@ -219,18 +219,8 @@ document.addEventListener("DOMContentLoaded", function () {
       border-bottom: 1px solid #e5e7eb !important;
     }
     
-    /* Transparent header link styling - only for index page */
-    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header a,
-    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header button,
-    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header h1 {
-      color: #3d3259 !important;
-    }
-    
-    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header a:hover,
-    body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header button:hover {
-      color: #3d3259 !important;
-      opacity: 0.8;
-    }
+    /* Transparent header colors are now handled by CSS variables in the header section */
+    /* The colors are controlled by section.settings.transparent_text_color */
     
     /* Keep dropdown menus with dark text on white background - only for index page */
     body.template-index .header-group[data-transparent="true"]:not(.is-transparent--active) .site-header .absolute a {

@@ -74,14 +74,26 @@
     .site-header h1 {
       color: var(--current-header-color) !important;
     }
-    .site-header svg {
+    /* Apply stroke only to icon SVGs, not the logo */
+    .site-header svg:not(#logo-77) {
       stroke: var(--current-header-color) !important;
+    }
+    /* Logo placeholder uses fill, not stroke */
+    .site-header #logo-77 {
+      fill: var(--current-header-color) !important;
     }
     
     /* Override variable for transparent state (homepage only, not scrolled) */
     {{#if (and section.settings.transparent_header_homepage (eq request.page_type 'index'))}}
     .site-header.transparent-not-scrolled {
       --current-header-color: {{default section.settings.transparent_text_color '#ffffff'}};
+    }
+    
+    /* Explicitly set default color when scrolled */
+    .site-header.scrolled {
+      --current-header-color: {{default section.settings.header_text_color '#000000'}} !important;
+      background-color: #ffffff !important;
+      border-bottom-color: #e5e7eb !important;
     }
     {{/if}}
     
@@ -134,7 +146,7 @@
           </a>
         {{else}}
           <a href="/" class="flex items-center">
-            <h1 class="text-xl">{{shop.name}}</h1>
+            {{render 'logo-placeholder'}}
           </a>
         {{/if}}
       </div>
@@ -206,7 +218,7 @@
             </a>
           {{else}}
             <a href="/" class="flex items-center">
-              <h1 class="text-xl">{{shop.name}}</h1>
+              {{render 'logo-placeholder'}}
             </a>
           {{/if}}
         </div>
@@ -257,7 +269,7 @@
             </a>
           {{else}}
             <a href="/" class="flex items-center">
-              <h1 class="text-xl">{{shop.name}}</h1>
+              {{render 'logo-placeholder'}}
             </a>
           {{/if}}
         </div>
@@ -361,54 +373,6 @@
   window.mobileMenuShowLocalization = {{section.settings.show_localization}};
   
   document.addEventListener('DOMContentLoaded', function() {
-    // Check if header is transparent for hover handling
-    const header = document.querySelector('.site-header');
-    const isTransparentHeader = () => header && header.classList.contains('transparent-header');
-    
-    // Update all hover elements to respect transparent header state
-    const setupHoverHandlers = () => {
-      const hoverElements = header.querySelectorAll('[onmouseover]');
-      hoverElements.forEach(el => {
-        const originalMouseover = el.getAttribute('onmouseover');
-        const originalMouseout = el.getAttribute('onmouseout');
-        
-        el.removeAttribute('onmouseover');
-        el.removeAttribute('onmouseout');
-        
-        // Check if this is a dropdown item
-        const isDropdownItem = el.closest('.absolute') || el.classList.contains('text-sm');
-        
-        // Set initial purple color
-        el.style.color = '#3d3259';
-        
-        el.addEventListener('mouseover', function() {
-          // Always use primary color on hover
-          this.style.color = 'var(--color-primary)';
-        });
-        
-        el.addEventListener('mouseout', function() {
-          // Always return to purple color
-          this.style.color = '#3d3259';
-        });
-      });
-    };
-    
-    // Initial setup
-    setupHoverHandlers();
-    
-    // Re-setup when header transparency changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          setupHoverHandlers();
-        }
-      });
-    });
-    
-    if (header) {
-      observer.observe(header, { attributes: true, attributeFilter: ['class'] });
-    }
-    
     // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     if (mobileMenuToggle) {

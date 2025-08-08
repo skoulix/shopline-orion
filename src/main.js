@@ -300,26 +300,14 @@ function mountVueComponents(container = document) {
           const isTransparent = headerGroup.dataset.transparent === "true";
           const isHomepage = document.body.classList.contains("template-index");
 
-          // Hide announcement bar immediately on any scroll
+          // Hide announcement bar smoothly on any scroll
           const announcementBar =
             headerGroup.querySelector(".announcement-bar");
           if (announcementBar) {
             if (currentScrollY > 0) {
-              if (!announcementBar.classList.contains("hidden")) {
-                announcementBar.classList.add("hidden");
-                announcementBar.style.maxHeight = "0";
-                announcementBar.style.overflow = "hidden";
-                announcementBar.style.transition = "max-height 0.2s ease-out";
-              }
+              announcementBar.classList.add("hidden");
             } else {
-              if (announcementBar.classList.contains("hidden")) {
-                announcementBar.classList.remove("hidden");
-                announcementBar.style.maxHeight = "100px";
-                setTimeout(() => {
-                  announcementBar.style.maxHeight = "";
-                  announcementBar.style.overflow = "";
-                }, 200);
-              }
+              announcementBar.classList.remove("hidden");
             }
           }
 

@@ -233,7 +233,7 @@
 
   /* Critical CSS to prevent layout shift - Header is sticky by default */
   .header-group {
-    @apply min-h-[64px] md:min-h-[80px] transition-transform duration-300 ease-out;
+    @apply min-h-[64px] md:min-h-[80px];
   }
 
   .header-group.sticky-header,
@@ -253,12 +253,16 @@
 
   /* Announcement bar handling */
   .announcement-bar {
-    @apply min-h-[40px] transition-all duration-300 ease-out;
+    height: 40px;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
   }
 
-  /* Hide announcement by moving header up */
-  .header-group.announcement-hidden {
-    @apply -translate-y-[40px];
+  /* Hide announcement bar when scrolled */
+  .announcement-bar.hidden {
+    height: 0;
+    margin-top: -40px;
+    opacity: 0;
   }
 
   /* Transparent header on homepage */
