@@ -346,16 +346,17 @@ h3, .h3 {
 }
 
 /* Text utility classes - only line-height, preserve Tailwind's font-sizes */
-.text-xs { line-height: 1.5 !important; }
-.text-sm { line-height: 1.5 !important; }
-.text-base { line-height: 1.5 !important; }
-.text-lg { line-height: 1.3 !important; }
-.text-xl { line-height: 1.3 !important; }
-.text-2xl { line-height: 1.2 !important; }
-.text-3xl { line-height: 1.2 !important; }
-.text-4xl { line-height: 1.1 !important; }
-.text-5xl { line-height: 1.1 !important; }
-.text-6xl { line-height: 1 !important; }
+/* Use calculated values based on --title-line-height for consistency */
+.text-xs { line-height: calc(var(--title-line-height, 1.2) * 1.25) !important; }
+.text-sm { line-height: calc(var(--title-line-height, 1.2) * 1.25) !important; }
+.text-base { line-height: calc(var(--title-line-height, 1.2) * 1.25) !important; }
+.text-lg { line-height: calc(var(--title-line-height, 1.2) * 1.15) !important; }
+.text-xl { line-height: calc(var(--title-line-height, 1.2) * 1.1) !important; }
+.text-2xl { line-height: calc(var(--title-line-height, 1.2) * 1.05) !important; }
+.text-3xl { line-height: var(--title-line-height, 1.2) !important; }
+.text-4xl { line-height: calc(var(--title-line-height, 1.2) * 0.95) !important; }
+.text-5xl { line-height: calc(var(--title-line-height, 1.2) * 0.9) !important; }
+.text-6xl { line-height: calc(var(--title-line-height, 1.2) * 0.85) !important; }
 
 /* Responsive heading adjustments for better mobile readability */
 @media (max-width: 768px) {
@@ -372,9 +373,9 @@ h3, .h3 {
   }
   
   /* Slightly more relaxed line-heights on mobile for readability */
-  .text-lg, .text-xl { line-height: 1.4 !important; }
-  .text-2xl, .text-3xl { line-height: 1.3 !important; }
-  .text-4xl, .text-5xl, .text-6xl { line-height: 1.2 !important; }
+  .text-lg, .text-xl { line-height: calc(var(--title-line-height, 1.2) * 1.2) !important; }
+  .text-2xl, .text-3xl { line-height: calc(var(--title-line-height, 1.2) * 1.1) !important; }
+  .text-4xl, .text-5xl, .text-6xl { line-height: var(--title-line-height, 1.2) !important; }
 }
 
 /* Medium and smaller headings use body font with bold weight */
@@ -498,9 +499,9 @@ header nav a {
   letter-spacing: 0.125em;
   font-size: 0.9375rem;
   border-radius: var(--button-radius, 30px);
-  border-style: solid !important;
-  border-width: 3px !important;
-  border-color: rgb(var(--color-text)) !important;
+  border-style: solid;
+  border-width: 3px;
+  border-color: rgb(var(--color-text));
   transition-property: all;
   transition-duration: 200ms;
 }
@@ -535,7 +536,7 @@ header nav a {
 .button-secondary {
   background-color: rgb(var(--button-secondary-bg, 255 255 255));
   color: rgb(var(--button-secondary-text, 55 65 81));
-  border: 1px solid rgb(var(--button-secondary-border, 209 213 219));
+  border-color: rgb(var(--button-secondary-border, 209 213 219));
 }
 
 .btn-secondary:hover,

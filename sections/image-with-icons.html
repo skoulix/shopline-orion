@@ -64,33 +64,33 @@
                 {{assign "parsed_link" (JSONparse section.settings.button_link)}}
                 {{#if parsed_link.pageType}}
                   {{#if (eq parsed_link.pageType 3)}}
-                    <a href="/pages/{{parsed_link.value}}" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                    <a href="/pages/{{parsed_link.value}}" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}} !important; color: {{default section.settings.button_text_color '#ffffff'}} !important; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}} !important;{{else}}border-color: {{default section.settings.button_bg_color '#e3276f'}} !important;{{/if}}">
                       {{section.settings.button_label}}
                     </a>
                   {{else}}
                     {{#if (eq parsed_link.pageType 12)}}
-                      <a href="/collections/{{parsed_link.value}}" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                      <a href="/collections/{{parsed_link.value}}" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}} !important; color: {{default section.settings.button_text_color '#ffffff'}} !important; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}} !important;{{else}}border-color: {{default section.settings.button_bg_color '#e3276f'}} !important;{{/if}}">
                         {{section.settings.button_label}}
                       </a>
                     {{else}}
                       {{#if (eq parsed_link.pageType 10)}}
-                        <a href="/products/{{parsed_link.value}}" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                        <a href="/products/{{parsed_link.value}}" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}} !important; color: {{default section.settings.button_text_color '#ffffff'}} !important; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}} !important;{{else}}border-color: {{default section.settings.button_bg_color '#e3276f'}} !important;{{/if}}">
                           {{section.settings.button_label}}
                         </a>
                       {{else}}
-                        <a href="{{parsed_link.value}}" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                        <a href="{{parsed_link.value}}" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}} !important; color: {{default section.settings.button_text_color '#ffffff'}} !important; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}} !important;{{else}}border-color: {{default section.settings.button_bg_color '#e3276f'}} !important;{{/if}}">
                           {{section.settings.button_label}}
                         </a>
                       {{/if}}
                     {{/if}}
                   {{/if}}
                 {{else}}
-                  <a href="{{default section.settings.button_link '#'}}" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                  <a href="{{default section.settings.button_link '#'}}" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}} !important; color: {{default section.settings.button_text_color '#ffffff'}} !important; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}} !important;{{else}}border-color: {{default section.settings.button_bg_color '#e3276f'}} !important;{{/if}}">
                     {{section.settings.button_label}}
                   </a>
                 {{/if}}
               {{else}}
-                <a href="#" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                <a href="#" class="button inline-block transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}} !important; color: {{default section.settings.button_text_color '#ffffff'}} !important; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}} !important;{{else}}border-color: {{default section.settings.button_bg_color '#e3276f'}} !important;{{/if}}">
                   {{section.settings.button_label}}
                 </a>
               {{/if}}
