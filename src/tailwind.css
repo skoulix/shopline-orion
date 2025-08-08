@@ -701,60 +701,53 @@ header nav a {
   border-color: rgb(var(--button-primary-bg, 227 39 111));
 }
 
-/* Dynamic product grid */
+/* Dynamic product grid - DISABLED: Grid columns are now controlled by section settings */
+/* Keeping this commented out in case we need it for other sections */
+/*
 .product-grid {
   @apply grid gap-6 justify-items-center;
-  /* Default fallback */
   @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
 }
 
-/* 1-2 products - smaller grid */
 .product-grid[data-products-count="1"],
 .product-grid[data-products-count="2"] {
   @apply grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 max-w-3xl justify-items-center;
 }
 
-/* 3 products */
 .product-grid[data-products-count="3"] {
   @apply grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 max-w-5xl justify-items-center;
 }
 
-/* 4 products */
 .product-grid[data-products-count="4"] {
   @apply grid-cols-2 md:grid-cols-2 lg:grid-cols-4 justify-items-center;
 }
 
-/* 5 products */
 .product-grid[data-products-count="5"] {
   @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-items-center;
 }
 
-/* 6 products */
 .product-grid[data-products-count="6"] {
   @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 justify-items-center;
 }
 
-/* 7-8 products */
 .product-grid[data-products-count="7"],
 .product-grid[data-products-count="8"] {
   @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center;
 }
 
-/* 9 products */
 .product-grid[data-products-count="9"] {
   @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-3 justify-items-center;
 }
 
-/* 10 products */
 .product-grid[data-products-count="10"] {
   @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-items-center;
 }
 
-/* 11-12 products */
 .product-grid[data-products-count="11"],
 .product-grid[data-products-count="12"] {
   @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center;
 }
+*/
 
 /* Ensure product cards don't get too wide */
 .product-grid .product-card-wrapper {

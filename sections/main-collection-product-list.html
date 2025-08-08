@@ -25,7 +25,8 @@
               </div>
             {{/if}}
             
-            <div class="product-grid grid gap-4" 
+            <div class="product-grid grid" 
+                 style="gap: {{default section.settings.grid_gap 20}}px;"
                  data-products-count="{{collection.products_count}}"
                  data-desktop-columns="{{section.settings.columns_desktop}}"
                  data-mobile-columns="{{section.settings.columns_mobile}}"
@@ -72,7 +73,8 @@
         {{/if}}
         
         <!-- Products Grid -->
-        <div class="product-grid grid gap-4" 
+        <div class="product-grid grid" 
+             style="gap: {{default section.settings.grid_gap 20}}px;"
              data-products-count="{{collection.products_count}}"
              data-desktop-columns="{{section.settings.columns_desktop}}"
              data-mobile-columns="{{section.settings.columns_mobile}}"
@@ -132,47 +134,59 @@
 </div>
 
 <style>
-  /* Ensure product grid has consistent spacing */
-  .product-grid {
+  /* Reset any default grid styles from tailwind.css */
+  .collection-page .product-grid {
     width: 100%;
+    display: grid;
+    /* Gap is now controlled by inline style from settings */
   }
   
-  /* Mobile columns - using data attributes to set grid columns */
-  .product-grid[data-mobile-columns="1"] {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+  /* Mobile columns - default */
+  .collection-page .product-grid[data-mobile-columns="1"] {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
   }
-  .product-grid[data-mobile-columns="2"] {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .collection-page .product-grid[data-mobile-columns="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  /* Small screens - use mobile columns */
+  @media (max-width: 767px) {
+    .collection-page .product-grid[data-mobile-columns="1"] {
+      grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+    .collection-page .product-grid[data-mobile-columns="2"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
   }
   
   /* Tablet columns - fixed at 3 for medium screens */
   @media (min-width: 768px) and (max-width: 1023px) {
-    .product-grid {
+    .collection-page .product-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     }
   }
   
   /* Desktop columns - using data attributes to set grid columns */
   @media (min-width: 1024px) {
-    .product-grid[data-desktop-columns="2"] {
+    .collection-page .product-grid[data-desktop-columns="2"] {
       grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
-    .product-grid[data-desktop-columns="3"] {
+    .collection-page .product-grid[data-desktop-columns="3"] {
       grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     }
-    .product-grid[data-desktop-columns="4"] {
+    .collection-page .product-grid[data-desktop-columns="4"] {
       grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     }
-    .product-grid[data-desktop-columns="5"] {
+    .collection-page .product-grid[data-desktop-columns="5"] {
       grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
     }
   }
   
-  /* Adjust grid columns when sidebar is present */
+  /* Override any conflicting styles from product-grid classes in tailwind.css */
   @media (min-width: 1024px) {
-    .collection-page .flex-1 .product-grid {
-      /* Ensure grid takes full width of the flex-1 container */
-      width: 100%;
+    .collection-page .product-grid[data-products-count] {
+      /* Reset product count based grid columns */
+      grid-template-columns: inherit;
     }
   }
 </style>
@@ -530,6 +544,17 @@ document.addEventListener('DOMContentLoaded', function() {
       ],
       "default": "2",
       "label": "t:sections.main-collection-product-list.settings.columns_mobile.label"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "default": 20,
+      "unit": "px",
+      "label": "Grid gap",
+      "info": "Space between products"
     },
     {
       "type": "group_header",
