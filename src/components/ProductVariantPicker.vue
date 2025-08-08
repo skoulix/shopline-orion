@@ -60,7 +60,7 @@
         <!-- Color swatches -->
         <div
           v-else-if="isColorOption(option.name)"
-          class="color-swatches-wrapper mt-2 space-x-3.5"
+          class="color-swatches-wrapper mt-2 space-x-3"
         >
           <button
             v-for="value in option.values"
@@ -136,7 +136,7 @@
         </div>
 
         <!-- Size/Text options -->
-        <div v-else class="variant-buttons-wrapper mt-2 space-x-2.5">
+        <div v-else class="variant-buttons-wrapper mt-1.5 space-x-2">
           <button
             v-for="value in option.values"
             :key="value"

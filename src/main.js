@@ -86,7 +86,8 @@ const ReviewSummaryElement = defineCustomElement(ReviewSummary, {
 });
 const CartItemElement = defineCustomElement(CartItem);
 const CartSummaryElement = defineCustomElement(CartSummary);
-const SearchOverlayElement = defineCustomElement(SearchOverlay);
+// Don't use custom element for SearchOverlay due to Teleport to body
+// const SearchOverlayElement = defineCustomElement(SearchOverlay);
 
 // Register custom elements
 // Don't use custom element for Button due to CSS variable access
@@ -104,7 +105,7 @@ customElements.define("product-info", ProductInfoElement);
 customElements.define("reviews-summary", ReviewSummaryElement);
 customElements.define("cart-item", CartItemElement);
 customElements.define("cart-summary", CartSummaryElement);
-customElements.define("search-overlay", SearchOverlayElement);
+// customElements.define("search-overlay", SearchOverlayElement);
 
 // Function to mount all Vue components
 function mountVueComponents(container = document) {
@@ -267,6 +268,16 @@ function mountVueComponents(container = document) {
     };
 
     const app = createApp(BlogArticles, props);
+    mount._vueApp = app;
+    app.mount(mount);
+  });
+
+  // Mount SearchOverlay components (as Vue apps because of Teleport)
+  const searchOverlayMounts = container.querySelectorAll("search-overlay");
+  searchOverlayMounts.forEach((mount) => {
+    if (mount._vueApp) return;
+
+    const app = createApp(SearchOverlay);
     mount._vueApp = app;
     app.mount(mount);
   });
@@ -646,6 +657,11 @@ window.mountVueComponents = mountVueComponents;
 document.addEventListener("DOMContentLoaded", () => {
   mountVueComponents();
 });
+
+// Also mount immediately if DOM is already loaded
+if (document.readyState !== 'loading') {
+  mountVueComponents();
+}
 
 // Handle Shopline theme editor events
 if (

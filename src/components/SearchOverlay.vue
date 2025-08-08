@@ -49,11 +49,13 @@
                           :style="{
                             borderRadius: 'var(--button-radius, 16px)',
                             '--tw-ring-color': `rgb(${primaryColor})`,
-                            borderColor: searchInput === document.activeElement ? `rgb(${primaryColor})` : ''
+                            borderColor: isSearchInputFocused ? `rgb(${primaryColor})` : ''
                           }"
                           @input="handleSearchInput"
                           @keydown.escape="closeSearch"
                           @keydown.enter="submitSearch"
+                          @focus="isSearchInputFocused = true"
+                          @blur="isSearchInputFocused = false"
                         />
                         <div
                           class="absolute inset-y-0 right-0 flex items-center pr-4"
@@ -359,7 +361,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick, onMounted, onUnmounted } from "vue";
+import { ref, computed, nextTick, onMounted, onUnmounted } from "vue";
 
 const isOpen = ref(false);
 const searchQuery = ref("");
@@ -414,6 +416,9 @@ const primaryColor = computed(() => {
   // Assume it's already in RGB format
   return color.replace('rgb(', '').replace(')', '');
 });
+
+// Check if search input is focused
+const isSearchInputFocused = ref(false);
 
 const formatMoney = (price) => {
   if (!price && price !== 0) return "$0.00";
