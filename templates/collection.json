@@ -1,13 +1,16 @@
 {
   "sections": {
     "main-collection-banner": {
+      "disabled": false,
       "type": "main-collection-banner",
       "settings": {
         "show_collection_image": true,
         "show_collection_description": true
-      }
+      },
+      "blocks": {}
     },
     "main-collection-product-list": {
+      "disabled": false,
       "type": "main-collection-product-list",
       "settings": {
         "products_per_page": 12,
@@ -17,7 +20,9 @@
         "filter_position": "drawer",
         "enable_sorting": true,
         "enable_infinite_scroll": false
-      }
+      },
+      "blocks": {},
+      "custom_css": []
     }
   },
   "order": [

@@ -9,7 +9,7 @@
     <!-- Collections Grid -->
     <div class="grid grid-cols-1 md:grid-cols-{{section.settings.collections_per_row_desktop}} gap-6">
       {{#each collections}}
-        <a href="{{this.url}}" class="group relative block overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+        <a href="{{this.url}}" class="group relative block overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" style="border-radius: var(--card-radius, 8px);">
           <!-- Collection Image -->
           {{#if ../section.settings.show_collection_image}}
             {{#if this.image}}

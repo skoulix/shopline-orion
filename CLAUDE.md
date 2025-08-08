@@ -73,7 +73,6 @@ orion/
 - **CollectionFilters.vue** - Filter sidebar with price, type, vendor filters
 - **CollectionGrid.vue** - Product grid with sorting, pagination, infinite scroll
 - **ProductGallery.vue** - Product image gallery with zoom and lightbox
-- **ProductInfo.vue** - Product information with add to cart functionality
 - **CartItem.vue** - Individual cart item component with enhanced design (icon-based remove button, improved price display)
 - **CartSummary.vue** - Cart summary with promo codes and checkout
 - **SearchOverlay.vue** - Search overlay with predictive search

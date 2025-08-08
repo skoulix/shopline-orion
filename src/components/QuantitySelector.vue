@@ -1,22 +1,37 @@
 <template>
-  <div class="quantity-selector" :class="{ 'quantity-selector--small': size === 'small' }">
+  <div 
+    class="inline-flex items-center overflow-hidden bg-white"
+    :class="size === 'small' ? 'quantity-selector-small' : 'quantity-selector'"
+    :style="{
+      border: `var(--input-border-thickness, 1px) solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1))`,
+      borderRadius: 'var(--input-border-radius, 30px)'
+    }"
+  >
     <button
       type="button"
-      class="quantity-button quantity-button--minus"
-      :class="{ 'quantity-button--small': size === 'small' }"
+      class="flex items-center justify-center bg-gray-50 transition-all duration-200 text-gray-600 cursor-pointer hover:bg-gray-100 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-50 disabled:hover:text-gray-600"
+      :class="size === 'small' ? 'w-8 h-8 p-1' : 'w-10 h-10'"
+      :style="{
+        borderRight: `1px solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1))`
+      }"
       :disabled="modelValue <= min"
       @click="decrease"
       aria-label="Decrease quantity"
     >
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg 
+        :class="size === 'small' ? 'w-3 h-3' : 'w-3 h-3'" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
       </svg>
     </button>
     
     <input
       type="number"
-      class="quantity-input"
-      :class="{ 'quantity-input--small': size === 'small' }"
+      class="quantity-input text-center bg-white text-gray-900 font-medium"
+      :class="size === 'small' ? 'w-10 h-8 text-xs p-1' : 'w-16 h-10 text-sm'"
       :value="modelValue"
       :min="min"
       :max="max"
@@ -27,13 +42,21 @@
     
     <button
       type="button"
-      class="quantity-button quantity-button--plus"
-      :class="{ 'quantity-button--small': size === 'small' }"
+      class="flex items-center justify-center bg-gray-50 transition-all duration-200 text-gray-600 cursor-pointer hover:bg-gray-100 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-50 disabled:hover:text-gray-600"
+      :class="size === 'small' ? 'w-8 h-8 p-1' : 'w-10 h-10'"
+      :style="{
+        borderLeft: `1px solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1))`
+      }"
       :disabled="modelValue >= max"
       @click="increase"
       aria-label="Increase quantity"
     >
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg 
+        :class="size === 'small' ? 'w-3 h-3' : 'w-3 h-3'" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
       </svg>
     </button>
@@ -115,100 +138,3 @@ const handleBlur = (event) => {
   event.target.value = value.value
 }
 </script>
-
-<style scoped>
-.quantity-selector {
-  display: inline-flex;
-  align-items: center;
-  border: var(--input-border-thickness, 1px) solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1));
-  border-radius: var(--input-border-radius, 30px);
-  overflow: hidden;
-  background-color: white;
-}
-
-.quantity-button {
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f9fafb;
-  transition: all 0.2s;
-  color: #4b5563;
-  cursor: pointer;
-  border: none;
-}
-
-.quantity-button:hover {
-  background-color: #f3f4f6;
-  color: #111827;
-}
-
-.quantity-button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.quantity-button:disabled:hover {
-  background-color: #f9fafb;
-  color: #4b5563;
-}
-
-.quantity-button--minus {
-  border-right: 1px solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1));
-}
-
-.quantity-button--plus {
-  border-left: 1px solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1));
-}
-
-.quantity-input {
-  width: 4rem;
-  height: 2.5rem;
-  text-align: center;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  background-color: white;
-  color: #111827;
-  font-weight: 500;
-  font-size: 0.875rem;
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-
-.quantity-input:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border: 0 !important;
-}
-
-.quantity-input::-webkit-outer-spin-button,
-.quantity-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Small variant styles */
-.quantity-selector--small {
-  border-radius: var(--input-border-radius, 30px);
-}
-
-.quantity-button--small {
-  width: 2rem;
-  height: 2rem;
-  padding: 0.25rem;
-}
-
-.quantity-button--small svg {
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
-.quantity-input--small {
-  width: 2.5rem;
-  height: 2rem;
-  font-size: 0.75rem;
-  padding: 0.25rem;
-}
-</style>

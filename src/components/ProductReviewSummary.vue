@@ -1,20 +1,23 @@
 <template>
   <div
     v-if="!loading && !error && reviewData"
-    class="review-summary"
+    class="cursor-pointer"
     @click="scrollToComments"
   >
-    <div class="summary-row">
-      <span class="stars">
+    <div class="flex items-center gap-2 flex-nowrap">
+      <span class="flex gap-0.5">
         <span
           v-for="n in 5"
           :key="n"
-          :class="['star', { filled: n <= Math.round(reviewData.score) }]"
+          :class="[
+            'text-xl',
+            n <= Math.round(reviewData.score) ? 'text-yellow-400' : 'text-gray-300'
+          ]"
           >★</span
         >
       </span>
-      <span class="average-score">{{ reviewData.score.toFixed(1) }}</span>
-      <!-- <span class="total-reviews">({{ reviewData.total }} reviews)</span> -->
+      <span class="font-bold">{{ reviewData.score.toFixed(1) }}</span>
+      <!-- <span class="text-gray-600">({{ reviewData.total }} reviews)</span> -->
     </div>
   </div>
 </template>
@@ -75,37 +78,3 @@ const scrollToComments = () => {
 
 onMounted(fetchReviews);
 </script>
-
-<style>
-.review-summary {
-  cursor: pointer;
-}
-
-.summary-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: nowrap;
-}
-
-.average-score {
-  font-weight: bold;
-}
-
-.stars {
-  gap: 0.1rem;
-}
-
-.star {
-  font-size: 1.2rem;
-  color: #ccc;
-}
-
-.star.filled {
-  color: #ffd700;
-}
-
-.total-reviews {
-  color: #666;
-}
-</style>

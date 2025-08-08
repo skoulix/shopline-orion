@@ -10,7 +10,6 @@ import CollectionGrid from "./components/CollectionGrid.vue";
 import CollectionSort from "./components/CollectionSort.vue";
 import CollectionFilterDrawer from "./components/CollectionFilterDrawer.vue";
 import ProductGallery from "./components/ProductGallery.vue";
-import ProductInfo from "./components/ProductInfo.vue";
 import ReviewSummary from "./components/ProductReviewSummary.vue";
 import CartItem from "./components/CartItem.vue";
 import CartSummary from "./components/CartSummary.vue";
@@ -80,7 +79,6 @@ const CollectionGridElement = defineCustomElement(CollectionGrid);
 // Don't use custom element for CollectionSort due to style isolation
 // const CollectionSortElement = defineCustomElement(CollectionSort)
 const ProductGalleryElement = defineCustomElement(ProductGallery);
-const ProductInfoElement = defineCustomElement(ProductInfo);
 const ReviewSummaryElement = defineCustomElement(ReviewSummary, {
   shadowRoot: false,
 });
@@ -101,7 +99,6 @@ customElements.define("collection-filters", CollectionFiltersElement);
 customElements.define("collection-grid", CollectionGridElement);
 // customElements.define('collection-sort', CollectionSortElement)
 customElements.define("product-gallery", ProductGalleryElement);
-customElements.define("product-info", ProductInfoElement);
 customElements.define("reviews-summary", ReviewSummaryElement);
 customElements.define("cart-item", CartItemElement);
 customElements.define("cart-summary", CartSummaryElement);
