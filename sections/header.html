@@ -34,7 +34,21 @@
      {{/if}}>
 
 {{#if section.settings.show_announcement}}
-<div class="announcement-bar text-center py-2.5 text-sm" style="background-color: {{section.settings.announcement_bg_color}} !important; background-image: none !important; color: {{section.settings.announcement_text_color}} !important;">
+<div class="announcement-bar text-center py-2.5 text-sm" style="
+  {{#if (eq section.settings.announcement_color_scheme '1')}}
+    background-color: rgb(var(--color-scheme-1-bg)) !important; color: rgb(var(--color-scheme-1-text)) !important;
+  {{else}}
+    {{#if (eq section.settings.announcement_color_scheme '2')}}
+      background-color: rgb(var(--color-scheme-2-bg)) !important; color: rgb(var(--color-scheme-2-text)) !important;
+    {{else}}
+      {{#if (eq section.settings.announcement_color_scheme '3')}}
+        background-color: rgb(var(--color-scheme-3-bg)) !important; color: rgb(var(--color-scheme-3-text)) !important;
+      {{else}}
+        background-color: rgb(var(--color-scheme-4-bg)) !important; color: rgb(var(--color-scheme-4-text)) !important;
+      {{/if}}
+    {{/if}}
+  {{/if}}
+  background-image: none !important;">
   <div class="container font-semibold">
     {{section.settings.announcement_text}}
   </div>
@@ -403,16 +417,28 @@
       "label": "Announcement text"
     },
     {
-      "type": "color",
-      "id": "announcement_bg_color",
-      "default": "#dc2626",
-      "label": "Background color"
-    },
-    {
-      "type": "color",
-      "id": "announcement_text_color",
-      "default": "#ffffff",
-      "label": "Text color"
+      "type": "select",
+      "id": "announcement_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "1",
+          "label": "Color scheme 1"
+        },
+        {
+          "value": "2",
+          "label": "Color scheme 2"
+        },
+        {
+          "value": "3",
+          "label": "Color scheme 3"
+        },
+        {
+          "value": "4",
+          "label": "Color scheme 4"
+        }
+      ],
+      "default": "2"
     },
     {
       "type": "group_header",

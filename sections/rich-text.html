@@ -11,7 +11,7 @@
     {{/if}}
     
     {{#if section.settings.heading}}
-      <h2 class="text-3xl sm:text-4xl md:{{section.settings.heading_size}} mb-6 font-heading" style="color: {{default section.settings.heading_color '#000000'}};">
+      <h2 class="text-3xl sm:text-4xl md:{{section.settings.heading_size}} mb-6" style="font-family: {{#if (eq section.settings.heading_font 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default section.settings.heading_color '#000000'}};">
         {{section.settings.heading}}
       </h2>
     {{/if}}
@@ -92,6 +92,22 @@
       "id": "heading",
       "default": "Talk about your brand",
       "label": "t:sections.rich-text.settings.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "title",
+      "options": [
+        {
+          "value": "title",
+          "label": "Title font"
+        },
+        {
+          "value": "body",
+          "label": "Body font"
+        }
+      ]
     },
     {
       "type": "select",
