@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "custom-content",
+      "settings": {
+        "content": "<div style='padding: 40px; max-width: 800px; margin: 0 auto;'><h1 style='font-family: \"TANMARJORIE-DISPLAY\", serif; font-size: 48px; color: #3d3259;'>TANMARJORIE HEADING TEST</h1><h2 style='font-family: \"TANMARJORIE-DISPLAY\", serif; font-size: 36px; color: #3d3259;'>ANOTHER TANMARJORIE TEST</h2><h3 style='font-family: \"Crossten-Bold\", sans-serif; font-size: 24px; color: #3d3259; text-transform: uppercase;'>Crossten Bold Heading</h3><p style='font-family: \"Crossten-Book\", sans-serif; font-size: 16px; color: #3d3259;'>This is body text using Crossten-Book font. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><button style='font-family: \"Crossten-Bold\", sans-serif; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; background: #e3276f; color: white; padding: 10px 24px; border: 3px solid #3d3259;'>CROSSTEN BOLD BUTTON</button><div style='margin-top: 40px;'><p style='font-size: 12px; color: #666;'>Font Testing:<br>- TANMARJORIE-DISPLAY for H1/H2<br>- Crossten-Bold for H3 and buttons<br>- Crossten-Book for body text</p></div></div>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

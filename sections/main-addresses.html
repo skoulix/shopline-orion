@@ -1,0 +1,143 @@
+<div class="main-addresses container py-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Page Header -->
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl font-bold">{{t 'customer.addresses.title'}}</h1>
+      <button 
+        type="button"
+        onclick="document.getElementById('AddAddressForm').classList.toggle('hidden')"
+        class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors"
+      >
+        {{t 'customer.addresses.add_new'}}
+      </button>
+    </div>
+
+    <!-- Add New Address Form (Initially Hidden) -->
+    <div id="AddAddressForm" class="hidden mb-8">
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 class="text-xl font-bold mb-4">{{t 'customer.addresses.add_new'}}</h2>
+        
+        {{#form 'customer_address' customer.new_address}}
+          {{render 'customer-address-form' form: form}}
+          
+          <div class="flex gap-4 mt-6">
+            <button type="submit" class="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors">
+              {{t 'customer.addresses.add'}}
+            </button>
+            <button 
+              type="button" 
+              onclick="document.getElementById('AddAddressForm').classList.add('hidden')"
+              class="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+            >
+              {{t 'customer.addresses.cancel'}}
+            </button>
+          </div>
+        {{/form}}
+      </div>
+    </div>
+
+    <!-- Existing Addresses -->
+    {{#if customer.addresses_count > 0}}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {{#each customer.addresses}}
+          <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 relative">
+            {{#if default}}
+              <span class="absolute top-4 right-4 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                {{t 'customer.addresses.default'}}
+              </span>
+            {{/if}}
+            
+            <address class="not-italic text-gray-600 space-y-1">
+              <p class="font-medium text-gray-900">{{name}}</p>
+              {{#if company}}<p>{{company}}</p>{{/if}}
+              <p>{{address1}}</p>
+              {{#if address2}}<p>{{address2}}</p>{{/if}}
+              <p>{{city}}, {{province}} {{zip}}</p>
+              <p>{{country}}</p>
+              {{#if phone}}<p>{{phone}}</p>{{/if}}
+            </address>
+            
+            <div class="mt-4 flex gap-2">
+              <button 
+                type="button"
+                onclick="document.getElementById('EditAddressForm_{{id}}').classList.toggle('hidden')"
+                class="text-sm text-primary hover:underline"
+              >
+                {{t 'customer.addresses.edit'}}
+              </button>
+              
+              {{#unless default}}
+                <span class="text-gray-300">|</span>
+                <form method="post" action="{{address_url}}/{{id}}" class="inline">
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class="text-sm text-red-600 hover:underline" onclick="return confirm('{{t 'customer.addresses.delete_confirm'}}')">
+                    {{t 'customer.addresses.delete'}}
+                  </button>
+                </form>
+              {{/unless}}
+            </div>
+            
+            <!-- Edit Form (Initially Hidden) -->
+            <div id="EditAddressForm_{{id}}" class="hidden mt-4 pt-4 border-t">
+              {{#form 'customer_address' address}}
+                {{render 'customer-address-form' form: form}}
+                
+                <div class="flex gap-4 mt-4">
+                  <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors text-sm">
+                    {{t 'customer.addresses.update'}}
+                  </button>
+                  <button 
+                    type="button" 
+                    onclick="document.getElementById('EditAddressForm_{{id}}').classList.add('hidden')"
+                    class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors text-sm"
+                  >
+                    {{t 'customer.addresses.cancel'}}
+                  </button>
+                </div>
+              {{/form}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <!-- Empty State -->
+      <div class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">{{t 'customer.addresses.no_addresses'}}</h3>
+        <p class="text-gray-600">{{t 'customer.addresses.no_addresses_message'}}</p>
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "t:sections.main-addresses.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.main-addresses.settings.padding_top.label",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.main-addresses.settings.padding_bottom.label",
+      "default": 40
+    }
+  ]
+}
+{{/schema}}

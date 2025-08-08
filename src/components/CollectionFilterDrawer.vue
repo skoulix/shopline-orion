@@ -40,7 +40,7 @@
                     <!-- Header -->
                     <div class="flex items-center justify-between px-4 py-6 sm:px-6 border-b border-gray-200">
                       <div class="h-12 flex flex-col justify-between">
-                        <h2 class="text-lg font-medium text-gray-900">Filters</h2>
+                        <h2 class="text-xl">Filters</h2>
                         <p class="text-sm text-gray-500 h-5 transition-opacity duration-200"
                            :class="{ 'opacity-0': activeFilterCount === 0, 'opacity-100': activeFilterCount > 0 }">
                           {{ activeFilterCount || '0' }} {{ (activeFilterCount || 0) === 1 ? 'filter' : 'filters' }} active
@@ -62,7 +62,7 @@
                     <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
             <!-- Availability Filter -->
             <div class="mb-6">
-              <h3 class="font-medium mb-3">Availability</h3>
+              <h3 class="text-lg mb-3">Availability</h3>
               <label class="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -75,7 +75,7 @@
 
             <!-- Price Range Filter -->
             <div class="mb-6">
-              <h3 class="font-medium mb-3">Price</h3>
+              <h3 class="text-lg mb-3">Price</h3>
               <div class="space-y-2">
                 <label 
                   v-for="range in priceRanges" 
@@ -95,7 +95,7 @@
 
             <!-- Product Type Filter -->
             <div v-if="productTypes.length > 0" class="mb-6">
-              <h3 class="font-medium mb-3">Product Type</h3>
+              <h3 class="text-lg mb-3">Product Type</h3>
               <div class="space-y-2">
                 <label 
                   v-for="type in productTypes" 
@@ -115,7 +115,7 @@
 
             <!-- Vendor Filter -->
             <div v-if="vendors.length > 0" class="mb-6">
-              <h3 class="font-medium mb-3">Brand</h3>
+              <h3 class="text-lg mb-3">Brand</h3>
               <div class="space-y-2">
                 <label 
                   v-for="vendor in vendors" 
@@ -138,14 +138,14 @@
                     <div class="px-4 py-6 sm:px-6 border-t border-gray-200 space-y-3">
                       <button
                         @click="applyFilters"
-                        class="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium text-white bg-gray-900 hover:bg-gray-800 transition-colors duration-200"
+                        class="button w-full flex justify-center items-center px-6 py-3 text-white bg-gray-900 hover:bg-gray-800 transition-colors duration-200"
                         :style="{ borderRadius: 'var(--button-radius)' }"
                       >
                         Apply Filters
                       </button>
                       <button
                         @click="clearFilters"
-                        class="w-full flex justify-center items-center px-6 py-3 border border-gray-300 text-base font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
+                        class="button w-full flex justify-center items-center px-6 py-3  text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
                         :style="{ borderRadius: 'var(--button-radius)' }"
                       >
                         Clear All

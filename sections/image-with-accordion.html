@@ -1,0 +1,400 @@
+<div class="image-with-accordion" style="background-color: {{default section.settings.background_color '#ffffff'}};">
+  <div class="{{#if section.settings.full_width}}w-full{{else}}container{{/if}}" style="padding-top: {{default section.settings.padding_top 60}}px; padding-bottom: {{default section.settings.padding_bottom 60}}px;">
+    <div class="grid grid-cols-1 xl:grid-cols-2 items-stretch">      
+      <!-- Image Column -->
+      <div class="{{#if (eq section.settings.layout 'image_first')}}xl:order-1{{else}}xl:order-2{{/if}} flex items-stretch">
+        <div class="w-full h-full min-h-[400px] xl:min-h-[500px]">
+          {{#if section.settings.image}}
+            <img 
+              src="{{image_url section.settings.image width=800}}"
+              alt="{{default section.settings.image_alt section.settings.image.alt}}"
+              loading="lazy"
+              class="w-full h-full object-cover"
+            >
+          {{else}}
+            <div class="placeholder-image bg-gray-200 w-full h-full flex items-center justify-center">
+              <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <!-- Accordion Column -->
+      <div class="{{#if (eq section.settings.layout 'image_first')}}lg:order-2{{else}}lg:order-1{{/if}} p-8 lg:p-16 flex flex-col justify-center">
+        {{#if section.settings.heading}}
+          <h2 class="text-3xl sm:text-4xl md:{{default section.settings.heading_size 'text-3xl'}} {{default section.settings.heading_font 'font-heading'}} mb-6" style="color: {{default section.settings.heading_color '#000000'}}; line-height: 1.2;">
+            {{section.settings.heading}}
+          </h2>
+        {{/if}}
+
+        <!-- Accordion Items -->
+        <div class="mt-8">
+          {{#each section.blocks}}
+            {{#if (eq type "accordion_item")}}
+              <details class="accordion-item {{#unless @first}}border-t{{/unless}} {{#if @last}}border-b{{/if}}" style="border-color: {{default ../section.settings.accordion_border_color '#e5e7eb'}}">
+                <summary class="accordion-header flex items-center justify-between py-4 cursor-pointer">
+                  <h3 class="text-lg lg:{{default ../section.settings.accordion_title_size 'text-lg'}} font-medium pr-4" style="color: {{default ../section.settings.accordion_title_color '#374151'}};">
+                    {{settings.title}}
+                  </h3>
+                  <svg class="accordion-icon w-6 h-6" style="color: {{default ../section.settings.accordion_title_color '#374151'}};" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="accordion-content pb-4 pt-2">
+                  <div class="prose max-w-none" style="color: {{default ../section.settings.accordion_content_color '#6b7280'}};">
+                    {{{settings.content}}}
+                  </div>
+                  {{#if settings.link_text}}
+                    {{#if settings.link_url}}
+                      {{assign "parsed_link" (JSONparse settings.link_url)}}
+                      {{#if parsed_link.pageType}}
+                        {{#if (eq parsed_link.pageType 3)}}
+                          <a href="/pages/{{parsed_link.value}}" class="inline-block mt-3 text-sm font-medium underline" style="color: {{default ../section.settings.accordion_link_color '#3b82f6'}};">
+                            {{settings.link_text}}
+                          </a>
+                        {{else}}
+                          {{#if (eq parsed_link.pageType 12)}}
+                            <a href="/collections/{{parsed_link.value}}" class="inline-block mt-3 text-sm font-medium underline" style="color: {{default ../section.settings.accordion_link_color '#3b82f6'}};">
+                              {{settings.link_text}}
+                            </a>
+                          {{else}}
+                            {{#if (eq parsed_link.pageType 10)}}
+                              <a href="/products/{{parsed_link.value}}" class="inline-block mt-3 text-sm font-medium underline" style="color: {{default ../section.settings.accordion_link_color '#3b82f6'}};">
+                                {{settings.link_text}}
+                              </a>
+                            {{else}}
+                              <a href="{{parsed_link.value}}" class="inline-block mt-3 text-sm font-medium underline" style="color: {{default ../section.settings.accordion_link_color '#3b82f6'}};">
+                                {{settings.link_text}}
+                              </a>
+                            {{/if}}
+                          {{/if}}
+                        {{/if}}
+                      {{else}}
+                        <a href="{{settings.link_url}}" class="inline-block mt-3 text-sm font-medium underline" style="color: {{default ../section.settings.accordion_link_color '#3b82f6'}};">
+                          {{settings.link_text}}
+                        </a>
+                      {{/if}}
+                    {{/if}}
+                  {{/if}}
+                </div>
+              </details>
+            {{/if}}
+          {{/each}}
+        </div>
+
+        {{#if section.settings.footer_text}}
+          <p class="mt-6 text-sm" style="color: {{default section.settings.accordion_content_color '#6b7280'}};">
+            {{section.settings.footer_text}}
+          </p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Override the negative margin for display font in this section */
+  .image-with-accordion .font-heading {
+    margin-bottom: 0;
+    line-height: 1.2;
+  }
+  
+  .accordion-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  details[open] .accordion-icon {
+    transform: rotate(180deg);
+  }
+  
+  details[open] .accordion-content {
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .accordion-item summary {
+    list-style: none;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const accordionContainers = document.querySelectorAll('.image-with-accordion');
+    
+    accordionContainers.forEach(container => {
+      const accordionItems = container.querySelectorAll('.accordion-item');
+      
+      accordionItems.forEach(item => {
+        item.addEventListener('toggle', function(e) {
+          if (e.target.open) {
+            // Close all other accordion items in this section
+            accordionItems.forEach(otherItem => {
+              if (otherItem !== e.target && otherItem.open) {
+                otherItem.open = false;
+              }
+            });
+          }
+        });
+      });
+    });
+  });
+</script>
+
+{{#schema}}
+{
+  "name": "Image with Accordion",
+  "class": "section",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "text-3xl",
+      "options": [
+        {
+          "value": "text-2xl",
+          "label": "Small"
+        },
+        {
+          "value": "text-3xl",
+          "label": "Medium"
+        },
+        {
+          "value": "text-4xl",
+          "label": "Large"
+        },
+        {
+          "value": "text-5xl",
+          "label": "Extra Large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "font-heading",
+      "options": [
+        {
+          "value": "font-heading",
+          "label": "Display (Tan Marjorie)"
+        },
+        {
+          "value": "font-crossten-book",
+          "label": "Body (Crossten Book)"
+        },
+        {
+          "value": "font-crossten-bold",
+          "label": "Bold (Crossten Bold)"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer text",
+      "info": "Small text displayed below the accordion"
+    },
+    {
+      "type": "group_header",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text"
+    },
+    {
+      "type": "group_header",
+      "label": "Accordion Settings"
+    },
+    {
+      "type": "select",
+      "id": "accordion_title_size",
+      "label": "Accordion title size",
+      "default": "text-lg",
+      "options": [
+        {
+          "value": "text-base",
+          "label": "Small"
+        },
+        {
+          "value": "text-lg",
+          "label": "Medium"
+        },
+        {
+          "value": "text-xl",
+          "label": "Large"
+        },
+        {
+          "value": "text-2xl",
+          "label": "Extra Large"
+        }
+      ]
+    },
+    {
+      "type": "group_header",
+      "label": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "default": "image_first",
+      "options": [
+        {
+          "value": "image_first",
+          "label": "Image first"
+        },
+        {
+          "value": "accordion_first",
+          "label": "Accordion first"
+        }
+      ]
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "group_header",
+      "label": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accordion_title_color",
+      "label": "Accordion title color",
+      "default": "#374151"
+    },
+    {
+      "type": "color",
+      "id": "accordion_content_color",
+      "label": "Accordion content color",
+      "default": "#6b7280"
+    },
+    {
+      "type": "color",
+      "id": "accordion_link_color",
+      "label": "Accordion link color",
+      "default": "#3b82f6"
+    },
+    {
+      "type": "color",
+      "id": "accordion_border_color",
+      "label": "Accordion border color",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "group_header",
+      "label": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion_item",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Accordion Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add your accordion content here. This can include text, links, and basic formatting.</p>"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text",
+          "info": "Optional link to display at the end of the content"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Accordion",
+      "blocks": [
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "What makes this product special?",
+            "content": "<p>Our product is crafted with the finest ingredients and meticulous attention to detail.</p>"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "How should I use this product?",
+            "content": "<p>For best results, use this product as directed on the packaging or consult with our experts.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{{/schema}}

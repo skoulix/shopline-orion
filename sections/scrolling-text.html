@@ -1,0 +1,274 @@
+<div class="scrolling-text-section overflow-hidden" style="background-color: {{default section.settings.background_color '#ffffff'}};">
+  <div class="{{#unless section.settings.full_width}}container{{/unless}}" style="padding-top: {{default section.settings.padding_top 40}}px; padding-bottom: {{default section.settings.padding_bottom 40}}px;">
+    
+    <!-- Scrolling Text Container -->
+    <div class="relative overflow-hidden pt-0.5">
+      <div class="flex w-max {{#if (eq section.settings.direction 'right')}}animate-scroll-right{{else}}animate-scroll-left{{/if}}" style="--scroll-duration: {{default section.settings.speed 30}}s;">
+        <!-- First copy -->
+        <div class="inline-flex items-center whitespace-nowrap" style="gap: {{default section.settings.gap 40}}px; padding-right: {{default section.settings.gap 40}}px;">
+          {{#each section.blocks}}
+            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
+                  style="color: {{default ../section.settings.text_color '#3d3259'}};">
+              {{settings.text}}
+            </span>
+            {{#unless @last}}
+              {{#if ../section.settings.separator}}
+                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
+                      style="color: {{default ../section.settings.text_color '#3d3259'}};">
+                  {{../section.settings.separator}}
+                </span>
+              {{/if}}
+            {{/unless}}
+          {{/each}}
+        </div>
+        <!-- Second copy -->
+        <div class="inline-flex items-center whitespace-nowrap" style="gap: {{default section.settings.gap 40}}px; padding-right: {{default section.settings.gap 40}}px;">
+          {{#each section.blocks}}
+            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
+                  style="color: {{default ../section.settings.text_color '#3d3259'}};">
+              {{settings.text}}
+            </span>
+            {{#unless @last}}
+              {{#if ../section.settings.separator}}
+                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
+                      style="color: {{default ../section.settings.text_color '#3d3259'}};">
+                  {{../section.settings.separator}}
+                </span>
+              {{/if}}
+            {{/unless}}
+          {{/each}}
+        </div>
+        <!-- Third copy -->
+        <div class="inline-flex items-center whitespace-nowrap" style="gap: {{default section.settings.gap 40}}px; padding-right: {{default section.settings.gap 40}}px;">
+          {{#each section.blocks}}
+            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
+                  style="color: {{default ../section.settings.text_color '#3d3259'}};">
+              {{settings.text}}
+            </span>
+            {{#unless @last}}
+              {{#if ../section.settings.separator}}
+                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
+                      style="color: {{default ../section.settings.text_color '#3d3259'}};">
+                  {{../section.settings.separator}}
+                </span>
+              {{/if}}
+            {{/unless}}
+          {{/each}}
+        </div>
+        <!-- Fourth copy -->
+        <div class="inline-flex items-center whitespace-nowrap" style="gap: {{default section.settings.gap 40}}px;">
+          {{#each section.blocks}}
+            <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
+                  style="color: {{default ../section.settings.text_color '#3d3259'}};">
+              {{settings.text}}
+            </span>
+            {{#unless @last}}
+              {{#if ../section.settings.separator}}
+                <span class="text-2xl sm:text-3xl md:text-{{default ../section.settings.text_size '4xl'}} {{default ../section.settings.font_family 'font-crossten-bold'}} uppercase tracking-wider" 
+                      style="color: {{default ../section.settings.text_color '#3d3259'}};">
+                  {{../section.settings.separator}}
+                </span>
+              {{/if}}
+            {{/unless}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+{{#if section.settings.pause_on_hover}}
+<style>
+  /* Pause animation on hover */
+  .scrolling-text-section:hover .animate-scroll-left,
+  .scrolling-text-section:hover .animate-scroll-right {
+    animation-play-state: paused;
+  }
+</style>
+{{/if}}
+
+{{#schema}}
+{
+  "name": "Scrolling Text",
+  "class": "section-scrolling-text",
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Scrolling Text",
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "text": "A NEW TYPE OF ENERGY HAS ARRIVED"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "A NEW TYPE OF ENERGY HAS ARRIVED"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "A NEW TYPE OF ENERGY HAS ARRIVED"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "switch",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Scroll Direction",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Animation Speed (seconds)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "info": "Time in seconds for one complete scroll"
+    },
+    {
+      "type": "text",
+      "id": "separator",
+      "label": "Separator",
+      "default": "•",
+      "info": "Text or symbol to display between items (leave empty for no separator)"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between items",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 40,
+      "unit": "px",
+      "info": "Space between all items (text and separators)"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Text Size",
+      "default": "4xl",
+      "options": [
+        {
+          "value": "2xl",
+          "label": "Small"
+        },
+        {
+          "value": "3xl",
+          "label": "Medium"
+        },
+        {
+          "value": "4xl",
+          "label": "Large"
+        },
+        {
+          "value": "5xl",
+          "label": "Extra Large"
+        },
+        {
+          "value": "6xl",
+          "label": "Huge"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Font",
+      "default": "font-crossten-bold",
+      "options": [
+        {
+          "value": "font-crossten-book",
+          "label": "Crossten Book"
+        },
+        {
+          "value": "font-crossten-bold",
+          "label": "Crossten Bold"
+        },
+        {
+          "value": "font-tanmarjorie",
+          "label": "Tan Marjorie Display"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#3d3259"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "switch",
+      "id": "pause_on_hover",
+      "label": "Pause on Hover",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "YOUR TEXT HERE"
+        }
+      ]
+    }
+  ]
+}
+{{/schema}}

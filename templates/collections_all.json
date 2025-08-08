@@ -1,10 +1,11 @@
 {
   "sections": {
     "banner": {
-      "type": "collection-banner",
+      "type": "main-collection-banner",
       "settings": {
-        "title": "All Collections",
-        "show_breadcrumb": true
+        "show_collection_image": false,
+        "show_collection_title": true,
+        "show_collection_description": false
       }
     },
     "main": {

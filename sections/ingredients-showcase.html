@@ -1,0 +1,252 @@
+<div class="ingredients-showcase overflow-hidden" style="background-color: {{default section.settings.background_color '#ffffff'}};">
+  <div class="{{#unless section.settings.full_width}}container{{/unless}} mx-auto" style="padding-top: {{default section.settings.padding_top 60}}px; padding-bottom: {{default section.settings.padding_bottom 60}}px;">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-0 items-center">
+      
+      {{!-- Left Column - Ingredients --}}
+      <div class="order-1 lg:order-1 text-center lg:text-right px-6 lg:pr-10 lg:pl-12">
+        {{#each section.blocks}}
+          {{#if (eq settings.column 'left')}}
+            <div class="mb-8 last:mb-0">
+              <h3 class="text-xl lg:text-2xl uppercase mb-3" 
+                  style="color: {{default ../section.settings.heading_color '#000000'}};">
+                {{settings.title}}
+              </h3>
+              <p class="text-base lg:text-lg leading-relaxed" 
+                 style="color: {{default ../section.settings.text_color '#666666'}};">
+                {{settings.description}}
+              </p>
+            </div>
+          {{/if}}
+        {{/each}}
+      </div>
+      
+      {{!-- Center Column - Image --}}
+      <div class="order-2 lg:order-2">
+        {{#if section.settings.image}}
+          <div class="relative">
+            {{image_tag 
+              (image_url section.settings.image width=1600)
+              class='w-full h-auto'
+              widths='360, 540, 720, 900, 1080, 1600'
+              loading='lazy'
+              sizes='(max-width: 1023px) 100vw, 33vw'
+              alt=section.settings.image.alt
+            }}
+          </div>
+        {{else}}
+          <div class="bg-gray-100 aspect-[4/5]"></div>
+        {{/if}}
+      </div>
+      
+      {{!-- Right Column - Ingredients --}}
+      <div class="order-3 lg:order-3 text-center lg:text-left px-6 lg:pl-10 lg:pr-12">
+        {{#each section.blocks}}
+          {{#if (eq settings.column 'right')}}
+            <div class="mb-8 last:mb-0">
+              <h3 class="text-xl lg:text-2xl uppercase mb-3" 
+                  style="color: {{default ../section.settings.heading_color '#000000'}};">
+                {{settings.title}}
+              </h3>
+              <p class="text-base lg:text-lg leading-relaxed" 
+                 style="color: {{default ../section.settings.text_color '#666666'}};">
+                {{settings.description}}
+              </p>
+            </div>
+          {{/if}}
+        {{/each}}
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "Ingredients Showcase",
+  "class": "section-ingredients-showcase",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Center image"
+    },
+    {
+      "type": "group_header",
+      "label": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "font-crossten-bold",
+      "options": [
+        {
+          "value": "font-crossten-book",
+          "label": "Crossten Book"
+        },
+        {
+          "value": "font-crossten-bold",
+          "label": "Crossten Bold"
+        },
+        {
+          "value": "font-tanmarjorie",
+          "label": "Tan Marjorie Display"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "group_header",
+      "label": "Layout"
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "group_header",
+      "label": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "group_header",
+      "label": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "default": 60,
+      "max": 200,
+      "min": 0,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "default": 60,
+      "max": 200,
+      "min": 0,
+      "step": 4,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Column",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left column"
+            },
+            {
+              "value": "right",
+              "label": "Right column"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Ingredient name",
+          "default": "D-RIBOSE • 800MG"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "A natural carb that helps your body make energy, especially when you're active or stressed."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients Showcase",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "column": "left",
+            "title": "D-RIBOSE • 800MG",
+            "description": "A natural carb that helps your body make energy, especially when you're active or stressed. D-Ribose supports energy levels, exercise performance, and overall cellular function."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "column": "left",
+            "title": "Rosa roxburghii & Panax notoginseng • 50MG",
+            "description": "A powerful combination that boosts your health and energy. Rosa roxburghii, rich in antioxidants, supports immune health and vitality, working synergistically with Panax notoginseng to enhance heart health, energy, and stamina."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "column": "left",
+            "title": "Ashwagandha • 225 MG",
+            "description": "A plant that helps you handle stress, boost energy and stay focused while supporting cognitive health."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "column": "right",
+            "title": "L-Theanine • 200 MG",
+            "description": "First discovered in green tea, this unique amino acid is known for its relaxing effects. Made through a proprietary fermentation process from Non-GMO corn, it reduces anxiety, and enhances focus while keeping you alert."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "column": "right",
+            "title": "Bacopa Monnieri • 50 MG",
+            "description": "A plant that improves memory and brain function. Known as Brahmi, this herb supports cognitive health, memory, and mental clarity, backed by centuries of use in Ayurvedic medicine."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "column": "right",
+            "title": "Soluble Corn Fiber • 5 GM",
+            "description": "This fiber from Non-GMO corn is good for your digestion health and gives you long-lasting energy."
+          }
+        }
+      ]
+    }
+  ]
+}
+{{/schema}}

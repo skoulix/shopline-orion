@@ -1,0 +1,267 @@
+<div class="hero-image-section relative overflow-hidden" style="background-color: {{default section.settings.background_color 'transparent'}}; padding-top: {{default section.settings.padding_top 0}}px; padding-bottom: {{default section.settings.padding_bottom 0}}px;">
+  <div class="hero-image-wrapper relative w-full" style="padding-bottom: {{default section.settings.image_ratio 52.5}}%;">
+    {{#if section.settings.image}}
+      <img 
+        src="{{image_url section.settings.image width=4800}}" 
+        alt="{{default section.settings.image_alt section.settings.image.alt}}"
+        srcset="{{image_url section.settings.image width=352}} 352w,
+                {{image_url section.settings.image width=832}} 832w,
+                {{image_url section.settings.image width=1200}} 1200w,
+                {{image_url section.settings.image width=1920}} 1920w,
+                {{image_url section.settings.image width=4800}} 4800w"
+        width="4800"
+        height="{{multiply 4800 (divide section.settings.image_ratio 100)}}"
+        loading="{{#if section.settings.lazy_load}}lazy{{else}}eager{{/if}}"
+        class="hero-image absolute inset-0 w-full h-full object-cover {{#if section.settings.enable_animation}}hero-image--animated{{/if}}"
+        sizes="100vw"
+        style="object-position: {{default section.settings.image_position 'center center'}};"
+      >
+    {{else}}
+      <div class="hero-image-placeholder absolute inset-0 w-full h-full bg-gray-200 flex items-center justify-center">
+        <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+<style>
+  @keyframes hero-image-scale-in {
+    from {
+      transform: scale({{default section.settings.initial_scale 1.1}});
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .hero-image--animated {
+    animation: hero-image-scale-in {{default section.settings.animation_duration 1.5}}s {{default section.settings.animation_easing 'cubic-bezier(0.4, 0, 0.2, 1)'}} forwards;
+    opacity: 0; /* Start with opacity 0 before animation */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-image--animated {
+      animation: none;
+      opacity: 1; /* Show image immediately when animation is disabled */
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const heroImages = document.querySelectorAll('.hero-image--animated');
+    
+    heroImages.forEach(function(img) {
+      // Only animate on first page load
+      if (sessionStorage.getItem('hero-image-animated-' + window.location.pathname) !== 'true') {
+        img.classList.add('hero-image--animated');
+        sessionStorage.setItem('hero-image-animated-' + window.location.pathname, 'true');
+      }
+    });
+  });
+</script>
+
+{{#schema}}
+{
+  "name": "t:sections.hero-image.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "t:sections.hero-image.settings.group_header__0.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.hero-image.settings.image.label",
+      "info": "t:sections.hero-image.settings.image.info"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "t:sections.hero-image.settings.image_alt.label",
+      "info": "t:sections.hero-image.settings.image_alt.info"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "t:sections.hero-image.settings.image_position.label",
+      "default": "center center",
+      "options": [
+        {
+          "value": "left top",
+          "label": "t:sections.hero-image.settings.image_position.options__0.label"
+        },
+        {
+          "value": "center top",
+          "label": "t:sections.hero-image.settings.image_position.options__1.label"
+        },
+        {
+          "value": "right top",
+          "label": "t:sections.hero-image.settings.image_position.options__2.label"
+        },
+        {
+          "value": "left center",
+          "label": "t:sections.hero-image.settings.image_position.options__3.label"
+        },
+        {
+          "value": "center center",
+          "label": "t:sections.hero-image.settings.image_position.options__4.label"
+        },
+        {
+          "value": "right center",
+          "label": "t:sections.hero-image.settings.image_position.options__5.label"
+        },
+        {
+          "value": "left bottom",
+          "label": "t:sections.hero-image.settings.image_position.options__6.label"
+        },
+        {
+          "value": "center bottom",
+          "label": "t:sections.hero-image.settings.image_position.options__7.label"
+        },
+        {
+          "value": "right bottom",
+          "label": "t:sections.hero-image.settings.image_position.options__8.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "image_ratio",
+      "label": "t:sections.hero-image.settings.image_ratio.label",
+      "min": 20,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "default": 52,
+      "info": "t:sections.hero-image.settings.image_ratio.info"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.hero-image.settings.group_header__1.label"
+    },
+    {
+      "type": "switch",
+      "id": "enable_animation",
+      "label": "t:sections.hero-image.settings.enable_animation.label",
+      "default": true,
+      "info": "t:sections.hero-image.settings.enable_animation.info"
+    },
+    {
+      "type": "range",
+      "id": "initial_scale",
+      "label": "t:sections.hero-image.settings.initial_scale.label",
+      "min": 1.05,
+      "max": 1.3,
+      "step": 0.05,
+      "default": 1.1,
+      "info": "t:sections.hero-image.settings.initial_scale.info"
+    },
+    {
+      "type": "range",
+      "id": "animation_duration",
+      "label": "t:sections.hero-image.settings.animation_duration.label",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.1,
+      "unit": "s",
+      "default": 1.5
+    },
+    {
+      "type": "select",
+      "id": "animation_easing",
+      "label": "t:sections.hero-image.settings.animation_easing.label",
+      "default": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "options": [
+        {
+          "value": "linear",
+          "label": "t:sections.hero-image.settings.animation_easing.options__0.label"
+        },
+        {
+          "value": "ease",
+          "label": "t:sections.hero-image.settings.animation_easing.options__1.label"
+        },
+        {
+          "value": "ease-in",
+          "label": "t:sections.hero-image.settings.animation_easing.options__2.label"
+        },
+        {
+          "value": "ease-out",
+          "label": "t:sections.hero-image.settings.animation_easing.options__3.label"
+        },
+        {
+          "value": "ease-in-out",
+          "label": "t:sections.hero-image.settings.animation_easing.options__4.label"
+        },
+        {
+          "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+          "label": "t:sections.hero-image.settings.animation_easing.options__5.label"
+        },
+        {
+          "value": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+          "label": "t:sections.hero-image.settings.animation_easing.options__6.label"
+        }
+      ]
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.hero-image.settings.group_header__2.label"
+    },
+    {
+      "type": "switch",
+      "id": "lazy_load",
+      "label": "t:sections.hero-image.settings.lazy_load.label",
+      "default": true,
+      "info": "t:sections.hero-image.settings.lazy_load.info"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:sections.hero-image.settings.background_color.label",
+      "default": "transparent"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.hero-image.settings.group_header__3.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.hero-image.settings.padding_top.label",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.hero-image.settings.padding_bottom.label",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.hero-image.presets.hero_image.name",
+      "settings": {
+        "image_ratio": 52,
+        "enable_animation": true,
+        "initial_scale": 1.1,
+        "animation_duration": 1.5,
+        "animation_easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "lazy_load": true
+      }
+    }
+  ]
+}
+{{/schema}}

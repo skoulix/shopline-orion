@@ -1,28 +1,55 @@
 {
   "sections": {
     "main": {
+      "disabled": true,
       "type": "main-page",
       "settings": {
         "show_breadcrumb": true,
         "show_title": true,
         "padding_top": 40,
         "padding_bottom": 40
-      }
+      },
+      "blocks": {}
     },
     "form": {
+      "disabled": false,
       "type": "contact-form",
       "settings": {
-        "heading": "Get in Touch",
-        "subheading": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+        "heading": "Contact us",
+        "subheading": "",
         "success_message": "Thanks for contacting us. We'll get back to you as soon as possible.",
-        "background_color": "#ffffff",
-        "padding_top": 40,
-        "padding_bottom": 40
-      }
+        "background_color": "#b6e0f8",
+        "padding_top": 70,
+        "padding_bottom": 60
+      },
+      "blocks": {},
+      "custom_css": []
+    },
+    "175402892360860db07a": {
+      "disabled": false,
+      "type": "rich-text",
+      "settings": {
+        "heading": "Get in touch",
+        "text": "<div id=\"shopify-section-template--23143616151874__rich-text\" class=\"shopify-section rich-text-section\">\n<div class=\"index-section color-scheme-none text-center \">\n<div class=\"page-width page-width--narrow\">\n<div class=\"theme-block\">\n<div class=\"rte clearfix\">\n<div class=\"enlarge-text\">\n<p>We’d love to hear from you! Whether you have questions, feedback, or just want to share your AVVIKA experience, we’re here to help. Reach out to us and let’s connect. Follow us on social media for the latest updates, promotions, and more:</p>\n<p><strong>Instagram:</strong> <a id=\"17540517795631\" href=\"https://www.instagram.com/drinkavvika/\" target=\"_blank\" rel=\"noopener\" data-link=\"{&quot;pageType&quot;:-1,&quot;value&quot;:&quot;https://www.instagram.com/drinkavvika/&quot;,&quot;linkType&quot;:&quot;input&quot;,&quot;label&quot;:&quot;https://www.instagram.com/drinkavvika/&quot;}\">@drinkavvika</a><br><strong>Facebook:</strong> <a id=\"17540517961382\" href=\"https://www.facebook.com/DrinkAvvika/\" target=\"_blank\" rel=\"noopener\" data-link=\"{&quot;pageType&quot;:-1,&quot;value&quot;:&quot;https://www.facebook.com/DrinkAvvika/&quot;,&quot;linkType&quot;:&quot;input&quot;,&quot;label&quot;:&quot;https://www.facebook.com/DrinkAvvika/&quot;}\">@DrinkAvvika</a><br><strong>TikTok:</strong> <a id=\"17540518104003\" href=\"https://www.tiktok.com/@drink.avvika\" target=\"_blank\" rel=\"noopener\" data-link=\"{&quot;pageType&quot;:-1,&quot;value&quot;:&quot;https://www.tiktok.com/@drink.avvika&quot;,&quot;linkType&quot;:&quot;input&quot;,&quot;label&quot;:&quot;https://www.tiktok.com/@drink.avvika&quot;}\">@drink.avvika</a></p>\n<p>Join the AVVIKA community and stay energized!</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>",
+        "text_alignment": "center",
+        "content_position": "center",
+        "full_width": false,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "heading_size": "text-5xl",
+        "heading_image_width": 100,
+        "heading_color": "#3d325a",
+        "text_color": "#3d325a",
+        "background_color": "#ffffff"
+      },
+      "blocks": {},
+      "block_order": [],
+      "custom_css": []
     }
   },
   "order": [
     "main",
+    "175402892360860db07a",
     "form"
   ]
 }

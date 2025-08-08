@@ -4,29 +4,489 @@
       "disabled": false,
       "type": "hero-banner",
       "settings": {
-        "title": "Welcome to Orion",
-        "subtitle": "Discover amazing products",
+        "title": "ENERGIZE YOUR JOURNEY",
+        "subtitle": "Caffeine-Free, Alternative Energy: Bold Flavors, Boundless Adventure",
         "button_label": "Shop Now",
-        "button_link": "/collections/all",
+        "button_link": "{\"value\":\"7103223854210774628\",\"label\":\"Shop\",\"pageType\":3,\"linkType\":\"select\"}",
         "height": "large",
-        "image": ""
-      },
-      "blocks": {}
-    },
-    "featured-collection": {
-      "disabled": false,
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured Products",
-        "products_to_show": 2,
-        "collection": "12271001045702405491553770"
+        "image": {
+          "url": "https://img-va.myshopline.com/image/store/1748460806554/Avvika-Hero.png?w=2400&h=1503",
+          "alt": null
+        },
+        "mobile_image": {
+          "url": "https://img-va.myshopline.com/image/store/1748460806554/Avvika-Hero-Mobile2-0.png?w=860&h=1600",
+          "alt": null
+        }
       },
       "blocks": {},
       "custom_css": []
+    },
+    "1753805909320804c7a1": {
+      "disabled": false,
+      "type": "promo-grid",
+      "settings": {
+        "title": "",
+        "full_width": false,
+        "columns": 2,
+        "gutter_size": 6,
+        "background_color": "#b6e0f8",
+        "padding_top": 40,
+        "padding_bottom": 40
+      },
+      "blocks": {
+        "1753805909321b02e79a": {
+          "type": "advanced",
+          "settings": {
+            "title": "TOKYO",
+            "rating": 5,
+            "description": "Exotic Citrus • Juicy Cherry",
+            "button_text": "SHOP NOW",
+            "button_bg": "#cf2e27",
+            "background_color": "#fbd5e0",
+            "button_text_color": "#ffffff",
+            "link": "/products/tokyo",
+            "product_image": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/AvvikaTokyoEnergyDrinkCan.png?w=1220&h=1500",
+              "alt": {
+                "default": "Avvika Tokyo Energy Drink Can"
+              }
+            }
+          },
+          "blockId": "1753805909321b02e79a",
+          "custom_css": []
+        },
+        "17538059093213579c40": {
+          "type": "advanced",
+          "settings": {
+            "title": "LOS ANGELES",
+            "rating": 5,
+            "description": "Frozen Berry • Zesty Citrus",
+            "button_text": "SHOP NOW",
+            "button_bg": "#e3276f",
+            "background_color": "#fee084",
+            "button_text_color": "#ffffff",
+            "link": "/products/los-angeles",
+            "product_image": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/AvvikaLosAngelesEnergyDrinkCan-92b2c6a0-3bf0-4e6c-a84d-195e11ea6bba.png?w=1220&h=1500",
+              "alt": {
+                "default": "Avvika Los Angeles Energy Drink Can"
+              }
+            }
+          },
+          "blockId": "17538059093213579c40",
+          "custom_css": []
+        }
+      },
+      "block_order": [
+        "1753805909321b02e79a",
+        "17538059093213579c40"
+      ],
+      "custom_css": []
+    },
+    "17538777272332811993": {
+      "disabled": false,
+      "type": "scrolling-text",
+      "settings": {
+        "full_width": true,
+        "direction": "left",
+        "speed": 30,
+        "gap": 10,
+        "text_size": "3xl",
+        "font_weight": "bold",
+        "text_color": "#3d3259",
+        "background_color": "#ffe081",
+        "pause_on_hover": true,
+        "padding_top": 12,
+        "padding_bottom": 8,
+        "font_family": "font-tanmarjorie"
+      },
+      "blocks": {
+        "17538777272344cebcdd": {
+          "type": "text",
+          "settings": {
+            "text": "A NEW TYPE OF ENERGY HAS ARRIVED"
+          },
+          "blockId": "17538777272344cebcdd",
+          "custom_css": []
+        },
+        "17538777272343ef00df": {
+          "type": "text",
+          "settings": {
+            "text": "A NEW TYPE OF ENERGY HAS ARRIVED"
+          },
+          "blockId": "17538777272343ef00df",
+          "custom_css": []
+        },
+        "1753877727234240ae98": {
+          "type": "text",
+          "settings": {
+            "text": "A NEW TYPE OF ENERGY HAS ARRIVED"
+          },
+          "blockId": "1753877727234240ae98",
+          "custom_css": []
+        }
+      },
+      "block_order": [
+        "17538777272344cebcdd",
+        "17538777272343ef00df",
+        "1753877727234240ae98"
+      ],
+      "custom_css": []
+    },
+    "17538792304156324879": {
+      "disabled": false,
+      "type": "scrolling-text",
+      "settings": {
+        "full_width": true,
+        "direction": "right",
+        "speed": 30,
+        "gap": 10,
+        "text_size": "3xl",
+        "font_weight": "bold",
+        "text_color": "#ffffff",
+        "background_color": "#e3276f",
+        "pause_on_hover": true,
+        "padding_top": 12,
+        "padding_bottom": 8,
+        "font_family": "font-tanmarjorie"
+      },
+      "blocks": {
+        "17538777272344cebcdd": {
+          "type": "text",
+          "settings": {
+            "text": "GLUTEN FREE"
+          },
+          "blockId": "17538777272344cebcdd",
+          "custom_css": []
+        },
+        "17538777272343ef00df": {
+          "type": "text",
+          "settings": {
+            "text": "VEGAN"
+          },
+          "blockId": "17538777272343ef00df",
+          "custom_css": []
+        },
+        "1753877727234240ae98": {
+          "type": "text",
+          "settings": {
+            "text": "NON-GMO"
+          },
+          "blockId": "1753877727234240ae98",
+          "custom_css": []
+        },
+        "175387926594889e199b": {
+          "type": "text",
+          "settings": {
+            "text": "ALLERGEN-FREE"
+          },
+          "custom_css": []
+        },
+        "1753879266458fb88e8c": {
+          "type": "text",
+          "settings": {
+            "text": "NATURAL"
+          },
+          "custom_css": []
+        },
+        "17538792940590c3c434": {
+          "type": "text",
+          "settings": {
+            "text": "PLANT-BASED"
+          },
+          "custom_css": []
+        }
+      },
+      "block_order": [
+        "17538777272344cebcdd",
+        "17538777272343ef00df",
+        "1753877727234240ae98",
+        "175387926594889e199b",
+        "1753879266458fb88e8c",
+        "17538792940590c3c434"
+      ],
+      "custom_css": []
+    },
+    "175388103217073a33e9": {
+      "disabled": false,
+      "type": "image-with-text",
+      "settings": {
+        "show_rating": true,
+        "rating": 5,
+        "heading": "ENERGY FOR THE WHOLE DAY",
+        "subtitle": "Keeps me focused throughout the work day and I'm not crashing by 2pm.",
+        "button_label": "Shop Now",
+        "layout": "text_first",
+        "content_alignment": "left",
+        "full_width": true,
+        "star_color": "#e3276f",
+        "top_subtitle_color": "#666666",
+        "heading_font": "font-tanmarjorie",
+        "heading_color": "#3d3259",
+        "subtitle_color": "#666666",
+        "button_bg_color": "#e3276f",
+        "button_text_color": "#ffffff",
+        "image_height": "auto",
+        "background_color": "#fad5df",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "text_color": "#3d3259",
+        "button_border_enabled": true,
+        "button_border_color": "#3d3259",
+        "button_link": "{\"value\":\"7103223854210774628\",\"label\":\"Shop\",\"pageType\":3,\"linkType\":\"select\"}",
+        "image": {
+          "url": "https://img-va.myshopline.com/image/store/1748460806554/LA-Can-Pier.png?w=1634&h=1076",
+          "alt": {
+            "default": "Person holding can of Avvika Los Angeles with beach and pier in the background during sunset."
+          }
+        }
+      },
+      "blocks": {},
+      "block_order": [],
+      "custom_css": []
+    },
+    "1753882260139f667d12": {
+      "disabled": false,
+      "type": "ingredients-showcase",
+      "settings": {
+        "heading_font": "font-tanmarjorie",
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "background_color": "#3d3259",
+        "full_width": false,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "image": {
+          "url": "https://img-va.myshopline.com/image/store/1748460806554/LastingEnergy-Image-White.png?w=954&h=1133",
+          "alt": {
+            "default": "Cans of Avvika Los Angeles and Tokyo Floating"
+          }
+        }
+      },
+      "blocks": {
+        "1753882260140d438a3f": {
+          "type": "ingredient",
+          "settings": {
+            "column": "left",
+            "title": "D-RIBOSE • 800MG",
+            "description": "A natural carb that helps your body make energy, especially when you're active or stressed. D-Ribose supports energy levels, exercise performance, and overall cellular function."
+          },
+          "blockId": "1753882260140d438a3f"
+        },
+        "175388226014095d2e95": {
+          "type": "ingredient",
+          "settings": {
+            "column": "left",
+            "title": "Rosa roxburghii & Panax notoginseng • 50MG",
+            "description": "A powerful combination that boosts your health and energy. Rosa roxburghii, rich in antioxidants, supports immune health and vitality, working synergistically with Panax notoginseng to enhance heart health, energy, and stamina."
+          },
+          "blockId": "175388226014095d2e95"
+        },
+        "1753882260140ebef3d1": {
+          "type": "ingredient",
+          "settings": {
+            "column": "left",
+            "title": "Ashwagandha • 225 MG",
+            "description": "A plant that helps you handle stress, boost energy and stay focused while supporting cognitive health."
+          },
+          "blockId": "1753882260140ebef3d1"
+        },
+        "1753882260140769ff2e": {
+          "type": "ingredient",
+          "settings": {
+            "column": "right",
+            "title": "L-Theanine • 200 MG",
+            "description": "First discovered in green tea, this unique amino acid is known for its relaxing effects. Made through a proprietary fermentation process from Non-GMO corn, it reduces anxiety, and enhances focus while keeping you alert."
+          },
+          "blockId": "1753882260140769ff2e"
+        },
+        "1753882260140a743b83": {
+          "type": "ingredient",
+          "settings": {
+            "column": "right",
+            "title": "Bacopa Monnieri • 50 MG",
+            "description": "A plant that improves memory and brain function. Known as Brahmi, this herb supports cognitive health, memory, and mental clarity, backed by centuries of use in Ayurvedic medicine."
+          },
+          "blockId": "1753882260140a743b83"
+        },
+        "175388226014066896ca": {
+          "type": "ingredient",
+          "settings": {
+            "column": "right",
+            "title": "Soluble Corn Fiber • 5 GM",
+            "description": "This fiber from Non-GMO corn is good for your digestion health and gives you long-lasting energy."
+          },
+          "blockId": "175388226014066896ca"
+        }
+      },
+      "block_order": [
+        "1753882260140d438a3f",
+        "175388226014095d2e95",
+        "1753882260140ebef3d1",
+        "1753882260140769ff2e",
+        "1753882260140a743b83",
+        "175388226014066896ca"
+      ],
+      "custom_css": []
+    },
+    "1753882767778b626413": {
+      "disabled": false,
+      "type": "rich-text",
+      "settings": {
+        "heading": "Lasting Energy, No Crash",
+        "text": "<div id=\"shopify-section-template--23143616053570__rich_text_yeLwUf\" class=\"shopify-section rich-text-section\">\n<div class=\"index-section color-scheme-2 text-center \">\n<div class=\"container max-w-4xl mx-auto\">\n<div class=\"theme-block\">\n<div class=\"rte clearfix\">\n<div class=\"enlarge-text\">\n<p>Discover Our Alternative</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>",
+        "text_alignment": "center",
+        "content_position": "center",
+        "color_scheme": "1",
+        "full_width": false,
+        "padding_top": 60,
+        "padding_bottom": 20,
+        "background_color": "#3d3259",
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff"
+      },
+      "blocks": {},
+      "block_order": [],
+      "custom_css": []
+    },
+    "1753883653838811ac27": {
+      "disabled": false,
+      "type": "icon-columns",
+      "settings": {
+        "heading_font": "font-crossten-bold",
+        "title_font": "font-crossten-bold",
+        "heading_color": "#000000",
+        "subheading_color": "#666666",
+        "title_color": "#ffffff",
+        "description_color": "#666666",
+        "icon_size": 100,
+        "button_bg_color": "#cf2e27",
+        "button_text_color": "#ffffff",
+        "full_width": false,
+        "background_color": "#3d3259",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "button_label": "Learn More",
+        "button_border_enabled": true,
+        "button_link": "{\"value\":\"7095808262595940573\",\"label\":\"Ingredients\",\"pageType\":3,\"linkType\":\"select\"}"
+      },
+      "blocks": {
+        "17538836538390461734": {
+          "type": "column",
+          "settings": {
+            "title": "NATURAL & ENDURING ENERGY",
+            "description": "",
+            "icon": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/Energy-Icon.png?w=225&h=225",
+              "alt": {
+                "default": "Lightning Bolt Icon"
+              }
+            }
+          },
+          "blockId": "17538836538390461734",
+          "custom_css": []
+        },
+        "1753883653839095109d": {
+          "type": "column",
+          "settings": {
+            "title": "SUPPORTS MENTAL FOCUS & CLARITY",
+            "description": "",
+            "icon": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/Focus-Icon.png?w=225&h=225",
+              "alt": {
+                "default": "Light Bulb Icon"
+              }
+            }
+          },
+          "blockId": "1753883653839095109d",
+          "custom_css": []
+        },
+        "1753883653839e437629": {
+          "type": "column",
+          "settings": {
+            "title": "SUPPORTS GUT & METABOLIC HEALTH",
+            "description": "",
+            "icon": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/Hut-Health-Icon.png?w=225&h=225",
+              "alt": {
+                "default": "Stomach Icon"
+              }
+            }
+          },
+          "blockId": "1753883653839e437629",
+          "custom_css": []
+        },
+        "175388365383963f4c7e": {
+          "type": "column",
+          "settings": {
+            "title": "FULL TRANSPARENCY",
+            "description": "",
+            "icon": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/Transparency-Icon.png?w=225&h=225",
+              "alt": {
+                "default": "Magnifying Glass Icon"
+              }
+            }
+          },
+          "blockId": "175388365383963f4c7e",
+          "custom_css": []
+        }
+      },
+      "block_order": [
+        "17538836538390461734",
+        "1753883653839095109d",
+        "1753883653839e437629",
+        "175388365383963f4c7e"
+      ],
+      "custom_css": []
+    },
+    "1754050895128bc16d19": {
+      "disabled": false,
+      "type": "apps",
+      "settings": {
+        "include_margins": false,
+        "padding_bottom": 0,
+        "padding_top": 0
+      },
+      "blocks": {
+        "1754050895128cb37683": {
+          "name": "t:appName",
+          "type": "shopline://apps/Instagram Feed/blocks/app-block/7c8cf6f0-6f59-46db-97f0-a2ee9686ab4b",
+          "settings": {
+            "ins_plugin_feeds": "7908",
+            "title": "",
+            "ins_plugin_desktop_module_distance": 100,
+            "ins_plugin_title_font_size": 28,
+            "ins_plugin_color_setting": "themeColor",
+            "ins_plugin_custom_color_bg": "#ffffff",
+            "ins_plugin_custom_color_font": "#000000",
+            "ins_plugin_btn_color_bg": "#000000",
+            "ins_plugin_btn_border_color": "#000000",
+            "ins_plugin_btn_color_font": "#ffffff",
+            "ins_plugin_btn_font_size": 14,
+            "ins_plugin_btn_border_radius": 4
+          },
+          "blockId": "1754050895128cb37683",
+          "custom_css": []
+        }
+      },
+      "block_order": [
+        "1754050895128cb37683"
+      ],
+      "custom_css": [
+        ".ins-photo-wrap {padding-bottom: 0px !important;}"
+      ]
     }
   },
   "order": [
     "hero",
-    "featured-collection"
+    "1753805909320804c7a1",
+    "17538777272332811993",
+    "1753882767778b626413",
+    "1753882260139f667d12",
+    "1753883653838811ac27",
+    "17538792304156324879",
+    "175388103217073a33e9",
+    "1754050895128bc16d19"
   ]
 }

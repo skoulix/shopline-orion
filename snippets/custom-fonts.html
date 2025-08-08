@@ -1,0 +1,102 @@
+{{!-- 
+  Custom Font Implementation for Avvika Theme
+  Since Shopline doesn't support custom font files directly through font_face filter,
+  we use standard @font-face with proper asset URLs
+--}}
+
+<style>
+  /* Custom Font Definitions */
+  @font-face {
+    font-family: 'TANMARJORIE-DISPLAY';
+    src: url("{{asset_url 'TANMARJORIE-DISPLAY.woff2'}}") format('woff2'),
+         url("{{asset_url 'TANMARJORIE-DISPLAY.woff'}}") format('woff'),
+         url("{{asset_url 'TANMARJORIE-DISPLAY.otf'}}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Crossten-Book';
+    src: url("{{asset_url 'Crossten-Book.woff'}}") format('woff'),
+         url("{{asset_url 'Crossten-Book.ttf'}}") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Crossten-Bold';
+    src: url("{{asset_url 'Crossten-Bold.woff'}}") format('woff'),
+         url("{{asset_url 'Crossten-Bold.ttf'}}") format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* Apply fonts globally */
+  :root {
+    --font-heading: 'TANMARJORIE-DISPLAY', serif;
+    --font-body: 'Crossten-Book', sans-serif;
+    --font-button: 'Crossten-Bold', sans-serif;
+  }
+
+  /* Base typography */
+  body {
+    font-family: var(--font-body) !important;
+    color: #3d3259;
+  }
+
+  /* Headings */
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
+    font-family: var(--font-heading) !important;
+    text-transform: uppercase;
+    font-weight: normal;
+  }
+
+  /* Specific heading sizes */
+  h1, .h1 { font-size: 48px; line-height: 1.2; }
+  h2, .h2 { font-size: 36px; line-height: 1.3; }
+  h3, .h3 { font-size: 28px; line-height: 1.4; }
+  h4, .h4 { font-size: 24px; line-height: 1.4; }
+
+  h5, .h5 {
+    font-family: var(--font-button);
+    letter-spacing: 2px;
+    font-size: 15px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  /* Paragraphs */
+  p {
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  /* Buttons and navigation */
+  .btn, button, .nav, nav a {
+    font-family: var(--font-button);
+    letter-spacing: 2px;
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+
+  /* Avvika specific button styles */
+  .btn {
+    border: 3px solid #3d3259 !important;
+    border-radius: 50px;
+    padding: 12px 32px;
+    transition: all 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #B6E0F8;
+    border-color: #3d3259;
+  }
+
+  /* Utility classes */
+  .font-heading { font-family: var(--font-heading); }
+  .font-body { font-family: var(--font-body); }
+  .font-button { font-family: var(--font-button); }
+</style>

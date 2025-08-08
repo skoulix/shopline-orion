@@ -2,6 +2,243 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Form and Input Styles */
+@layer base {
+  /* Global input styles for all inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="search"],
+  input[type="number"],
+  textarea,
+  select {
+    border: var(--input-border-thickness, 1px) solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1)) !important;
+    border-radius: var(--input-border-radius, 30px) !important;
+    box-shadow: var(--input-shadow-offset-x, 0px) var(--input-shadow-offset-y, 4px) 
+        var(--input-shadow-blur, 5px) rgba(0, 0, 0, calc(var(--input-shadow-opacity, 0) / 100)) !important;
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  input[type="password"]:focus,
+  input[type="search"]:focus,
+  input[type="number"]:focus,
+  textarea:focus,
+  select:focus {
+    outline: none !important;
+    border-color: rgb(var(--button-primary-bg, 227, 39, 111)) !important;
+    box-shadow: 0 0 0 2px rgba(var(--button-primary-bg, 227, 39, 111), 0.2),
+        var(--input-shadow-offset-x, 0px) var(--input-shadow-offset-y, 4px) 
+        var(--input-shadow-blur, 5px) rgba(0, 0, 0, calc(var(--input-shadow-opacity, 0) / 100)) !important;
+  }
+  
+  /* Newsletter exception */
+  .newsletter-form input[type="email"],
+  .newsletter-form input[type="email"][class*="rounded-none"],
+  input[type="email"].rounded-none {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  /* Quantity selector exception - no border on the input itself */
+  .quantity-input,
+  input.quantity-input,
+  input[type="number"].quantity-input {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  .quantity-input:focus,
+  input.quantity-input:focus,
+  input[type="number"].quantity-input:focus {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+@layer components {
+  /* Form input class specific styles */
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: var(--input-border-thickness, 1px) solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1)) !important;
+    border-radius: var(--input-border-radius, 30px) !important;
+    background-color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #1f2937;
+    box-shadow: var(--input-shadow-offset-x, 0px) var(--input-shadow-offset-y, 4px) 
+        var(--input-shadow-blur, 5px) rgba(0, 0, 0, calc(var(--input-shadow-opacity, 0) / 100));
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: rgb(var(--button-primary-bg, 227, 39, 111)) !important;
+    box-shadow: 0 0 0 2px rgba(var(--button-primary-bg, 227, 39, 111), 0.2),
+        var(--input-shadow-offset-x, 0px) var(--input-shadow-offset-y, 4px) 
+        var(--input-shadow-blur, 5px) rgba(0, 0, 0, calc(var(--input-shadow-opacity, 0) / 100));
+  }
+  
+  .form-input::placeholder {
+    color: #9ca3af;
+  }
+  
+  /* Quantity selector component styles */
+  .quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    border: var(--input-border-thickness, 1px) solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1));
+    border-radius: var(--input-border-radius, 30px);
+    overflow: hidden;
+    background-color: white;
+  }
+  
+  .quantity-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9fafb;
+    transition: all 0.2s;
+    color: #4b5563;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .quantity-button:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+  }
+  
+  .quantity-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  
+  .quantity-button:disabled:hover {
+    background-color: #f9fafb;
+    color: #4b5563;
+  }
+  
+  .quantity-button--minus {
+    border-right: 1px solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1));
+  }
+  
+  .quantity-button--plus {
+    border-left: 1px solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1));
+  }
+  
+  .quantity-input {
+    width: 4rem;
+    height: 2.5rem;
+    text-align: center;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background-color: white;
+    color: #111827;
+    font-weight: 500;
+    font-size: 0.875rem;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  
+  .quantity-input::-webkit-outer-spin-button,
+  .quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Small variant styles */
+  .quantity-selector--small {
+    border-radius: var(--input-border-radius, 30px);
+  }
+  
+  .quantity-button--small {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.25rem;
+  }
+  
+  .quantity-button--small svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  
+  .quantity-input--small {
+    width: 2.5rem;
+    height: 2rem;
+    font-size: 0.75rem;
+    padding: 0.25rem;
+  }
+}
+
+/* Layout and Header Styles */
+@layer base {
+  /* Custom focus utilities using CSS variables */
+  .focus\:ring-primary:focus {
+    --tw-ring-color: rgb(var(--button-primary-bg));
+  }
+
+  .focus\:border-primary:focus {
+    border-color: rgb(var(--button-primary-bg));
+  }
+
+  .focus\:ring-primary\/20:focus {
+    --tw-ring-color: rgb(var(--button-primary-bg));
+    --tw-ring-opacity: 0.2;
+  }
+
+  /* Critical CSS to prevent layout shift - Header is sticky by default */
+  .header-group {
+    @apply min-h-[64px] md:min-h-[80px] transition-transform duration-300 ease-out;
+  }
+
+  .header-group.sticky-header,
+  .header-group[data-sticky='true'] {
+    @apply fixed top-0 left-0 right-0 z-40 w-full;
+  }
+
+  #MainContent {
+    /* Add padding-top for all pages except index */
+    @apply pt-[110px] md:pt-[130px];
+  }
+
+  /* Remove padding on index page for hero banner */
+  .template-index #MainContent {
+    @apply pt-0;
+  }
+
+  /* Announcement bar handling */
+  .announcement-bar {
+    @apply min-h-[40px] transition-all duration-300 ease-out;
+  }
+
+  /* Hide announcement by moving header up */
+  .header-group.announcement-hidden {
+    @apply -translate-y-[40px];
+  }
+
+  /* Transparent header on homepage */
+  .template-index .site-header[data-transparent='true'] {
+    @apply bg-transparent border-b-transparent;
+  }
+
+  /* Mobile-specific hero banner adjustment */
+  .template-index:has(.site-header[data-transparent='true'])
+    .hero-banner {
+    @apply -mt-[64px] md:mt-0;
+  }
+}
+
 /* Base styles */
 html {
   scroll-behavior: smooth;
@@ -9,11 +246,16 @@ html {
 }
 
 body {
-  color: rgb(17 24 39);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Crossten-Book", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+  color: rgb(var(--color-text));
   min-height: 100vh;
   height: auto;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeSpeed;
 }
 
 /* Ensure main content doesn't have overflow issues */
@@ -21,93 +263,195 @@ main {
   height: auto;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
+/* Heading styles - TANMARJORIE for large headings only */
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3,
+.font-heading {
+  font-family: "TANMARJORIE-DISPLAY", serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: normal;
+  @apply !leading-snug;
 }
 
-a {
-  transition-property: color;
-  transition-duration: 200ms;
+/* Crossten Bold for medium and smaller headings */
+h4,
+h5,
+h6,
+.h4,
+.h5,
+.h6 {
+  font-family: "Crossten-Bold", sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* h5 specific styles */
+h5,
+.h5 {
+  letter-spacing: 2px;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+/* Font utility classes */
+.font-body,
+.font-crossten-book {
+  font-family: "Crossten-Book", sans-serif;
+  font-weight: normal;
+}
+
+.font-button,
+.font-crossten-bold,
+.btn .button,
+button {
+  font-family: "Crossten-Bold", sans-serif;
+  font-weight: bold;
+}
+
+/* Custom line-height utilities for fine-tuning display fonts */
+.leading-display-tight {
+  line-height: 0.8;
+}
+
+.leading-display-normal {
+  line-height: 0.9;
+}
+
+.leading-display-relaxed {
+  line-height: 1;
+}
+
+/* Navigation styles */
+.site-header a,
+.site-header button,
+.site-header svg,
+header a,
+header button,
+header svg {
+  font-family: "Crossten-Bold", sans-serif !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: rgb(var(--color-text)) !important;
+}
+
+/* Submenu styles - override nav defaults */
+nav a,
+header nav a {
+  letter-spacing: 0.05em !important;
+  text-transform: none !important;
+}
+
+/* Transparent header styles - use theme text color */
+.transparent-header a,
+.transparent-header button,
+.transparent-header svg,
+.header-group[data-transparent="true"] a,
+.header-group[data-transparent="true"] button,
+.header-group[data-transparent="true"] svg {
+  color: rgb(var(--color-text)) !important;
+}
+
+/* Transparent header hover states */
+.transparent-header a:hover,
+.transparent-header button:hover,
+.header-group[data-transparent="true"] a:hover,
+.header-group[data-transparent="true"] button:hover {
+  color: rgb(var(--color-text)) !important;
+  opacity: 0.8 !important;
 }
 
 /* Component styles */
-.btn {
+.btn,
+.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1.5rem;
-  font-weight: 500;
-  border-radius: var(--button-radius, 6px);
+  padding: 0.625rem 1.5rem;
+  font-family: "Crossten-Bold", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 15px;
+  border-radius: var(--button-radius, 30px);
+  border-style: solid !important;
+  border-width: 3px !important;
+  border-color: rgb(var(--color-text)) !important;
   transition-property: all;
   transition-duration: 200ms;
 }
 
-.btn:focus {
+.btn:focus,
+.button:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor;
 }
 
-.btn-primary {
-  background-color: var(--button-primary-bg, rgb(220 38 38));
-  color: var(--button-primary-text, white);
+.btn-primary,
+.button-primary {
+  background-color: rgb(var(--button-primary-bg, 227 39 111));
+  color: rgb(var(--button-primary-text, 255 255 255));
+  border-color: rgb(var(--color-text));
 }
 
-.btn-primary:hover {
-  background-color: var(--button-primary-bg-hover, rgb(185 28 28));
+.btn-primary:hover,
+.button-primary:hover {
+  background-color: rgb(var(--button-primary-bg-hover, 208 31 95));
+  border-color: rgb(var(--color-text));
 }
 
-.btn-primary:focus {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--button-primary-bg, rgb(239 68 68));
+.btn-primary:focus,
+.button-primary:focus {
+  box-shadow: 0 0 0 2px #fff,
+    0 0 0 4px rgb(var(--button-primary-bg, 227 39 111));
 }
 
-.btn-secondary {
-  background-color: var(--button-secondary-bg, white);
-  color: var(--button-secondary-text, rgb(55 65 81));
-  border: 1px solid var(--button-secondary-border, rgb(209 213 219));
+.btn-secondary,
+.button-secondary {
+  background-color: rgb(var(--button-secondary-bg, 255 255 255));
+  color: rgb(var(--button-secondary-text, 55 65 81));
+  border: 1px solid rgb(var(--button-secondary-border, 209 213 219));
 }
 
-.btn-secondary:hover {
-  background-color: var(--button-secondary-bg-hover, rgb(249 250 251));
+.btn-secondary:hover,
+.button-secondary:hover {
+  background-color: rgb(var(--button-secondary-bg-hover, 249 250 251));
 }
 
-.btn-secondary:focus {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--button-secondary-border, rgb(107 114 128));
+.btn-secondary:focus,
+.button-secondary:focus {
+  box-shadow: 0 0 0 2px #fff,
+    0 0 0 4px rgb(var(--button-secondary-border, 209 213 219));
 }
 
-.btn-outline {
-  border: 2px solid rgb(209 213 219);
-  color: rgb(55 65 81);
+.btn-outline,
+.button-outline {
+  background-color: transparent;
+  border: 2px solid rgb(var(--button-secondary-border, 209 213 219));
+  color: rgb(var(--button-secondary-text, 55 65 81));
 }
 
-.btn-outline:hover {
-  background-color: rgb(249 250 251);
+.btn-outline:hover,
+.button-outline:hover {
+  background-color: rgba(var(--button-secondary-border), 0.1);
 }
 
-.btn-outline:focus {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(107 114 128);
+.btn-outline:focus,
+.button-outline:focus {
+  box-shadow: 0 0 0 2px #fff,
+    0 0 0 4px rgb(var(--button-secondary-border, 209 213 219));
 }
 
 .container-fluid {
-  width: 100%;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@media (min-width: 640px) {
-  .container-fluid {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container-fluid {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
+  @apply w-full px-4 sm:px-6 lg:px-8 mx-auto;
 }
 
 .drawer {
@@ -118,7 +462,7 @@ a {
   z-index: 50;
   width: 100%;
   max-width: 28rem;
-  background-color: white;
+  background-color: rgb(var(--color-page-background));
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   transform: translateX(100%);
   transition-property: transform;
@@ -141,57 +485,25 @@ a {
 
 /* Sticky header styles */
 .site-header {
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
+    background-color 0.3s ease-in-out, border-color 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
 }
 
-/* Default sticky header */
+/* Default sticky header - same for all pages */
 .site-header.sticky-header {
   position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 40; /* z-40 in Tailwind = 40, below drawers (z-50) */
+  z-index: 40;
   width: 100%;
 }
 
-/* Non-homepage: always fixed to prevent jumps */
-body:not(.template-index) .site-header.sticky-header {
-  position: fixed !important;
-}
-
-/* Override for transparent header on homepage - use fixed positioning */
-.template-index .site-header.sticky-header.transparent-header {
-  position: fixed !important;
-}
-
-/* When scrolled, ensure it stays fixed */
+/* When scrolled, apply shadow */
 .site-header.sticky-header.scrolled {
-  position: fixed !important;
-}
-
-/* Top spacer for non-homepage */
-.header-top-spacer {
-  visibility: hidden;
-  pointer-events: none;
-}
-
-/* Spacer needs to be visible by default for sticky headers */
-.sticky-spacer {
-  display: block;
-  transition: height 0.3s ease;
-}
-
-/* Ensure first section respects sticky header padding */
-#MainContent > .shopline-section:first-child,
-#MainContent > div[id^="shopline-section-"]:first-child,
-main > .shopline-section:first-child {
-  transition: padding-top 0.3s ease;
-}
-
-.sticky-header.scrolled {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Hide/show on scroll behavior */
 .sticky-header.hide-on-scroll {
   transform: translateY(-100%);
 }
@@ -200,75 +512,21 @@ main > .shopline-section:first-child {
   transform: translateY(0);
 }
 
-/* Transparent header styles */
-.site-header.transparent-header {
-  background-color: transparent !important;
-  border-color: transparent !important;
-}
-
-.site-header.transparent-header > div > div a,
-.site-header.transparent-header > div > div button,
-.site-header.transparent-header > div > div svg {
-  color: white;
-}
-
-.site-header.transparent-header > div > div a:hover,
-.site-header.transparent-header > div > div button:hover {
-  opacity: 0.8;
-  color: white !important;
-}
-
-/* Prevent onmouseover color changes for transparent headers */
-.site-header.transparent-header a[onmouseover],
-.site-header.transparent-header button[onmouseover] {
-  color: white !important;
-}
-
 /* Dropdown menus should always have white background with dark text */
 .site-header .group:hover > div,
 .site-header [class*="absolute"][class*="bg-white"] {
-  background-color: white !important;
+  background-color: rgb(var(--color-page-background)) !important;
 }
 
 .site-header .group:hover > div a,
 .site-header [class*="absolute"][class*="bg-white"] a {
-  color: rgb(55 65 81) !important; /* gray-700 */
+  color: rgb(var(--color-text)) !important;
 }
 
 .site-header .group:hover > div a:hover,
 .site-header [class*="absolute"][class*="bg-white"] a:hover {
-  background-color: rgb(243 244 246) !important; /* gray-100 */
-  color: var(--color-primary) !important;
-}
-
-/* Override logo text color for transparent header */
-.site-header.transparent-header h1 {
-  color: white;
-}
-
-
-/* Homepage with transparent header - hero should go under header */
-.template-index .site-header.transparent-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 40; /* Same as sticky header, below drawers */
-  width: 100%;
-}
-
-.template-index .site-header.transparent-header:not(.scrolled) {
-  background-color: transparent !important;
-  border-color: transparent !important;
-}
-
-.template-index .site-header.transparent-header ~ main {
-  margin-top: 0 !important;
-}
-
-/* When scrolled, switch to fixed */
-.template-index .site-header.transparent-header.sticky-header {
-  position: fixed;
+  background-color: rgb(243 244 246) !important; /* Slightly darker gray background */
+  color: rgb(var(--color-text)) !important;
 }
 
 /* Utility styles */
@@ -285,29 +543,29 @@ main > .shopline-section:first-child {
 .button-base:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--button-primary-bg, rgb(239 68 68));
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(var(--button-primary-bg, 220 38 38));
 }
 
 .button-primary {
-  background-color: var(--button-primary-bg, rgb(220 38 38));
-  color: var(--button-primary-text, white);
+  background-color: rgb(var(--button-primary-bg, 220 38 38));
+  color: rgb(var(--button-primary-text, 255 255 255));
   border: 1px solid transparent;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .button-primary:hover {
-  background-color: var(--button-primary-bg-hover, rgb(185 28 28));
+  background-color: rgb(var(--button-primary-bg-hover, 185 28 28));
 }
 
 .button-secondary {
-  background-color: var(--button-secondary-bg, white);
-  color: var(--button-secondary-text, rgb(55 65 81));
-  border: 1px solid var(--button-secondary-border, rgb(209 213 219));
+  background-color: rgb(var(--button-secondary-bg, 255 255 255));
+  color: rgb(var(--button-secondary-text, 55 65 81));
+  border: 1px solid rgb(var(--button-secondary-border, 209 213 219));
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .button-secondary:hover {
-  background-color: var(--button-secondary-bg-hover, rgb(249 250 251));
+  background-color: rgb(var(--button-secondary-bg-hover, 249 250 251));
 }
 
 .scrollbar-hide {
@@ -326,14 +584,23 @@ main > .shopline-section:first-child {
   -webkit-line-clamp: 2;
 }
 
-/* Product card styles */
-.product-card {
+/* Card styles using theme settings */
+.card,
+.product-card,
+.collection-card,
+.article-card {
+  border-radius: var(--card-radius, 8px);
   transition-property: all;
   transition-duration: 200ms;
 }
 
-.product-card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+.card:hover,
+.product-card:hover,
+.collection-card:hover,
+.article-card:hover {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, calc(var(--card-shadow, 10) / 100 * 0.1)),
+    0 10px 15px -3px rgba(0, 0, 0, calc(var(--card-shadow, 10) / 100 * 0.1)),
+    0 4px 6px -2px rgba(0, 0, 0, calc(var(--card-shadow, 10) / 100 * 0.05));
 }
 
 .collection-filters {
@@ -344,8 +611,8 @@ main > .shopline-section:first-child {
 }
 
 .filter-group input[type="checkbox"]:checked {
-  background-color: rgb(220 38 38);
-  border-color: rgb(220 38 38);
+  background-color: rgb(var(--button-primary-bg, 227 39 111));
+  border-color: rgb(var(--button-primary-bg, 227 39 111));
 }
 
 /* Dynamic product grid */
@@ -408,3 +675,39 @@ main > .shopline-section:first-child {
   @apply w-full max-w-sm;
 }
 
+.wrapper-holes:before {
+  @apply absolute top-1/2 -translate-y-1/2 -left-[20px] md:-left-[30px] w-[40px] md:w-[60px] h-[40px] md:h-[60px] rounded-full border-[3px] z-[5];
+  background-color: var(--section-bg, rgb(var(--color-scheme-3-bg)));
+  content: "";
+  border-color: rgb(var(--color-text));
+}
+
+.wrapper-holes:after {
+  @apply absolute top-1/2 -translate-y-1/2 -right-[20px] md:-right-[30px] w-[40px] md:w-[60px] h-[40px] md:h-[60px] rounded-full border-[3px] z-[5];
+  background-color: var(--section-bg, rgb(var(--color-scheme-3-bg)));
+  content: "";
+  border-color: rgb(var(--color-text));
+}
+
+/* Vue transition classes */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+body.template-index,
+body.page-story,
+body.page-contact {
+  .newsletter-section {
+    background-color: #ffffff !important;
+  }
+}
+
+.pswp__zoom-wrap img {
+  background: #ffffff !important;
+}

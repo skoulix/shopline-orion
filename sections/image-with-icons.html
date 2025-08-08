@@ -1,0 +1,512 @@
+<div class="image-with-icons overflow-hidden" style="background-color: {{default section.settings.background_color '#ffffff'}};">
+  <div class="{{#unless section.settings.full_width}}container{{/unless}}" style="padding-top: {{default section.settings.padding_top 60}}px; padding-bottom: {{default section.settings.padding_bottom 60}}px;">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+      <div class="order-2 {{#if (eq section.settings.layout 'image_first')}}lg:order-2{{else}}lg:order-1{{/if}} lg:col-span-5 flex items-center">
+        <div class="w-full px-8 lg:px-16 py-12 lg:py-16">
+          
+          {{#if section.settings.heading}}
+            <h2 class="mb-8 {{default section.settings.heading_font 'font-heading'}} text-3xl sm:text-4xl md:{{default section.settings.heading_size 'text-5xl'}} {{#if (eq section.settings.content_alignment 'center')}}text-center{{else}}{{#if (eq section.settings.content_alignment 'right')}}text-right{{else}}text-left{{/if}}{{/if}}" 
+                style="color: {{default section.settings.heading_color '#3d3259'}};">
+              {{section.settings.heading}}
+            </h2>
+          {{/if}}
+          
+          {{#if section.settings.subheading}}
+            <p class="text-lg mb-8 {{#if (eq section.settings.content_alignment 'center')}}text-center{{else}}{{#if (eq section.settings.content_alignment 'right')}}text-right{{else}}text-left{{/if}}{{/if}}" 
+               style="color: {{default section.settings.subheading_color '#666666'}};">
+              {{section.settings.subheading}}
+            </p>
+          {{/if}}
+          
+          <!-- Icon Blocks -->
+          <div class="space-y-10">
+            {{#each section.blocks}}
+              <div class="icon-block flex {{#if (eq ../section.settings.content_alignment 'center')}}justify-center text-center{{else}}{{#if (eq ../section.settings.content_alignment 'right')}}justify-end text-right{{else}}text-left{{/if}}{{/if}}">
+                <div class="flex {{#if (eq ../section.settings.content_alignment 'center')}}flex-col items-center{{else}}flex-row{{/if}} gap-4">
+                  {{#if this.settings.icon}}
+                    <div class="icon-wrapper flex-shrink-0">
+                      <img src="{{image_url this.settings.icon width=160}}" 
+                           alt="{{default this.settings.icon_alt ''}}" 
+                           class="{{#if (eq ../section.settings.icon_size 'small')}}w-10 h-10{{else}}{{#if (eq ../section.settings.icon_size 'large')}}w-20 h-20{{else}}w-16 h-16{{/if}}{{/if}} object-contain"
+                           loading="lazy">
+                    </div>
+                  {{else}}
+                    <div class="icon-placeholder {{#if (eq ../section.settings.icon_size 'small')}}w-10 h-10{{else}}{{#if (eq ../section.settings.icon_size 'large')}}w-20 h-20{{else}}w-16 h-16{{/if}}{{/if}} bg-gray-200 rounded-full flex-shrink-0"></div>
+                  {{/if}}
+                  
+                  <div class="icon-content {{#if (eq ../section.settings.content_alignment 'center')}}{{else}}flex-1{{/if}}">
+                    {{#if this.settings.title}}
+                      <h4 class="text-lg font-bold mb-1 uppercase" style="color: {{default ../section.settings.icon_title_color '#000000'}};">
+                        {{this.settings.title}}
+                      </h4>
+                    {{/if}}
+                    
+                    {{#if this.settings.text}}
+                      <p class="text-sm" style="color: {{default ../section.settings.icon_text_color '#666666'}};">
+                        {{this.settings.text}}
+                      </p>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            {{/each}}
+          </div>
+          
+          {{#if section.settings.footnote_text}}
+            <div class="mt-10 text-xs leading-relaxed {{#if (eq section.settings.content_alignment 'center')}}text-center{{else}}{{#if (eq section.settings.content_alignment 'right')}}text-right{{else}}text-left{{/if}}{{/if}}">
+              {{section.settings.footnote_text}}
+            </div>
+          {{/if}}
+          
+          {{#if section.settings.button_label}}
+            <div class="mt-8 {{#if (eq section.settings.content_alignment 'center')}}text-center{{else}}{{#if (eq section.settings.content_alignment 'right')}}text-right{{else}}text-left{{/if}}{{/if}}">
+              {{#if section.settings.button_link}}
+                {{assign "parsed_link" (JSONparse section.settings.button_link)}}
+                {{#if parsed_link.pageType}}
+                  {{#if (eq parsed_link.pageType 3)}}
+                    <a href="/pages/{{parsed_link.value}}" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                      {{section.settings.button_label}}
+                    </a>
+                  {{else}}
+                    {{#if (eq parsed_link.pageType 12)}}
+                      <a href="/collections/{{parsed_link.value}}" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                        {{section.settings.button_label}}
+                      </a>
+                    {{else}}
+                      {{#if (eq parsed_link.pageType 10)}}
+                        <a href="/products/{{parsed_link.value}}" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                          {{section.settings.button_label}}
+                        </a>
+                      {{else}}
+                        <a href="{{parsed_link.value}}" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                          {{section.settings.button_label}}
+                        </a>
+                      {{/if}}
+                    {{/if}}
+                  {{/if}}
+                {{else}}
+                  <a href="{{default section.settings.button_link '#'}}" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                    {{section.settings.button_label}}
+                  </a>
+                {{/if}}
+              {{else}}
+                <a href="#" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                  {{section.settings.button_label}}
+                </a>
+              {{/if}}
+            </div>
+          {{/if}}
+        </div>
+      </div>
+      
+      <div class="order-1 {{#if (eq section.settings.layout 'image_first')}}lg:order-1{{else}}lg:order-2{{/if}} lg:col-span-7 relative {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+        {{#if section.settings.button_link}}
+          {{assign "parsed_img_link" (JSONparse section.settings.button_link)}}
+          {{#if parsed_img_link.pageType}}
+            {{#if (eq parsed_img_link.pageType 3)}}
+              <a href="/pages/{{parsed_img_link.value}}" class="block {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+            {{else}}
+              {{#if (eq parsed_img_link.pageType 12)}}
+                <a href="/collections/{{parsed_img_link.value}}" class="block {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+              {{else}}
+                {{#if (eq parsed_img_link.pageType 10)}}
+                  <a href="/products/{{parsed_img_link.value}}" class="block {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+                {{else}}
+                  <a href="{{parsed_img_link.value}}" class="block {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+                {{/if}}
+              {{/if}}
+            {{/if}}
+          {{else}}
+            <a href="{{section.settings.button_link}}" class="block {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+          {{/if}}
+        {{/if}}
+        
+        {{#if section.settings.image}}
+          {{#if (eq section.settings.image_height 'full')}}
+            <div class="relative">
+              {{image_tag 
+                (image_url section.settings.image width=1920)
+                class='w-full h-auto'
+                widths='375, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160'
+                loading='lazy'
+                sizes='(max-width: 1023px) 100vw, 50vw'
+                alt=section.settings.image.alt
+              }}
+            </div>
+          {{else}}
+            <div class="relative h-full {{#if (eq section.settings.image_height 'medium')}}lg:h-[500px]{{else}}{{#if (eq section.settings.image_height 'large')}}lg:h-[700px]{{else}}min-h-[400px] lg:min-h-[600px]{{/if}}{{/if}}">
+              {{image_tag 
+                (image_url section.settings.image width=1920)
+                class='absolute inset-0 w-full h-full object-cover'
+                widths='375, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160'
+                loading='lazy'
+                sizes='(max-width: 1023px) 100vw, 50vw'
+                alt=section.settings.image.alt
+              }}
+            </div>
+          {{/if}}
+        {{else}}
+          <div class="bg-gray-100 {{#if (eq section.settings.image_height 'medium')}}h-[500px]{{else}}{{#if (eq section.settings.image_height 'large')}}h-[700px]{{else}}{{#if (eq section.settings.image_height 'full')}}min-h-[400px]{{else}}h-[600px]{{/if}}{{/if}}{{/if}}"></div>
+        {{/if}}
+        
+        {{#if section.settings.button_link}}
+          </a>
+        {{/if}}
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "Image with Icons",
+  "class": "section-image-with-icons",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BOLD FLAVOR, BOUNDLESS ADVENTURES"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "font-crossten-bold",
+      "options": [
+        {
+          "value": "font-crossten-book",
+          "label": "Crossten Book"
+        },
+        {
+          "value": "font-crossten-bold",
+          "label": "Crossten Bold"
+        },
+        {
+          "value": "font-tanmarjorie",
+          "label": "Tan Marjorie Display"
+        },
+        {
+          "value": "font-heading",
+          "label": "Default heading"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "text-5xl",
+      "options": [
+        {
+          "value": "text-2xl",
+          "label": "Small"
+        },
+        {
+          "value": "text-3xl",
+          "label": "Medium"
+        },
+        {
+          "value": "text-4xl",
+          "label": "Large"
+        },
+        {
+          "value": "text-5xl",
+          "label": "Extra large"
+        },
+        {
+          "value": "text-6xl",
+          "label": "Huge"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#3d3259"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#666666"
+    },
+    {
+      "type": "group_header",
+      "label": "Icon Settings"
+    },
+    {
+      "type": "select",
+      "id": "icon_size",
+      "label": "Icon size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small (40px)"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (64px)"
+        },
+        {
+          "value": "large",
+          "label": "Large (80px)"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "color",
+      "id": "icon_title_color",
+      "label": "Icon title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "icon_text_color",
+      "label": "Icon text color",
+      "default": "#666666"
+    },
+    {
+      "type": "textarea",
+      "id": "footnote_text",
+      "label": "Footnote text",
+      "default": "5gm Soluble Corn Fiber, 800mg RiboActiv D-Ribose; 225mg KSM-66® Ashwagandha; 200mg AlphaWave® L-Theanine; 50mg BacoMind® Bacopa Monnieri; 50mg Senactiv® Rosa Roxburghii (Fruit) Panax Notoginseng Root",
+      "info": "Small text displayed after all icon blocks"
+    },
+    {
+      "type": "group_header",
+      "label": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background color",
+      "default": "#e3276f"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "switch",
+      "id": "button_border_enabled",
+      "label": "Enable button border",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Button border width",
+      "default": 2,
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "group_header",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "label": "Image height",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Adapt to content"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (500px)"
+        },
+        {
+          "value": "large",
+          "label": "Large (700px)"
+        },
+        {
+          "value": "full",
+          "label": "Full (native dimensions)"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "group_header",
+      "label": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "text_first",
+          "label": "Icons first"
+        },
+        {
+          "value": "image_first",
+          "label": "Image first"
+        }
+      ],
+      "default": "text_first"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "group_header",
+      "label": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "default": 60,
+      "max": 200,
+      "min": 0,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "default": 60,
+      "max": 200,
+      "min": 0,
+      "step": 4,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_item",
+      "name": "Icon Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image",
+          "info": "Recommended: 80x80px PNG with transparent background"
+        },
+        {
+          "type": "text",
+          "id": "icon_alt",
+          "label": "Icon alt text"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "NATURAL & ENDURING ENERGY"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "from D-Ribose, Ashwaganda, Rosa Roxburghii (Fruit), Panax Notoginseng, and B Vitamin Blend"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Icons",
+      "settings": {
+        "heading": "BOLD FLAVOR, BOUNDLESS ADVENTURES",
+        "layout": "text_first",
+        "content_alignment": "left",
+        "full_width": true
+      },
+      "blocks": [
+        {
+          "type": "icon_item",
+          "settings": {
+            "title": "NATURAL & ENDURING ENERGY",
+            "text": "from D-Ribose, Ashwaganda, Rosa Roxburghii (Fruit), Panax Notoginseng, and B Vitamin Blend"
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "title": "SUPPORTS MENTAL FOCUS & CLARITY",
+            "text": "from Ashwaganda, Bacopa Monnieri and L-Theanine"
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "title": "SUPPORTS GUT & METABOLIC HEALTH",
+            "text": "from Soluble Corn Fiber and D-Ribose"
+          }
+        }
+      ]
+    }
+  ]
+}
+{{/schema}}

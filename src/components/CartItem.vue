@@ -5,7 +5,7 @@
       <div class="cart-item__image">
         <a :href="item.url" class="cart-item__image-link">
           <img 
-            :src="item.image || '/assets/placeholder-product.svg'"
+            :src="optimizedImage"
             :alt="item.product_title"
             class="cart-item__image-img"
             loading="lazy"
@@ -137,6 +137,15 @@ const showStockWarning = computed(() => {
   return props.item.variant?.inventory_quantity && 
          props.item.variant.inventory_quantity <= 10 &&
          props.item.variant.inventory_policy !== 'continue'
+})
+
+const optimizedImage = computed(() => {
+  const imageUrl = props.item.image || '/assets/placeholder-product.svg'
+  
+  // Use global image sizing function for cart items (150px width)
+  return window.getImageUrl && imageUrl !== '/assets/placeholder-product.svg'
+    ? window.getImageUrl(imageUrl, { preset: 'cart-item' })
+    : imageUrl
 })
 
 // Methods
@@ -317,7 +326,7 @@ watch(() => props.item.quantity, (newQuantity) => {
 }
 
 .cart-item__title {
-  font-weight: 500;
+
   font-size: 1rem;
   line-height: 1.5;
   color: #111827;

@@ -34,7 +34,7 @@
       </div>
 
       <!-- Title -->
-      <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-tight">
+      <h3 class="text-xl  mb-2 group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-tight">
         <a :href="url" class="hover:underline decoration-2 underline-offset-2">{{ title }}</a>
       </h3>
 

@@ -34,23 +34,23 @@
      {{/if}}>
 
 {{#if section.settings.show_announcement}}
-<div class="announcement-bar text-center py-3 text-sm" style="background-color: {{section.settings.announcement_bg_color}} !important; background-image: none !important; color: {{section.settings.announcement_text_color}} !important;">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="announcement-bar text-center py-2.5 text-sm" style="background-color: {{section.settings.announcement_bg_color}} !important; background-image: none !important; color: {{section.settings.announcement_text_color}} !important;">
+  <div class="container font-semibold">
     {{section.settings.announcement_text}}
   </div>
 </div>
 {{/if}}
 
-<header class="site-header {{#unless section.settings.transparent_header_homepage}}bg-white{{/unless}} {{#unless section.settings.transparent_header_homepage}}border-b border-gray-200{{/unless}}"
-        style="padding-top: {{default section.settings.padding_top 16}}px !important; padding-bottom: {{default section.settings.padding_bottom 16}}px !important;">
+<header class="site-header bg-white border-b border-gray-200"
+        style="padding-top: {{default section.settings.padding_top 16}}px !important; padding-bottom: {{default section.settings.padding_bottom 16}}px !important;{{#if (and section.settings.transparent_header_homepage (eq request.page_type 'index'))}} background-color: transparent; border-bottom-color: transparent;{{/if}}">
   
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="container">
     <!-- Mobile Layout: 3-column grid -->
     <div class="md:hidden grid grid-cols-3 items-center">
       <!-- Left column: Mobile menu -->
       <div class="flex justify-start">
         <button type="button" 
-                class="mobile-menu-toggle inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+                class="mobile-menu-toggle inline-flex items-center justify-center p-2 rounded-md  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
                 aria-controls="mobile-menu" 
                 aria-expanded="false">
           <span class="sr-only">Open main menu</span>
@@ -66,12 +66,12 @@
           <a href="/" class="flex items-center">
             <img src="{{image_url section.settings.logo width=300}}" 
                  alt="{{shop.name}}" 
-                 class="h-auto"
+                 class="h-auto max-h-16"
                  style="width: {{section.settings.logo_width}}px; max-width: {{section.settings.logo_width}}px;">
           </a>
         {{else}}
           <a href="/" class="flex items-center">
-            <h1 class="text-xl font-bold text-gray-900">{{shop.name}}</h1>
+            <h1 class="text-xl">{{shop.name}}</h1>
           </a>
         {{/if}}
       </div>
@@ -79,7 +79,7 @@
       <!-- Right column: Header actions -->
       <div class="flex justify-end items-center space-x-2">
         {{#if section.settings.show_search}}
-          <button type="button" class="search-toggle text-gray-700 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+          <button type="button" class="search-toggle transition-all" >
             <span class="sr-only">Search</span>
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -88,12 +88,12 @@
         {{/if}}
         
         {{#if section.settings.show_cart}}
-          <button type="button" class="cart-toggle relative text-gray-700 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+          <button type="button" class="cart-toggle relative  transition-all" >
             <span class="sr-only">Cart</span>
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-            </svg>
-            <span class="cart-count absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium" style="display: none;">0</span>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
+              </svg>
+            <span class="cart-count absolute -top-2 -right-2 bg-[--color-primary] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium opacity-0 transition-opacity overflow-hidden">0</span>
           </button>
         {{/if}}
       </div>
@@ -108,7 +108,7 @@
           {{#each linklists.main-menu.links}}
             <div class="relative group">
               <a href="{{url}}" 
-                 class="text-gray-700 hover:opacity-80 transition-all duration-200 flex items-center py-2 px-1" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                 class=" transition-all duration-200 flex items-center py-2 px-1" >
                 {{title}}
                 {{#if links}}
                   <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
@@ -121,7 +121,7 @@
                 <div class="absolute top-full left-0 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-out z-[9999]">
                   <div class="py-1">
                     {{#each links}}
-                      <a href="{{url}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                      <a href="{{url}}" class="block px-4 py-2 text-sm text-" >
                         {{title}}
                       </a>
                     {{/each}}
@@ -143,7 +143,7 @@
             </a>
           {{else}}
             <a href="/" class="flex items-center">
-              <h1 class="text-xl font-bold text-gray-900">{{shop.name}}</h1>
+              <h1 class="text-xl">{{shop.name}}</h1>
             </a>
           {{/if}}
         </div>
@@ -151,7 +151,7 @@
         <!-- Right: Header Actions -->
         <div class="flex items-center space-x-4 justify-end">
           {{#if section.settings.show_search}}
-            <button type="button" class="search-toggle text-gray-700 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+            <button type="button" class="search-toggle  transition-all" >
               <span class="sr-only">Search</span>
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -160,7 +160,7 @@
           {{/if}}
           
           {{#if section.settings.show_account}}
-            <a href="{{#if customer}}{{routes.account_url}}{{else}}{{routes.account_login_url}}{{/if}}" class="text-gray-700 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+            <a href="{{#if customer}}{{routes.account_url}}{{else}}{{routes.account_login_url}}{{/if}}" class=" transition-all" >
               <span class="sr-only">Account</span>
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -170,12 +170,12 @@
           
           {{#if section.settings.show_cart}}
             <button type="button" 
-                    class="cart-toggle relative text-gray-700 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                    class="cart-toggle relative  transition-all" >
               <span class="sr-only">Shopping cart</span>
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
               </svg>
-              <span class="cart-count absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center opacity-0 transition-opacity">0</span>
+              <span class="cart-count absolute -top-2 -right-2 bg-[--color-primary] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center opacity-0 transition-opacity overflow-hidden">0</span>
             </button>
           {{/if}}
         </div>
@@ -194,7 +194,7 @@
             </a>
           {{else}}
             <a href="/" class="flex items-center">
-              <h1 class="text-xl font-bold text-gray-900">{{shop.name}}</h1>
+              <h1 class="text-xl">{{shop.name}}</h1>
             </a>
           {{/if}}
         </div>
@@ -204,7 +204,7 @@
           {{#each linklists.main-menu.links}}
             <div class="relative group">
               <a href="{{url}}" 
-                 class="text-gray-700 hover:opacity-80 transition-all duration-200 flex items-center py-2 px-1" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                 class=" transition-all duration-200 flex items-center py-2 px-1" >
                 {{title}}
                 {{#if links}}
                   <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
@@ -217,7 +217,7 @@
                 <div class="absolute top-full left-0 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-out z-[9999]">
                   <div class="py-1">
                     {{#each links}}
-                      <a href="{{url}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                      <a href="{{url}}" class="block px-4 py-2 text-sm text-" >
                         {{title}}
                       </a>
                     {{/each}}
@@ -231,7 +231,7 @@
         <!-- Header Actions -->
         <div class="flex items-center space-x-4">
           {{#if section.settings.show_search}}
-            <button type="button" class="search-toggle text-gray-700 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+            <button type="button" class="search-toggle  transition-all" >
               <span class="sr-only">Search</span>
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -240,7 +240,7 @@
           {{/if}}
           
           {{#if section.settings.show_account}}
-            <a href="{{#if customer}}{{routes.account_url}}{{else}}{{routes.account_login_url}}{{/if}}" class="text-gray-700 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+            <a href="{{#if customer}}{{routes.account_url}}{{else}}{{routes.account_login_url}}{{/if}}" class=" transition-all" >
               <span class="sr-only">Account</span>
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -250,12 +250,12 @@
           
           {{#if section.settings.show_cart}}
             <button type="button" 
-                    class="cart-toggle relative text-gray-700 hover:opacity-80 transition-all" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+                    class="cart-toggle relative  transition-all" >
               <span class="sr-only">Shopping cart</span>
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
               </svg>
-              <span class="cart-count absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center opacity-0 transition-opacity">0</span>
+              <span class="cart-count absolute -top-2 -right-2 bg-[--color-primary] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center text-center opacity-0 transition-opacity overflow-hidden">0</span>
             </button>
           {{/if}}
         </div>
@@ -315,20 +315,17 @@
         // Check if this is a dropdown item
         const isDropdownItem = el.closest('.absolute') || el.classList.contains('text-sm');
         
+        // Set initial purple color
+        el.style.color = '#3d3259';
+        
         el.addEventListener('mouseover', function() {
-          if (isDropdownItem) {
-            // Dropdown items always use primary color on hover
-            this.style.color = 'var(--color-primary)';
-          } else if (!isTransparentHeader()) {
-            // Main nav items only use primary color when not transparent
-            this.style.color = 'var(--color-primary)';
-          }
+          // Always use primary color on hover
+          this.style.color = 'var(--color-primary)';
         });
         
         el.addEventListener('mouseout', function() {
-          if (isDropdownItem || !isTransparentHeader()) {
-            this.style.color = '';
-          }
+          // Always return to purple color
+          this.style.color = '#3d3259';
         });
       });
     };
@@ -543,7 +540,7 @@
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
+      "max": 200,
       "step": 2,
       "unit": "px",
       "label": "t:sections.header.settings.padding_top.label",
@@ -553,7 +550,7 @@
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
+      "max": 200,
       "step": 2,
       "unit": "px",
       "label": "t:sections.header.settings.padding_bottom.label",

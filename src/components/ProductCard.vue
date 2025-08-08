@@ -80,8 +80,8 @@
         </p>
         
         <!-- Title -->
-        <h3 class="text-base font-medium text-gray-900 line-clamp-2 mb-2">
-          <a :href="productUrl" class="hover:text-gray-700 transition-colors">
+        <h3 class="text-2xl line-clamp-2 mb-2">
+          <a :href="productUrl" >
             {{ productData.title || 'Untitled' }}
           </a>
         </h3>
@@ -114,7 +114,7 @@
           v-if="productData.available"
           @click="handleAddToCart"
           :disabled="isAddingToCart"
-          class="w-full px-4 py-3 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          class="button w-full px-4 py-3 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           :style="{
             backgroundColor: 'var(--button-primary-bg)',
             color: 'var(--button-primary-text)',
@@ -209,16 +209,23 @@ const productUrl = computed(() => {
 })
 
 const currentImage = computed(() => {
+  let imageUrl = null
+  
   // Show secondary image on hover if available
   if (hovering.value && productData.value.images?.[1]) {
-    return productData.value.images[1].src
+    imageUrl = productData.value.images[1].src
+  } else {
+    // Use first image or fallback to placeholder
+    imageUrl = productData.value.images?.[0]?.src || 
+               productData.value.featured_image || 
+               productData.value.image ||
+               '/placeholder.jpg'
   }
-  // Use first image or fallback to placeholder
-  // Note: Image should already be optimized by Shopline's image_url filter
-  return productData.value.images?.[0]?.src || 
-         productData.value.featured_image || 
-         productData.value.image ||
-         '/placeholder.jpg'
+  
+  // Use global image sizing function for optimization
+  return window.getImageUrl && imageUrl !== '/placeholder.jpg' 
+    ? window.getImageUrl(imageUrl, { preset: 'product-card' })
+    : imageUrl
 })
 
 const hasColorOptions = computed(() => {

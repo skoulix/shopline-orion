@@ -1,38 +1,85 @@
-<div class="hero-banner relative {{#if section.settings.height '==' 'small'}}h-64{{/if}}{{#if section.settings.height '==' 'medium'}}h-96{{/if}}{{#if section.settings.height '==' 'large'}}h-screen max-h-[800px]{{/if}}" style="padding-top: {{section.settings.padding_top}}px; padding-bottom: {{section.settings.padding_bottom}}px;">
-  {{#if section.settings.image}}
-    <img 
-      src="{{image_url section.settings.image width=1920}}" 
-      alt="{{section.settings.title}}"
-      class="absolute inset-0 w-full h-full object-cover"
-    >
-    <div class="absolute inset-0 bg-black" style="opacity: {{divide section.settings.image_overlay_opacity 100}};"></div>
-  {{else}}
-    <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, #dc2626, #7f1d1d);"></div>
-  {{/if}}
-  
-  <div class="relative h-full flex items-center justify-center">
-    <div class="text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-      {{#if section.settings.title}}
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-          {{section.settings.title}}
-        </h1>
-      {{/if}}
-      
-      {{#if section.settings.subtitle}}
-        <p class="text-xl sm:text-2xl mb-8 opacity-90">
-          {{section.settings.subtitle}}
-        </p>
-      {{/if}}
-      
-      {{#if section.settings.button_label}}
-        <a 
-          href="{{section.settings.button_link}}" 
-          class="inline-block bg-white text-gray-900 px-8 py-3 font-semibold hover:bg-gray-100 transition-colors"
-          style="border-radius: var(--button-radius);"
+<div class="hero-banner relative" style="padding-top: {{default section.settings.padding_top 0}}px; padding-bottom: {{default section.settings.padding_bottom 120}}px;">
+  <div class="relative overflow-hidden min-h-[400px] md:min-h-[600px] lg:min-h-[calc(62vw)] md:max-h-[800px]">
+    <!-- Mobile Image (natural height on mobile) -->
+    {{#if section.settings.mobile_image}}
+      <img 
+        src="{{image_url section.settings.mobile_image width=768}}" 
+        alt="{{section.settings.title}}"
+        class="md:hidden w-full h-auto"
+      >
+    {{/if}}
+    
+    <!-- Desktop Image / Mobile Fallback (absolute positioned) -->
+    <div class="{{#if section.settings.mobile_image}}hidden md:block{{/if}} absolute inset-0">
+      {{#if section.settings.image}}
+        <img 
+          src="{{image_url section.settings.image width=1920}}" 
+          alt="{{section.settings.title}}"
+          class="hidden md:block w-full h-full object-cover"
+          style="object-position: center {{default section.settings.image_position 50}}%;"
         >
-          {{section.settings.button_label}}
-        </a>
+        <!-- Mobile fallback to desktop image when no mobile image -->
+        {{#unless section.settings.mobile_image}}
+          <img 
+            src="{{image_url section.settings.image width=768}}" 
+            alt="{{section.settings.title}}"
+            class="md:hidden w-full h-full object-cover"
+            style="object-position: center {{default section.settings.mobile_image_position 50}}%;"
+          >
+        {{/unless}}
       {{/if}}
+    </div>
+    
+    <!-- Content Overlay -->
+    <div class="{{#if section.settings.mobile_image}}absolute md:relative inset-0 top-40 md:top-0{{else}}absolute inset-0{{/if}} z-10 container-fluid mx-auto px-4 lg:px-8">
+      <div class="flex items-start md:items-center justify-center min-h-[400px] md:min-h-[600px] lg:min-h-[calc(62vw)] md:max-h-[800px]">
+        <div class="text-center max-w-[300px] md:max-w-[600px] mx-auto">
+          {{#if section.settings.title}}
+            <h1 class="mb-3 md:mb-6 text-[30px] md:text-[50px] lg:text-[70px]">
+              {{section.settings.title}}
+            </h1>
+          {{/if}}
+          
+          {{#if section.settings.subtitle}}
+            <p class="font-crossten-book text-base md:text-lg mb-6 md:mb-8 max-w-[300px] md:max-w-[350px] mx-auto">
+              {{section.settings.subtitle}}
+            </p>
+          {{/if}}
+          
+          {{#if section.settings.button_label}}
+            {{#if section.settings.button_link}}
+              {{assign "parsed_link" (JSONparse section.settings.button_link)}}
+              {{#if parsed_link.pageType}}
+                {{#if (eq parsed_link.pageType 10)}}
+                  <a href="/products/{{parsed_link.value}}" class="btn btn-primary">
+                    {{section.settings.button_label}}
+                  </a>
+                {{else}}
+                  {{#if (eq parsed_link.pageType 12)}}
+                    <a href="/collections/{{parsed_link.value}}" class="btn btn-primary">
+                      {{section.settings.button_label}}
+                    </a>
+                  {{else}}
+                    {{#if (eq parsed_link.pageType 3)}}
+                      <a href="/pages/{{parsed_link.value}}" class="btn btn-primary">
+                        {{section.settings.button_label}}
+                      </a>
+                    {{else}}
+                      <a href="{{parsed_link.value}}" class="btn btn-primary">
+                        {{section.settings.button_label}}
+                      </a>
+                    {{/if}}
+                  {{/if}}
+                {{/if}}
+              {{else}}
+                <a href="{{section.settings.button_link}}" class="btn btn-primary">
+                  {{section.settings.button_label}}
+                </a>
+              {{/if}}
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -73,57 +120,35 @@
       "type": "image_picker",
       "id": "image",
       "label": "t:sections.hero-banner.settings.image.label",
-      "info": "t:sections.hero-banner.settings.image.info"
-    },
-    {
-      "type": "select",
-      "id": "height",
-      "options": [
-        {
-          "value": "small",
-          "label": "t:sections.hero-banner.settings.height.options__1.label"
-        },
-        {
-          "value": "medium",
-          "label": "t:sections.hero-banner.settings.height.options__2.label"
-        },
-        {
-          "value": "large",
-          "label": "t:sections.hero-banner.settings.height.options__3.label"
-        }
-      ],
-      "default": "medium",
-      "label": "t:sections.hero-banner.settings.height.label"
+      "info": "Desktop background image"
     },
     {
       "type": "range",
-      "id": "image_overlay_opacity",
+      "id": "image_position",
+      "label": "Desktop image position",
       "min": 0,
-      "max": 80,
-      "step": 5,
+      "max": 200,
+      "step": 10,
       "unit": "%",
-      "label": "t:sections.hero-banner.settings.image_overlay_opacity.label",
-      "default": 40
+      "default": 50,
+      "info": "Adjust vertical position of the image"
     },
     {
-      "type": "select",
-      "id": "content_alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:sections.hero-banner.settings.content_alignment.options__1.label"
-        },
-        {
-          "value": "center",
-          "label": "t:sections.hero-banner.settings.content_alignment.options__2.label"
-        },
-        {
-          "value": "right",
-          "label": "t:sections.hero-banner.settings.content_alignment.options__3.label"
-        }
-      ],
-      "default": "center",
-      "label": "t:sections.hero-banner.settings.content_alignment.label"
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile background image",
+      "info": "Optional separate image for mobile devices"
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_position",
+      "label": "Mobile image position",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "%",
+      "default": 50,
+      "info": "Adjust vertical position of the mobile image"
     },
     {
       "type": "group_header",
@@ -134,7 +159,7 @@
       "id": "padding_top",
       "label": "t:sections.hero-banner.settings.padding_top.label",
       "default": 0,
-      "max": 100,
+      "max": 200,
       "min": 0,
       "step": 2,
       "unit": "px"
@@ -144,7 +169,7 @@
       "id": "padding_bottom",
       "label": "t:sections.hero-banner.settings.padding_bottom.label",
       "default": 0,
-      "max": 100,
+      "max": 200,
       "min": 0,
       "step": 2,
       "unit": "px"
@@ -154,14 +179,14 @@
     {
       "name": "t:sections.hero-banner.presets.hero_banner.name",
       "settings": {
-        "title": "Welcome to our store",
-        "subtitle": "Discover amazing products",
-        "button_label": "Shop Now",
-        "height": "medium",
-        "image_overlay_opacity": 40,
-        "content_alignment": "center",
+        "title": "ENERGIZE YOUR JOURNEY",
+        "subtitle": "Discover the perfect blend of taste and energy with Avvika",
+        "button_label": "Shop now",
+        "button_link": "/collections/all",
+        "image_position": 50,
+        "mobile_image_position": 50,
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 120
       }
     }
   ]

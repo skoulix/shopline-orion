@@ -1,0 +1,364 @@
+<div style="background-color: {{default section.settings.background_color '#b6e0f8'}}; overflow: visible;">
+  <div class="{{#if section.settings.full_width}}w-full{{else}}container{{/if}}" style="padding-top: {{default section.settings.padding_top 40}}px; padding-bottom: {{default section.settings.padding_bottom 40}}px; overflow: visible;">
+  
+  {{#if section.settings.title}}
+    <h2 class="text-3xl sm:text-4xl md:{{default section.settings.title_size 'text-3xl'}} text-center {{#if section.settings.text}}mb-4{{else}}mb-8{{/if}} font-heading" style="color: {{default section.settings.title_color '#000000'}};">
+      {{section.settings.title}}
+    </h2>
+  {{/if}}
+  
+  {{#if section.settings.text}}
+    <div class="text-center mb-8 max-w-3xl mx-auto">
+      <p class="text-lg" style="color: {{default section.settings.text_color '#666666'}};">
+        {{section.settings.text}}
+      </p>
+    </div>
+  {{/if}}
+
+  <!-- Promo Grid Container -->
+  <div class="grid grid-cols-1 lg:grid-cols-{{default section.settings.columns 2}} gap-{{default section.settings.gutter_size 6}} mt-12">
+    {{#each section.blocks}}
+      <div class="relative overflow-visible h-full" {{shopify_attributes}}>
+        {{#if (eq type "advanced")}}
+          <!-- Advanced block with product image -->
+          <div class="relative block h-full">
+            {{#if settings.link}}
+              {{#if settings.link}}
+                {{assign "parsed_link" (JSONparse settings.link)}}
+                {{#if parsed_link.pageType}}
+                  {{#if (eq parsed_link.pageType 10)}}
+                    <a href="/products/{{parsed_link.value}}" class="absolute inset-0 z-20" aria-hidden="true" aria-label="{{settings.button_text}}"></a>
+                  {{else}}
+                    {{#if (eq parsed_link.pageType 12)}}
+                      <a href="/collections/{{parsed_link.value}}" class="absolute inset-0 z-20" aria-hidden="true" aria-label="{{settings.button_text}}"></a>
+                    {{else}}
+                      {{#if (eq parsed_link.pageType 3)}}
+                        <a href="/pages/{{parsed_link.value}}" class="absolute inset-0 z-20" aria-hidden="true" aria-label="{{settings.button_text}}"></a>
+                      {{else}}
+                        <a href="{{parsed_link.value}}" class="absolute inset-0 z-20" aria-hidden="true" aria-label="{{settings.button_text}}"></a>
+                      {{/if}}
+                    {{/if}}
+                  {{/if}}
+                {{else}}
+                  <a href="{{settings.link}}" class="absolute inset-0 z-20" aria-hidden="true" aria-label="{{settings.button_text}}"></a>
+                {{/if}}
+              {{/if}}
+            {{/if}}
+            
+            <!-- Main card container -->
+            <div class="wrapper-holes relative overflow-hidden block h-full max-sm:text-center" style="--section-bg: {{default ../section.settings.background_color '#b6e0f8'}};">
+				<!-- Background image -->
+				<div class="bg-white rounded-[20px] h-full" style="background-color: {{default settings.background_color '#ffffff'}}; border: 3px solid #3D3259;">
+
+				{{#if settings.background_image}}
+					<div class="absolute inset-0">
+					<img src="{{settings.background_image.url}}" 
+						alt=""
+						class="w-full h-full object-cover max-sm:h-"
+						loading="lazy">
+					</div>
+              {{/if}}
+              
+              <div class="relative flex flex-col-reverse sm:grid sm:grid-cols-2 h-full">
+                <!-- Left column: Text content (shows second on mobile) -->
+                <div class="flex items-center justify-start p-10 max-sm:pt-2 max-sm:pb-6 lg:p-12 h-full">
+                  <div class="w-full">
+                    <h3 class="text-2xl sm:text-3xl md:text-4xl uppercase mb-3">
+                      {{#if settings.title}}{{settings.title}}{{/if}}
+                    </h3>
+                    
+                    {{#if settings.rating}}
+                      <div class="text-xl mb-1 text-[#3d3259] italic">
+                        {{#if (eq settings.rating 1)}}★{{/if}}
+                        {{#if (eq settings.rating 2)}}★★{{/if}}
+                        {{#if (eq settings.rating 3)}}★★★{{/if}}
+                        {{#if (eq settings.rating 4)}}★★★★{{/if}}
+                        {{#if (eq settings.rating 5)}}★★★★★{{/if}}
+                      </div>
+                    {{/if}}
+                    
+                    {{#if settings.description}}
+                      <div class="font-crossten-bold text-base mb-5 text-[#3d3259] leading-relaxed italic">
+                        {{settings.description}}
+                      </div>
+                    {{/if}}
+                    
+                    {{#if settings.link}}
+                      {{assign "parsed_btn_link" (JSONparse settings.link)}}
+                      {{#if parsed_btn_link.pageType}}
+                        {{#if (eq parsed_btn_link.pageType 10)}}
+                          <a href="/products/{{parsed_btn_link.value}}" class="btn btn-primary whitespace-nowrap">
+                            {{#if settings.button_text}}{{settings.button_text}}{{else}}SHOP NOW{{/if}}
+                          </a>
+                        {{else}}
+                          {{#if (eq parsed_btn_link.pageType 12)}}
+                            <a href="/collections/{{parsed_btn_link.value}}" class="btn btn-primary whitespace-nowrap">
+                              {{#if settings.button_text}}{{settings.button_text}}{{else}}SHOP NOW{{/if}}
+                            </a>
+                          {{else}}
+                            {{#if (eq parsed_btn_link.pageType 3)}}
+                              <a href="/pages/{{parsed_btn_link.value}}" class="btn btn-primary whitespace-nowrap">
+                                {{#if settings.button_text}}{{settings.button_text}}{{else}}SHOP NOW{{/if}}
+                              </a>
+                            {{else}}
+                              <a href="{{parsed_btn_link.value}}" class="btn btn-primary whitespace-nowrap">
+                                {{#if settings.button_text}}{{settings.button_text}}{{else}}SHOP NOW{{/if}}
+                              </a>
+                            {{/if}}
+                          {{/if}}
+                        {{/if}}
+                      {{else}}
+                        <a href="{{settings.link}}" class="btn btn-primary whitespace-nowrap">
+                          {{#if settings.button_text}}{{settings.button_text}}{{else}}SHOP NOW{{/if}}
+                        </a>
+                      {{/if}}
+                    {{else}}
+                      <a href="#" class="btn btn-primary whitespace-nowrap">
+                        {{#if settings.button_text}}{{settings.button_text}}{{else}}SHOP NOW{{/if}}
+                      </a>
+                    {{/if}}
+                  </div>
+                </div>
+                
+                <!-- Right column: Product Image (shows first on mobile) -->
+                {{#if settings.product_image}}
+                  <div class="relative h-full flex items-end justify-center">
+                    <img src="{{settings.product_image.url}}" 
+                         alt="{{settings.title}}"
+                         class="w-full h-auto object-contain max-h-full px-4 max-sm:h-60"
+                         loading="lazy">
+                  </div>
+                {{/if}}
+              </div>
+			       </div>
+            </div>
+          </div>
+        {{/if}}
+      </div>
+    {{/each}}
+  </div>
+
+  {{#if (eq section.blocks.length 0)}}
+    <div class="text-center py-12">
+      <p class="text-gray-500">Add blocks to display promo cards</p>
+    </div>
+  {{/if}}
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "Promo Grid",
+  "class": "section-promo-grid",
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Promo Grid",
+      "blocks": [
+        {
+          "type": "advanced",
+          "settings": {
+            "title": "TOKYO",
+            "rating": 5,
+            "description": "Exotic Citrus • Juicy Cherry",
+            "button_text": "SHOP NOW",
+            "button_bg": "#cf2e27"
+          }
+        },
+        {
+          "type": "advanced", 
+          "settings": {
+            "title": "LOS ANGELES",
+            "rating": 5,
+            "description": "Frozen Berry • Zesty Citrus",
+            "button_text": "SHOP NOW",
+            "button_bg": "#e3276f"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": ""
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Section Text",
+      "default": "",
+      "info": "Optional text to display after the title"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "Title size",
+      "default": "text-3xl",
+      "options": [
+        {
+          "value": "text-xl",
+          "label": "Extra Small"
+        },
+        {
+          "value": "text-2xl",
+          "label": "Small"
+        },
+        {
+          "value": "text-3xl",
+          "label": "Medium"
+        },
+        {
+          "value": "text-4xl",
+          "label": "Large"
+        },
+        {
+          "value": "text-5xl",
+          "label": "Extra Large"
+        },
+        {
+          "value": "text-6xl",
+          "label": "Huge"
+        }
+      ]
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns on Desktop",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "gutter_size",
+      "label": "Spacing between cards",
+      "min": 2,
+      "max": 12,
+      "step": 2,
+      "default": 6,
+      "info": "Tailwind spacing units (2 = 0.5rem, 6 = 1.5rem, etc.)"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#b6e0f8"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "advanced",
+      "name": "Advanced Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "TOKYO"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL",
+          "info": "Link to product or collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image",
+          "info": "Optional background image for the card"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Image",
+          "info": "Product can image to display on the right"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star Rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Exotic Citrus • Juicy Cherry",
+          "info": "Text to display under the stars"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_bg",
+          "label": "Button Background Color",
+          "default": "#e3276f"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ]
+}
+{{/schema}}

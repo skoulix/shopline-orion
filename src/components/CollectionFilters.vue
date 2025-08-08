@@ -157,7 +157,7 @@
           <div class="h-full flex flex-col">
             <!-- Header -->
             <div class="flex items-center justify-between p-4 border-b">
-              <h2 class="text-lg font-semibold">Filters</h2>
+              <h2 class="text-lg">Filters</h2>
               <button
                 @click="mobileFiltersOpen = false"
                 class="p-2 hover:bg-secondary-100 rounded-full transition-colors"

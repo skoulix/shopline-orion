@@ -3,7 +3,8 @@
     <!-- Main Image -->
     <div class="main-image-wrapper">
       <div 
-        class="main-image aspect-square bg-gray-100 rounded-lg overflow-hidden relative group cursor-zoom-in"
+        class="main-image aspect-square bg-gray-100 overflow-hidden relative group cursor-zoom-in"
+        :style="{ borderRadius: 'var(--card-radius, 8px)' }"
         @click="openLightbox(activeImageIndex)"
         @mouseenter="showZoom = true"
         @mouseleave="showZoom = false"
@@ -372,7 +373,8 @@ onMounted(() => {
 }
 
 .thumbnail {
-  @apply flex-shrink-0 w-20 h-20 border-2 border-gray-200 rounded-lg overflow-hidden hover:border-gray-400 transition-all;
+  @apply flex-shrink-0 w-20 h-20 border-2 border-gray-200 overflow-hidden hover:border-gray-400 transition-all;
+  border-radius: var(--card-radius, 8px);
 }
 
 .thumbnail.active {

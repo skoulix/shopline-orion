@@ -1,188 +1,135 @@
 <!DOCTYPE html>
 <html lang="{{request.locale.iso_code}}" dir="{{request.document_direction}}">
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<meta name="theme-color" content="#dc2626" />
-		<link rel="canonical" href="{{canonical_url}}" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="canonical" href="{{canonical_url}}" />
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
 
-		<title>{{page_title}} – {{shop.name}}</title>
+    {{#if settings.favicon_image}}
+      <link rel="icon" type="image/png" href="{{settings.favicon_image}}" />
+    {{/if}}
 
-		{{#if page_description}}
-		<meta name="description" content="{{page_description}}" />
-		{{/if}} {{content_for_header}}
+    {{snippet "title-tag"}}
 
-		<!-- CSS Variables from Theme Settings -->
-		<script>
-			// Set CSS variables from theme settings
-			document.addEventListener('DOMContentLoaded', function () {
-				const root = document.documentElement;
-				const settings = window.Shopline?.theme?.settings || {};
+    {{#if page_description}}
+      <meta name="description" content="{{page_description}}" />
+    {{/if}}
 
-				// Button styles
-				if (settings.button_border_radius !== undefined) {
-					root.style.setProperty(
-						'--button-radius',
-						settings.button_border_radius + 'px'
-					);
-				}
 
-				// Primary button colors
-				if (settings.button_primary_bg) {
-					root.style.setProperty(
-						'--button-primary-bg',
-						settings.button_primary_bg
-					);
-				}
-				if (settings.button_primary_bg_hover) {
-					root.style.setProperty(
-						'--button-primary-bg-hover',
-						settings.button_primary_bg_hover
-					);
-				}
-				if (settings.button_primary_text) {
-					root.style.setProperty(
-						'--button-primary-text',
-						settings.button_primary_text
-					);
-				}
+    {{#if page_keyword}}
+      <meta name="keywords" content="{{page_keyword}}" />
+    {{/if}}
 
-				// Secondary button colors
-				if (settings.button_secondary_bg) {
-					root.style.setProperty(
-						'--button-secondary-bg',
-						settings.button_secondary_bg
-					);
-				}
-				if (settings.button_secondary_bg_hover) {
-					root.style.setProperty(
-						'--button-secondary-bg-hover',
-						settings.button_secondary_bg_hover
-					);
-				}
-				if (settings.button_secondary_text) {
-					root.style.setProperty(
-						'--button-secondary-text',
-						settings.button_secondary_text
-					);
-				}
-				if (settings.button_secondary_border) {
-					root.style.setProperty(
-						'--button-secondary-border',
-						settings.button_secondary_border
-					);
-				}
+    {{snippet "meta-tags"}}
+    {{snippet "theme-css-var"}}
+    
 
-				// Other color settings
-				if (settings.color_primary) {
-					root.style.setProperty(
-						'--color-primary',
-						settings.color_primary
-					);
-				}
-				if (settings.color_secondary) {
-					root.style.setProperty(
-						'--color-secondary',
-						settings.color_secondary
-					);
-				}
-
-				// Focus state colors using primary color
-				if (settings.button_primary_bg) {
-					root.style.setProperty(
-						'--focus-ring-color',
-						settings.button_primary_bg
-					);
-					root.style.setProperty(
-						'--focus-border-color',
-						settings.button_primary_bg
-					);
-				}
-
-				// Card styles
-				if (settings.card_border_radius !== undefined) {
-					root.style.setProperty(
-						'--card-radius',
-						settings.card_border_radius + 'px'
-					);
-				}
-				if (settings.card_shadow !== undefined) {
-					// Convert percentage to actual shadow values
-					const shadowIntensity = settings.card_shadow / 100;
-					const shadowColor = `rgba(0, 0, 0, ${
-						0.1 * shadowIntensity
-					})`;
-					const shadowBlur = 20 * shadowIntensity;
-					const shadowY = 10 * shadowIntensity;
-
-					root.style.setProperty(
-						'--card-shadow',
-						shadowIntensity > 0
-							? `0 ${shadowY}px ${shadowBlur}px -5px ${shadowColor}`
-							: 'none'
-					);
-				}
-			});
-		</script>
-
-		<style>
-			/* Default CSS variable values as fallbacks */
-			:root {
-				--button-radius: 6px;
-				--button-primary-bg: #dc2626;
-				--button-primary-bg-hover: #b91c1c;
-				--button-primary-text: #ffffff;
-				--button-secondary-bg: #ffffff;
-				--button-secondary-bg-hover: #f9fafb;
-				--button-secondary-text: #374151;
-				--button-secondary-border: #d1d5db;
-				--color-primary: #dc2626;
-				--color-secondary: #1f2937;
-				--focus-ring-color: #dc2626;
-				--focus-border-color: #dc2626;
-				--card-radius: 8px;
-				--card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-			}
-
-			/* Custom focus utilities using CSS variables */
-			.focus\:ring-primary:focus {
-				--tw-ring-color: var(--focus-ring-color);
-			}
-
-			.focus\:border-primary:focus {
-				border-color: var(--focus-border-color);
-			}
-
-			.focus\:ring-primary\/20:focus {
-				--tw-ring-color: var(--focus-ring-color);
-				--tw-ring-opacity: 0.2;
-			}
-		</style>
+		<!-- Preload fonts -->
+		<link
+			rel="preload"
+			href="{{asset_url 'Crossten-Book.woff2'}}"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<link
+			rel="preload"
+			href="{{asset_url 'Crossten-Bold.woff2'}}"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<link
+			rel="preload"
+			href="{{asset_url 'TANMARJORIE-DISPLAY.woff2'}}"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
 
 		<link rel="stylesheet" href="{{asset_url 'theme.css'}}" />
 		<link rel="stylesheet" href="{{asset_url 'style.css'}}" />
 
+
+		<!-- Custom Fonts -->
+		<style>
+			/* @font-face {
+				font-family: 'TANMARJORIE-DISPLAY';
+				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/TANMARJORIE-DISPLAY.woff2?v=1722547152)
+					format('woff2');
+				font-weight: normal;
+				font-style: normal;
+				font-display: swap;
+			}
+
+			@font-face {
+				font-family: 'Crossten-Book';
+				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/Crossten-Book.woff2?v=1722547570)
+					format('woff2');
+				font-weight: normal;
+				font-style: normal;
+				font-display: swap;
+			}
+
+			@font-face {
+				font-family: 'Crossten-Bold';
+				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/Crossten-Bold.woff2?v=1722547570)
+					format('woff2');
+				font-weight: bold;
+				font-style: normal;
+				font-display: swap;
+			} */
+
+			@font-face {
+				font-family: 'TANMARJORIE-DISPLAY';
+				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/TANMARJORIE-DISPLAY.woff2?v=1722547152)
+					format('woff2');
+				font-style: normal;
+			}
+			@font-face {
+				font-family: 'Crossten-Book';
+				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/Crossten-Book.woff2?v=1722547570)
+					format('woff2');
+				font-style: normal;
+			}
+			@font-face {
+				font-family: 'Crossten-Bold';
+				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/Crossten-Bold.woff2?v=1722547570)
+					format('woff2');
+				font-style: bold;
+			}
+		</style>
+
 		<!-- Global JS - Essential for Shopline functionality -->
 		<script src="{{asset_url 'global.js'}}" defer="defer"></script>
-
+		
 		<!-- Theme Vue Components -->
 		<script src="{{asset_url 'orion-theme.umd.js'}}" defer></script>
+
+
+		{{content_for_header}}
 	</head>
 
-	<body
-		class="template-{{request.page_type}}{{#if request.template_suffix}} template-suffix-{{request.template_suffix}}{{/if}}">
+	<body data-template="{{template.name}}" class="template-{{request.page_type}} {{#if template.suffix}}{{request.page_type}}-{{template.suffix}}{{/if}}" style="background-color: rgb(var(--color-page-background));">
+		
 		<a class="skip-to-content-link sr-only" href="#MainContent">
 			Skip to content
 		</a>
+		
 
 		{{section "header"}}
 
-		<main id="MainContent" role="main" tabindex="-1">
+		<main id="MainContent" class="content-for-layout" tabindex="-1">
 			{{content_for_layout}}
 		</main>
 
-		{{section "footer"}}
 
 		<!-- Global Cart Drawer Mount -->
 		<div class="cart-drawer-mount"></div>
@@ -192,6 +139,8 @@
 
 		<!-- Global Search Overlay Mount -->
 		<search-overlay></search-overlay>
+
+		{{section "footer"}}
 
 		{{content_for_footer}}
 
@@ -218,11 +167,6 @@
 
 			// Initialize translations
 			window.__I18N__ = window.__I18N__ || {};
-			window.__I18N__['unvisiable'] = {{{ json (t 'unvisiable') }}};
-			window.__I18N__['cart'] = {{{ json (t 'cart') }}};
-			window.__I18N__['products'] = {{{ json (t 'products') }}};
-			window.__I18N__['general'] = window.__I18N__['general'] || {};
-			window.__I18N__['general']['general'] = {{{ json (t 'general.general') }}};
 		</script>
 	</body>
 </html>

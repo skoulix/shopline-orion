@@ -1,49 +1,196 @@
-<div class="image-with-text py-12 {{#if section.settings.full_width}}px-0{{/if}}">
-  <div class="{{#unless section.settings.full_width}}max-w-7xl mx-auto px-4 sm:px-6 lg:px-8{{/unless}}">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-      <!-- Image -->
-      <div class="{{#if section.settings.layout == 'text_first'}}lg:order-2{{/if}}">
-        {{#if section.settings.image}}
-          <img 
-            src="{{image_url section.settings.image width=800}}" 
-            alt="{{section.settings.heading}}"
-            class="w-full h-auto rounded-lg"
-          >
-        {{else}}
-          <div class="aspect-square bg-gray-100 rounded-lg"></div>
-        {{/if}}
+<div class="image-with-text overflow-hidden relative" style="background-color: {{default section.settings.background_color '#ffffff'}};{{#if section.settings.background_image}} background-image: url('{{image_url section.settings.background_image width=1920}}'); background-position: {{default section.settings.background_position 'center'}}; background-repeat: no-repeat;{{/if}}">
+  {{#if section.settings.background_image}}
+    <style>
+      @media (max-width: 1023px) {
+        .image-with-text {
+          background-size: auto !important;
+        }
+      }
+      @media (min-width: 1024px) {
+        .image-with-text {
+          background-size: {{default section.settings.background_size 'cover'}} !important;
+        }
+      }
+    </style>
+  {{/if}}
+  {{#if section.settings.background_image}}
+    <div class="absolute inset-0 bg-black" style="opacity: {{default section.settings.background_overlay_opacity 0}};"></div>
+  {{/if}}
+  <div class="{{#unless section.settings.full_width}}container{{/unless}} relative" style="padding-top: {{default section.settings.padding_top 60}}px; padding-bottom: {{default section.settings.padding_bottom 60}}px;">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+      <div class="order-1 {{#if (eq section.settings.layout 'image_first')}}lg:order-2{{else}}lg:order-1{{/if}} lg:col-span-5 flex items-center {{#if section.settings.background_image}}{{#if (eq section.settings.layout 'text_first')}}lg:pl-24 xl:pl-32{{else}}lg:pr-24 xl:pr-32{{/if}}{{/if}}">
+        <div class="w-full px-8 lg:px-16 py-12 lg:py-16 text-center {{#if (eq section.settings.content_alignment 'center')}}lg:text-center{{else}}{{#if (eq section.settings.content_alignment 'right')}}lg:text-right{{else}}lg:text-left{{/if}}{{/if}}">
+          
+          {{#if section.settings.show_rating}}
+            <div class="flex items-center mb-7 justify-center {{#if (eq section.settings.content_alignment 'center')}}lg:justify-center{{else}}{{#if (eq section.settings.content_alignment 'right')}}lg:justify-end{{else}}lg:justify-start{{/if}}{{/if}}">
+              <div class="flex">
+                {{#if (gte section.settings.rating 1)}}
+                  <svg class="w-5 h-5 fill-current" style="color: {{default section.settings.star_color '#e3276f'}};" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/>
+                  </svg>
+                {{else}}
+                  <svg class="w-5 h-5 fill-current text-gray-300" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/>
+                  </svg>
+                {{/if}}
+                
+                {{#if (gte section.settings.rating 2)}}
+                  <svg class="w-5 h-5 fill-current" style="color: {{default section.settings.star_color '#e3276f'}};" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/>
+                  </svg>
+                {{else}}
+                  <svg class="w-5 h-5 fill-current text-gray-300" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/>
+                  </svg>
+                {{/if}}
+                
+                {{#if (gte section.settings.rating 3)}}
+                  <svg class="w-5 h-5 fill-current" style="color: {{default section.settings.star_color '#e3276f'}};" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/>
+                  </svg>
+                {{else}}
+                  <svg class="w-5 h-5 fill-current text-gray-300" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/>
+                  </svg>
+                {{/if}}
+                
+                {{#if (gte section.settings.rating 4)}}
+                  <svg class="w-5 h-5 fill-current" style="color: {{default section.settings.star_color '#e3276f'}};" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/>
+                  </svg>
+                {{else}}
+                  <svg class="w-5 h-5 fill-current text-gray-300" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/>
+                  </svg>
+                {{/if}}
+                
+                {{#if (gte section.settings.rating 5)}}
+                  <svg class="w-5 h-5 fill-current" style="color: {{default section.settings.star_color '#e3276f'}};" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/>
+                  </svg>
+                {{else}}
+                  <svg class="w-5 h-5 fill-current text-gray-300" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/>
+                  </svg>
+                {{/if}}
+              </div>
+            </div>
+          {{/if}}
+          
+          {{#if section.settings.heading}}
+            <h2 class="text-3xl sm:text-4xl md:text-5xl uppercase mb-6" 
+                style="color: {{default section.settings.heading_color '#3d3259'}};">
+              {{section.settings.heading}}
+            </h2>
+          {{/if}}
+          
+          {{#if section.settings.text}}
+            <div class="text-lg lg:text-xl mb-8" 
+                 style="color: {{default section.settings.text_color '#666666'}};">
+              {{section.settings.text}}
+            </div>
+          {{/if}}
+          
+          {{#if section.settings.button_label}}
+            {{#if section.settings.button_link}}
+              {{assign "parsed_link" (JSONparse section.settings.button_link)}}
+              {{#if parsed_link.pageType}}
+                {{#if (eq parsed_link.pageType 3)}}
+                  <a href="/pages/{{parsed_link.value}}" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                    {{section.settings.button_label}}
+                  </a>
+                {{else}}
+                  {{#if (eq parsed_link.pageType 12)}}
+                    <a href="/collections/{{parsed_link.value}}" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                      {{section.settings.button_label}}
+                    </a>
+                  {{else}}
+                    {{#if (eq parsed_link.pageType 10)}}
+                      <a href="/products/{{parsed_link.value}}" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                        {{section.settings.button_label}}
+                      </a>
+                    {{else}}
+                      <a href="{{parsed_link.value}}" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                        {{section.settings.button_label}}
+                      </a>
+                    {{/if}}
+                  {{/if}}
+                {{/if}}
+              {{else}}
+                <a href="{{default section.settings.button_link '#'}}" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                  {{section.settings.button_label}}
+                </a>
+              {{/if}}
+            {{else}}
+              <a href="#" class="inline-block px-8 py-4 font-crossten-bold uppercase tracking-wide transition-all duration-200" style="background-color: {{default section.settings.button_bg_color '#e3276f'}}; color: {{default section.settings.button_text_color '#ffffff'}}; border-radius: var(--button-radius, 6px); {{#if section.settings.button_border_enabled}}border: {{default section.settings.button_border_width 2}}px solid {{default section.settings.button_border_color '#ffffff'}};{{/if}}">
+                {{section.settings.button_label}}
+              </a>
+            {{/if}}
+          {{/if}}
+        </div>
       </div>
       
-      <!-- Text -->
-      <div class="{{#if section.settings.layout == 'text_first'}}lg:order-1{{/if}}">
-        {{#if section.settings.heading}}
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">
-            {{section.settings.heading}}
-          </h2>
+      <div class="order-2 {{#if (eq section.settings.layout 'image_first')}}lg:order-1{{else}}lg:order-2{{/if}} lg:col-span-7 relative {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+        {{#if section.settings.button_link}}
+          {{assign "parsed_img_link" (JSONparse section.settings.button_link)}}
+          {{#if parsed_img_link.pageType}}
+            {{#if (eq parsed_img_link.pageType 3)}}
+              <a href="/pages/{{parsed_img_link.value}}" class="block {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+            {{else}}
+              {{#if (eq parsed_img_link.pageType 12)}}
+                <a href="/collections/{{parsed_img_link.value}}" class="block {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+              {{else}}
+                {{#if (eq parsed_img_link.pageType 10)}}
+                  <a href="/products/{{parsed_img_link.value}}" class="block {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+                {{else}}
+                  <a href="{{parsed_img_link.value}}" class="block {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+                {{/if}}
+              {{/if}}
+            {{/if}}
+          {{else}}
+            <a href="{{section.settings.button_link}}" class="block {{#if (eq section.settings.image_height 'full')}}{{else}}h-full{{/if}}">
+          {{/if}}
         {{/if}}
         
-        {{#if section.settings.text}}
-          <div class="prose prose-lg text-gray-600 mb-6">
-            {{{section.settings.text}}}
-          </div>
+        {{#if section.settings.background_image}}
+          {{!-- When background image is used, show transparent placeholder --}}
+          <div class="{{#if (eq section.settings.image_height 'medium')}}h-[500px]{{else}}{{#if (eq section.settings.image_height 'large')}}h-[700px]{{else}}{{#if (eq section.settings.image_height 'full')}}min-h-[400px]{{else}}h-[600px]{{/if}}{{/if}}{{/if}}"></div>
+        {{else}}
+          {{!-- Normal image display when no background image --}}
+          {{#if section.settings.image}}
+            {{#if (eq section.settings.image_height 'full')}}
+              <div class="relative">
+                {{image_tag 
+                  (image_url section.settings.image width=1920)
+                  class='w-full h-auto'
+                  widths='375, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160'
+                  loading='lazy'
+                  sizes='(max-width: 1023px) 100vw, 50vw'
+                  alt=section.settings.image.alt
+                }}
+              </div>
+            {{else}}
+              <div class="relative h-full {{#if (eq section.settings.image_height 'medium')}}lg:h-[500px]{{else}}{{#if (eq section.settings.image_height 'large')}}lg:h-[700px]{{else}}min-h-[400px] lg:min-h-[600px]{{/if}}{{/if}}">
+                {{image_tag 
+                  (image_url section.settings.image width=1920)
+                  class='absolute inset-0 w-full h-full object-cover'
+                  widths='375, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160'
+                  loading='lazy'
+                  sizes='(max-width: 1023px) 100vw, 50vw'
+                  alt=section.settings.image.alt
+                }}
+              </div>
+            {{/if}}
+          {{else}}
+            <div class="bg-gray-100 {{#if (eq section.settings.image_height 'medium')}}h-[500px]{{else}}{{#if (eq section.settings.image_height 'large')}}h-[700px]{{else}}{{#if (eq section.settings.image_height 'full')}}min-h-[400px]{{else}}h-[600px]{{/if}}{{/if}}{{/if}}"></div>
+          {{/if}}
         {{/if}}
         
-        {{#if section.settings.button_label}}
-          <a 
-            href="{{section.settings.button_link}}" 
-            class="inline-block px-6 py-3 font-medium transition-colors"
-            style="
-              background-color: var(--button-primary-bg, #dc2626);
-              color: var(--button-primary-text, #ffffff);
-              border-radius: var(--button-radius, 6px);
-            "
-            onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover, #b91c1c)'"
-            onmouseout="this.style.backgroundColor='var(--button-primary-bg, #dc2626)'"
-          >
-            {{section.settings.button_label}}
+        {{#if section.settings.button_link}}
           </a>
         {{/if}}
       </div>
+      
     </div>
   </div>
 </div>
@@ -51,121 +198,310 @@
 {{#schema}}
 {
   "name": "t:sections.image-with-text.name",
-  "class": "section",
+  "class": "section-image-with-text",
   "settings": [
     {
-      "id": "image",
-      "type": "image_picker",
-      "label": "t:sections.image-with-text.settings.image.label",
-      "info": "t:sections.image-with-text.settings.image.info"
+      "type": "group_header",
+      "label": "Content"
+    },
+    {
+      "type": "switch",
+      "id": "show_rating",
+      "label": "Show rating stars",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rating",
+      "label": "Rating",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "default": 5,
+      "info": "Number of stars to display"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#e3276f"
     },
     {
       "type": "text",
       "id": "heading",
-      "default": "Image with text",
-      "label": "t:sections.image-with-text.settings.heading.label"
+      "label": "Heading",
+      "default": "ENERGY FOR THE WHOLE DAY"
     },
     {
-      "type": "richtext",
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "font-crossten-bold",
+      "options": [
+        {
+          "value": "font-crossten-book",
+          "label": "Crossten Book"
+        },
+        {
+          "value": "font-crossten-bold",
+          "label": "Crossten Bold"
+        },
+        {
+          "value": "font-tanmarjorie",
+          "label": "Tan Marjorie Display"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#3d3259"
+    },
+    {
+      "type": "textarea",
       "id": "text",
-      "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-      "label": "t:sections.image-with-text.settings.text.label"
+      "label": "Text",
+      "default": "Keeps me focused throughout the work day and I'm not crashing by 2pm."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "group_header",
+      "label": "Button"
     },
     {
       "type": "text",
       "id": "button_label",
-      "default": "Button label",
-      "label": "t:sections.image-with-text.settings.button_label.label"
+      "label": "Button label",
+      "default": "Shop Now"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "t:sections.image-with-text.settings.button_link.label"
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background color",
+      "default": "#e3276f"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "switch",
+      "id": "button_border_enabled",
+      "label": "Enable button border",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Button border width",
+      "default": 2,
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "group_header",
+      "label": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image",
+      "info": "If set, this image will be used as the section background"
     },
     {
       "type": "select",
-      "id": "layout",
+      "id": "background_position",
+      "label": "Background image position",
+      "default": "center",
       "options": [
         {
-          "value": "image_first",
-          "label": "t:sections.image-with-text.settings.layout.options__0.label"
+          "value": "top",
+          "label": "Top"
         },
         {
-          "value": "text_first",
-          "label": "t:sections.image-with-text.settings.layout.options__1.label"
+          "value": "top left",
+          "label": "Top left"
+        },
+        {
+          "value": "top right",
+          "label": "Top right"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "bottom left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom right",
+          "label": "Bottom right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "background_size",
+      "label": "Background image size",
+      "default": "cover",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover (fills container)"
+        },
+        {
+          "value": "contain",
+          "label": "Contain (fits entire image)"
+        },
+        {
+          "value": "100% auto",
+          "label": "Fit width (adapts to browser width)"
+        },
+        {
+          "value": "auto 100%",
+          "label": "Fit height"
         }
       ],
-      "default": "image_first",
-      "label": "t:sections.image-with-text.settings.layout.label"
+      "info": "How the background image should be sized"
+    },
+    {
+      "type": "range",
+      "id": "background_overlay_opacity",
+      "label": "Background overlay opacity",
+      "min": 0,
+      "max": 0.8,
+      "step": 0.1,
+      "default": 0.3,
+      "info": "Add a dark overlay to improve text readability"
+    },
+    {
+      "type": "group_header",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
     },
     {
       "type": "select",
       "id": "image_height",
-      "label": "t:sections.image-with-text.settings.image_height.label",
+      "label": "Image height",
       "options": [
         {
           "value": "auto",
-          "label": "t:sections.image-with-text.settings.image_height.options__0.label"
+          "label": "Adapt to content"
         },
         {
           "value": "medium",
-          "label": "t:sections.image-with-text.settings.image_height.options__1.label"
+          "label": "Medium (500px)"
         },
         {
           "value": "large",
-          "label": "t:sections.image-with-text.settings.image_height.options__2.label"
+          "label": "Large (700px)"
+        },
+        {
+          "value": "full",
+          "label": "Full (native dimensions)"
         }
       ],
       "default": "auto"
     },
     {
+      "type": "group_header",
+      "label": "Layout"
+    },
+    {
       "type": "select",
-      "id": "content_alignment",
+      "id": "layout",
+      "label": "Layout",
       "options": [
         {
-          "value": "left",
-          "label": "t:sections.image-with-text.settings.content_alignment.options__0.label"
+          "value": "text_first",
+          "label": "Text first"
         },
         {
-          "value": "center",
-          "label": "t:sections.image-with-text.settings.content_alignment.options__1.label"
-        },
-        {
-          "value": "right",
-          "label": "t:sections.image-with-text.settings.content_alignment.options__2.label"
+          "value": "image_first",
+          "label": "Image first"
         }
       ],
-      "default": "left",
-      "label": "t:sections.image-with-text.settings.content_alignment.label"
+      "default": "text_first"
+    },
+    {
+      "type": "horizontal_align",
+      "id": "content_alignment",
+      "label": "Text alignment",
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff",
+      "info": "Used when no background image is set"
     },
     {
       "type": "switch",
       "id": "full_width",
-      "default": false,
-      "label": "t:sections.image-with-text.settings.full_width.label"
+      "label": "Full width",
+      "default": true
     },
     {
       "type": "group_header",
-      "label": "t:sections.image-with-text.settings.group_header__0.label"
+      "label": "Section spacing"
     },
     {
       "type": "range",
       "id": "padding_top",
-      "label": "t:sections.image-with-text.settings.padding_top.label",
-      "default": 60,
-      "max": 100,
+      "label": "Top padding",
+      "default": 0,
+      "max": 200,
       "min": 0,
-      "step": 2,
+      "step": 4,
       "unit": "px"
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "t:sections.image-with-text.settings.padding_bottom.label",
-      "default": 60,
-      "max": 100,
+      "label": "Bottom padding",
+      "default": 0,
+      "max": 200,
       "min": 0,
-      "step": 2,
+      "step": 4,
       "unit": "px"
     }
   ],
@@ -173,15 +509,14 @@
     {
       "name": "t:sections.image-with-text.presets.presets__0.name",
       "settings": {
-        "heading": "Image with text",
-        "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-        "button_label": "Button label",
-        "layout": "image_first",
-        "image_height": "auto",
+        "show_rating": true,
+        "rating": 5,
+        "heading": "ENERGY FOR THE WHOLE DAY",
+        "text": "Keeps me focused throughout the work day and I'm not crashing by 2pm.",
+        "button_label": "Shop Now",
+        "layout": "text_first",
         "content_alignment": "left",
-        "full_width": false,
-        "padding_top": 60,
-        "padding_bottom": 60
+        "full_width": true
       }
     }
   ]

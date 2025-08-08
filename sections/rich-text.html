@@ -1,30 +1,57 @@
-<div class="rich-text {{#if section.settings.full_width}}px-0{{/if}}" style="background-color: {{default section.settings.background_color '#ffffff'}}; padding-top: {{default section.settings.padding_top 40}}px !important; padding-bottom: {{default section.settings.padding_bottom 40}}px !important;">
-  <div class="{{#unless section.settings.full_width}}max-w-4xl mx-auto px-4 sm:px-6 lg:px-8{{/unless}} text-{{section.settings.text_alignment}}">
+<div class="rich-text {{#if section.settings.full_width}}px-0{{/if}} relative overflow-hidden" style="background-color: {{default section.settings.background_color '#ffffff'}}; padding-top: {{default section.settings.padding_top 40}}px !important; padding-bottom: {{default section.settings.padding_bottom 40}}px !important;{{#if section.settings.background_image}} background-image: url('{{image_url section.settings.background_image width=1920}}'); background-size: cover; background-position: center; background-repeat: no-repeat;{{/if}}">
+  <div class="{{#unless section.settings.full_width}}container max-w-4xl{{/unless}} text-{{section.settings.text_alignment}} relative z-10">
+    {{#if section.settings.heading_image}}
+      <div class="mb-8 {{#if (eq section.settings.text_alignment 'center')}}mx-auto{{/if}} {{#if (eq section.settings.text_alignment 'right')}}ml-auto{{/if}}" style="width: {{default section.settings.heading_image_width 100}}px;">
+        <img 
+          src="{{image_url section.settings.heading_image width=200}}" 
+          alt="{{default section.settings.heading_image_alt ''}}"
+          class="w-full h-auto"
+        >
+      </div>
+    {{/if}}
+    
     {{#if section.settings.heading}}
-      <h2 class="text-3xl font-bold text-gray-900 mb-6">
+      <h2 class="text-3xl sm:text-4xl md:{{section.settings.heading_size}} mb-6 font-heading" style="color: {{default section.settings.heading_color '#000000'}};">
         {{section.settings.heading}}
       </h2>
     {{/if}}
     
-    <div class="prose prose-lg max-w-none">
+    <div class="prose prose-lg max-w-none" style="color: {{default section.settings.text_color '#666666'}};">
       {{{section.settings.text}}}
     </div>
     
     {{#if section.settings.button_label}}
       <div class="mt-8">
-        <a 
-          href="{{section.settings.button_link}}" 
-          class="inline-block px-6 py-3 font-medium transition-colors"
-          style="
-            background-color: var(--button-primary-bg, #dc2626);
-            color: var(--button-primary-text, #ffffff);
-            border-radius: var(--button-radius, 6px);
-          "
-          onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover, #b91c1c)'"
-          onmouseout="this.style.backgroundColor='var(--button-primary-bg, #dc2626)'"
-        >
-          {{section.settings.button_label}}
-        </a>
+        {{#if section.settings.button_link}}
+          {{assign "parsed_link" (JSONparse section.settings.button_link)}}
+          {{#if parsed_link.pageType}}
+            {{#if (eq parsed_link.pageType 3)}}
+              <a href="/pages/{{parsed_link.value}}" class="button button-primary inline-block px-6 py-3 font-medium transition-colors">
+                {{section.settings.button_label}}
+              </a>
+            {{else}}
+              {{#if (eq parsed_link.pageType 12)}}
+                <a href="/collections/{{parsed_link.value}}" class="button button-primary inline-block px-6 py-3 font-medium transition-colors">
+                  {{section.settings.button_label}}
+                </a>
+              {{else}}
+                {{#if (eq parsed_link.pageType 10)}}
+                  <a href="/products/{{parsed_link.value}}" class="button button-primary inline-block px-6 py-3 font-medium transition-colors">
+                    {{section.settings.button_label}}
+                  </a>
+                {{else}}
+                  <a href="{{parsed_link.value}}" class="button button-primary inline-block px-6 py-3 font-medium transition-colors">
+                    {{section.settings.button_label}}
+                  </a>
+                {{/if}}
+              {{/if}}
+            {{/if}}
+          {{else}}
+            <a href="{{section.settings.button_link}}" class="button button-primary inline-block px-6 py-3 font-medium transition-colors">
+              {{section.settings.button_label}}
+            </a>
+          {{/if}}
+        {{/if}}
       </div>
     {{/if}}
   </div>
@@ -36,10 +63,63 @@
   "class": "section",
   "settings": [
     {
+      "type": "group_header",
+      "label": "t:sections.rich-text.settings.group_header__content.label"
+    },
+    {
       "type": "text",
       "id": "heading",
       "default": "Talk about your brand",
       "label": "t:sections.rich-text.settings.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.rich-text.settings.heading_size.label",
+      "default": "text-5xl",
+      "options": [
+        {
+          "value": "text-2xl",
+          "label": "t:sections.rich-text.settings.heading_size.options__0.label"
+        },
+        {
+          "value": "text-3xl",
+          "label": "t:sections.rich-text.settings.heading_size.options__1.label"
+        },
+        {
+          "value": "text-4xl",
+          "label": "t:sections.rich-text.settings.heading_size.options__2.label"
+        },
+        {
+          "value": "text-5xl",
+          "label": "t:sections.rich-text.settings.heading_size.options__3.label"
+        },
+        {
+          "value": "text-6xl",
+          "label": "t:sections.rich-text.settings.heading_size.options__4.label"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "heading_image",
+      "label": "t:sections.rich-text.settings.heading_image.label",
+      "info": "t:sections.rich-text.settings.heading_image.info"
+    },
+    {
+      "type": "text",
+      "id": "heading_image_alt",
+      "label": "t:sections.rich-text.settings.heading_image_alt.label"
+    },
+    {
+      "type": "range",
+      "id": "heading_image_width",
+      "label": "t:sections.rich-text.settings.heading_image_width.label",
+      "default": 100,
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px"
     },
     {
       "type": "richtext",
@@ -48,24 +128,14 @@
       "label": "t:sections.rich-text.settings.text.label"
     },
     {
-      "type": "select",
+      "type": "horizontal_align",
       "id": "text_alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:sections.rich-text.settings.text_alignment.options__0.label"
-        },
-        {
-          "value": "center",
-          "label": "t:sections.rich-text.settings.text_alignment.options__1.label"
-        },
-        {
-          "value": "right",
-          "label": "t:sections.rich-text.settings.text_alignment.options__2.label"
-        }
-      ],
       "default": "center",
       "label": "t:sections.rich-text.settings.text_alignment.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.rich-text.settings.group_header__button.label"
     },
     {
       "type": "text",
@@ -76,6 +146,16 @@
       "type": "url",
       "id": "button_link",
       "label": "t:sections.rich-text.settings.button_link.label"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.rich-text.settings.group_header__layout.label"
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "default": false,
+      "label": "t:sections.rich-text.settings.full_width.label"
     },
     {
       "type": "select",
@@ -99,38 +179,20 @@
       "info": "t:sections.rich-text.settings.content_position.info"
     },
     {
-      "type": "select",
-      "id": "color_scheme",
-      "options": [
-        {
-          "value": "none",
-          "label": "t:sections.rich-text.settings.color_scheme.options__0.label"
-        },
-        {
-          "value": "1",
-          "label": "t:sections.rich-text.settings.color_scheme.options__1.label"
-        },
-        {
-          "value": "2",
-          "label": "t:sections.rich-text.settings.color_scheme.options__2.label"
-        },
-        {
-          "value": "3",
-          "label": "t:sections.rich-text.settings.color_scheme.options__3.label"
-        }
-      ],
-      "default": "none",
-      "label": "t:sections.rich-text.settings.color_scheme.label"
-    },
-    {
-      "type": "switch",
-      "id": "full_width",
-      "default": false,
-      "label": "t:sections.rich-text.settings.full_width.label"
-    },
-    {
       "type": "group_header",
-      "label": "t:sections.rich-text.settings.group_header__0.label"
+      "label": "t:sections.rich-text.settings.group_header__appearance.label"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#000000",
+      "label": "t:sections.rich-text.settings.heading_color.label"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#666666",
+      "label": "t:sections.rich-text.settings.text_color.label"
     },
     {
       "type": "color",
@@ -139,11 +201,21 @@
       "label": "t:sections.rich-text.settings.background_color.label"
     },
     {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:sections.rich-text.settings.background_image.label",
+      "info": "t:sections.rich-text.settings.background_image.info"
+    },
+    {
+      "type": "group_header",
+      "label": "t:sections.rich-text.settings.group_header__spacing.label"
+    },
+    {
       "type": "range",
       "id": "padding_top",
       "label": "t:sections.rich-text.settings.padding_top.label",
       "default": 40,
-      "max": 100,
+      "max": 200,
       "min": 0,
       "step": 2,
       "unit": "px"
@@ -153,7 +225,7 @@
       "id": "padding_bottom",
       "label": "t:sections.rich-text.settings.padding_bottom.label",
       "default": 40,
-      "max": 100,
+      "max": 200,
       "min": 0,
       "step": 2,
       "unit": "px"
@@ -167,7 +239,6 @@
         "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
         "text_alignment": "center",
         "content_position": "center",
-        "color_scheme": "none",
         "full_width": false,
         "padding_top": 60,
         "padding_bottom": 60

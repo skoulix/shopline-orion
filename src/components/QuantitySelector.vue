@@ -120,8 +120,8 @@ const handleBlur = (event) => {
 .quantity-selector {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #d1d5db;
-  border-radius: var(--button-radius, 0.5rem);
+  border: var(--input-border-thickness, 1px) solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1));
+  border-radius: var(--input-border-radius, 30px);
   overflow: hidden;
   background-color: white;
 }
@@ -155,28 +155,32 @@ const handleBlur = (event) => {
 }
 
 .quantity-button--minus {
-  border-right: 1px solid #d1d5db;
+  border-right: 1px solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1));
 }
 
 .quantity-button--plus {
-  border-left: 1px solid #d1d5db;
+  border-left: 1px solid rgba(var(--color-entry-line, 61, 50, 89), var(--input-border-opacity-decimal, 1));
 }
 
 .quantity-input {
   width: 4rem;
   height: 2.5rem;
   text-align: center;
-  border: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   background-color: white;
   color: #111827;
   font-weight: 500;
   font-size: 0.875rem;
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .quantity-input:focus {
-  outline: none;
-  box-shadow: none;
+  outline: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
 }
 
 .quantity-input::-webkit-outer-spin-button,
@@ -187,7 +191,7 @@ const handleBlur = (event) => {
 
 /* Small variant styles */
 .quantity-selector--small {
-  border-radius: 0.375rem;
+  border-radius: var(--input-border-radius, 30px);
 }
 
 .quantity-button--small {

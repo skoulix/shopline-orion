@@ -1,0 +1,76 @@
+<div class="custom-content-section {{#if section.settings.full_width}}full-width{{else}}container{{/if}}" style="background-color: {{default section.settings.background_color '#ffffff'}}; padding-top: {{default section.settings.padding_top 40}}px; padding-bottom: {{default section.settings.padding_bottom 40}}px;">
+  <div class="{{#unless section.settings.full_width}}max-w-7xl mx-auto{{/unless}} px-4 sm:px-6 lg:px-8">
+    <div class="rte">
+      {{{section.settings.content}}}
+    </div>
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "Custom content",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "Content"
+    },
+    {
+      "type": "html",
+      "id": "content",
+      "label": "Custom HTML content",
+      "default": "<p>Add your custom HTML content here</p>"
+    },
+    {
+      "type": "group_header",
+      "label": "Layout"
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "group_header",
+      "label": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "group_header",
+      "label": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom content",
+      "category": "Custom"
+    }
+  ]
+}
+{{/schema}}

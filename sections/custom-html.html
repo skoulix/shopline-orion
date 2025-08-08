@@ -1,0 +1,144 @@
+<div class="custom-html-section" style="background-color: {{default section.settings.background_color 'transparent'}}; padding-top: {{default section.settings.padding_top 40}}px; padding-bottom: {{default section.settings.padding_bottom 40}}px;">
+  <div class="{{#if section.settings.full_width}}w-full{{else}}container{{/if}}">
+    {{#if section.settings.heading}}
+      <h2 class="text-center text-2xl sm:text-3xl md:text-4xl mb-8 {{default section.settings.heading_font 'font-heading'}}" style="color: {{default section.settings.heading_color '#000000'}};">
+        {{section.settings.heading}}
+      </h2>
+    {{/if}}
+    
+    {{#if section.settings.custom_html}}
+      <div class="custom-html-content {{default section.settings.content_alignment 'text-center'}}">
+        {{{section.settings.custom_html}}}
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+{{#schema}}
+{
+  "name": "Custom HTML",
+  "tag": "section",
+  "class": "custom-html",
+  "settings": [
+    {
+      "type": "group_header",
+      "label": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_html",
+      "label": "Custom HTML",
+      "info": "Add your custom HTML code here. Scripts and styles are supported."
+    },
+    {
+      "type": "group_header",
+      "label": "Layout"
+    },
+    {
+      "type": "switch",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "text-left",
+          "label": "Left"
+        },
+        {
+          "value": "text-center",
+          "label": "Center"
+        },
+        {
+          "value": "text-right",
+          "label": "Right"
+        }
+      ],
+      "default": "text-center"
+    },
+    {
+      "type": "group_header",
+      "label": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "options": [
+        {
+          "value": "font-tanmarjorie",
+          "label": "Display (Tan Marjorie)"
+        },
+        {
+          "value": "font-crossten-book",
+          "label": "Body (Crossten Book)"
+        },
+        {
+          "value": "font-crossten-bold",
+          "label": "Bold (Crossten Bold)"
+        },
+        {
+          "value": "font-heading",
+          "label": "Default heading"
+        }
+      ],
+      "default": "font-heading"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "group_header",
+      "label": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "group_header",
+      "label": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "default": 40,
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "default": 40,
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom HTML",
+      "category": "Custom"
+    }
+  ]
+}
+{{/schema}}

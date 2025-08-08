@@ -1,241 +1,369 @@
-<div class="product-section-wrapper" style="padding-top: {{default section.settings.padding_top 40}}px !important; padding-bottom: {{default section.settings.padding_bottom 40}}px !important;">
-<main-product-detail class="product-page bg-white" data-product-id="{{product.id}}">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    {{#if product}}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-      
-      <!-- Product Images -->
-      <div class="product-images">
-        {{#if product.images}}
-          {{#if (eq section.settings.gallery_layout "thumbnails_left")}}
-            <!-- Thumbnails Left Layout -->
-            <div class="flex gap-4">
-              <!-- Thumbnails Column -->
-              {{#if product.images.[1]}}
-                <div class="flex flex-col gap-3 overflow-y-auto overflow-x-hidden max-h-[600px] p-2" >
-                  {{#each product.images}}
-                    <button type="button" 
-                            class="thumbnail-btn block w-20 h-20 rounded-[--card-radius] overflow-hidden border-2 transition-all duration-200 {{#if @first}}border-[--color-primary] ring-2 ring-primary{{else}}border-gray-200 hover:border-gray-300{{/if}}"
-                            onclick="changeMainImage('{{image_url this width=800}}', this)">
-                      <img src="{{image_url this width=120}}" 
-                           alt="{{../product.title}}" 
-                           class="w-full h-full object-cover">
-                    </button>
-                  {{/each}}
-                </div>
-              {{/if}}
-              
-              <!-- Main Image -->
-              <div class="flex-1">
-                <div class="aspect-square bg-gray-100 rounded-[--card-radius] overflow-hidden shadow-[--card-shadow] {{#if section.settings.enable_lightbox}}cursor-zoom-in{{/if}}"
-                     {{#if section.settings.enable_lightbox}}onclick="openLightbox(0)"{{/if}}>
-                  <img id="mainImage" 
-                       src="{{image_url product.images.[0] width=800}}" 
-                       alt="{{product.title}}" 
-                       class="w-full h-full object-cover transition-opacity duration-300">
-                </div>
-              </div>
-            </div>
-          {{else}}
-            <!-- Thumbnails Bottom Layout (Default) -->
-            <!-- Main Image -->
-            <div class="mb-6">
-              <div class="aspect-square bg-white rounded-[--card-radius] overflow-hidden shadow-[--card-shadow] {{#if section.settings.enable_lightbox}}cursor-zoom-in{{/if}}"
-                   {{#if section.settings.enable_lightbox}}onclick="openLightbox(0)"{{/if}}>
-                <img id="mainImage" 
-                     src="{{image_url product.images.[0] width=800}}" 
-                     alt="{{product.title}}" 
-                     class="w-full h-full object-contain transition-opacity duration-300">
-              </div>
-            </div>
-            
-            <!-- Thumbnail Gallery -->
-            {{#if product.images.[1]}}
-              <div class="flex gap-3 overflow-x-auto p-2">
-                {{#each product.images}}
-                  <button type="button" 
-                          class="thumbnail-btn flex-shrink-0 w-20 h-20 rounded-[--button-radius] overflow-hidden border-2 transition-all duration-200 {{#if @first}}border-primary ring-2 ring-primary{{else}}border-gray-200 hover:border-gray-300{{/if}}"
-                          onclick="changeMainImage('{{image_url this width=800}}', this)">
-                    <img src="{{image_url this width=120}}" 
-                         alt="{{../product.title}}" 
-                         class="w-full h-full object-cover">
-                  </button>
-                {{/each}}
-              </div>
-            {{/if}}
-          {{/if}}
-        {{/if}}
-      </div>
+<div class="product-section-wrapper relative" style="padding-top: {{default section.settings.padding_top 40}}px !important; padding-bottom: {{default section.settings.padding_bottom 40}}px !important;">
+	{{#if section.settings.background_image}}
+		<div class="absolute -z-10 top-0 bottom-0 left-0 right-0">
+			<img src="{{ image_url section.settings.background_image width=1500}}" alt="background clouds" class="object-cover w-full h-full">
+		</div>
+	{{/if}}
 
-      <!-- Product Info -->
-      <div class="product-info">
-        <!-- Vendor -->
-        {{#if (and section.settings.show_vendor product.vendor)}}
-          <p class="text-sm font-medium text-gray-600 uppercase tracking-wide mb-2">{{product.vendor}}</p>
-        {{/if}}
-        
-        <!-- Title -->
-        <h1 class="text-4xl font-bold text-gray-900 mb-4 leading-tight">{{product.title}}</h1>
-        
-        <!-- SKU -->
-        {{#if (and section.settings.show_sku product.variants.first.sku)}}
-          <p class="text-sm text-gray-600 mb-2">SKU: {{product.variants.first.sku}}</p>
-        {{/if}}
-        
-        <!-- Availability -->
-        {{#if section.settings.show_availability}}
-          <div class="mb-4">
-            {{#if product.available}}
-              <span class="inline-flex items-center text-sm text-green-600">
-                <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                </svg>
-                In stock
-              </span>
-            {{else}}
-              <span class="inline-flex items-center text-sm text-primary">
-                <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                </svg>
-                Out of stock
-              </span>
-            {{/if}}
-          </div>
-        {{/if}}
-        
-        <!-- Price -->
-        <div class="mb-6">
-          {{#if product.compare_at_price}}
-            <div class="flex items-center gap-3">
-              <span class="text-3xl font-bold" style="color: var(--color-primary);">{{money_with_currency product.price}}</span>
-              <span class="text-xl text-gray-500 line-through">{{money_with_currency product.compare_at_price}}</span>
-              <span class="text-sm font-medium px-2.5 py-0.5 rounded-full" style="background-color: var(--color-primary); color: white; opacity: 0.9;">
-                Save {{money_with_currency (minus product.compare_at_price product.price)}}
-              </span>
-            </div>
-          {{else}}
-            <span class="text-3xl font-bold text-gray-900">{{money_with_currency product.price}}</span>
-          {{/if}}
-        </div>
-        
-        <!-- Variant Picker -->
-        <product-variant-picker 
-          id="variantPicker"
-          data-product-source="window.productPageData.product"
-          selected-variant-id="{{product.first_available_variant.id}}"
-          section-id="{{section.id}}"
-        ></product-variant-picker>
-        
-        <!-- Description -->
-        {{#if product.description}}
-          <div class="prose prose-gray max-w-none mb-8">
-            <div class="text-gray-700 leading-relaxed">{{{product.description}}}</div>
-          </div>
-        {{/if}}
-        
-        <!-- Add to Cart Form -->
-        <div class="space-y-6">
-          <!-- Quantity Selector -->
-          <div class="space-y-2">
-            <label for="quantity" class="text-sm font-medium text-gray-900">Quantity</label>
-            <div class="flex items-center">
-              <div class="inline-flex items-center border border-gray-300 rounded-lg overflow-hidden bg-white">
-                <button type="button" 
-                        class="quantity-btn w-10 h-12 flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-600 hover:text-gray-800 transition-colors border-r border-gray-300 disabled:opacity-30 disabled:cursor-not-allowed" 
-                        onclick="changeQuantity(-1)"
-                        id="decreaseBtn">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                  </svg>
-                </button>
-                <input type="number" 
-                       id="quantity"
-                       name="quantity"
-                       value="1" 
-                       min="1" 
-                       max="99"
-                       class="w-16 h-12 text-center border-0 bg-white text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-primary"
-                       onchange="updateQuantity(this.value)">
-                <button type="button" 
-                        class="quantity-btn w-10 h-12 flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-600 hover:text-gray-800 transition-colors border-l border-gray-300" 
-                        onclick="changeQuantity(1)">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Add to Cart Buttons -->
-          <div class="space-y-3">
-            <button type="button" 
-                    id="addToCartBtn"
-                    onclick="addToCart()"
-                    class="w-full py-4 px-8 font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-primary/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                    style="background-color: var(--button-primary-bg); color: var(--button-primary-text); border-radius: var(--button-radius);"
-                    onmouseover="this.style.backgroundColor='var(--button-primary-bg-hover)'"
-                    onmouseout="this.style.backgroundColor='var(--button-primary-bg)'">
-              <span class="add-to-cart-text inline-block">Add to Cart</span>
-              <span class="add-to-cart-loading hidden inline-block">
-                <svg class="animate-spin h-5 w-5 inline-block" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-              </span>
-            </button>
-            {{#if section.settings.show_buy_now}}
-              <button type="button" 
-                      onclick="buyNow()"
-                      class="w-full bg-gray-900 text-white py-4 px-8 font-semibold text-lg hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-500/20 transition-all duration-200"
-                      style="border-radius: var(--button-radius);">
-                Buy Now
-              </button>
-            {{/if}}
-          </div>
-        </div>
-        
-        <!-- Product Features -->
-        <div class="mt-8 pt-8 border-t border-gray-200">
-          <div class="grid grid-cols-2 gap-4 text-sm">
-            <div class="flex items-center gap-2 text-gray-600">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-              </svg>
-              <span>Free shipping</span>
-            </div>
-            <div class="flex items-center gap-2 text-gray-600">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <span>30-day returns</span>
-            </div>
-            <div class="flex items-center gap-2 text-gray-600">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-              </svg>
-              <span>Secure payment</span>
-            </div>
-            <div class="flex items-center gap-2 text-gray-600">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-              </svg>
-              <span>Fast delivery</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-    {{else}}
-    <!-- Product not available in preview -->
-    <div class="text-center py-16">
-      <p class="text-gray-500">Product information will be displayed here.</p>
-    </div>
-    {{/if}}
-  </div>
-</main-product-detail>
+	<main-product-detail class="product-page bg-white" data-product-id="{{product.id}}">
+		<div class="container px-4 sm:px-6 lg:px-8">
+			{{#if product}}
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-20">
+			
+					<!-- Product Images -->
+					<div class="product-images">
+						<div class="sticky top-0">
+							{{#if product.images}}
+								{{#if (eq section.settings.gallery_layout "thumbnails_left")}}
+									<!-- Thumbnails Left Layout -->
+									<div class="flex gap-4">
+										<!-- Thumbnails Column -->
+										{{#if product.images.[1]}}
+											<div class="hidden md:flex flex-col gap-3 overflow-y-auto overflow-x-hidden max-h-[600px] p-2" >
+											{{#each product.images}}
+												<button type="button" 
+														class="thumbnail-btn block w-20 h-20 overflow-hidden border-2 transition-all duration-200 {{#if @first}}border-[--color-primary] ring-2 ring-primary{{else}}border-gray-200 hover:border-gray-300{{/if}}"
+														style="border-radius: var(--card-radius, 8px);"
+														onclick="changeMainImage('{{image_url this width=800}}', this)">
+												<img src="{{image_url this width=120}}" 
+													alt="{{../product.title}}" 
+													class="w-full h-full object-cover">
+												</button>
+											{{/each}}
+											</div>
+										{{/if}}
+										
+										<!-- Main Image -->
+										<div class="flex-1 hidden md:block">
+											<div class="aspect-square overflow-hidden {{#if section.settings.enable_lightbox}}cursor-zoom-in{{/if}}"
+												style="border-radius: var(--card-radius, 8px); box-shadow: var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1));"
+												{{#if section.settings.enable_lightbox}}onclick="openLightbox(0)"{{/if}}>
+											<img id="mainImage" 
+												src="{{image_url product.images.[0] width=800}}" 
+												alt="{{product.title}}" 
+												class="w-full h-full object-cover transition-opacity duration-300">
+											</div>
+										</div>
+
+										<!-- Mobile version -->
+										<div class="grid md:hidden gap-4 grid-flow-col overflow-x-auto overflow-y-hidden snap-x snap-mandatory">
+											{{#each product.images}}
+												<div 
+													class="cursor-zoom-in relative h-full overflow-hidden rounded-4xl w-[75dvw] snap-center"
+													style="border-radius: var(--card-radius, 8px); box-shadow: var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1));"
+													onclick="openLightbox({{@index}})"
+												>
+													<img 
+														id="mainImage" 
+														src="{{image_url this width=800}}" 
+														alt="{{product.title}}" 
+														class="w-full h-full object-cover transition-opacity duration-300"
+													>
+												</div>
+											{{/each}}
+										</div>
+									</div>
+								{{else}}
+									<!-- Thumbnails Bottom Layout (Default) -->
+									<!-- Main Image -->
+									<div class="mb-6">
+										<div class="aspect-square overflow-hidden {{#if section.settings.enable_lightbox}}cursor-zoom-in{{/if}}"
+											style="border-radius: var(--card-radius, 8px); box-shadow: var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1));"
+											{{#if section.settings.enable_lightbox}}onclick="openLightbox(0)"{{/if}}>
+
+											<img 
+												id="mainImage" 
+												src="{{image_url product.images.[0] width=800}}" 
+												alt="{{product.title}}" 
+												class="w-full h-full object-contain transition-opacity duration-300"
+											>
+										</div>
+									</div>
+									
+									<!-- Thumbnail Gallery -->
+									{{#if product.images.[1]}}
+										<div class="flex gap-3 overflow-x-auto p-2">
+											{{#each product.images}}
+												<button type="button" 
+														class="thumbnail-btn flex-shrink-0 w-20 h-20 overflow-hidden border-2 transition-all duration-200 {{#if @first}}border-primary ring-2 ring-primary{{else}}border-gray-200 hover:border-gray-300{{/if}}"
+														style="border-radius: var(--card-radius, 8px);"
+														onclick="changeMainImage('{{image_url this width=800}}', this)">
+													<img src="{{image_url this width=120}}" 
+														alt="{{../product.title}}" 
+														class="w-full h-full object-cover">
+												</button>
+											{{/each}}
+										</div>
+									{{/if}}
+								{{/if}}
+							{{/if}}
+						</div>
+					</div>
+
+					<!-- Product Info -->
+					<div class="product-info wrapper-holes overflow-hidden relative">
+						<div class="product-info-inner py-8 md:py-12 px-8 xl:px-20 rounded-3xl" style="background-color: rgb(var(--color-page-background)); border: 3px solid rgb(var(--color-text));">
+							<!-- Vendor -->
+							{{#if (and section.settings.show_vendor product.vendor)}}
+								<p class="text-sm font-medium text-gray-600 uppercase tracking-wide mb-2">{{product.vendor}}</p>
+							{{/if}}
+							
+							<!-- Title -->
+							<h1 class="text-5xl leading-tight">{{product.title}}</h1>
+
+							{{#comment}} Apps rendering {{/comment}}
+							{{#with this as |global|}}
+								{{#each section.block_order as |blockId|}}
+									{{#with (lookup ../section.blocks blockId)}}
+										{{#startsWith "shopline://apps" type}}
+											<div class="app-block-wrapper">
+												{{render this}}
+											</div>
+										{{/startsWith}}
+									{{/with}}
+								{{/each}}
+							{{/with}}
+
+							<!-- Reviews summery -->
+							<reviews-summary product-id="{{product.id}}"></reviews-summary>
+
+							<!-- Description -->
+							{{#if section.settings.subtitle}}
+								<div class="max-w-none mb-4">
+									<div class="text-gray-700 leading-relaxed">{{section.settings.subtitle}}</div>
+								</div>
+							{{else}}
+								<div class="max-w-none mb-4">
+									<div class="text-gray-700 leading-relaxed">{{{product.description}}}</div>
+								</div>
+							{{/if}}
+							
+							<!-- SKU -->
+							{{#if (and section.settings.show_sku product.variants.first.sku)}}
+								<p class="text-sm text-gray-600 mb-2">SKU: {{product.variants.first.sku}}</p>
+							{{/if}}
+							
+							<!-- Availability -->
+							{{#if section.settings.show_availability}}
+								<div class="mb-4">
+									{{#if product.available}}
+										<span class="inline-flex items-center text-sm text-green-600">
+											<svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+												<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+											</svg>
+											In stock
+										</span>
+									{{else}}
+										<span class="inline-flex items-center text-sm text-primary">
+											<svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+												<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+											</svg>
+											Out of stock
+										</span>
+									{{/if}}
+								</div>
+							{{/if}}
+							
+							<div class="flex flex-wrap justify-between items-start mb-4 gap-2">
+								<!-- Price -->
+								<div class="w-full md:w-auto">
+									<div>Price</div>
+									
+									{{#if product.compare_at_price}}
+										<div class="price-wrapper flex items-center gap-1">
+											<span id="productPrice" class="text-xl" style="color: var(--color-primary);">{{money_with_currency product.price}}</span>
+											<span id="comparePrice" class="text-xl text-gray-500 line-through">{{money_with_currency product.compare_at_price}}</span>
+											<span id="saveAmount" class="hidden text-sm font-medium px-2.5 py-0.5 rounded-full" style="background-color: var(--color-primary); color: white; opacity: 0.9;">
+												Save {{money_with_currency (minus product.compare_at_price product.price)}}
+											</span>
+										</div>
+									{{else}}
+										<span id="productPrice" class="price-wrapper text-xl">{{money product.price}}</span>
+									{{/if}}
+								</div>
+
+								<!-- Variant Picker -->
+								<product-variant-picker 
+									id="variantPicker"
+									data-product-source="window.productPageData.product"
+									selected-variant-id="{{product.first_available_variant.id}}"
+									section-id="{{section.id}}"
+								></product-variant-picker>
+
+								<!-- Quantity Selector -->
+								<div>
+									<label for="quantity">Quantity</label>
+									
+									<div class="flex items-center">
+										<div class="quantity-selector quantity-selector--small">
+											<button 
+												type="button" 
+												class="quantity-button quantity-button--minus quantity-button--small" 
+												onclick="changeQuantity(-1)"
+												id="decreaseBtn"
+											>
+												<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+												</svg>
+											</button>
+
+											<input type="number" 
+												id="quantity"
+												name="quantity"
+												value="1" 
+												min="1" 
+												max="99"
+												class="quantity-input quantity-input--small"
+												onchange="updateQuantity(this.value)"
+											>
+
+											<button 
+												type="button" 
+												class="quantity-button quantity-button--plus quantity-button--small" 
+												onclick="changeQuantity(1)"
+											>
+												<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+												</svg>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Subscription Selector -->
+							{{#if product.selling_plan_groups}}
+							<div class="mb-4">
+								<label for="sellingPlan" class="block text-sm font-medium text-gray-700">{{t 'products.product_details.purchase_options'}}</label>
+								<select id="sellingPlan" name="selling_plan" class="form-input mt-1 block w-full pl-3 pr-10 py-2 text-base focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-full" onchange="updateSellingPlan(this.value)">
+									<option value="one-time">{{t 'products.product_details.one_time_purchase'}}</option>
+									{{#each product.selling_plan_groups}}
+										{{#each selling_plans}}
+											{{#with (lookup ../../product.selling_plan_allocations this.id) as |allocation|}}
+												{{#if allocation}}
+													<option value="{{this.id}}" data-price="{{allocation.price}}">{{this.name}} - {{money_with_currency allocation.price}}</option>
+												{{/if}}
+											{{/with}}
+										{{/each}}
+									{{/each}}
+								</select>
+							</div>
+							{{/if}}
+
+							<!-- Add to Cart Form -->
+							<div class="space-y-6 mb-6">						
+								<!-- Add to Cart Buttons -->
+								<form method="post" action="/api/carts/ajax-cart/addSingle.js" id="product-form-main-product-info-float" class="shopline-product-form">
+									<input type="hidden" name="returnTo" value="/cart">
+									<input type="hidden" name="productSeq" value="{{product.id}}">
+									<input type="hidden" name="id" value="{{product.first_available_variant.id}}">
+
+									<div class="space-y-3">
+										<button  
+											type="submit"
+											id="addToCartBtn"
+											onclick="addToCart()"
+											class="btn btn-primary w-full py-4 px-8 text-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none"
+										>
+											<span class="add-to-cart-text inline-block">Add to Cart</span>
+											<span class="add-to-cart-loading hidden inline-block">
+												<svg class="animate-spin h-5 w-5 inline-block" viewBox="0 0 24 24">
+													<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+													<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+												</svg>
+											</span>
+										</button>
+
+										{{#if section.settings.show_buy_now}}
+											<button type="button" 
+												onclick="buyNow()"
+												class="btn w-full bg-gray-900 text-white py-4 px-8 text-lg hover:bg-gray-800 focus:outline-none"
+											>
+												Buy Now
+											</button>
+										{{/if}}
+									</div>
+								</form>
+							</div>
+
+							<!-- Product Accordion Tabs, nutrition, ingredients -->
+							{{#each section.blocks}}
+								{{#if (eq type "accordion_item")}}
+									<details class="accordion-item {{#unless @first}}border-t{{/unless}} {{#if @last}}border-b{{/if}}" style="border-color: var(--color-avvika-purple);">
+										<summary class="accordion-header flex items-center justify-between py-3 cursor-pointer transition-colors">
+											<div class="text-sm font-bold uppercase pr-4 tracking-widest">
+												{{settings.title}}
+											</div>
+
+											<svg class="accordion-icon w-6 h-6 transition-transform" style="color: {{default ../section.settings.accordion_title_color '#374151'}};" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+											</svg>
+										</summary>
+
+										<div class="accordion-content">
+											<div class="prose text-base text-avvika-purple pb-4 max-w-none" style="color: {{default ../section.settings.accordion_content_color '#6b7280'}};">
+												{{{settings.content}}}
+											</div>
+										</div>
+									</details>
+								{{/if}}
+							{{/each}}
+						
+							<!-- Product Features -->
+							{{#if section.settings.show_shipping_info}}
+								<div class="mt-4 pt-8 border-t border-gray-200">
+									<div class="grid grid-cols-2 gap-4 text-sm">
+										<div class="flex items-center gap-2 text-gray-600">
+											<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+											</svg>
+											<span>Free shipping</span>
+										</div>
+
+										<div class="flex items-center gap-2 text-gray-600">
+											<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+											</svg>
+											<span>30-day returns</span>
+										</div>
+
+										<div class="flex items-center gap-2 text-gray-600">
+											<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+											</svg>
+											<span>Secure payment</span>
+										</div>
+
+										<div class="flex items-center gap-2 text-gray-600">
+											<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+											</svg>
+											<span>Fast delivery</span>
+										</div>
+									</div>
+								</div>
+							{{/if}}
+						</div>
+					</div>
+			
+				</div>
+			{{else}}
+				<!-- Product not available in preview -->
+				<div class="text-center py-16">
+					<p class="text-gray-500">Product information will be displayed here.</p>
+				</div>
+			{{/if}}
+		</div>
+	</main-product-detail>
 </div>
+
+<script class="variant-data" type="application/json">
+	{{{json product.variants}}}
+</script>
+
+<script class="selling-plan-data" type="application/json">
+	{{{json product.selling_plan_groups}}}
+</script>
 
 <script>
   // Define the main-product-detail custom element required by Shopline
@@ -268,6 +396,7 @@
     title: '{{product.title}}',
     price: '{{product.price}}',
     image: '{{image_url product.images.[0] width=300}}',
+    sellingPlanId: null, // Track selected selling plan
     variants: [
       {{#each product.variants}}
       {
@@ -283,7 +412,41 @@
         featured_media: {{#if this.featured_media}}{
           id: '{{this.featured_media.id}}',
           position: {{this.featured_media.position}}
-        }{{else}}null{{/if}}
+        }{{else}}null{{/if}},
+        selling_plan_allocations: [
+          {{#each this.selling_plan_allocations}}
+          {
+            selling_plan_id: '{{this.selling_plan_id}}',
+            price: '{{this.price}}',
+            compare_at_price: {{#if this.compare_at_price}}'{{this.compare_at_price}}'{{else}}null{{/if}}
+          }{{#unless @last}},{{/unless}}
+          {{/each}}
+        ]
+      }{{#unless @last}},{{/unless}}
+      {{/each}}
+    ],
+    selling_plan_groups: [
+      {{#each product.selling_plan_groups}}
+      {
+        id: '{{this.id}}',
+        name: '{{this.name}}',
+        selling_plans: [
+          {{#each this.selling_plans}}
+          {
+            id: '{{this.id}}',
+            name: '{{this.name}}',
+            description: '{{this.description}}',
+            options: [
+              {{#each this.options}}
+              {
+                name: '{{this.name}}',
+                value: '{{this.value}}'
+              }{{#unless @last}},{{/unless}}
+              {{/each}}
+            ]
+          }{{#unless @last}},{{/unless}}
+          {{/each}}
+        ]
       }{{#unless @last}},{{/unless}}
       {{/each}}
     ]
@@ -324,6 +487,12 @@
   function changeQuantity(change) {
     const quantityInput = document.getElementById('quantity');
     const currentValue = parseInt(quantityInput.value) || 1;
+    
+    // Don't decrease if already at minimum
+    if (change < 0 && currentValue <= 1) {
+      return;
+    }
+    
     const newValue = Math.max(1, Math.min(99, currentValue + change));
     
     quantityInput.value = newValue;
@@ -342,7 +511,70 @@
     const decreaseBtn = document.getElementById('decreaseBtn');
     const currentValue = parseInt(quantityInput.value);
     
-    decreaseBtn.disabled = currentValue <= 1;
+    if (currentValue <= 1) {
+      decreaseBtn.style.cursor = 'not-allowed';
+      decreaseBtn.style.opacity = '0.3';
+    } else {
+      decreaseBtn.style.cursor = 'pointer';
+      decreaseBtn.style.opacity = '1';
+    }
+  }
+  
+  // Subscription plan update
+  function updateSellingPlan(sellingPlanId) {
+    productData.sellingPlanId = sellingPlanId === 'one-time' ? null : sellingPlanId;
+    
+    // Update price display based on selected selling plan
+    const selectedVariant = productData.variants.find(v => v.id === productData.variantId);
+    const priceElement = document.getElementById('productPrice');
+    const comparePriceElement = document.getElementById('comparePrice');
+    const saveElement = document.getElementById('saveAmount');
+    const priceContainer = document.querySelector('.price-wrapper') || document.querySelector('.product-info .mb-4 > div');
+
+    if (productData.sellingPlanId) {
+      const allocation = selectedVariant.selling_plan_allocations.find(a => a.selling_plan_id === productData.sellingPlanId);
+      if (allocation) {
+        priceElement.textContent = formatMoney(allocation.price);
+        if (allocation.compare_at_price && allocation.compare_at_price > allocation.price) {
+          if (!comparePriceElement) {
+            priceContainer.innerHTML = `
+              <div class="flex items-center gap-1">
+                <span id="productPrice" class="text-xl" style="color: var(--color-primary);">${formatMoney(allocation.price)}</span>
+                <span id="comparePrice" class="text-xl text-gray-500 line-through">${formatMoney(allocation.compare_at_price)}</span>
+                <span id="saveAmount" class="text-sm font-medium px-2.5 py-0.5 rounded-full" style="background-color: var(--color-primary); color: white; opacity: 0.9;">
+                  Save ${formatMoney(allocation.compare_at_price - allocation.price)}
+                </span>
+              </div>
+            `;
+          } else {
+            comparePriceElement.textContent = formatMoney(allocation.compare_at_price);
+            comparePriceElement.style.display = 'inline';
+            if (saveElement) {
+              saveElement.textContent = `Save ${formatMoney(allocation.compare_at_price - allocation.price)}`;
+              saveElement.style.display = 'inline-block';
+            }
+          }
+        } else {
+          priceContainer.innerHTML = `<span id="productPrice" class="text-xl">${formatMoney(allocation.price)}</span>`;
+        }
+      }
+    } else {
+      // Revert to one-time purchase price
+      priceElement.textContent = formatMoney(selectedVariant.price);
+      if (selectedVariant.compare_at_price && selectedVariant.compare_at_price > selectedVariant.price) {
+        priceContainer.innerHTML = `
+          <div class="flex items-center gap-1">
+            <span id="productPrice" class="text-xl" style="color: var(--color-primary);">${formatMoney(selectedVariant.price)}</span>
+            <span id="comparePrice" class="text-xl text-gray-500 line-through">${formatMoney(selectedVariant.compare_at_price)}</span>
+            <span id="saveAmount" class="text-sm font-medium px-2.5 py-0.5 rounded-full" style="background-color: var(--color-primary); color: white; opacity: 0.9;">
+              Save ${formatMoney(selectedVariant.compare_at_price - selectedVariant.price)}
+            </span>
+          </div>
+        `;
+      } else {
+        priceContainer.innerHTML = `<span id="productPrice" class="text-xl">${formatMoney(selectedVariant.price)}</span>`;
+      }
+    }
   }
   
   // Add to cart functionality
@@ -363,7 +595,8 @@
     const cartData = {
       items: [{
         id: productData.variantId,
-        quantity: quantity
+        quantity: quantity,
+        selling_plan: productData.sellingPlanId
       }]
     };
     
@@ -422,7 +655,8 @@
     const cartData = {
       items: [{
         id: productData.variantId,
-        quantity: quantity
+        quantity: quantity,
+        selling_plan: productData.sellingPlanId
       }]
     };
     
@@ -452,43 +686,34 @@
       // Update product data
       productData.variantId = variant.id;
       
+      // Reset selling plan selection
+      const sellingPlanSelect = document.getElementById('sellingPlan');
+      if (sellingPlanSelect) {
+        sellingPlanSelect.value = 'one-time';
+        productData.sellingPlanId = null;
+      }
+      
       // Update price display
       const productInfo = document.querySelector('.product-info');
-      const priceElement = productInfo?.querySelector('.text-3xl.font-bold');
-      const comparePriceElement = productInfo?.querySelector('.text-xl.text-gray-500.line-through');
-      const saveElement = productInfo?.querySelector('.text-sm.font-medium.px-2\\.5');
-      const priceContainer = productInfo?.querySelector('.mb-6'); // Price container
-      
-      if (priceElement) {
-        priceElement.textContent = formatMoney(variant.price);
-      }
+      const priceElement = document.getElementById('productPrice');
+      const comparePriceElement = document.getElementById('comparePrice');
+      const saveElement = document.getElementById('saveAmount');
+      const priceContainer = document.querySelector('.flex.items-center.gap-3') || document.querySelector('.product-info .mb-4 > div');
       
       if (variant.compare_at_price && variant.compare_at_price > variant.price) {
         // Show sale price
-        if (!comparePriceElement && priceContainer) {
-          // Create compare price elements if they don't exist
-          priceContainer.innerHTML = `
-            <div class="flex items-center gap-3">
-              <span class="text-3xl font-bold" style="color: var(--color-primary);">${formatMoney(variant.price)}</span>
-              <span class="text-xl text-gray-500 line-through">${formatMoney(variant.compare_at_price)}</span>
-              <span class="text-sm font-medium px-2.5 py-0.5 rounded-full" style="background-color: var(--color-primary); color: white; opacity: 0.9;">
-                Save ${formatMoney(variant.compare_at_price - variant.price)}
-              </span>
-            </div>
-          `;
-        } else if (comparePriceElement) {
-          comparePriceElement.textContent = formatMoney(variant.compare_at_price);
-          comparePriceElement.style.display = 'inline';
-          if (saveElement) {
-            saveElement.textContent = `Save ${formatMoney(variant.compare_at_price - variant.price)}`;
-            saveElement.style.display = 'inline-block';
-          }
-        }
+        priceContainer.innerHTML = `
+          <div class="flex items-center gap-1">
+            <span id="productPrice" class="text-xl" style="color: var(--color-primary);">${formatMoney(variant.price)}</span>
+            <span id="comparePrice" class="text-xl text-gray-500 line-through">${formatMoney(variant.compare_at_price)}</span>
+            <span id="saveAmount" class="text-sm font-medium px-2.5 py-0.5 rounded-full" style="background-color: var(--color-primary); color: white; opacity: 0.9;">
+              Save ${formatMoney(variant.compare_at_price - variant.price)}
+            </span>
+          </div>
+        `;
       } else {
         // No sale price - show regular price only
-        if (priceContainer) {
-          priceContainer.innerHTML = `<span class="text-3xl font-bold text-gray-900">${formatMoney(variant.price)}</span>`;
-        }
+        priceContainer.innerHTML = `<span id="productPrice" class="text-xl">${formatMoney(variant.price)}</span>`;
       }
       
       // Update availability
@@ -530,6 +755,26 @@
       if (skuElement && variant.sku) {
         skuElement.textContent = `SKU: ${variant.sku}`;
       }
+      
+      // Update selling plan selector options
+      updateSellingPlanOptions(variant);
+    }
+  }
+  
+  function updateSellingPlanOptions(variant) {
+    const sellingPlanSelect = document.getElementById('sellingPlan');
+    if (sellingPlanSelect && variant.selling_plan_allocations.length > 0) {
+      let optionsHtml = '<option value="one-time">One-time purchase</option>';
+      productData.selling_plan_groups.forEach(group => {
+        group.selling_plans.forEach(plan => {
+          const allocation = variant.selling_plan_allocations.find(a => a.selling_plan_id === plan.id);
+          if (allocation) {
+            optionsHtml += `<option value="${plan.id}" data-price="${allocation.price}">${plan.name} - ${formatMoney(allocation.price)}</option>`;
+          }
+        });
+      });
+      sellingPlanSelect.innerHTML = optionsHtml;
+      updateSellingPlan('one-time');
     }
   }
   
@@ -583,7 +828,8 @@
           position: {{this.position}}
         }{{#unless @last}},{{/unless}}
         {{/each}}
-      ]
+      ],
+      selling_plan_groups: productData.selling_plan_groups
     }
   };
   
@@ -596,109 +842,110 @@
     if (variantPicker) {
       variantPicker.addEventListener('variant-change', handleVariantChange);
       
-      // Debug: Log product data
-      // console.log('Product data for variant picker:', window.productPageData);
-      // console.log('Product options:', window.productPageData.product.options);
-      // console.log('Product variants:', window.productPageData.product.variants);
+      // Initialize selling plan options for first available variant
+      const initialVariant = productData.variants.find(v => v.id === '{{product.first_available_variant.id}}');
+      if (initialVariant) {
+        updateSellingPlanOptions(initialVariant);
+      }
     }
   });
   
   // PhotoSwipe Lightbox functionality
   {{#if section.settings.enable_lightbox}}
-  let lightbox = null;
-  
-  function initLightbox() {
-    // Load PhotoSwipe CSS
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe.css';
-    document.head.appendChild(link);
-    
-    // Load PhotoSwipe modules
-    Promise.all([
-      import('https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe.esm.js'),
-      import('https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe-lightbox.esm.js')
-    ]).then(([PhotoSwipeModule, PhotoSwipeLightboxModule]) => {
-      const PhotoSwipe = PhotoSwipeModule.default;
-      const PhotoSwipeLightbox = PhotoSwipeLightboxModule.default;
-      
-      // Prepare data source from product images
-      const dataSource = [
-        {{#each product.images}}
-        {
-          src: '{{image_url this width=2048}}',
-          w: 0, // Will be calculated automatically
-          h: 0, // Will be calculated automatically
-          alt: '{{../product.title}}'
-        }{{#unless @last}},{{/unless}}
-        {{/each}}
-      ];
-      
-      // Initialize lightbox
-      lightbox = new PhotoSwipeLightbox({
-        dataSource,
-        pswpModule: PhotoSwipe,
-        bgOpacity: 0.9,
-        showHideAnimationType: 'zoom',
-        spacing: 0.1,
-        allowPanToNext: true,
-        maxZoomLevel: 3,
-        pinchToClose: true,
-        closeOnVerticalDrag: true,
-        padding: { top: 40, bottom: 40, left: 100, right: 100 },
-        imageClickAction: 'close',
-        tapAction: 'toggle-controls',
-        doubleTapAction: 'zoom',
-        escKey: true,
-        arrowKey: true,
-        returnFocus: true
-      });
-      
-      // Add filter to calculate image dimensions
-      lightbox.addFilter('itemData', (itemData, index) => {
-        if (itemData.w === 0 && itemData.h === 0) {
-          // Create a temporary image to get dimensions
-          const img = new Image();
-          img.onload = function() {
-            itemData.w = this.naturalWidth;
-            itemData.h = this.naturalHeight;
-            
-            // Update the slide if it's already open
-            if (lightbox.pswp && lightbox.pswp.currSlide && lightbox.pswp.currSlide.index === index) {
-              lightbox.pswp.currSlide.updateContentSize(true);
-            }
-          };
-          img.src = itemData.src;
-          
-          // Set temporary dimensions to prevent errors
-          itemData.w = itemData.w || 1600;
-          itemData.h = itemData.h || 1600;
-        }
-        return itemData;
-      });
-      
-      lightbox.init();
-    });
-  }
-  
-  function openLightbox(index) {
-    if (!lightbox) {
-      initLightbox();
-      // Try again after a short delay to allow initialization
-      setTimeout(() => openLightbox(index), 100);
-      return;
-    }
-    
-    lightbox.loadAndOpen(index || 0);
-  }
-  
-  // Initialize lightbox on load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLightbox);
-  } else {
-    initLightbox();
-  }
-  {{/if}}
+	let lightbox = null;
+	
+	function initLightbox() {
+		// Load PhotoSwipe CSS
+		const link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.href = 'https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe.css';
+		document.head.appendChild(link);
+		
+		// Load PhotoSwipe modules
+		Promise.all([
+		import('https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe.esm.js'),
+		import('https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe-lightbox.esm.js')
+		]).then(([PhotoSwipeModule, PhotoSwipeLightboxModule]) => {
+		const PhotoSwipe = PhotoSwipeModule.default;
+		const PhotoSwipeLightbox = PhotoSwipeLightboxModule.default;
+		
+		// Prepare data source from product images
+		const dataSource = [
+			{{#each product.images}}
+			{
+			src: '{{image_url this width=2048}}',
+			w: 0, // Will be calculated automatically
+			h: 0, // Will be calculated automatically
+			alt: '{{../product.title}}'
+			}{{#unless @last}},{{/unless}}
+			{{/each}}
+		];
+		
+		// Initialize lightbox
+		lightbox = new PhotoSwipeLightbox({
+			dataSource,
+			pswpModule: PhotoSwipe,
+			bgOpacity: 0.9,
+			showHideAnimationType: 'zoom',
+			spacing: 0.1,
+			allowPanToNext: true,
+			maxZoomLevel: 3,
+			pinchToClose: true,
+			closeOnVerticalDrag: true,
+			padding: { top: 40, bottom: 40, left: 100, right: 100 },
+			imageClickAction: 'close',
+			tapAction: 'toggle-controls',
+			doubleTapAction: 'zoom',
+			escKey: true,
+			arrowKey: true,
+			returnFocus: true
+		});
+		
+		// Add filter to calculate image dimensions
+		lightbox.addFilter('itemData', (itemData, index) => {
+			if (itemData.w === 0 && itemData.h === 0) {
+			// Create a temporary image to get dimensions
+			const img = new Image();
+			img.onload = function() {
+				itemData.w = this.naturalWidth;
+				itemData.h = this.naturalHeight;
+				
+				// Update the slide if it's already open
+				if (lightbox.pswp && lightbox.pswp.currSlide && lightbox.pswp.currSlide.index === index) {
+				lightbox.pswp.currSlide.updateContentSize(true);
+				}
+			};
+			img.src = itemData.src;
+			
+			// Set temporary dimensions to prevent errors
+			itemData.w = itemData.w || 1600;
+			itemData.h = itemData.h || 1600;
+			}
+			return itemData;
+		});
+		
+		lightbox.init();
+		});
+	}
+	
+	function openLightbox(index) {
+		if (!lightbox) {
+		initLightbox();
+		// Try again after a short delay to allow initialization
+		setTimeout(() => openLightbox(index), 100);
+		return;
+		}
+		
+		lightbox.loadAndOpen(index || 0);
+	}
+	
+	// Initialize lightbox on load
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initLightbox);
+	} else {
+		initLightbox();
+	}
+	{{/if}}
 </script>
 
 <style>
@@ -722,7 +969,6 @@
   .thumbnail-btn:hover {
     transform: scale(1.05);
   }
-  
   
   /* Scrollbar styling for thumbnails left layout */
   .product-images .overflow-y-auto {
@@ -778,8 +1024,99 @@
     font-weight: 600;
     color: #111827;
   }
+
+  details[open] .accordion-icon {
+    transform: rotate(180deg);
+  }
+  
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .accordion-item summary {
+    list-style: none;
+  }
+  
+  .accordion-content {
+    animation: slideDown 0.3s ease-out;
+    transition: padding 0.3s ease-out;
+  }
+
+  .accordion-content * {
+	color: var(--color-avvika-purple);
+  }
+
+  .accordion-content strong{
+	color: var(--color-avvika-purple);
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 </style>
 
+<script type="application/ld+json">
+    {
+		"@context": "http://schema.org/",
+		"@type": "Product",
+		"name": "{{ product.title }}",
+		"url": "{{{ append request.origin product.url }}}",  
+		"image": [
+			"{{{ product.featured_media }}}"
+		],
+		"description": {{{ json (strip_html product.description) }}},
+		{{#if product.selected_or_first_available_variant.sku}}
+			"sku": "{{ product.selected_or_first_available_variant.sku }}",
+		{{/if}}
+		"brand": {
+			"@type": "Brand",
+			"name": "{{ product.vendor }}"
+		},
+		"offers": [
+			{{#with this as |global|}}
+				{{#forEach product.variants}}
+					{
+						"@type" : "Offer",
+						{{#if sku}}
+							"sku": "{{ sku }}",
+						{{/if}}
+						{{#if (size barcode) '===' 12}}
+							"gtin12": "{{ barcode }}",
+						{{/if}}
+						{{#if (size barcode) '===' 13}}
+							"gtin13": "{{ barcode }}",
+						{{/if}}
+						{{#if (size barcode) '===' 14}}
+							"gtin14": "{{ barcode }}",
+						{{/if}}
+						"availability" : "http://schema.org/{{#if available}}InStock{{else}}OutOfStock{{/if}}",
+						"price" : "{{ divide price 100 }}",
+						"priceCurrency" : "{{ global.cart.currency.iso_code }}",
+						"url": "{{{ append global.request.origin variant.url }}}",
+						"offers": [
+							{{#each selling_plan_allocations}}
+							{
+								"@type": "Offer",
+								"price": "{{divide price 100}}",
+								"priceCurrency": "{{global.cart.currency.iso_code}}",
+								"itemCondition": "http://schema.org/NewCondition",
+								"availability": "http://schema.org/{{#if ../available}}InStock{{else}}OutOfStock{{/if}}"
+							}{{#unless @last}},{{/unless}}
+							{{/each}}
+						]
+					}{{#unless isLast}},{{/unless}}
+				{{/forEach}}
+			{{/with}}
+		]
+    }
+</script>
 
 {{#schema}}
 {
@@ -814,10 +1151,21 @@
       "default": true,
       "info": "Click product images to open in fullscreen with zoom"
     },
+	{
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:sections.hero-banner.settings.image.label",
+      "info": "Background image"
+    },
     {
       "type": "group_header",
       "label": "Information"
     },
+	{
+		"type": "text",
+		"id": "subtitle",
+		"label": "Subtitle"
+	},
     {
       "type": "switch",
       "id": "show_vendor",
@@ -842,6 +1190,12 @@
       "label": "Show Buy Now button",
       "default": true
     },
+	{
+      "type": "switch",
+      "id": "show_shipping_info",
+      "label": "Show shipping info icons",
+      "default": true
+    },
     {
       "type": "group_header",
       "label": "t:sections.main-product.settings.group_header__2.label"
@@ -850,7 +1204,7 @@
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
+      "max": 200,
       "step": 2,
       "unit": "px",
       "label": "t:sections.main-product.settings.padding_top.label",
@@ -860,11 +1214,34 @@
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
+      "max": 200,
       "step": 2,
       "unit": "px",
       "label": "t:sections.main-product.settings.padding_bottom.label",
       "default": 40
+    }
+  ],
+  "blocks": [
+  	{
+      "type": "@app"
+    },
+    {
+      "type": "accordion_item",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Accordion Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add your accordion content here. This can include text, links, and basic formatting.</p>"
+        }
+      ]
     }
   ]
 }

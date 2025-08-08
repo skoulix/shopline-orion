@@ -1,6 +1,6 @@
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="padding-top: {{section.settings.padding_top}}px; padding-bottom: {{section.settings.padding_bottom}}px;">
+<main class="container" style="padding-top: {{section.settings.padding_top}}px; padding-bottom: {{section.settings.padding_bottom}}px;">
   <div class="text-center mb-12">
-    <h1 class="text-4xl font-bold text-gray-900 mb-4">{{blog_collection.title}}</h1>
+    <h1 class="text-4xl  mb-4">{{blog_collection.title}}</h1>
     {{#if blog_collection.description}}
       <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{blog_collection.description}}</p>
     {{/if}}
@@ -30,7 +30,7 @@
     </div>
   {{else}}
     <div class="text-center py-12 bg-gray-50 rounded-lg">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">No articles found</h2>
+      <h2 class="text-2xl  mb-4">No articles found</h2>
       <p class="text-gray-600">This blog doesn't have any published articles yet.</p>
     </div>
   {{/if}}
@@ -122,7 +122,7 @@
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
+      "max": 200,
       "step": 2,
       "default": 60,
       "unit": "px",
@@ -132,7 +132,7 @@
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
+      "max": 200,
       "step": 2,
       "default": 60,
       "unit": "px",

@@ -1,0 +1,284 @@
+{
+  "sections": {
+    "main": {
+      "disabled": true,
+      "type": "main-page",
+      "settings": {},
+      "blocks": {}
+    },
+    "product-faqs": {
+      "disabled": false,
+      "type": "faq-accordion",
+      "settings": {
+        "title": "PRODUCT FAQS",
+        "heading_font": "tanmarjorie",
+        "heading_color": "#000000"
+      },
+      "blocks": {
+        "faq-1": {
+          "type": "faq-item",
+          "settings": {
+            "question": "What is unique about AVVIKA energy drinks?",
+            "answer": "<p>AVVIKA offers a unique blend of natural ingredients designed to provide a sustained energy boost without the crash, making it the perfect companion for your active lifestyle.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq-item",
+          "settings": {
+            "question": "How much caffeine is in an AVVIKA drink?",
+            "answer": "<p>Each AVVIKA can contains 0 mg of caffeine.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq-item",
+          "settings": {
+            "question": "How does AVVIKA Energy support my daily energy needs?",
+            "answer": "<p>AVVIKA Energy is crafted to fuel your day with a blend of alternative ingredients that provide a steady, sustained energy boost, supporting both your physical and mental activities.</p>"
+          }
+        },
+        "faq-4": {
+          "type": "faq-item",
+          "settings": {
+            "question": "What makes AVVIKA Energy a healthier choice?",
+            "answer": "<p>Our drinks are formulated with health in mind, replacing traditional caffeine and sugar with healthier alternatives that nourish your body and enhance well-being without compromising on taste.</p>"
+          }
+        },
+        "faq-5": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Are AVVIKA drinks sugar-free?",
+            "answer": "<p>AVVIKA energy drinks have zero added sugar, using natural sweeteners to provide a delicious taste.</p>"
+          }
+        },
+        "faq-6": {
+          "type": "faq-item",
+          "settings": {
+            "question": "When is the best time to drink AVVIKA?",
+            "answer": "<p>AVVIKA is ideal for any time you need an energy boost, whether it's before a workout, during a long drive, or when tackling a busy day.</p>"
+          }
+        },
+        "faq-7": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Can AVVIKA Energy improve my focus and mental clarity?",
+            "answer": "<p>Yes, the unique combination of ingredients in AVVIKA Energy is designed to sharpen your focus and enhance mental clarity, helping you tackle tasks with renewed vigor.</p>"
+          }
+        },
+        "faq-8": {
+          "type": "faq-item",
+          "settings": {
+            "question": "How does AVVIKA Energy fit into an active lifestyle?",
+            "answer": "<p>Whether you're an athlete, a busy professional, or anyone in between, AVVIKA Energy complements your active lifestyle by providing a natural and refreshing energy source that keeps you going.</p>"
+          }
+        },
+        "faq-9": {
+          "type": "faq-item",
+          "settings": {
+            "question": "What is the inspiration behind AVVIKA Energy's flavors?",
+            "answer": "<p>Our flavors are inspired by the diversity of nature and the spirit of adventure, offering a range of options that cater to different tastes while energizing your journey.</p>"
+          }
+        },
+        "faq-10": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Is AVVIKA suitable for everyone?",
+            "answer": "<p>AVVIKA is designed for adults seeking an alternative energy source.</p>"
+          }
+        },
+        "faq-11": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Does AVVIKA support an active and healthy lifestyle?",
+            "answer": "<p>Absolutely! AVVIKA is more than just an energy drink; it's a lifestyle choice for those who value wellness and vitality.</p>"
+          }
+        },
+        "faq-12": {
+          "type": "faq-item",
+          "settings": {
+            "question": "What flavors does AVVIKA come in?",
+            "answer": "<p>AVVIKA comes in a variety of refreshing flavors, each crafted to tantalize your taste buds while providing the energy you need.</p>"
+          }
+        },
+        "faq-13": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Where can I purchase AVVIKA drinks?",
+            "answer": "<p>AVVIKA is available in select stores and online. Check our store locator on the website to find the nearest location to you.</p>"
+          }
+        },
+        "faq-14": {
+          "type": "faq-item",
+          "settings": {
+            "question": "How does AVVIKA Energy contribute to environmental sustainability?",
+            "answer": "<p>We are committed to sustainability, from our sourcing of ingredients to our packaging, ensuring that our products are as good for the planet as they are for you.</p>"
+          }
+        },
+        "faq-15": {
+          "type": "faq-item",
+          "settings": {
+            "question": "What is the return policy for AVVIKA?",
+            "answer": "<p>If you're not satisfied with your purchase, please contact our customer service team within 30 days for a full refund or exchange.</p>"
+          }
+        },
+        "faq-16": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Can I drink AVVIKA every day?",
+            "answer": "<p>While AVVIKA is safe for daily consumption, we recommend enjoying it as part of a balanced diet and active lifestyle.</p>"
+          }
+        },
+        "faq-17": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Are there any allergens in AVVIKA drinks?",
+            "answer": "<p>AVVIKA drinks are formulated without common allergens and are gluten-free, making them accessible to a wider audience.</p>"
+          }
+        },
+        "faq-18": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Is AVVIKA Energy suitable for a vegan or gluten-free diet?",
+            "answer": "<p>Yes, our drinks are vegan-friendly and gluten-free, making them accessible to a wide range of dietary preferences and needs.</p>"
+          }
+        },
+        "faq-19": {
+          "type": "faq-item",
+          "settings": {
+            "question": "How should I store AVVIKA drinks?",
+            "answer": "<p>For the best experience, store your AVVIKA drinks in a cool, dry place away from direct sunlight and enjoy chilled.</p>"
+          }
+        },
+        "faq-20": {
+          "type": "faq-item",
+          "settings": {
+            "question": "What measures does AVVIKA Energy take to ensure product quality?",
+            "answer": "<p>We adhere to strict quality control standards throughout our production process to ensure that every can of AVVIKA Energy meets our high-quality promise.</p>"
+          }
+        },
+        "faq-21": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Does AVVIKA offer discounts or subscriptions?",
+            "answer": "<p>Yes, we offer various discounts and subscription plans for our loyal customers. Sign up for our newsletter to stay updated on special offers.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq-1",
+        "faq-2",
+        "faq-3",
+        "faq-4",
+        "faq-5",
+        "faq-6",
+        "faq-7",
+        "faq-8",
+        "faq-9",
+        "faq-10",
+        "faq-11",
+        "faq-12",
+        "faq-13",
+        "faq-14",
+        "faq-15",
+        "faq-16",
+        "faq-17",
+        "faq-18",
+        "faq-19",
+        "faq-20",
+        "faq-21"
+      ],
+      "custom_css": []
+    },
+    "brand-faqs": {
+      "disabled": false,
+      "type": "faq-accordion",
+      "settings": {
+        "title": "BRAND FAQS",
+        "heading_font": "tanmarjorie",
+        "heading_color": "#000000",
+        "padding_top": 80
+      },
+      "blocks": {
+        "brand-faq-1": {
+          "type": "faq-item",
+          "settings": {
+            "question": "How can I get involved with the AVVIKA community?",
+            "answer": "<p>Join the AVVIKA movement by following us on social media, participating in events, and sharing your #AVVIKAEnergy moments!</p>"
+          }
+        },
+        "brand-faq-2": {
+          "type": "faq-item",
+          "settings": {
+            "question": "How does AVVIKA Energy inspire urban adventures?",
+            "answer": "<p>AVVIKA Energy is crafted for the urban explorer in you. Our drinks are designed to fuel your city adventures, providing the energy you need to discover new places and experiences with confidence and curiosity.</p>"
+          }
+        },
+        "brand-faq-3": {
+          "type": "faq-item",
+          "settings": {
+            "question": "What role does playfulness have in AVVIKA Energy's brand?",
+            "answer": "<p>Playfulness is at the core of our brand. We believe that life should be enjoyed, and our flavors are a testament to that joy. Each sip is an invitation to a delightful journey, full of surprises and smiles.</p>"
+          }
+        },
+        "brand-faq-4": {
+          "type": "faq-item",
+          "settings": {
+            "question": "How does AVVIKA Energy embody innovation?",
+            "answer": "<p>Innovation is our driving force. We're constantly experimenting with new flavor profiles and alternative ingredients to offer you an energy drink that stands out from the crowd, both in taste and in health benefits.</p>"
+          }
+        },
+        "brand-faq-5": {
+          "type": "faq-item",
+          "settings": {
+            "question": "In what ways is AVVIKA Energy inclusive?",
+            "answer": "<p>Diversity is our strength. AVVIKA Energy welcomes everyone, offering a variety of flavors that cater to all palates. We celebrate the uniqueness of each individual and strive to create a community where everyone feels at home.</p>"
+          }
+        },
+        "brand-faq-6": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Can AVVIKA Energy's stylish design enhance my daily routine?",
+            "answer": "<p>Absolutely! Our sleek and modern can designs are not just about looks; they're about making a statement. With AVVIKA Energy, you're not just choosing an energy drink; you're choosing a lifestyle accessory that complements your urban chic.</p>"
+          }
+        },
+        "brand-faq-7": {
+          "type": "faq-item",
+          "settings": {
+            "question": "What makes AVVIKA Energy a connected brand?",
+            "answer": "<p>Connection is key. We bring people together through shared experiences and a mutual love for adventure. AVVIKA Energy isn't just a drink; it's a conversation starter, a way to connect with fellow city wanderers and flavor enthusiasts.</p>"
+          }
+        },
+        "brand-faq-8": {
+          "type": "faq-item",
+          "settings": {
+            "question": "How does AVVIKA Energy support my pursuit of extraordinary moments?",
+            "answer": "<p>Every can of AVVIKA Energy is a promise of potential. We provide the energy you need to chase your dreams and the inspiration to create moments that stand out as truly extraordinary.</p>"
+          }
+        },
+        "brand-faq-9": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Is AVVIKA Energy suitable for my fast-paced city life?",
+            "answer": "<p>Designed for the rhythm of the city, AVVIKA Energy is the perfect companion for your fast-paced lifestyle. It's the boost you need to keep up with the city's pulse and make the most of every urban adventure.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "brand-faq-1",
+        "brand-faq-2",
+        "brand-faq-3",
+        "brand-faq-4",
+        "brand-faq-5",
+        "brand-faq-6",
+        "brand-faq-7",
+        "brand-faq-8",
+        "brand-faq-9"
+      ],
+      "custom_css": []
+    }
+  },
+  "order": [
+    "main",
+    "product-faqs",
+    "brand-faqs"
+  ]
+}

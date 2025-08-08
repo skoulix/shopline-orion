@@ -1,8 +1,8 @@
 <div class="py-12 bg-gray-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="container">
     <!-- Page Title -->
     <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">All Collections</h1>
+      <h1 class="text-4xl mb-4">All Collections</h1>
       <p class="text-lg text-gray-600">Browse our complete collection catalog</p>
     </div>
 
@@ -30,7 +30,7 @@
           <!-- Collection Info -->
           <div class="p-4 bg-white">
             {{#if ../section.settings.show_collection_title}}
-              <h3 class="text-lg font-semibold text-gray-900 group-hover:opacity-80 transition-opacity" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
+              <h3 class="text-lg group-hover:opacity-80 transition-opacity" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color=''">
                 {{this.title}}
               </h3>
             {{/if}}
@@ -51,7 +51,7 @@
         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
         </svg>
-        <h3 class="mt-2 text-sm font-medium text-gray-900">No collections</h3>
+        <h3 class="mt-2 text-sm">No collections</h3>
         <p class="mt-1 text-sm text-gray-500">Get started by creating a new collection.</p>
       </div>
     {{/unless}}

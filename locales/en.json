@@ -259,6 +259,11 @@
       "use_password_enter": "Login with password",
       "you_are_admin": "Are you the store owner?"
     },
+    "newsletter_form": {
+      "email_placeholder": "Enter your email address",
+      "submit": "Subscribe",
+      "confirmation": "Thank you for subscribing!"
+    },
     "header": {
       "cart": "Cart",
       "center": "User Center",
@@ -345,7 +350,78 @@
       "verify_phone_message": "Before closing account, we need to verify your identity\nYour mobile phone {{phone}} will receive a verification message",
       "address": "Address",
       "delete_deadline_tip": "User data will be deleted at {{time}}",
-      "invalidEmail": "Invalid Email Address"
+      "invalidEmail": "Invalid Email Address",
+      "title": "My Account",
+      "welcome": "Welcome back,",
+      "dashboard": "Dashboard",
+      "details": "Account Details",
+      "name": "Name",
+      "email": "Email",
+      "view_all_orders": "View all orders"
+    },
+    "log_out": "Log out",
+    "orders": {
+      "title": "Order History",
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment Status",
+      "fulfillment_status": "Fulfillment Status",
+      "total": "Total",
+      "view_order": "View details",
+      "no_orders": "You haven't placed any orders yet.",
+      "no_orders_message": "When you place your first order, it will appear here.",
+      "continue_shopping": "Continue Shopping",
+      "placed_on": "Placed on",
+      "items": "Items",
+      "product": "Product",
+      "quantity": "Quantity",
+      "price": "Price",
+      "sku": "SKU",
+      "shipping_address": "Shipping Address",
+      "order_summary": "Order Summary",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "back_to_orders": "Back to order history"
+    },
+    "addresses": {
+      "title": "Addresses",
+      "add_new": "Add New Address",
+      "add": "Add Address",
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you want to delete this address?",
+      "update": "Update Address",
+      "cancel": "Cancel",
+      "default": "Default",
+      "no_addresses": "No saved addresses",
+      "no_addresses_message": "You haven't saved any addresses yet.",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "company": "Company",
+      "address1": "Address",
+      "address2": "Apartment, suite, etc.",
+      "city": "City",
+      "country": "Country/Region",
+      "province": "State/Province",
+      "zip": "ZIP/Postal Code",
+      "phone": "Phone",
+      "set_default": "Set as default address"
+    },
+    "activate_account": {
+      "title": "Activate Account",
+      "subtext": "Create a password to activate your account.",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Activate Account",
+      "cancel": "Decline Invitation",
+      "cancel_link_text": "Cancel"
+    },
+    "forget_password": {
+      "forget_password_tips": "Forgot password",
+      "reset_password": "RESET PASSWORD",
+      "tips_password_can_be_changed_after_verification": "You can change password after verification",
+      "tips_reset_password": "You're resetting password for account {{account}}",
+      "token_expired": "Your reset password link has expired"
     },
     "activate": {
       "account_activated": "The account has been activated",
@@ -894,7 +970,9 @@
       "include_taxes": "Tax included.",
       "share_button_text": "Share",
       "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
-      "view_details": "View details"
+      "view_details": "View details",
+      "one_time_purchase": "One-time purchase",
+      "purchase_options": "Purchase Options"
     },
     "product_list": {
       "add_to_cart": "Add to cart",
@@ -1968,6 +2046,146 @@
         }
       }
     },
+    "image-with-accordion": {
+      "name": "Image with Accordion",
+      "settings": {
+        "group_header__content": {
+          "label": "Content"
+        },
+        "heading": {
+          "label": "Heading"
+        },
+        "heading_size": {
+          "label": "Heading size",
+          "options__0": {
+            "label": "Small"
+          },
+          "options__1": {
+            "label": "Medium"
+          },
+          "options__2": {
+            "label": "Large"
+          },
+          "options__3": {
+            "label": "Extra Large"
+          }
+        },
+        "heading_font": {
+          "label": "Heading font",
+          "options__0": {
+            "label": "Display (Tan Marjorie)"
+          },
+          "options__1": {
+            "label": "Body (Crossten Book)"
+          },
+          "options__2": {
+            "label": "Bold (Crossten Bold)"
+          }
+        },
+        "footer_text": {
+          "label": "Footer text",
+          "info": "Small text displayed below the accordion"
+        },
+        "group_header__image": {
+          "label": "Image"
+        },
+        "image": {
+          "label": "Image"
+        },
+        "image_alt": {
+          "label": "Image alt text"
+        },
+        "group_header__accordion": {
+          "label": "Accordion Settings"
+        },
+        "accordion_title_size": {
+          "label": "Accordion title size",
+          "options__0": {
+            "label": "Small"
+          },
+          "options__1": {
+            "label": "Medium"
+          },
+          "options__2": {
+            "label": "Large"
+          }
+        },
+        "group_header__layout": {
+          "label": "Layout"
+        },
+        "layout": {
+          "label": "Layout",
+          "options__0": {
+            "label": "Image first"
+          },
+          "options__1": {
+            "label": "Accordion first"
+          }
+        },
+        "full_width": {
+          "label": "Full width"
+        },
+        "group_header__colors": {
+          "label": "Colors"
+        },
+        "background_color": {
+          "label": "Background color"
+        },
+        "heading_color": {
+          "label": "Heading color"
+        },
+        "accordion_title_color": {
+          "label": "Accordion title color"
+        },
+        "accordion_content_color": {
+          "label": "Accordion content color"
+        },
+        "accordion_link_color": {
+          "label": "Accordion link color"
+        },
+        "accordion_icon_color": {
+          "label": "Accordion icon color"
+        },
+        "accordion_border_color": {
+          "label": "Accordion border color"
+        },
+        "footer_text_color": {
+          "label": "Footer text color"
+        },
+        "group_header__spacing": {
+          "label": "Section spacing"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        }
+      },
+      "blocks": {
+        "accordion_item": {
+          "name": "Accordion Item",
+          "settings": {
+            "title": {
+              "label": "Title"
+            },
+            "content": {
+              "label": "Content"
+            },
+            "link_text": {
+              "label": "Link text",
+              "info": "Optional link to display at the end of the content"
+            },
+            "link_url": {
+              "label": "Link URL"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Image with Accordion"
+      }
+    },
     "main-password-header": {
       "name": "Password header",
       "settings": {
@@ -1984,6 +2202,60 @@
     },
     "main-password-footer": {
       "name": "Password footer"
+    },
+    "faq-accordion": {
+      "name": "FAQ Accordion",
+      "settings": {
+        "group_header__0": {
+          "label": "Content"
+        },
+        "title": {
+          "label": "Section title"
+        },
+        "group_header__1": {
+          "label": "Typography"
+        },
+        "heading_font": {
+          "label": "Heading font",
+          "options__0": {
+            "label": "Display (Tan Marjorie)"
+          },
+          "options__1": {
+            "label": "Body (Crossten Book)"
+          },
+          "options__2": {
+            "label": "Heading (Crossten Bold)"
+          }
+        },
+        "heading_color": {
+          "label": "Heading color"
+        },
+        "group_header__2": {
+          "label": "Section spacing"
+        },
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
+        }
+      },
+      "blocks": {
+        "faq-item": {
+          "name": "FAQ Item",
+          "settings": {
+            "question": {
+              "label": "Question"
+            },
+            "answer": {
+              "label": "Answer"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "FAQ Accordion"
+      }
     }
   }
 }

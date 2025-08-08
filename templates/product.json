@@ -1,30 +1,66 @@
 {
   "sections": {
     "main": {
+      "disabled": false,
       "type": "main-product",
       "settings": {
-        "gallery_layout": "thumbnails_bottom",
+        "gallery_layout": "thumbnails_left",
         "enable_zoom": true,
         "enable_lightbox": true,
-        "show_vendor": true,
+        "show_vendor": false,
         "show_sku": false,
-        "show_availability": true,
+        "show_availability": false,
         "show_buy_now": true,
         "show_breadcrumb": true,
         "padding_top": 40,
-        "padding_bottom": 40
-      }
+        "padding_bottom": 40,
+        "show_shipping_info": false,
+        "background_image": {
+          "url": "https://img-va.myshopline.com/image/store/1748460806554/Tokyo-PDP-Background.jpg?w=2880&h=1684",
+          "alt": {
+            "default": "Illustration of blue sky with clouds."
+          }
+        },
+        "subtitle": "Exotic Citrus • Juicy Cherry"
+      },
+      "blocks": {
+        "17539817539251d62bde": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Nutrition Facts",
+            "content": "<div>\n<div><strong>1 serving per container</strong></div>\n<div><strong>Serving size: 1 can 12 fl oz (355mL)</strong></div>\n<br>\n<div><strong>Calories</strong> 30</div>\n<div><strong>Total Fat</strong> 0g 0%</div>\n<div><strong>Sodium</strong> 75mg 3%</div>\n<div><strong>Total Carbohydrate</strong> 8g 3%</div>\n<div><strong>Dietary Fiber</strong> 3g 10%</div>\n<div><strong>Total Sugars</strong> 0g</div>\n<div><strong>Includes</strong> 0g Added Sugars</div>\n<div><strong>Protein</strong> 0g</div>\n<br>\n<div><strong>Vitamin D</strong> 0mcg 0%</div>\n<div><strong>Calcium</strong> 20mg 0%</div>\n<div><strong>Iron</strong> 0.1 mg 0%</div>\n<div><strong>Potassium</strong> 10mg 0%</div>\n<div><strong>Vitamin C </strong>61mg 70%</div>\n<div><strong>Thiamin</strong> 1.2mg 100%</div>\n<div><strong>Niacin</strong> 16mg 100%</div>\n<div><strong>Vitamin B12</strong> 2.4mcg 100%</div>\n<div><strong>Pantothenic</strong> Acid 5mg 100%</div>\n<div><strong>Zinc</strong> 0.3mg 2%</div>\n<div><strong>Copper</strong> 0.02mg 2%</div>\n</div>"
+          },
+          "custom_css": []
+        },
+        "17539817546256422512": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Ingredients",
+            "content": "<div>\n<div>Carbonated Water, Soluble Corn Fiber, Natural Flavor, Citric Acid, D-Ribose, Ksm-66 Ashwagandha Root Extract, L-Theanine, Stevia Leaf Extract, Ascorbic Acid, Bacopa Monnieri Extract, Panax Notoginseng Root Extract, \u0003Rosa Roxburghii Fruit Extract, Bioperine® (Black Pepper Extract), Niacinamide (Vitamin B3), Calcium D-Pantothenate (Vitamin B5), Thiamine Hydrochloride (Vitamin B1), Cyanocobalamin (Vitamin B12).</div>\n</div>"
+          },
+          "custom_css": []
+        }
+      },
+      "block_order": [
+        "17539817539251d62bde",
+        "17539817546256422512"
+      ],
+      "custom_css": []
     },
-    "recommendations": {
-      "type": "product-recommendations",
+    "apps": {
+      "disabled": false,
+      "type": "apps",
       "settings": {
-        "heading": "You may also like",
-        "products_to_show": 4
-      }
+        "include_margins": true,
+        "padding_top": 40,
+        "padding_bottom": 40
+      },
+      "blocks": {},
+      "custom_css": []
     }
   },
   "order": [
     "main",
-    "recommendations"
+    "apps"
   ]
 }

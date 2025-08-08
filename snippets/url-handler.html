@@ -1,0 +1,49 @@
+{{!-- 
+  URL Handler Snippet
+  Usage: {{snippet 'url-handler' url=section.settings.button_link}}
+  
+  This snippet handles Shopline's URL field format which returns a JSON string
+  with pageType values:
+  - 10: Product page
+  - 12: Collection page  
+  - 3: Custom page
+  - 0: Policy page
+  - 4: Blog page
+  - 11: Blog collection page
+  - -1: Manually entered link
+--}}
+
+{{#if url}}
+  {{assign "parsed_url" (JSONparse url)}}
+  {{#if parsed_url.pageType}}
+    {{#if (eq parsed_url.pageType 10)}}
+      /products/{{parsed_url.value}}
+    {{else}}
+      {{#if (eq parsed_url.pageType 12)}}
+        /collections/{{parsed_url.value}}
+      {{else}}
+        {{#if (eq parsed_url.pageType 3)}}
+          /pages/{{parsed_url.value}}
+        {{else}}
+          {{#if (eq parsed_url.pageType 4)}}
+            /blogs/{{parsed_url.value}}
+          {{else}}
+            {{#if (eq parsed_url.pageType 11)}}
+              /blogs
+            {{else}}
+              {{#if (eq parsed_url.pageType 0)}}
+                /policies/{{parsed_url.value}}
+              {{else}}
+                {{parsed_url.value}}
+              {{/if}}
+            {{/if}}
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{else}}
+    {{url}}
+  {{/if}}
+{{else}}
+  #
+{{/if}}

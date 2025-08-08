@@ -1,0 +1,212 @@
+{
+  "sections": {
+    "main": {
+      "disabled": true,
+      "type": "main-page",
+      "settings": {},
+      "blocks": {}
+    },
+    "promo-grid": {
+      "disabled": false,
+      "type": "promo-grid",
+      "settings": {
+        "title": "ENERGY REDEFINED",
+        "full_width": false,
+        "columns": 2,
+        "gutter_size": 6,
+        "background_color": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 40,
+        "title_size": "text-5xl",
+        "title_color": "#3d325a",
+        "text": "Why wait? Grab a can of AVVIKA and let the city’s heartbeat guide you to your next great adventure!",
+        "text_color": "#3d325a"
+      },
+      "blocks": {
+        "block-1": {
+          "type": "advanced",
+          "settings": {
+            "title": "TOKYO",
+            "rating": 5,
+            "description": "Exotic Citrus • Juicy Cherry",
+            "button_text": "SHOP NOW",
+            "button_bg": "#cf2e27",
+            "background_color": "#fbd5e0",
+            "button_text_color": "#ffffff",
+            "link": "{\"value\":\"16070958082920231755983770\",\"label\":\"Tokyo\",\"pageType\":10,\"linkType\":\"select\"}",
+            "product_image": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/AvvikaTokyoEnergyDrinkCan.png?w=1220&h=1500",
+              "alt": {
+                "default": "Avvika Tokyo Energy Drink Can"
+              }
+            }
+          },
+          "custom_css": []
+        },
+        "block-2": {
+          "type": "advanced",
+          "settings": {
+            "title": "LOS ANGELES",
+            "rating": 5,
+            "description": "Frozen Berry • Zesty Citrus",
+            "button_text": "SHOP NOW",
+            "button_bg": "#e3276f",
+            "background_color": "#fee084",
+            "button_text_color": "#ffffff",
+            "link": "{\"value\":\"16070958082963685219283770\",\"label\":\"Los Angeles\",\"pageType\":10,\"linkType\":\"select\"}",
+            "product_image": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/AvvikaLosAngelesEnergyDrinkCan-92b2c6a0-3bf0-4e6c-a84d-195e11ea6bba.png?w=1220&h=1500",
+              "alt": {
+                "default": "Avvika Los Angeles Energy Drink Can"
+              }
+            }
+          },
+          "custom_css": []
+        },
+        "1753951947938e09bd90": {
+          "type": "advanced",
+          "settings": {
+            "title": "TASTER DUO",
+            "rating": 5,
+            "description": "A World of Flavor in Two Cans",
+            "button_text": "SHOP NOW",
+            "button_bg": "#3d3259",
+            "background_color": "#e8c1ea",
+            "button_text_color": "#ffffff",
+            "link": "{\"value\":\"16070958083091191587543770\",\"label\":\"Avvika Taster Duo\",\"pageType\":10,\"linkType\":\"select\"}",
+            "product_image": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/Avvika-Shopify-Product-Images.png?w=1220&h=1500",
+              "alt": {
+                "default": ""
+              }
+            },
+            "background_image": null
+          },
+          "block_order": [],
+          "custom_css": []
+        },
+        "1753951950626ece0d38": {
+          "type": "advanced",
+          "settings": {
+            "title": "VARIETY PACK",
+            "rating": 5,
+            "description": "Los Angeles & Tokyo",
+            "button_text": "SHOP NOW",
+            "button_bg": "#e3276f",
+            "background_color": "#b6e0f9",
+            "button_text_color": "#ffffff",
+            "link": "{\"value\":\"16070958082940197109563770\",\"label\":\"Variety Pack\",\"pageType\":10,\"linkType\":\"select\"}",
+            "product_image": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/Avvika-Shopify-Product-Images.png?w=1220&h=1500",
+              "alt": {
+                "default": ""
+              }
+            },
+            "background_image": null
+          },
+          "block_order": [],
+          "custom_css": []
+        }
+      },
+      "block_order": [
+        "block-1",
+        "block-2",
+        "1753951947938e09bd90",
+        "1753951950626ece0d38"
+      ],
+      "custom_css": []
+    },
+    "icon-columns": {
+      "disabled": false,
+      "type": "icon-columns",
+      "settings": {
+        "heading_font": "font-crossten-bold",
+        "title_font": "font-crossten-bold",
+        "heading_color": "#3d3259",
+        "subheading_color": "#3d3259",
+        "title_color": "#3d3259",
+        "description_color": "#3d3259",
+        "icon_size": 100,
+        "button_bg_color": "#cf2e27",
+        "button_text_color": "#ffffff",
+        "full_width": false,
+        "background_color": "#ffffff",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "button_label": "",
+        "button_border_enabled": true,
+        "button_link": "/pages/ingredients"
+      },
+      "blocks": {
+        "block-1": {
+          "type": "column",
+          "settings": {
+            "title": "NATURAL & ENDURING ENERGY",
+            "description": "",
+            "icon": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/Energy-Icon-24bbc634-fbaf-4ffc-a9f6-dd5201d0d1d9.png?w=225&h=225",
+              "alt": {
+                "default": "Lightning Bolt Icon"
+              }
+            }
+          },
+          "custom_css": []
+        },
+        "block-2": {
+          "type": "column",
+          "settings": {
+            "title": "SUPPORTS MENTAL FOCUS & CLARITY",
+            "description": "",
+            "icon": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/Focus-Icon-8c38dfe6-fbd1-432f-9023-c955213e44bd.png?w=225&h=225",
+              "alt": {
+                "default": "Lightbulb Icon"
+              }
+            }
+          },
+          "custom_css": []
+        },
+        "block-3": {
+          "type": "column",
+          "settings": {
+            "title": "SUPPORTS GUT & METABOLIC HEALTH",
+            "description": "",
+            "icon": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/Gut-Health-Icon.png?w=225&h=225",
+              "alt": {
+                "default": "Gut Health Icon"
+              }
+            }
+          },
+          "custom_css": []
+        },
+        "block-4": {
+          "type": "column",
+          "settings": {
+            "title": "FULL TRANSPARENCY",
+            "description": "",
+            "icon": {
+              "url": "https://img-va.myshopline.com/image/store/1748460806554/Transparency-Icon-da948136-21a3-42a1-9f64-2c1b4f5f214c.png?w=225&h=225",
+              "alt": {
+                "default": "Magnifying Glass Icon"
+              }
+            }
+          },
+          "custom_css": []
+        }
+      },
+      "block_order": [
+        "block-1",
+        "block-2",
+        "block-3",
+        "block-4"
+      ],
+      "custom_css": []
+    }
+  },
+  "order": [
+    "main",
+    "promo-grid",
+    "icon-columns"
+  ]
+}

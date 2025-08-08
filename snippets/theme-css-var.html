@@ -1,0 +1,91 @@
+<style>
+{{ font_face (font_modify settings.title_font_family 'weight' '400') }}
+{{ font_face (font_modify settings.title_font_family 'weight' '500') }}
+{{ font_face (font_modify settings.title_font_family 'weight' '600') }}
+{{ font_face (font_modify settings.title_font_family 'weight' '700') }}
+{{ font_face settings.title_font_family }}
+{{ font_face (font_modify settings.body_font_family 'weight' '400') }}
+{{ font_face (font_modify settings.body_font_family 'weight' '500') }}
+{{ font_face (font_modify settings.body_font_family 'weight' '600') }}
+{{ font_face (font_modify settings.body_font_family 'weight' '700') }}
+{{ font_face settings.body_font_family }}
+:root {
+    /* Font settings */
+    --title-font: "{{ settings.title_font_family.family }}", "{{ settings.title_font_family.fallback_families }}";
+    --title-font-weight: {{ settings.title_font_family.weight }};
+    --title-font-style: {{ settings.title_font_family.style }};
+    --title-letter-spacing: {{#if settings.title_letter_spacing == 0}}0.00000001em{{else}}{{ divide settings.title_letter_spacing 1000 }}em{{/if}};
+    --title-font-size: {{ settings.title_font_size }}px;
+    --title-font--base-size: 36;
+    --title-line-height: {{ settings.title_line_height }};
+    --title-text-transform: {{#if settings.title_uppercase}}uppercase{{else}}unset{{/if}};
+    --body-font: "{{ settings.body_font_family.family }}", "{{ settings.body_font_family.fallback_families }}";
+    {{assign 'bodyFontWeight' settings.body_font_family.weight}}
+    --body-font-weight: {{ bodyFontWeight }};
+    {{assign 'bodyBoldFontWeight' (add bodyFontWeight 300)}}
+    --body-bold-font-weight: {{#gte bodyBoldFontWeight 1000}}1000{{else}}{{ bodyBoldFontWeight }}{{/gte}};
+    --body-font-style: {{ settings.body_font_family.style }};
+    --body-letter-spacing: {{#if settings.body_letter_spacing == 0}}0.00000001em{{else}}{{ divide settings.body_letter_spacing 1000 }}em{{/if}};
+    --body-font-size: {{ settings.body_font_size }}px;
+    --body-font-base-size: 16;
+    --body-line-height: {{ settings.body_line_height }};
+    --header-font: "{{#if settings.header_font '===' 'body'}}{{ settings.body_font_family.family }}{{else}}{{ settings.title_font_family.family }}{{/if}}";
+    --header-font-size: {{ settings.header_font_size }}px;
+    {{#if settings.header_text_uppercase}}
+        --header-text-uppercase: uppercase;
+    {{/if}}
+
+    /* Color settings as RGB values for use with rgb() and rgba() */
+    --color-page-background: {{ settings.color_page_background.red }}, {{ settings.color_page_background.green }}, {{settings.color_page_background.blue }};
+    --color-text: {{ settings.color_text.red }}, {{ settings.color_text.green }}, {{settings.color_text.blue }};
+    --color-light-text: {{ settings.color_light_text.red }}, {{ settings.color_light_text.green }}, {{settings.color_light_text.blue }};
+    --color-sale: {{ settings.color_sale.red }}, {{ settings.color_sale.green }}, {{settings.color_sale.blue }};
+    --color-discount: {{ settings.color_discount.red }}, {{ settings.color_discount.green }}, {{settings.color_discount.blue }};
+    --color-entry-line: {{ settings.color_entry_line.red }}, {{ settings.color_entry_line.green }}, {{settings.color_entry_line.blue }};
+    /* Button colors moved to dedicated Buttons section below */
+    --color-discount-tag-background: {{ settings.color_discount_tag_background.red }}, {{ settings.color_discount_tag_background.green }}, {{settings.color_discount_tag_background.blue }};
+    --color-discount-tag-text: {{ settings.color_discount_tag_text.red }}, {{ settings.color_discount_tag_text.green }}, {{settings.color_discount_tag_text.blue }};
+    --color-scheme-1-bg: {{ settings.color_scheme_1_bg.red }}, {{ settings.color_scheme_1_bg.green }}, {{settings.color_scheme_1_bg.blue }};
+    --color-scheme-1-text: {{ settings.color_scheme_1_text.red }}, {{ settings.color_scheme_1_text.green }}, {{settings.color_scheme_1_text.blue }};
+    --color-scheme-2-bg: {{ settings.color_scheme_2_bg.red }}, {{ settings.color_scheme_2_bg.green }}, {{settings.color_scheme_2_bg.blue }};
+    --color-scheme-2-text: {{ settings.color_scheme_2_text.red }}, {{ settings.color_scheme_2_text.green }}, {{settings.color_scheme_2_text.blue }};
+    --color-scheme-3-bg: {{ settings.color_scheme_3_bg.red }}, {{ settings.color_scheme_3_bg.green }}, {{settings.color_scheme_3_bg.blue }};
+    --color-scheme-3-text: {{ settings.color_scheme_3_text.red }}, {{ settings.color_scheme_3_text.green }}, {{settings.color_scheme_3_text.blue }};
+    --color-scheme-1-gradient: {{#if settings.color_scheme_1_gradient}}{{settings.color_scheme_1_gradient}}{{else}}{{settings.color_scheme_1_bg}}{{/if}};
+    --color-scheme-2-gradient: {{#if settings.color_scheme_2_gradient}}{{settings.color_scheme_2_gradient}}{{else}}{{settings.color_scheme_2_bg}}{{/if}};
+    --color-scheme-3-gradient: {{#if settings.color_scheme_3_gradient}}{{settings.color_scheme_3_gradient}}{{else}}{{settings.color_scheme_3_bg}}{{/if}};
+
+    /* Button styles from new Buttons section */
+    --button-radius: {{ settings.button_border_radius }}px;
+    --button-border-radius: {{ settings.button_border_radius }}px;
+    --button-primary-bg: {{ settings.button_primary_bg.red }}, {{ settings.button_primary_bg.green }}, {{settings.button_primary_bg.blue }};
+    --button-primary-bg-hover: {{ settings.button_primary_bg_hover.red }}, {{ settings.button_primary_bg_hover.green }}, {{settings.button_primary_bg_hover.blue }};
+    --button-primary-text: {{ settings.button_primary_text.red }}, {{ settings.button_primary_text.green }}, {{settings.button_primary_text.blue }};
+    --button-secondary-bg: {{ settings.button_secondary_bg.red }}, {{ settings.button_secondary_bg.green }}, {{settings.button_secondary_bg.blue }};
+    --button-secondary-bg-hover: {{ settings.button_secondary_bg_hover.red }}, {{ settings.button_secondary_bg_hover.green }}, {{settings.button_secondary_bg_hover.blue }};
+    --button-secondary-text: {{ settings.button_secondary_text.red }}, {{ settings.button_secondary_text.green }}, {{settings.button_secondary_text.blue }};
+    --button-secondary-border: {{ settings.button_secondary_border.red }}, {{ settings.button_secondary_border.green }}, {{settings.button_secondary_border.blue }};
+
+    /* Card styles */
+    --card-radius: {{ settings.card_border_radius }}px;
+    --card-border-radius: {{ settings.card_border_radius }}px;
+    --card-shadow: {{ settings.card_shadow }}%;
+
+    /* Input fields */
+    --input-border-thickness: {{ settings.input_border_thickness }}px;
+    --input-border-opacity: {{ settings.input_border_opacity }}%;
+    --input-border-opacity-decimal: {{ divide settings.input_border_opacity 100 }};
+    --input-border-radius: {{ settings.input_border_radius }}px;
+    --input-border-radius-outset: {{ ternary (lte settings.input_border_radius 0) 0 (add settings.input_border_radius settings.input_border_thickness) }}px;
+    --input-shadow-opacity: {{ settings.input_shadow_opacity }}%;
+    --input-shadow-offset-x: {{ settings.input_shadow_offset_x }}px;
+    --input-shadow-offset-y: {{ settings.input_shadow_offset_y }}px;
+    --input-shadow-blur: {{ settings.input_shadow_blur }}px;
+
+    /* Legacy color variables for backward compatibility */
+    --color-primary: rgb({{ settings.button_primary_bg.red }}, {{ settings.button_primary_bg.green }}, {{settings.button_primary_bg.blue }});
+    --color-secondary: rgb({{ settings.color_text.red }}, {{ settings.color_text.green }}, {{settings.color_text.blue }});
+    --focus-ring-color: rgb({{ settings.button_primary_bg.red }}, {{ settings.button_primary_bg.green }}, {{settings.button_primary_bg.blue }});
+    --focus-border-color: rgb({{ settings.button_primary_bg.red }}, {{ settings.button_primary_bg.green }}, {{settings.button_primary_bg.blue }});
+}
+</style>

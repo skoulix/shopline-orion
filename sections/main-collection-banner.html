@@ -15,10 +15,10 @@
         
         <!-- Content over image -->
         <div class="absolute inset-0 flex items-center justify-center">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div class="container text-center">
             {{#if section.settings.show_collection_title}}
-              <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
-                {{collection.title}}
+              <h1 class="text-4xl md:text-5xl mb-4">
+                {{#if collection}}{{collection.title}}{{else}}{{default section.settings.title 'All Collections'}}{{/if}}
               </h1>
             {{/if}}
             
@@ -41,11 +41,11 @@
     {{else}}
       <!-- No image available -->
       <div class="{{section.settings.background_style}}">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-{{section.settings.padding_vertical}}">
+        <div class="container py-{{section.settings.padding_vertical}}">
           <div class="{{#if section.settings.text_alignment '==' 'left'}}text-left{{/if}}{{#if section.settings.text_alignment '==' 'center'}}text-center{{/if}}{{#if section.settings.text_alignment '==' 'right'}}text-right{{/if}}">
             {{#if section.settings.show_collection_title}}
-              <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                {{collection.title}}
+              <h1 class="text-4xl md:text-5xl mb-4">
+                {{#if collection}}{{collection.title}}{{else}}{{default section.settings.title 'All Collections'}}{{/if}}
               </h1>
             {{/if}}
             
@@ -69,10 +69,10 @@
   {{else}}
     <!-- Image display disabled -->
     <div class="{{section.settings.background_style}}">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-{{section.settings.padding_vertical}}">
+      <div class="container py-{{section.settings.padding_vertical}}">
         <div class="{{#if section.settings.text_alignment '==' 'left'}}text-left{{/if}}{{#if section.settings.text_alignment '==' 'center'}}text-center{{/if}}{{#if section.settings.text_alignment '==' 'right'}}text-right{{/if}}">
           {{#if section.settings.show_collection_title}}
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 class="text-4xl md:text-5xl mb-4">
               {{collection.title}}
             </h1>
           {{/if}}
@@ -101,6 +101,12 @@
   "name": "t:sections.main-collection-banner.name",
   "class": "section",
   "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.main-collection-banner.settings.title.label",
+      "default": "All Collections"
+    },
     {
       "type": "group_header",
       "label": "t:sections.main-collection-banner.settings.group_header__0.label"

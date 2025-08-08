@@ -1,85 +1,76 @@
-import { createApp, defineCustomElement } from 'vue';
-import Button from './components/Button.vue';
-import CartDrawer from './components/CartDrawer.vue';
-import MobileMenu from './components/MobileMenu.vue';
-import ProductVariantPicker from './components/ProductVariantPicker.vue';
-import QuantitySelector from './components/QuantitySelector.vue';
-import MainHeader from './components/MainHeader.vue';
-import SiteFooter from './components/SiteFooter.vue';
-import ProductCard from './components/ProductCard.vue'; // Mounted as Vue app, not custom element
-import CollectionFilters from './components/CollectionFilters.vue';
-import CollectionGrid from './components/CollectionGrid.vue';
-import CollectionSort from './components/CollectionSort.vue';
-import CollectionFilterDrawer from './components/CollectionFilterDrawer.vue';
-import ProductGallery from './components/ProductGallery.vue';
-import ProductInfo from './components/ProductInfo.vue';
-import CartItem from './components/CartItem.vue';
-import CartSummary from './components/CartSummary.vue';
-import SlideshowBanner from './components/SlideshowBanner.vue';
-import TestimonialsCarousel from './components/TestimonialsCarousel.vue';
-import VideoPlayer from './components/VideoPlayer.vue';
-import PasswordModal from './components/PasswordModal.vue';
-import SearchOverlay from './components/SearchOverlay.vue';
-import ArticleCard from './components/ArticleCard.vue';
-import BlogArticles from './components/BlogArticles.vue';
+import { createApp, defineCustomElement } from "vue";
+import Button from "./components/Button.vue";
+import CartDrawer from "./components/CartDrawer.vue";
+import MobileMenu from "./components/MobileMenu.vue";
+import ProductVariantPicker from "./components/ProductVariantPicker.vue";
+import QuantitySelector from "./components/QuantitySelector.vue";
+import ProductCard from "./components/ProductCard.vue"; // Mounted as Vue app, not custom element
+import CollectionFilters from "./components/CollectionFilters.vue";
+import CollectionGrid from "./components/CollectionGrid.vue";
+import CollectionSort from "./components/CollectionSort.vue";
+import CollectionFilterDrawer from "./components/CollectionFilterDrawer.vue";
+import ProductGallery from "./components/ProductGallery.vue";
+import ProductInfo from "./components/ProductInfo.vue";
+import ReviewSummary from "./components/ProductReviewSummary.vue";
+import CartItem from "./components/CartItem.vue";
+import CartSummary from "./components/CartSummary.vue";
+import SearchOverlay from "./components/SearchOverlay.vue";
+import ArticleCard from "./components/ArticleCard.vue";
+import BlogArticles from "./components/BlogArticles.vue";
 
 // Define custom elements with global button settings
 const ButtonElement = defineCustomElement({
-	...Button,
-	props: {
-		...Button.props,
-		// Inject global settings as default props
-		buttonRadius: {
-			type: [String, Number],
-			default: () => {
-				const radius = Shopline?.theme?.settings?.button_border_radius;
-				return radius ? `${radius}px` : '6px';
-			},
-		},
-		primaryBg: {
-			type: String,
-			default: () =>
-				Shopline?.theme?.settings?.button_primary_bg || '#dc2626',
-		},
-		primaryBgHover: {
-			type: String,
-			default: () =>
-				Shopline?.theme?.settings?.button_primary_bg_hover || '#b91c1c',
-		},
-		primaryText: {
-			type: String,
-			default: () =>
-				Shopline?.theme?.settings?.button_primary_text || '#ffffff',
-		},
-		secondaryBg: {
-			type: String,
-			default: () =>
-				Shopline?.theme?.settings?.button_secondary_bg || '#ffffff',
-		},
-		secondaryBgHover: {
-			type: String,
-			default: () =>
-				Shopline?.theme?.settings?.button_secondary_bg_hover ||
-				'#f9fafb',
-		},
-		secondaryText: {
-			type: String,
-			default: () =>
-				Shopline?.theme?.settings?.button_secondary_text || '#374151',
-		},
-		secondaryBorder: {
-			type: String,
-			default: () =>
-				Shopline?.theme?.settings?.button_secondary_border || '#d1d5db',
-		},
-	},
+  ...Button,
+  props: {
+    ...Button.props,
+    // Inject global settings as default props
+    buttonRadius: {
+      type: [String, Number],
+      default: () => {
+        const radius = Shopline?.theme?.settings?.button_border_radius;
+        return radius ? `${radius}px` : "6px";
+      },
+    },
+    primaryBg: {
+      type: String,
+      default: () => Shopline?.theme?.settings?.button_primary_bg || "#dc2626",
+    },
+    primaryBgHover: {
+      type: String,
+      default: () =>
+        Shopline?.theme?.settings?.button_primary_bg_hover || "#b91c1c",
+    },
+    primaryText: {
+      type: String,
+      default: () =>
+        Shopline?.theme?.settings?.button_primary_text || "#ffffff",
+    },
+    secondaryBg: {
+      type: String,
+      default: () =>
+        Shopline?.theme?.settings?.button_secondary_bg || "#ffffff",
+    },
+    secondaryBgHover: {
+      type: String,
+      default: () =>
+        Shopline?.theme?.settings?.button_secondary_bg_hover || "#f9fafb",
+    },
+    secondaryText: {
+      type: String,
+      default: () =>
+        Shopline?.theme?.settings?.button_secondary_text || "#374151",
+    },
+    secondaryBorder: {
+      type: String,
+      default: () =>
+        Shopline?.theme?.settings?.button_secondary_border || "#d1d5db",
+    },
+  },
 });
 const CartDrawerElement = defineCustomElement(CartDrawer);
 const MobileMenuElement = defineCustomElement(MobileMenu);
 const ProductVariantPickerElement = defineCustomElement(ProductVariantPicker);
 const QuantitySelectorElement = defineCustomElement(QuantitySelector);
-const MainHeaderElement = defineCustomElement(MainHeader);
-const SiteFooterElement = defineCustomElement(SiteFooter);
 // Don't use custom element for ProductCard due to style isolation
 // const ProductCardElement = defineCustomElement(ProductCard)
 const CollectionFiltersElement = defineCustomElement(CollectionFilters);
@@ -88,635 +79,606 @@ const CollectionGridElement = defineCustomElement(CollectionGrid);
 // const CollectionSortElement = defineCustomElement(CollectionSort)
 const ProductGalleryElement = defineCustomElement(ProductGallery);
 const ProductInfoElement = defineCustomElement(ProductInfo);
+const ReviewSummaryElement = defineCustomElement(ReviewSummary, {
+  shadowRoot: false,
+});
 const CartItemElement = defineCustomElement(CartItem);
 const CartSummaryElement = defineCustomElement(CartSummary);
-const SlideshowBannerElement = defineCustomElement(SlideshowBanner);
-const TestimonialsCarouselElement = defineCustomElement(TestimonialsCarousel);
-const VideoPlayerElement = defineCustomElement(VideoPlayer);
-const PasswordModalElement = defineCustomElement(PasswordModal);
 const SearchOverlayElement = defineCustomElement(SearchOverlay);
 
 // Register custom elements
 // Don't use custom element for Button due to CSS variable access
 // customElements.define('orion-button', ButtonElement)
-customElements.define('cart-drawer', CartDrawerElement);
-customElements.define('mobile-menu', MobileMenuElement);
-customElements.define('product-variant-picker', ProductVariantPickerElement);
-customElements.define('quantity-selector', QuantitySelectorElement);
-customElements.define('main-header', MainHeaderElement);
-customElements.define('site-footer', SiteFooterElement);
+customElements.define("cart-drawer", CartDrawerElement);
+customElements.define("mobile-menu", MobileMenuElement);
+customElements.define("product-variant-picker", ProductVariantPickerElement);
+customElements.define("quantity-selector", QuantitySelectorElement);
 // customElements.define('product-card', ProductCardElement)
-customElements.define('collection-filters', CollectionFiltersElement);
-customElements.define('collection-grid', CollectionGridElement);
+customElements.define("collection-filters", CollectionFiltersElement);
+customElements.define("collection-grid", CollectionGridElement);
 // customElements.define('collection-sort', CollectionSortElement)
-customElements.define('product-gallery', ProductGalleryElement);
-customElements.define('product-info', ProductInfoElement);
-customElements.define('cart-item', CartItemElement);
-customElements.define('cart-summary', CartSummaryElement);
-customElements.define('slideshow-banner', SlideshowBannerElement);
-customElements.define('testimonials-carousel', TestimonialsCarouselElement);
-customElements.define('video-player', VideoPlayerElement);
-customElements.define('password-modal', PasswordModalElement);
-customElements.define('search-overlay', SearchOverlayElement);
+customElements.define("product-gallery", ProductGalleryElement);
+customElements.define("product-info", ProductInfoElement);
+customElements.define("reviews-summary", ReviewSummaryElement);
+customElements.define("cart-item", CartItemElement);
+customElements.define("cart-summary", CartSummaryElement);
+customElements.define("search-overlay", SearchOverlayElement);
 
 // Function to mount all Vue components
 function mountVueComponents(container = document) {
-	// Mount MainHeader components
-	const mainHeaderMounts = container.querySelectorAll('.main-header-mount');
-	mainHeaderMounts.forEach((mount) => {
-		// Skip if already mounted
-		if (mount._vueApp) return;
+  // Mount CartDrawer components
+  const cartDrawerMounts = container.querySelectorAll(".cart-drawer-mount");
+  cartDrawerMounts.forEach((mount) => {
+    if (mount._vueApp) return;
 
-		const app = createApp(MainHeader, {
-			shopName: mount.dataset.shopName || 'Orion Store',
-			logoUrl: mount.dataset.logoUrl || '',
-			navigationLinks: JSON.parse(mount.dataset.navigationLinks || '[]'),
-		});
-		mount._vueApp = app;
-		app.mount(mount);
-	});
+    const app = createApp(CartDrawer);
+    mount._vueApp = app;
+    app.mount(mount);
+  });
 
-	// Mount CartDrawer components
-	const cartDrawerMounts = container.querySelectorAll('.cart-drawer-mount');
-	cartDrawerMounts.forEach((mount) => {
-		if (mount._vueApp) return;
+  // Mount ProductCard components (as Vue apps to avoid style isolation)
+  const productCardMounts = container.querySelectorAll("product-card");
+  productCardMounts.forEach((mount) => {
+    if (mount._vueApp) return;
 
-		const app = createApp(CartDrawer);
-		mount._vueApp = app;
-		app.mount(mount);
-	});
+    // Extract props from attributes
+    const props = {
+      productId: mount.getAttribute("product-id"),
+      variantId: mount.getAttribute("variant-id"),
+      title: mount.getAttribute("title"),
+      handle: mount.getAttribute("handle"),
+      url: mount.getAttribute("url"),
+      vendor: mount.getAttribute("vendor"),
+      price: mount.getAttribute("price"),
+      compareAtPrice: mount.getAttribute("compare-at-price"),
+      image: mount.getAttribute("image"),
+      available: mount.getAttribute(":available") === "true",
+    };
 
-	// Mount ProductCard components (as Vue apps to avoid style isolation)
-	const productCardMounts = container.querySelectorAll('product-card');
-	productCardMounts.forEach((mount) => {
-		if (mount._vueApp) return;
+    const app = createApp(ProductCard, props);
+    mount._vueApp = app;
+    app.mount(mount);
+  });
 
-		// Extract props from attributes
-		const props = {
-			productId: mount.getAttribute('product-id'),
-			variantId: mount.getAttribute('variant-id'),
-			title: mount.getAttribute('title'),
-			handle: mount.getAttribute('handle'),
-			url: mount.getAttribute('url'),
-			vendor: mount.getAttribute('vendor'),
-			price: mount.getAttribute('price'),
-			compareAtPrice: mount.getAttribute('compare-at-price'),
-			image: mount.getAttribute('image'),
-			available: mount.getAttribute(':available') === 'true',
-		};
+  // Mount CollectionSort components (as Vue apps to avoid style isolation)
+  const collectionSortMounts = container.querySelectorAll("collection-sort");
+  collectionSortMounts.forEach((mount) => {
+    if (mount._vueApp) return;
 
-		const app = createApp(ProductCard, props);
-		mount._vueApp = app;
-		app.mount(mount);
-	});
+    const props = {
+      collectionHandle: mount.getAttribute("collection-handle"),
+      currentSort: mount.getAttribute("current-sort") || "manual",
+    };
 
-	// Mount CollectionSort components (as Vue apps to avoid style isolation)
-	const collectionSortMounts = container.querySelectorAll('collection-sort');
-	collectionSortMounts.forEach((mount) => {
-		if (mount._vueApp) return;
+    const app = createApp(CollectionSort, props);
+    mount._vueApp = app;
+    app.mount(mount);
+  });
 
-		const props = {
-			collectionHandle: mount.getAttribute('collection-handle'),
-			currentSort: mount.getAttribute('current-sort') || 'manual',
-		};
+  // Mount Button components (as Vue apps to access CSS variables)
+  const buttonMounts = container.querySelectorAll("orion-button");
+  buttonMounts.forEach((mount) => {
+    if (mount._vueApp) return;
 
-		const app = createApp(CollectionSort, props);
-		mount._vueApp = app;
-		app.mount(mount);
-	});
+    const props = {
+      variant: mount.getAttribute("variant") || "primary",
+      size: mount.getAttribute("size") || "medium",
+      fullWidth: mount.hasAttribute("full-width"),
+      href: mount.getAttribute("href"),
+      type: mount.getAttribute("type") || "button",
+      disabled: mount.hasAttribute("disabled"),
+      loading: mount.hasAttribute("loading"),
+      rounded: mount.getAttribute("rounded") || "default",
+    };
 
-	// Mount Button components (as Vue apps to access CSS variables)
-	const buttonMounts = container.querySelectorAll('orion-button');
-	buttonMounts.forEach((mount) => {
-		if (mount._vueApp) return;
+    const app = createApp(
+      {
+        components: { Button },
+        template: `<Button v-bind="$attrs">${mount.innerHTML}</Button>`,
+      },
+      props
+    );
 
-		const props = {
-			variant: mount.getAttribute('variant') || 'primary',
-			size: mount.getAttribute('size') || 'medium',
-			fullWidth: mount.hasAttribute('full-width'),
-			href: mount.getAttribute('href'),
-			type: mount.getAttribute('type') || 'button',
-			disabled: mount.hasAttribute('disabled'),
-			loading: mount.hasAttribute('loading'),
-			rounded: mount.getAttribute('rounded') || 'default',
-		};
+    mount._vueApp = app;
+    app.mount(mount);
+  });
 
-		const app = createApp(
-			{
-				components: { Button },
-				template: `<Button v-bind="$attrs">${mount.innerHTML}</Button>`,
-			},
-			props
-		);
+  // Mount CollectionFilterDrawer components (as Vue apps to avoid style isolation)
+  const filterDrawerMounts = container.querySelectorAll(
+    "collection-filter-drawer"
+  );
+  filterDrawerMounts.forEach((mount) => {
+    if (mount._vueApp) return;
 
-		mount._vueApp = app;
-		app.mount(mount);
-	});
+    const props = {
+      collectionHandle: mount.getAttribute("collection-handle"),
+      products: JSON.parse(mount.getAttribute(":products") || "[]"),
+    };
 
-	// Mount CollectionFilterDrawer components (as Vue apps to avoid style isolation)
-	const filterDrawerMounts = container.querySelectorAll(
-		'collection-filter-drawer'
-	);
-	filterDrawerMounts.forEach((mount) => {
-		if (mount._vueApp) return;
+    const app = createApp(CollectionFilterDrawer, props);
+    mount._vueApp = app;
+    app.mount(mount);
+  });
 
-		const props = {
-			collectionHandle: mount.getAttribute('collection-handle'),
-			products: JSON.parse(mount.getAttribute(':products') || '[]'),
-		};
+  // Mount CollectionFilterSidebar components (using CollectionFilters component)
+  const filterSidebarMounts = container.querySelectorAll(
+    "collection-filter-sidebar"
+  );
+  filterSidebarMounts.forEach((mount) => {
+    if (mount._vueApp) return;
 
-		const app = createApp(CollectionFilterDrawer, props);
-		mount._vueApp = app;
-		app.mount(mount);
-	});
+    const props = {
+      collectionHandle: mount.getAttribute("collection-handle"),
+      products: JSON.parse(mount.getAttribute(":products") || "[]"),
+      showSort: mount.getAttribute(":show-sort") === "true",
+    };
 
-	// Mount CollectionFilterSidebar components (using CollectionFilters component)
-	const filterSidebarMounts = container.querySelectorAll(
-		'collection-filter-sidebar'
-	);
-	filterSidebarMounts.forEach((mount) => {
-		if (mount._vueApp) return;
+    const app = createApp(CollectionFilters, props);
+    mount._vueApp = app;
+    app.mount(mount);
+  });
 
-		const props = {
-			collectionHandle: mount.getAttribute('collection-handle'),
-			products: JSON.parse(mount.getAttribute(':products') || '[]'),
-			showSort: mount.getAttribute(':show-sort') === 'true',
-		};
+  // Mount ArticleCard components (as Vue apps to avoid style isolation)
+  const articleCardMounts = container.querySelectorAll("article-card");
+  articleCardMounts.forEach((mount) => {
+    if (mount._vueApp) return;
 
-		const app = createApp(CollectionFilters, props);
-		mount._vueApp = app;
-		app.mount(mount);
-	});
+    const props = {
+      title: mount.getAttribute("title"),
+      url: mount.getAttribute("url"),
+      excerpt: mount.getAttribute("excerpt"),
+      content: mount.getAttribute("content"),
+      author: mount.getAttribute("author"),
+      publishedAt: mount.getAttribute("published-at"),
+      rawPublishedAt: mount.getAttribute("raw-published-at"),
+      image: mount.getAttribute("image"),
+      imageAlt: mount.getAttribute("image-alt"),
+      tags: JSON.parse(mount.getAttribute("tags") || "[]"),
+      imageRatio: mount.getAttribute("image-ratio") || "landscape",
+      showImage: mount.getAttribute("show-image") === "true",
+      showAuthor: mount.getAttribute("show-author") === "true",
+      showDate: mount.getAttribute("show-date") === "true",
+      showTags: mount.getAttribute("show-tags") === "true",
+    };
 
-	// Mount ArticleCard components (as Vue apps to avoid style isolation)
-	const articleCardMounts = container.querySelectorAll('article-card');
-	articleCardMounts.forEach((mount) => {
-		if (mount._vueApp) return;
+    const app = createApp(ArticleCard, props);
+    mount._vueApp = app;
+    app.mount(mount);
+  });
 
-		const props = {
-			title: mount.getAttribute('title'),
-			url: mount.getAttribute('url'),
-			excerpt: mount.getAttribute('excerpt'),
-			content: mount.getAttribute('content'),
-			author: mount.getAttribute('author'),
-			publishedAt: mount.getAttribute('published-at'),
-			rawPublishedAt: mount.getAttribute('raw-published-at'),
-			image: mount.getAttribute('image'),
-			imageAlt: mount.getAttribute('image-alt'),
-			tags: JSON.parse(mount.getAttribute('tags') || '[]'),
-			imageRatio: mount.getAttribute('image-ratio') || 'landscape',
-			showImage: mount.getAttribute('show-image') === 'true',
-			showAuthor: mount.getAttribute('show-author') === 'true',
-			showDate: mount.getAttribute('show-date') === 'true',
-			showTags: mount.getAttribute('show-tags') === 'true',
-		};
+  // Mount BlogArticles components
+  const blogArticlesMounts = container.querySelectorAll("blog-articles");
+  blogArticlesMounts.forEach((mount) => {
+    if (mount._vueApp) return;
 
-		const app = createApp(ArticleCard, props);
-		mount._vueApp = app;
-		app.mount(mount);
-	});
+    const props = {
+      blogId: mount.getAttribute("blog-id"),
+      blogHandle: mount.getAttribute("blog-handle") || "",
+      limit: parseInt(mount.getAttribute("limit")) || 3,
+      currentArticleId: mount.getAttribute("current-article-id"),
+      columnsDesktop: parseInt(mount.getAttribute("columns-desktop")) || 3,
+      imageRatio: mount.getAttribute("image-ratio") || "landscape",
+      showImage: mount.getAttribute("show-image") !== "false",
+      showAuthor: mount.getAttribute("show-author") === "true",
+      showDate: mount.getAttribute("show-date") !== "false",
+      showTags: mount.getAttribute("show-tags") === "true",
+    };
 
-	// Mount BlogArticles components
-	const blogArticlesMounts = container.querySelectorAll('blog-articles');
-	blogArticlesMounts.forEach((mount) => {
-		if (mount._vueApp) return;
+    const app = createApp(BlogArticles, props);
+    mount._vueApp = app;
+    app.mount(mount);
+  });
 
-		const props = {
-			blogId: mount.getAttribute('blog-id'),
-			blogHandle: mount.getAttribute('blog-handle') || '',
-			limit: parseInt(mount.getAttribute('limit')) || 3,
-			currentArticleId: mount.getAttribute('current-article-id'),
-			columnsDesktop: parseInt(mount.getAttribute('columns-desktop')) || 3,
-			imageRatio: mount.getAttribute('image-ratio') || 'landscape',
-			showImage: mount.getAttribute('show-image') !== 'false',
-			showAuthor: mount.getAttribute('show-author') === 'true',
-			showDate: mount.getAttribute('show-date') !== 'false',
-			showTags: mount.getAttribute('show-tags') === 'true',
-		};
+  // Initialize sticky header behavior (only once, not per mount)
+  if (container === document) {
+    const headers = document.querySelectorAll(".site-header");
 
-		const app = createApp(BlogArticles, props);
-		mount._vueApp = app;
-		app.mount(mount);
-	});
+    headers.forEach((header) => {
+      if (header.dataset.sticky === "true" && !header._stickyInitialized) {
+        header._stickyInitialized = true;
 
-	// Initialize sticky header behavior (only once, not per mount)
-	if (container === document) {
-		const headers = document.querySelectorAll('.site-header');
-		
-		headers.forEach((header) => {
-			if (
-				header.dataset.sticky === 'true' &&
-				!header._stickyInitialized
-			) {
-				header._stickyInitialized = true;
-				
-				// Store initialization function on header for potential re-init
-				header._reinitialize = () => {
-					const spacer = header.nextElementSibling;
-					if (spacer && spacer.classList.contains('sticky-spacer')) {
-						const headerHeight = header.offsetHeight;
-						const isTransparent = header.dataset.transparent === 'true';
-						const isHomepage = document.body.classList.contains('template-index');
-						
-						if (isTransparent && isHomepage) {
-							spacer.style.height = headerHeight + 'px';
-						} else if (header.classList.contains('scrolled')) {
-							spacer.style.height = headerHeight + 'px';
-						} else {
-							spacer.style.height = '0px';
-						}
-					}
-				};
-				
-				// Check if transparent header is enabled
-				const isTransparent = header.dataset.transparent === 'true';
-				// Check if we're on the homepage by template class
-				const isHomepage = document.body.classList.contains('template-index');
-				
-				// Create spacer element to prevent content jump
-				const spacer = document.createElement('div');
-				spacer.className = 'sticky-spacer';
-				header.parentNode.insertBefore(spacer, header.nextSibling);
-				
-				// Also create a permanent top spacer for non-homepage to prevent jumps
-				let topSpacer = null;
-				if (!isHomepage) {
-					topSpacer = document.createElement('div');
-					topSpacer.className = 'header-top-spacer';
-					topSpacer.style.height = header.offsetHeight + 'px';
-					// Insert at the very beginning of main content
-					const mainContent = document.getElementById('MainContent');
-					if (mainContent && mainContent.firstChild) {
-						mainContent.insertBefore(topSpacer, mainContent.firstChild);
-					}
-				}
-				
-				// Set initial spacer height based on header type
-				if (isTransparent && isHomepage) {
-					// For transparent headers, add the class immediately
-					header.classList.add('transparent-header');
-					spacer.style.height = header.offsetHeight + 'px'; // Still need spacer for fixed positioning
-				} else {
-					// For all other pages, no spacer needed initially (using position: sticky)
-					spacer.style.height = '0px';
-				}
-				
-				let lastScrollY = 0;
-				let ticking = false;
-				let headerHeight = header.offsetHeight;
+        // Header already has sticky-header class from HTML
+        // No need to add it dynamically
 
-				// Update spacer height
-				const updateSpacerHeight = () => {
-					headerHeight = header.offsetHeight;
-					spacer.style.height = headerHeight + 'px';
-				};
+        // Check if transparent header is enabled and on homepage
+        const isTransparent = header.dataset.transparent === "true";
+        const isHomepage = document.body.classList.contains("template-index");
 
-				function updateHeader() {
-					const currentScrollY = window.scrollY;
-					const hideOnScroll = header.dataset.hideOnScroll === 'true';
-					const isTransparent = header.dataset.transparent === 'true';
-					const stickyBackground = header.dataset.stickyBackground || '#ffffff';
+        // Set initial state on homepage
+        if (isTransparent && isHomepage && window.scrollY === 0) {
+          header.style.backgroundColor = "transparent";
+          header.style.borderBottomColor = "transparent";
+        }
 
-					// Check if we're on the homepage
-					const isHomepage = document.body.classList.contains('template-index');
+        let lastScrollY = 0;
+        let ticking = false;
 
-					// Handle transparent header on homepage
-					if (isTransparent && isHomepage) {
-						if (currentScrollY > 50) {
-							// Remove transparent styles when scrolled
-							header.classList.remove('transparent-header');
-							header.classList.add('scrolled');
-							header.style.backgroundColor = stickyBackground;
-							header.style.borderBottomColor = '';
-						} else {
-							// Apply transparent styles at top
-							header.classList.add('transparent-header');
-							header.classList.remove('scrolled');
-							header.style.backgroundColor = 'transparent';
-							header.style.borderBottomColor = 'transparent';
-						}
-					} else {
-						// Normal non-transparent behavior
-						if (currentScrollY > 0) {
-							// Add scrolled class
-							if (!header.classList.contains('scrolled')) {
-								header.classList.add('scrolled');
-								// All pages need spacer when switching to fixed
-								updateSpacerHeight();
-							}
-							header.style.backgroundColor = stickyBackground;
-						} else {
-							// At top position
-							if (header.classList.contains('scrolled')) {
-								header.classList.remove('scrolled');
-								// Clear spacer when back to sticky
-								spacer.style.height = '0px';
-							}
-							header.style.backgroundColor = '';
-						}
-					}
+        function updateHeader() {
+          const currentScrollY = window.scrollY;
+          const hideOnScroll = header.dataset.hideOnScroll === "true";
+          const isTransparent = header.dataset.transparent === "true";
+          const isHomepage = document.body.classList.contains("template-index");
 
-					// Handle hide on scroll
-					if (hideOnScroll) {
-						const hideThreshold = 300; // Hide header after scrolling 300px
-						
-						if (currentScrollY > hideThreshold) {
-							if (currentScrollY > lastScrollY) {
-								// Scrolling down - hide header
-								header.classList.add('hide-on-scroll');
-								header.classList.remove('show-on-scroll');
-							} else {
-								// Scrolling up - show header
-								header.classList.remove('hide-on-scroll');
-								header.classList.add('show-on-scroll');
-							}
-						} else {
-							// Above threshold, always show
-							header.classList.remove('hide-on-scroll');
-							header.classList.add('show-on-scroll');
-						}
-					}
+          // Hide announcement bar immediately on any scroll
+          const announcementBar =
+            header.parentElement.querySelector(".announcement-bar");
+          if (announcementBar) {
+            if (currentScrollY > 0) {
+              if (!announcementBar.classList.contains("hidden")) {
+                announcementBar.classList.add("hidden");
+                announcementBar.style.maxHeight = "0";
+                announcementBar.style.overflow = "hidden";
+                announcementBar.style.transition = "max-height 0.2s ease-out";
+              }
+            } else {
+              if (announcementBar.classList.contains("hidden")) {
+                announcementBar.classList.remove("hidden");
+                announcementBar.style.maxHeight = "100px";
+                setTimeout(() => {
+                  announcementBar.style.maxHeight = "";
+                  announcementBar.style.overflow = "";
+                }, 200);
+              }
+            }
+          }
 
-					lastScrollY = currentScrollY;
-					ticking = false;
-				}
+          // Apply scrolled state for all pages equally
+          if (currentScrollY > 0) {
+            header.classList.add("scrolled");
+          } else {
+            header.classList.remove("scrolled");
+          }
 
-				window.addEventListener('scroll', function() {
-					if (!ticking) {
-						window.requestAnimationFrame(updateHeader);
-						ticking = true;
-					}
-				});
+          // Handle transparent header on homepage only - simplified
+          if (isTransparent && isHomepage) {
+            if (currentScrollY <= 50) {
+              // Make transparent
+              header.style.backgroundColor = "transparent";
+              header.style.borderBottomColor = "transparent";
+            } else {
+              // Remove transparent
+              header.style.backgroundColor = "";
+              header.style.borderBottomColor = "";
+            }
+          }
 
-				// Update on resize with debouncing
-				let resizeTimer;
-				window.addEventListener('resize', () => {
-					clearTimeout(resizeTimer);
-					resizeTimer = setTimeout(() => {
-						// Update header height
-						headerHeight = header.offsetHeight;
-						
-						// Update spacer height
-						updateSpacerHeight();
-						
-						// Update top spacer if it exists
-						if (topSpacer) {
-							topSpacer.style.height = headerHeight + 'px';
-						}
-						
-						// Re-apply initial styles
-						applyInitialStyles();
-						
-						// Update header state
-						updateHeader();
-					}, 250); // Debounce resize events
-				});
+          // Handle hide on scroll
+          if (hideOnScroll) {
+            const hideThreshold = 300; // Hide header after scrolling 300px
 
-				// Apply initial styles immediately
-				const applyInitialStyles = () => {
-					if (isTransparent && isHomepage) {
-						header.classList.add('transparent-header');
-						header.classList.remove('bg-white'); // Remove the default white background
-						header.style.backgroundColor = 'transparent';
-						header.style.borderBottomColor = 'transparent';
-						header.style.position = 'absolute';
-						header.style.width = '100%';
-						spacer.style.height = '0px';
-						
-						// Apply negative margin to first section equal to header height
-						const firstSection = document.querySelector(
-							'#MainContent > .shopline-section:first-child, ' +
-							'#MainContent > div[id^="shopline-section-"]:first-child, ' +
-							'main > .shopline-section:first-child'
-						);
-						
-						if (firstSection) {
-							const headerHeight = header.offsetHeight;
-							firstSection.style.marginTop = `-${headerHeight}px`;
-							firstSection.style.paddingTop = `${headerHeight}px`;
-						}
-					} else if (isHomepage) {
-						// Only apply padding on index page for sticky headers
-						updateSpacerHeight();
-						
-						// For sticky headers with hero sections on homepage
-						const firstSection = document.querySelector(
-							'#MainContent > .shopline-section:first-child, ' +
-							'#MainContent > div[id^="shopline-section-"]:first-child, ' +
-							'main > .shopline-section:first-child'
-						);
-						
-						if (firstSection) {
-							const headerHeight = header.offsetHeight;
-							// Check if it's a hero section
-							const heroInner = firstSection.querySelector('.hero-banner');
-							if (heroInner) {
-								// Hero sections get both negative margin and padding
-								firstSection.style.marginTop = `-${headerHeight}px`;
-								firstSection.style.paddingTop = `${headerHeight}px`;
-							} else {
-								// Non-hero sections just get padding
-								firstSection.style.paddingTop = `${headerHeight}px`;
-								firstSection.style.marginTop = '0px';
-							}
-						}
-					} else {
-						// Non-homepage: no special padding for first section, no spacer initially
-						spacer.style.height = '0px';
-					}
-				};
-				
-				// Apply styles immediately and also after a small delay to ensure proper rendering
-				applyInitialStyles();
-				setTimeout(applyInitialStyles, 100);
-				
-				// Start monitoring scroll
-				updateHeader();
-			}
-		});
-	}
+            if (currentScrollY > hideThreshold) {
+              if (currentScrollY > lastScrollY) {
+                // Scrolling down - hide header
+                header.classList.add("hide-on-scroll");
+                header.classList.remove("show-on-scroll");
+              } else {
+                // Scrolling up - show header
+                header.classList.remove("hide-on-scroll");
+                header.classList.add("show-on-scroll");
+              }
+            } else {
+              // Above threshold, always show
+              header.classList.remove("hide-on-scroll");
+              header.classList.add("show-on-scroll");
+            }
+          }
+
+          lastScrollY = currentScrollY;
+          ticking = false;
+        }
+
+        window.addEventListener("scroll", function () {
+          if (!ticking) {
+            window.requestAnimationFrame(updateHeader);
+            ticking = true;
+          }
+        });
+
+        // Start monitoring scroll
+        updateHeader();
+      }
+    });
+  }
 }
+
+// Global Image Sizing Utility
+window.getImageUrl = function (imageUrl, options = {}) {
+  if (!imageUrl || imageUrl === "null" || imageUrl === "undefined") {
+    return "";
+  }
+
+  // Default image sizes for common use cases
+  const presets = {
+    // Product images
+    "product-card": { width: 800 }, // 2x for 400px display on retina
+    "product-card-small": { width: 600 }, // 2x for 300px display
+    "product-thumbnail": { width: 400 }, // For thumbnails and small images
+    "product-gallery": { width: 1200 }, // For main product gallery
+    "product-gallery-thumbnail": { width: 300 }, // Gallery thumbnails
+
+    // Cart images
+    "cart-item": { width: 300 }, // Cart drawer/page items
+    "cart-item-small": { width: 150 }, // Mini cart items
+
+    // Hero/banner images
+    "hero-mobile": { width: 768 }, // Mobile hero images
+    "hero-desktop": { width: 1920 }, // Desktop hero images
+    banner: { width: 1200 }, // General banner images
+
+    // Blog/article images
+    "article-card": { width: 600 }, // Blog article cards
+    "article-hero": { width: 1200 }, // Article hero images
+
+    // Collection images
+    "collection-card": { width: 800 }, // Collection listing cards
+
+    // General sizes
+    small: { width: 300 },
+    medium: { width: 600 },
+    large: { width: 1200 },
+    xlarge: { width: 1920 },
+  };
+
+  // If preset is specified, use it
+  if (options.preset && presets[options.preset]) {
+    options = { ...presets[options.preset], ...options };
+  }
+
+  // Extract width and height parameters
+  const { width, height, quality = 80, crop = null } = options;
+
+  // For Shopline image URLs, we need to use their specific format: filename_WIDTHx.extension
+  if (imageUrl.includes("myshopline.com") || imageUrl.includes("shopline")) {
+    // Parse the URL to extract base path and extension
+    const url = new URL(imageUrl);
+    const pathname = url.pathname;
+
+    // Extract filename and extension
+    const lastSlashIndex = pathname.lastIndexOf("/");
+    const basePath = pathname.substring(0, lastSlashIndex + 1);
+    const filename = pathname.substring(lastSlashIndex + 1);
+
+    // Remove existing size suffix if present (e.g., _300x, _400x600, etc.)
+    const cleanFilename = filename
+      .replace(/_\d+x\d*(?=\.[^.]*$)/, "")
+      .replace(/_\d+x(?=\.[^.]*$)/, "");
+
+    // Extract extension
+    const dotIndex = cleanFilename.lastIndexOf(".");
+    const nameOnly = cleanFilename.substring(0, dotIndex);
+    const extension = cleanFilename.substring(dotIndex);
+
+    // Build new filename with size
+    let sizedFilename;
+    if (width && height) {
+      sizedFilename = `${nameOnly}_${width}x${height}${extension}`;
+    } else if (width) {
+      sizedFilename = `${nameOnly}_${width}x${extension}`;
+    } else {
+      sizedFilename = cleanFilename; // No size specified, use clean filename
+    }
+
+    // Construct the final URL
+    const finalUrl = `${url.protocol}//${url.host}${basePath}${sizedFilename}`;
+
+    // Add query parameters if needed (quality, etc.)
+    const params = new URLSearchParams(url.search);
+    if (quality !== 80) params.set("q", quality);
+    if (crop) params.set("crop", crop);
+
+    const paramString = params.toString();
+    return paramString ? `${finalUrl}?${paramString}` : finalUrl;
+  }
+
+  // For other CDNs or direct image URLs, return as-is
+  // (Could be extended to support other CDN formats)
+  return imageUrl;
+};
+
+// Responsive image srcset generator
+window.getImageSrcSet = function (
+  imageUrl,
+  sizes = [400, 600, 800, 1000, 1200]
+) {
+  if (!imageUrl || imageUrl === "null" || imageUrl === "undefined") {
+    return "";
+  }
+
+  return sizes
+    .map((size) => `${window.getImageUrl(imageUrl, { width: size })} ${size}w`)
+    .join(", ");
+};
+
+// Helper for common responsive image tag generation
+window.createResponsiveImageTag = function (imageUrl, options = {}) {
+  const {
+    alt = "",
+    className = "",
+    sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+    widths = [400, 600, 800, 1000, 1200],
+    loading = "lazy",
+  } = options;
+
+  if (!imageUrl || imageUrl === "null" || imageUrl === "undefined") {
+    return "";
+  }
+
+  const srcset = window.getImageSrcSet(imageUrl, widths);
+  const src = window.getImageUrl(imageUrl, {
+    width: widths[Math.floor(widths.length / 2)],
+  });
+
+  return `<img 
+    src="${src}"
+    srcset="${srcset}"
+    sizes="${sizes}"
+    alt="${alt}"
+    class="${className}"
+    loading="${loading}"
+  >`;
+};
 
 // Cart state management (initialize once)
 if (!window.OrionCart) {
-	window.OrionCart = {
-		state: {
-			isOpen: false,
-			items: [],
-			totalPrice: 0,
-			itemCount: 0,
-		},
+  window.OrionCart = {
+    state: {
+      isOpen: false,
+      items: [],
+      totalPrice: 0,
+      itemCount: 0,
+    },
 
-		async fetchCart() {
-			try {
-				const response = await fetch(
-					(Shopline?.routes?.cart || '/cart') + '.js'
-				);
-				const cart = await response.json();
+    async fetchCart() {
+      try {
+        const response = await fetch(
+          (Shopline?.routes?.cart || "/cart") + ".js"
+        );
+        const cart = await response.json();
 
-				// Note: Cart images from the API are already processed by Shopline
-				// Manual URL parameters don't work with Shopline's CDN for PNG files
+        // Note: Cart images from the API are already processed by Shopline
+        // Manual URL parameters don't work with Shopline's CDN for PNG files
 
-				this.state.items = cart.items;
-				this.state.totalPrice = cart.total_price;
-				this.state.itemCount = cart.item_count;
-				document.dispatchEvent(
-					new CustomEvent('cart:updated', { detail: cart })
-				);
-				return cart;
-			} catch (error) {
-				console.error('Failed to fetch cart:', error);
-			}
-		},
+        this.state.items = cart.items;
+        this.state.totalPrice = cart.total_price;
+        this.state.itemCount = cart.item_count;
+        document.dispatchEvent(
+          new CustomEvent("cart:updated", { detail: cart })
+        );
+        return cart;
+      } catch (error) {
+        console.error("Failed to fetch cart:", error);
+      }
+    },
 
-		async addItem(data) {
-			try {
-				let response;
+    async addItem(data) {
+      try {
+        let response;
 
-				// Handle both FormData and JSON formats
-				if (data instanceof FormData) {
-					// Legacy FormData format
-					response = await fetch(
-						Shopline?.routes?.cart_add || '/cart/add',
-						{
-							method: 'POST',
-							body: data,
-						}
-					);
-				} else {
-					// New Shopline AJAX API format
-					response = await fetch('/api/carts/ajax-cart/add.js', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-							Accept: 'application/json',
-						},
-						body: JSON.stringify(data),
-					});
-				}
+        // Handle both FormData and JSON formats
+        if (data instanceof FormData) {
+          // Legacy FormData format
+          response = await fetch(Shopline?.routes?.cart_add || "/cart/add", {
+            method: "POST",
+            body: data,
+          });
+        } else {
+          // New Shopline AJAX API format
+          response = await fetch("/api/carts/ajax-cart/add.js", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+        }
 
-				const result = await response.json();
-				await this.fetchCart();
-				this.openDrawer();
-				return result;
-			} catch (error) {
-				console.error('Failed to add item to cart:', error);
-			}
-		},
+        const result = await response.json();
+        await this.fetchCart();
+        this.openDrawer();
+        return result;
+      } catch (error) {
+        console.error("Failed to add item to cart:", error);
+      }
+    },
 
-		async updateItem(variantId, quantity, lineNumber = null) {
-			try {
-				// Use Shopline's change API
-				const requestData = {
-					quantity: quantity,
-				};
+    async updateItem(variantId, quantity, lineNumber = null) {
+      try {
+        // Use Shopline's change API
+        const requestData = {
+          quantity: quantity,
+        };
 
-				// Prefer line number if available, otherwise use variant ID
-				if (lineNumber !== null) {
-					requestData.line = lineNumber;
-				} else {
-					requestData.id = variantId;
-				}
+        // Prefer line number if available, otherwise use variant ID
+        if (lineNumber !== null) {
+          requestData.line = lineNumber;
+        } else {
+          requestData.id = variantId;
+        }
 
-				const response = await fetch('/api/carts/ajax-cart/change.js', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-					},
-					body: JSON.stringify(requestData),
-				});
+        const response = await fetch("/api/carts/ajax-cart/change.js", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(requestData),
+        });
 
-				const result = await response.json();
-				await this.fetchCart();
-				return result;
-			} catch (error) {
-				console.error('Failed to update cart:', error);
-			}
-		},
+        const result = await response.json();
+        await this.fetchCart();
+        return result;
+      } catch (error) {
+        console.error("Failed to update cart:", error);
+      }
+    },
 
-		async removeItem(variantId, lineNumber = null) {
-			return this.updateItem(variantId, 0, lineNumber);
-		},
+    async removeItem(variantId, lineNumber = null) {
+      return this.updateItem(variantId, 0, lineNumber);
+    },
 
-		openDrawer() {
-			this.state.isOpen = true;
-			document.dispatchEvent(new CustomEvent('cart:open'));
-		},
+    openDrawer() {
+      this.state.isOpen = true;
+      document.dispatchEvent(new CustomEvent("cart:open"));
+    },
 
-		closeDrawer() {
-			this.state.isOpen = false;
-			document.dispatchEvent(new CustomEvent('cart:close'));
-		},
-	};
+    closeDrawer() {
+      this.state.isOpen = false;
+      document.dispatchEvent(new CustomEvent("cart:close"));
+    },
+  };
 
-	// Initialize cart on page load
-	window.OrionCart.fetchCart();
+  // Initialize cart on page load
+  window.OrionCart.fetchCart();
 
-	// Update cart count in header
-	document.addEventListener('cart:updated', (e) => {
-		const cartCount = e.detail.item_count;
-		const cartCountElements = document.querySelectorAll('.cart-count');
-		cartCountElements.forEach((el) => {
-			if (cartCount > 0) {
-				el.textContent = cartCount;
-				el.style.opacity = '1';
-			} else {
-				el.style.opacity = '0';
-			}
-		});
-	});
+  // Update cart count in header
+  document.addEventListener("cart:updated", (e) => {
+    const cartCount = e.detail.item_count;
+    const cartCountElements = document.querySelectorAll(".cart-count");
+    cartCountElements.forEach((el) => {
+      if (cartCount > 0) {
+        el.textContent = cartCount;
+        el.style.opacity = "1";
+      } else {
+        el.style.opacity = "0";
+      }
+    });
+  });
 }
 
 // Expose mountVueComponents globally for infinite scroll
 window.mountVueComponents = mountVueComponents;
 
-// Global resize handler for sticky headers
-let globalResizeTimer;
-window.addEventListener('resize', () => {
-	clearTimeout(globalResizeTimer);
-	globalResizeTimer = setTimeout(() => {
-		// Reinitialize all sticky headers
-		const headers = document.querySelectorAll('.site-header.sticky-header');
-		headers.forEach(header => {
-			if (header._reinitialize) {
-				header._reinitialize();
-			}
-		});
-	}, 250);
-});
-
 // Mount Vue components on DOM ready
-document.addEventListener('DOMContentLoaded', () => {
-	mountVueComponents();
+document.addEventListener("DOMContentLoaded", () => {
+  mountVueComponents();
 });
 
 // Handle Shopline theme editor events
 if (
-	window.Shopline?.designMode ||
-	window.location.href.includes('theme_preview_mode')
+  window.Shopline?.designMode ||
+  window.location.href.includes("theme_preview_mode")
 ) {
-	// Section load event - when a section is added or its settings change
-	document.addEventListener('shopline:section:load', (event) => {
-		const sectionElement =
-			document.querySelector(
-				`[data-section-id="${event.detail.sectionId}"]`
-			) || document;
-		mountVueComponents(sectionElement);
-	});
+  // Section load event - when a section is added or its settings change
+  document.addEventListener("shopline:section:load", (event) => {
+    const sectionElement =
+      document.querySelector(`[data-section-id="${event.detail.sectionId}"]`) ||
+      document;
+    mountVueComponents(sectionElement);
+  });
 
-	// Section reorder event
-	document.addEventListener('shopline:section:reorder', () => {
-		mountVueComponents();
-	});
+  // Section reorder event
+  document.addEventListener("shopline:section:reorder", () => {
+    mountVueComponents();
+  });
 
-	// Block select/deselect events for interactive components
-	document.addEventListener('shopline:block:select', (event) => {
-		const blockElement = document.querySelector(
-			`[data-block-id="${event.detail.blockId}"]`
-		);
-		if (blockElement) {
-			mountVueComponents(blockElement);
-		}
-	});
+  // Block select/deselect events for interactive components
+  document.addEventListener("shopline:block:select", (event) => {
+    const blockElement = document.querySelector(
+      `[data-block-id="${event.detail.blockId}"]`
+    );
+    if (blockElement) {
+      mountVueComponents(blockElement);
+    }
+  });
 }
