@@ -97,7 +97,7 @@
                     </div>
 
                     <!-- Cart Items -->
-                    <div v-else class="px-4 sm:px-6 pb-6">
+                    <div v-else>
                       <CartItem
                         v-for="item in items"
                         :key="item.key"

@@ -5261,6 +5261,11 @@ body.page-contact {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-red-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
@@ -5824,6 +5829,14 @@ body.page-contact {
     display: none;
   }
 
+  .lg\:h-32 {
+    height: 8rem;
+  }
+
+  .lg\:h-24 {
+    height: 6rem;
+  }
+
   .lg\:min-h-\[600px\] {
     min-height: 600px;
   }
@@ -5838,6 +5851,14 @@ body.page-contact {
 
   .lg\:w-\[calc\(50\%-12px\)\] {
     width: calc(50% - 12px);
+  }
+
+  .lg\:w-32 {
+    width: 8rem;
+  }
+
+  .lg\:w-24 {
+    width: 6rem;
   }
 
   .lg\:flex-1 {
@@ -5888,12 +5909,24 @@ body.page-contact {
     gap: 2rem;
   }
 
+  .lg\:gap-4 {
+    gap: 1rem;
+  }
+
   .lg\:p-12 {
     padding: 3rem;
   }
 
   .lg\:p-16 {
     padding: 4rem;
+  }
+
+  .lg\:p-6 {
+    padding: 1.5rem;
+  }
+
+  .lg\:p-4 {
+    padding: 1rem;
   }
 
   .lg\:px-16 {
