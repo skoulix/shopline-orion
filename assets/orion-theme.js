@@ -12615,7 +12615,7 @@ const Jo = (e, t) => {
                                 })
                               ])
                             ], -1)),
-                            m[4] || (m[4] = f("h3", { class: "text-2xl mb-2" }, "Your cart is empty", -1)),
+                            m[4] || (m[4] = f("h3", { class: "text-lg font-semibold mb-2" }, "Your cart is empty", -1)),
                             m[5] || (m[5] = f("p", { class: "text-sm text-gray-500 text-center mb-8 max-w-xs" }, " Looks like you haven't added anything to your cart yet. Start shopping to find your perfect items! ", -1)),
                             ue(bs, {
                               class: "button",

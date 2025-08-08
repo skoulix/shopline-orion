@@ -120,8 +120,8 @@
       "disabled": false,
       "type": "icon-columns",
       "settings": {
-        "heading_font": "font-crossten-bold",
-        "title_font": "font-crossten-bold",
+        "heading_font": "title",
+        "title_font": "title",
         "heading_color": "#3d3259",
         "subheading_color": "#3d3259",
         "title_color": "#3d3259",

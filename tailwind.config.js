@@ -79,14 +79,11 @@ export default {
 			},
 			fontFamily: {
 				sans: [
-					'"Crossten-Book"',
 					'system-ui',
 					'-apple-system',
 					'sans-serif',
 				],
 				tanmarjorie: ['"TANMARJORIE-DISPLAY"', 'serif'],
-				'crossten-book': ['"Crossten-Book"', 'sans-serif'],
-				'crossten-bold': ['"Crossten-Bold"', 'sans-serif'],
 			},
 			animation: {
 				'fade-in': 'fadeIn 0.3s ease-in-out',

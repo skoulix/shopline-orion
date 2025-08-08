@@ -78,7 +78,7 @@
                           />
                         </svg>
                       </div>
-                      <h3 class="text-2xl mb-2">Your cart is empty</h3>
+                      <h3 class="text-lg font-semibold mb-2">Your cart is empty</h3>
                       <p
                         class="text-sm text-gray-500 text-center mb-8 max-w-xs"
                       >

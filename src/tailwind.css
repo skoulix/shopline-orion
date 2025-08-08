@@ -327,45 +327,54 @@ h3,
   line-height: var(--title-line-height) !important;
 }
 
-/* Global heading line-height system with responsive values */
-h1,
-.h1,
-.text-4xl,
-.text-5xl,
-.text-6xl {
+/* Global heading system - separate font-size and line-height rules */
+
+/* Heading element font sizes */
+h1, .h1 {
   font-size: calc(var(--title-font-size) * 1.5);
   line-height: var(--title-line-height, 1.2) !important;
 }
 
-h2,
-.h2,
-.text-2xl,
-.text-3xl {
+h2, .h2 {
   font-size: calc(var(--title-font-size) * 1.25);
   line-height: calc(var(--title-line-height, 1.2) * 1.1) !important;
 }
 
-h3,
-.h3,
-.text-xl,
-.text-lg {
+h3, .h3 {
   font-size: var(--title-font-size);
   line-height: calc(var(--title-line-height, 1.2) * 1.15) !important;
 }
 
+/* Text utility classes - only line-height, preserve Tailwind's font-sizes */
+.text-xs { line-height: 1.5 !important; }
+.text-sm { line-height: 1.5 !important; }
+.text-base { line-height: 1.5 !important; }
+.text-lg { line-height: 1.3 !important; }
+.text-xl { line-height: 1.3 !important; }
+.text-2xl { line-height: 1.2 !important; }
+.text-3xl { line-height: 1.2 !important; }
+.text-4xl { line-height: 1.1 !important; }
+.text-5xl { line-height: 1.1 !important; }
+.text-6xl { line-height: 1 !important; }
+
 /* Responsive heading adjustments for better mobile readability */
 @media (max-width: 768px) {
-  h1, .h1, .text-4xl, .text-5xl, .text-6xl {
+  h1, .h1 {
     line-height: calc(var(--title-line-height, 1.2) * 1.1) !important;
   }
   
-  h2, .h2, .text-2xl, .text-3xl {
+  h2, .h2 {
     line-height: calc(var(--title-line-height, 1.2) * 1.15) !important;
   }
   
-  h3, .h3, .text-xl, .text-lg {
+  h3, .h3 {
     line-height: calc(var(--title-line-height, 1.2) * 1.2) !important;
   }
+  
+  /* Slightly more relaxed line-heights on mobile for readability */
+  .text-lg, .text-xl { line-height: 1.4 !important; }
+  .text-2xl, .text-3xl { line-height: 1.3 !important; }
+  .text-4xl, .text-5xl, .text-6xl { line-height: 1.2 !important; }
 }
 
 /* Medium and smaller headings use body font with bold weight */
