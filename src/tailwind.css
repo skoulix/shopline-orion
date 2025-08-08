@@ -834,6 +834,21 @@ header nav a {
   opacity: 1;
 }
 
+/* Submenu transition for mobile menu */
+.submenu-enter-active,
+.submenu-leave-active {
+  transition: all 0.3s ease;
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.submenu-enter-from,
+.submenu-leave-to {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-10px);
+}
+
 /* Custom scrollbar utilities */
 .scrollbar-thin,
 .custom-scrollbar {

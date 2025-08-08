@@ -336,20 +336,3 @@ onMounted(() => {
   });
 });
 </script>
-
-<style scoped>
-/* Submenu specific transitions - not global */
-.submenu-enter-active,
-.submenu-leave-active {
-  transition: all 0.3s ease;
-  max-height: 500px;
-  overflow: hidden;
-}
-
-.submenu-enter-from,
-.submenu-leave-to {
-  opacity: 0;
-  max-height: 0;
-  transform: translateY(-10px);
-}
-</style>

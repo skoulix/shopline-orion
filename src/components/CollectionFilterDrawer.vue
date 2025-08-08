@@ -31,7 +31,7 @@
             </Transition>
 
             <div class="fixed inset-y-0 left-0 max-w-full flex pointer-events-none">
-              <Transition name="slide" appear>
+              <Transition name="slide-left" appear>
                 <div
                   v-if="isOpen"
                   class="w-screen max-w-md pointer-events-auto"

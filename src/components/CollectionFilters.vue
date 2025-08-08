@@ -15,11 +15,11 @@
     </div>
 
     <!-- Desktop Filters -->
-    <div class="hidden lg:block filters-card" :style="cardStyles">
+    <div class="hidden lg:block bg-white border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow overflow-hidden" :style="{ borderRadius: 'var(--card-radius, 8px)' }">
       <div class="space-y-6">
       <!-- Sort By -->
-      <div v-if="showSort" class="filter-group">
-        <h3 class="font-medium text-secondary-900 mb-3">Sort By</h3>
+      <div v-if="showSort" class="pb-6 mb-6 border-b border-gray-200 last:pb-0 last:mb-0 last:border-b-0">
+        <h3 class="text-base font-semibold mb-3">Sort By</h3>
         <select
           v-model="selectedSort"
           @change="updateSort"
@@ -37,8 +37,8 @@
       </div>
 
       <!-- Availability -->
-      <div class="filter-group">
-        <h3 class="font-medium text-secondary-900 mb-3">Availability</h3>
+      <div class="pb-6 mb-6 border-b border-gray-200 last:pb-0 last:mb-0 last:border-b-0">
+        <h3 class="text-base font-semibold mb-3">Availability</h3>
         <label class="flex items-center">
           <input
             type="checkbox"
@@ -51,8 +51,8 @@
       </div>
 
       <!-- Price Range -->
-      <div class="filter-group">
-        <h3 class="font-medium text-secondary-900 mb-3">Price</h3>
+      <div class="pb-6 mb-6 border-b border-gray-200 last:pb-0 last:mb-0 last:border-b-0">
+        <h3 class="text-base font-semibold mb-3">Price</h3>
         <div class="space-y-2">
           <label class="flex items-center">
             <input
@@ -98,8 +98,8 @@
       </div>
 
       <!-- Product Type -->
-      <div v-if="productTypes.length > 0" class="filter-group">
-        <h3 class="font-medium text-secondary-900 mb-3">Product Type</h3>
+      <div v-if="productTypes.length > 0" class="pb-6 mb-6 border-b border-gray-200 last:pb-0 last:mb-0 last:border-b-0">
+        <h3 class="text-base font-semibold mb-3">Product Type</h3>
         <div class="space-y-2">
           <label v-for="type in productTypes" :key="type" class="flex items-center">
             <input
@@ -115,8 +115,8 @@
       </div>
 
       <!-- Vendor -->
-      <div v-if="vendors.length > 0" class="filter-group">
-        <h3 class="font-medium text-secondary-900 mb-3">Brand</h3>
+      <div v-if="vendors.length > 0" class="pb-6 mb-6 border-b border-gray-200 last:pb-0 last:mb-0 last:border-b-0">
+        <h3 class="text-base font-semibold mb-3">Brand</h3>
         <div class="space-y-2">
           <label v-for="vendor in vendors" :key="vendor" class="flex items-center">
             <input
@@ -172,8 +172,8 @@
             <div class="flex-1 overflow-y-auto p-4">
               <div class="space-y-6">
                 <!-- Sort By (if enabled) -->
-                <div v-if="showSort" class="filter-group">
-                  <h3 class="font-medium text-secondary-900 mb-3">Sort By</h3>
+                <div v-if="showSort" class="pb-6 mb-6 border-b border-gray-200 last:pb-0 last:mb-0 last:border-b-0">
+                  <h3 class="text-base font-semibold mb-3">Sort By</h3>
                   <select
                     v-model="selectedSort"
                     @change="updateSort"
@@ -191,8 +191,8 @@
                 </div>
 
                 <!-- Availability -->
-                <div class="filter-group">
-                  <h3 class="font-medium text-secondary-900 mb-3">Availability</h3>
+                <div class="pb-6 mb-6 border-b border-gray-200 last:pb-0 last:mb-0 last:border-b-0">
+                  <h3 class="text-base font-semibold mb-3">Availability</h3>
                   <label class="flex items-center">
                     <input
                       type="checkbox"
@@ -205,8 +205,8 @@
                 </div>
 
                 <!-- Price Range -->
-                <div class="filter-group">
-                  <h3 class="font-medium text-secondary-900 mb-3">Price</h3>
+                <div class="pb-6 mb-6 border-b border-gray-200 last:pb-0 last:mb-0 last:border-b-0">
+                  <h3 class="text-base font-semibold mb-3">Price</h3>
                   <div class="space-y-2">
                     <label class="flex items-center">
                       <input
@@ -252,8 +252,8 @@
                 </div>
 
                 <!-- Product Type -->
-                <div v-if="productTypes.length > 0" class="filter-group">
-                  <h3 class="font-medium text-secondary-900 mb-3">Product Type</h3>
+                <div v-if="productTypes.length > 0" class="pb-6 mb-6 border-b border-gray-200 last:pb-0 last:mb-0 last:border-b-0">
+                  <h3 class="text-base font-semibold mb-3">Product Type</h3>
                   <div class="space-y-2">
                     <label v-for="type in productTypes" :key="type" class="flex items-center">
                       <input
@@ -269,8 +269,8 @@
                 </div>
 
                 <!-- Vendor -->
-                <div v-if="vendors.length > 0" class="filter-group">
-                  <h3 class="font-medium text-secondary-900 mb-3">Brand</h3>
+                <div v-if="vendors.length > 0" class="pb-6 mb-6 border-b border-gray-200 last:pb-0 last:mb-0 last:border-b-0">
+                  <h3 class="text-base font-semibold mb-3">Brand</h3>
                   <div class="space-y-2">
                     <label v-for="vendor in vendors" :key="vendor" class="flex items-center">
                       <input
@@ -381,13 +381,6 @@ const handlePopState = () => {
   loadFiltersFromURL()
 }
 
-// Card styles from theme settings
-const cardStyles = computed(() => {
-  const settings = window.Shopline?.theme?.settings || {}
-  return {
-    '--card-radius': settings.card_border_radius ? `${settings.card_border_radius}px` : '8px'
-  }
-})
 
 // Computed filter options from products
 const productTypes = computed(() => {
@@ -533,30 +526,3 @@ onBeforeUnmount(() => {
   window.removeEventListener('popstate', handlePopState)
 })
 </script>
-
-<style scoped>
-.filters-card {
-  background-color: white;
-  border: 1px solid rgb(var(--color-secondary-200));
-  border-radius: var(--card-radius, 8px);
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.2s ease-in-out;
-}
-
-.filters-card:hover {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.filters-card .filter-group {
-  padding-bottom: 1.5rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgb(var(--color-secondary-200));
-}
-
-.filters-card .filter-group:last-child {
-  padding-bottom: 0;
-  margin-bottom: 0;
-  border-bottom: none;
-}
-</style>

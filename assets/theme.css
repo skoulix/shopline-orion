@@ -2305,10 +2305,6 @@ select {
   top: 50%;
 }
 
-.top-24 {
-  top: 6rem;
-}
-
 .top-3 {
   top: 0.75rem;
 }
@@ -3278,6 +3274,10 @@ select {
   border-bottom-width: 1px;
 }
 
+.border-b-0 {
+  border-bottom-width: 0px;
+}
+
 .border-b-2 {
   border-bottom-width: 2px;
 }
@@ -3892,6 +3892,10 @@ select {
 
 .pb-4 {
   padding-bottom: 1rem;
+}
+
+.pb-6 {
+  padding-bottom: 1.5rem;
 }
 
 .pl-12 {
@@ -5114,6 +5118,22 @@ header nav a {
 .slide-down-leave-from {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* Submenu transition for mobile menu */
+
+.submenu-enter-active,
+.submenu-leave-active {
+  transition: all 0.3s ease;
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.submenu-enter-from,
+.submenu-leave-to {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-10px);
 }
 
 /* Custom scrollbar utilities */
