@@ -12,9 +12,9 @@
         "title_color": "#ffffff",
         "subtitle_color": "#ffffff",
         "enable_overlay": true,
+        "overlay_type": "gradient",
         "image": null,
-        "mobile_image": null,
-        "overlay_type": "gradient"
+        "mobile_image": null
       },
       "blocks": {},
       "custom_css": []
@@ -28,8 +28,8 @@
         "columns": 2,
         "gutter_size": 6,
         "background_color": "#b6e0f8",
-        "padding_top": 40,
-        "padding_bottom": 40
+        "padding_top": 28,
+        "padding_bottom": 60
       },
       "blocks": {
         "1753805909321b02e79a": {

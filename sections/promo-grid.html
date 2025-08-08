@@ -46,9 +46,9 @@
             {{/if}}
             
             <!-- Main card container -->
-            <div class="wrapper-holes relative overflow-hidden block h-full max-sm:text-center" style="--section-bg: {{default ../section.settings.background_color '#b6e0f8'}};">
+            <div class="relative overflow-hidden block h-full max-sm:text-center" style="border-radius: var(--card-radius, 8px);">
 				<!-- Background image -->
-				<div class="bg-white rounded-[20px] h-full" style="background-color: {{default settings.background_color '#ffffff'}}; border: 3px solid #3D3259;">
+				<div class="bg-white h-full" style="background-color: {{default settings.background_color '#ffffff'}}; border: 3px solid #3D3259; border-radius: var(--card-radius, 8px);">
 
 				{{#if settings.background_image}}
 					<div class="absolute inset-0">

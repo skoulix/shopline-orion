@@ -117,8 +117,11 @@
           "announcement_bg_color": "#e3276f",
           "announcement_text": "Free shipping on orders over $30!",
           "announcement_color_scheme": "2",
+          "header_text_color": "#113f67",
+          "invert_logo_when_transparent": true,
           "logo": "shopline://shop_images/Avvika_Logo_7104649376656541919.svg",
-          "header_text_color": "#113f67"
+          "logo_layout": "left",
+          "enable_sticky_header": true
         },
         "blocks": {},
         "custom_css": []
