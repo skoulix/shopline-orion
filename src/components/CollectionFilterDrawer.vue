@@ -138,14 +138,14 @@
                     <div class="px-4 py-6 sm:px-6 border-t border-gray-200 space-y-3">
                       <button
                         @click="applyFilters"
-                        class="button w-full flex justify-center items-center px-6 py-3 text-white bg-gray-900 hover:bg-gray-800 transition-colors duration-200"
+                        class="button w-full flex justify-center items-center text-white bg-gray-900 hover:bg-gray-800 transition-colors duration-200"
                         :style="{ borderRadius: 'var(--button-radius)' }"
                       >
                         Apply Filters
                       </button>
                       <button
                         @click="clearFilters"
-                        class="button w-full flex justify-center items-center px-6 py-3  text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
+                        class="button w-full flex justify-center items-center text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
                         :style="{ borderRadius: 'var(--button-radius)' }"
                       >
                         Clear All

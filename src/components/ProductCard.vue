@@ -172,7 +172,7 @@
           v-if="productData.available"
           @click="handleAddToCart"
           :disabled="isAddingToCart"
-          class="button w-full px-4 py-3 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          class="button w-full transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           :style="{
             backgroundColor: 'var(--button-primary-bg)',
             color: 'var(--button-primary-text)',
