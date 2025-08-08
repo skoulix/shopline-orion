@@ -10,25 +10,25 @@
         variants[0].title !== 'Default Title' &&
         variants[0].title.toLowerCase() !== 'default'
       "
-      class="single-variant-info mb-6 p-4 bg-gray-50 rounded-lg"
+      class="w-12 h-12 single-variant-info mb-6 p-4 bg-gray-50 rounded-full overflow-hidden"
     >
       <div class="text-sm text-gray-600 mb-2">Selected Option:</div>
       <div class="font-medium text-gray-900">{{ variants[0].title }}</div>
     </div>
 
     <!-- Multiple variants or options -->
-    <div v-else-if="productOptions.length > 0">
+    <div v-else-if="productOptions.length > 0" class="mt-5 space-y-3.5">
       <div
         v-for="option in productOptions"
         :key="option.name"
         class="variant-option"
       >
-        <div class="font-medium text-sm mb-32">
+        <div class="font-medium text-sm">
           {{ option.name || "Option" }}
         </div>
 
         <!-- Image-based variant options -->
-        <div v-if="hasImageOptions(option)" class="flex flex-wrap gap-3 mt-2">
+        <div v-if="hasImageOptions(option)" class="flex flex-wrap gap-3">
           <button
             v-for="(item, index) in getOptionValuesWithImages(option)"
             :key="item.value"
@@ -60,8 +60,7 @@
         <!-- Color swatches -->
         <div
           v-else-if="isColorOption(option.name)"
-          class="color-swatches-wrapper mt-2"
-          style="display: flex; flex-wrap: wrap; gap: 0.75rem"
+          class="color-swatches-wrapper mt-2 space-x-3.5"
         >
           <button
             v-for="value in option.values"
@@ -137,15 +136,12 @@
         </div>
 
         <!-- Size/Text options -->
-        <div
-          v-else
-          class="variant-buttons-wrapper mt-2"
-          style="display: flex; flex-wrap: wrap; gap: 0.5rem"
-        >
+        <div v-else class="variant-buttons-wrapper mt-2 space-x-2.5">
           <button
             v-for="value in option.values"
             :key="value"
             type="button"
+            class="flex w-12 h-12 text-center justify-center items-center rounded-full overflow-hidden"
             :class="[
               'variant-button',
               isOptionSelected(option.name, value)
@@ -187,11 +183,11 @@
       v-else-if="variants.length === 1 && productOptions.length > 0"
       class="single-variant-options"
     >
-      <div v-for="option in productOptions" :key="option.name" class="mb-4">
-        <h3 class="text-sm font-medium text-gray-900 mb-2">
-          {{ option.name }}:
-        </h3>
-        <div class="px-4 py-2 bg-gray-50 rounded-lg inline-block">
+      <div v-for="option in productOptions" :key="option.name">
+        <h3 class="text-sm font-medium text-gray-900">{{ option.name }}:</h3>
+        <div
+          class="w-12 h-12 px-4 py-2 bg-gray-50 rounded-full overflow-hidden inline-block"
+        >
           <span class="text-sm font-medium text-gray-700">{{
             variants[0][`option${productOptions.indexOf(option) + 1}`] ||
             option.values[0]

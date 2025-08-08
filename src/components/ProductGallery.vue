@@ -271,12 +271,12 @@ const scrollThumbnails = (direction) => {
 const openLightbox = (index) => {
   activeImageIndex.value = index
   lightboxOpen.value = true
-  document.body.style.overflow = 'hidden'
+  document.body.classList.add('overflow-hidden')
 }
 
 const closeLightbox = () => {
   lightboxOpen.value = false
-  document.body.style.overflow = ''
+  document.body.classList.remove('overflow-hidden')
 }
 
 const navigateLightbox = (direction) => {

@@ -226,15 +226,15 @@ const toggleDrawer = () => {
   if (isOpen.value) {
     // Sync filters with URL when opening drawer
     loadFiltersFromURL()
-    document.body.style.overflow = 'hidden'
+    document.body.classList.add('overflow-hidden')
   } else {
-    document.body.style.overflow = ''
+    document.body.classList.remove('overflow-hidden')
   }
 }
 
 const closeDrawer = () => {
   isOpen.value = false
-  document.body.style.overflow = ''
+  document.body.classList.remove('overflow-hidden')
 }
 
 const applyFilters = () => {
@@ -362,7 +362,7 @@ onMounted(() => {
 // Clean up event listener and body overflow
 onBeforeUnmount(() => {
   window.removeEventListener('popstate', handlePopState)
-  document.body.style.overflow = ''
+  document.body.classList.remove('overflow-hidden')
 })
 </script>
 

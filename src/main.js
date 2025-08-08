@@ -69,7 +69,9 @@ const ButtonElement = defineCustomElement({
 });
 const CartDrawerElement = defineCustomElement(CartDrawer);
 const MobileMenuElement = defineCustomElement(MobileMenu);
-const ProductVariantPickerElement = defineCustomElement(ProductVariantPicker);
+const ProductVariantPickerElement = defineCustomElement(ProductVariantPicker, {
+  shadowRoot: false,
+});
 const QuantitySelectorElement = defineCustomElement(QuantitySelector);
 // Don't use custom element for ProductCard due to style isolation
 // const ProductCardElement = defineCustomElement(ProductCard)
@@ -268,6 +270,7 @@ function mountVueComponents(container = document) {
     mount._vueApp = app;
     app.mount(mount);
   });
+
 
   // Initialize sticky header behavior (only once, not per mount)
   if (container === document) {

@@ -46,9 +46,7 @@
                           type="search"
                           placeholder="Search for products..."
                           class="search-input w-full pl-12 pr-12 py-4 text-lg text-gray-900 placeholder-gray-400 bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:bg-white transition-all duration-200"
-                          :style="{
-                            borderRadius: `var(--button-radius, 16px)`,
-                          }"
+                          style="border-radius: var(--button-radius, 16px)"
                           @input="handleSearchInput"
                           @keydown.escape="closeSearch"
                           @keydown.enter="submitSearch"
@@ -418,14 +416,14 @@ const formatMoney = (price) => {
 
 const openSearch = async () => {
   isOpen.value = true;
-  document.body.style.overflow = "hidden";
+  document.body.classList.add('overflow-hidden');
   await nextTick();
   searchInput.value?.focus();
 };
 
 const closeSearch = () => {
   isOpen.value = false;
-  document.body.style.overflow = "";
+  document.body.classList.remove('overflow-hidden');
   searchQuery.value = "";
   results.value = { products: [], collections: [] };
 };

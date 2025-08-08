@@ -122,9 +122,7 @@
                           : 'bg-blue-50 border border-blue-200'
                       "
                       class="p-3"
-                      :style="{
-                        borderRadius: 'var(--button-radius)',
-                      }"
+                      style="border-radius: var(--button-radius, 8px)"
                     >
                       <div
                         v-if="totalPrice >= freeShippingThreshold"
@@ -173,10 +171,7 @@
                       >
                         <div
                           class="bg-blue-600 h-full transition-all duration-300"
-                          :style="`width: ${Math.min(
-                            (totalPrice / freeShippingThreshold) * 100,
-                            100
-                          )}%`"
+                          :style="{ width: Math.min((totalPrice / freeShippingThreshold) * 100, 100) + '%' }"
                         ></div>
                       </div>
                     </div>
@@ -279,13 +274,13 @@ const formatMoney = (price) => {
 
 const openDrawer = () => {
   isOpen.value = true;
-  document.body.style.overflow = "hidden";
+  document.body.classList.add('overflow-hidden');
   fetchCart();
 };
 
 const closeDrawer = () => {
   isOpen.value = false;
-  document.body.style.overflow = "";
+  document.body.classList.remove('overflow-hidden');
 };
 
 const fetchCart = async () => {

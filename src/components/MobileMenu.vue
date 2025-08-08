@@ -293,12 +293,12 @@ const expandedMenus = ref([]);
 const openMenu = () => {
   console.log("openMenu called");
   isOpen.value = true;
-  document.body.style.overflow = "hidden";
+  document.body.classList.add('overflow-hidden');
 };
 
 const closeMenu = () => {
   isOpen.value = false;
-  document.body.style.overflow = "";
+  document.body.classList.remove('overflow-hidden');
 };
 
 const toggleSubmenu = (title) => {
