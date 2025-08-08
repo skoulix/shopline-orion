@@ -58,6 +58,60 @@
 <header class="site-header bg-white border-b border-gray-200"
         style="padding-top: {{default section.settings.padding_top 16}}px !important; padding-bottom: {{default section.settings.padding_bottom 16}}px !important;{{#if (and section.settings.transparent_header_homepage (eq request.page_type 'index'))}} background-color: transparent; border-bottom-color: transparent;{{/if}}">
   
+  <style>
+    /* Default header text colors */
+    .site-header,
+    .site-header * {
+      color: {{default section.settings.header_text_color '#000000'}} !important;
+    }
+    .site-header a,
+    .site-header button,
+    .site-header nav a {
+      color: {{default section.settings.header_text_color '#000000'}} !important;
+    }
+    .site-header svg {
+      stroke: {{default section.settings.header_text_color '#000000'}} !important;
+    }
+    
+    /* Transparent header text colors (only on homepage) */
+    {{#if (and section.settings.transparent_header_homepage (eq request.page_type 'index'))}}
+    .header-group[data-transparent="true"] .site-header,
+    .header-group[data-transparent="true"] .site-header * {
+      color: {{default section.settings.transparent_text_color '#ffffff'}} !important;
+    }
+    .header-group[data-transparent="true"] .site-header a,
+    .header-group[data-transparent="true"] .site-header button,
+    .header-group[data-transparent="true"] .site-header nav a,
+    .header-group[data-transparent="true"] .site-header nav div a {
+      color: {{default section.settings.transparent_text_color '#ffffff'}} !important;
+    }
+    .header-group[data-transparent="true"] .site-header svg {
+      stroke: {{default section.settings.transparent_text_color '#ffffff'}} !important;
+    }
+    
+    /* Text shadow for better readability */
+    {{#if section.settings.enable_text_shadow}}
+    .header-group[data-transparent="true"] .site-header a,
+    .header-group[data-transparent="true"] .site-header button,
+    .header-group[data-transparent="true"] .site-header h1,
+    .header-group[data-transparent="true"] .site-header span {
+      text-shadow: {{default section.settings.text_shadow '0 1px 3px rgba(0,0,0,0.5)'}};
+    }
+    {{/if}}
+    
+    /* Optional backdrop blur */
+    {{#if section.settings.enable_backdrop_blur}}
+    .header-group[data-transparent="true"] .site-header {
+      backdrop-filter: blur({{default section.settings.backdrop_blur_amount 8}}px);
+      -webkit-backdrop-filter: blur({{default section.settings.backdrop_blur_amount 8}}px);
+      {{#if section.settings.backdrop_bg_color}}
+      background-color: {{section.settings.backdrop_bg_color}};
+      {{/if}}
+    }
+    {{/if}}
+    {{/if}}
+  </style>
+  
   <div class="container">
     <!-- Mobile Layout: 3-column grid -->
     <div class="md:hidden grid grid-cols-3 items-center">
@@ -547,6 +601,59 @@
       "default": false,
       "label": "t:sections.header.settings.transparent_header_homepage.label",
       "info": "t:sections.header.settings.transparent_header_homepage.info"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Default text color",
+      "default": "#000000",
+      "info": "Color for text and icons in normal header state"
+    },
+    {
+      "type": "color",
+      "id": "transparent_text_color",
+      "label": "Text color when transparent",
+      "default": "#ffffff",
+      "info": "Color for text and icons when header is transparent"
+    },
+    {
+      "type": "switch",
+      "id": "enable_text_shadow",
+      "default": false,
+      "label": "Enable text shadow",
+      "info": "Add shadow to text for better readability on images"
+    },
+    {
+      "type": "text",
+      "id": "text_shadow",
+      "label": "Text shadow CSS",
+      "default": "0 1px 3px rgba(0,0,0,0.5)",
+      "info": "CSS text-shadow value (e.g., '0 2px 4px rgba(0,0,0,0.5)')"
+    },
+    {
+      "type": "switch",
+      "id": "enable_backdrop_blur",
+      "default": false,
+      "label": "Enable backdrop blur",
+      "info": "Add a blur effect behind the transparent header"
+    },
+    {
+      "type": "range",
+      "id": "backdrop_blur_amount",
+      "label": "Blur amount",
+      "default": 8,
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "info": "Amount of blur to apply"
+    },
+    {
+      "type": "color",
+      "id": "backdrop_bg_color",
+      "label": "Backdrop overlay color",
+      "default": "rgba(255, 255, 255, 0.1)",
+      "info": "Semi-transparent color overlay with backdrop blur"
     },
     {
       "type": "group_header",
