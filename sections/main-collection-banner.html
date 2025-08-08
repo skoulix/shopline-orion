@@ -43,23 +43,29 @@
         ">
           <div class="container text-center">
             {{#if section.settings.show_collection_title}}
-              <h1 class="text-4xl md:text-5xl mb-4" style="color: inherit;">
+              <h1 class="text-4xl md:text-5xl mb-4 font-heading" style="color: inherit;">
                 {{#if collection}}{{collection.title}}{{else}}{{default section.settings.title 'All Collections'}}{{/if}}
               </h1>
             {{/if}}
             
             {{#if section.settings.show_collection_description}}
               {{#if collection.description}}
-                <div class="prose prose-lg max-w-3xl mx-auto" style="color: inherit;">
+                <div class="prose prose-lg max-w-3xl mx-auto font-body" style="color: inherit;">
                   {{{collection.description}}}
+                </div>
+              {{else if section.settings.default_description}}
+                <div class="prose prose-lg max-w-3xl mx-auto font-body" style="color: inherit;">
+                  {{section.settings.default_description}}
                 </div>
               {{/if}}
             {{/if}}
             
             {{#if section.settings.show_product_count}}
-              <div class="mt-6 text-sm opacity-75" style="color: inherit;">
-                {{collection.products_count}} {{#if collection.products_count '==' 1}}product{{else}}products{{/if}}
-              </div>
+              {{#if collection}}
+                <div class="mt-6 text-sm opacity-75" style="color: inherit;">
+                  {{collection.products_count}} {{#if collection.products_count '==' 1}}product{{else}}products{{/if}}
+                </div>
+              {{/if}}
             {{/if}}
           </div>
         </div>
@@ -84,15 +90,19 @@
         <div class="container py-{{section.settings.padding_vertical}}">
           <div class="{{#if section.settings.text_alignment '==' 'left'}}text-left{{/if}}{{#if section.settings.text_alignment '==' 'center'}}text-center{{/if}}{{#if section.settings.text_alignment '==' 'right'}}text-right{{/if}}">
             {{#if section.settings.show_collection_title}}
-              <h1 class="text-4xl md:text-5xl mb-4" style="color: inherit;">
+              <h1 class="text-4xl md:text-5xl mb-4 font-heading" style="color: inherit;">
                 {{#if collection}}{{collection.title}}{{else}}{{default section.settings.title 'All Collections'}}{{/if}}
               </h1>
             {{/if}}
             
             {{#if section.settings.show_collection_description}}
               {{#if collection.description}}
-                <div class="prose prose-lg max-w-3xl {{#if section.settings.text_alignment '==' 'center'}}mx-auto{{/if}}" style="color: inherit;">
+                <div class="prose prose-lg max-w-3xl {{#if section.settings.text_alignment '==' 'center'}}mx-auto{{/if}} font-body" style="color: inherit;">
                   {{{collection.description}}}
+                </div>
+              {{else if section.settings.default_description}}
+                <div class="prose prose-lg max-w-3xl {{#if section.settings.text_alignment '==' 'center'}}mx-auto{{/if}} font-body" style="color: inherit;">
+                  {{section.settings.default_description}}
                 </div>
               {{/if}}
             {{/if}}
@@ -126,23 +136,29 @@
       <div class="container py-{{section.settings.padding_vertical}}">
         <div class="{{#if section.settings.text_alignment '==' 'left'}}text-left{{/if}}{{#if section.settings.text_alignment '==' 'center'}}text-center{{/if}}{{#if section.settings.text_alignment '==' 'right'}}text-right{{/if}}">
           {{#if section.settings.show_collection_title}}
-            <h1 class="text-4xl md:text-5xl mb-4">
-              {{collection.title}}
+            <h1 class="text-4xl md:text-5xl mb-4" style="color: inherit;">
+              {{#if collection}}{{collection.title}}{{else}}{{default section.settings.title 'All Collections'}}{{/if}}
             </h1>
           {{/if}}
           
           {{#if section.settings.show_collection_description}}
             {{#if collection.description}}
-              <div class="prose prose-lg max-w-3xl text-gray-600 {{#if section.settings.text_alignment '==' 'center'}}mx-auto{{/if}}">
+              <div class="prose prose-lg max-w-3xl {{#if section.settings.text_alignment '==' 'center'}}mx-auto{{/if}}" style="color: inherit;">
                 {{{collection.description}}}
+              </div>
+            {{else if section.settings.default_description}}
+              <div class="prose prose-lg max-w-3xl {{#if section.settings.text_alignment '==' 'center'}}mx-auto{{/if}}" style="color: inherit;">
+                {{section.settings.default_description}}
               </div>
             {{/if}}
           {{/if}}
           
           {{#if section.settings.show_product_count}}
-            <div class="mt-6 text-sm text-gray-500">
-              {{collection.products_count}} {{#if collection.products_count '==' 1}}product{{else}}products{{/if}}
-            </div>
+            {{#if collection}}
+              <div class="mt-6 text-sm opacity-75" style="color: inherit;">
+                {{collection.products_count}} {{#if collection.products_count '==' 1}}product{{else}}products{{/if}}
+              </div>
+            {{/if}}
           {{/if}}
         </div>
       </div>
@@ -160,6 +176,12 @@
       "id": "title",
       "label": "t:sections.main-collection-banner.settings.title.label",
       "default": "All Collections"
+    },
+    {
+      "type": "text",
+      "id": "default_description",
+      "label": "Default description",
+      "default": "Browse our complete collection catalog"
     },
     {
       "type": "group_header",

@@ -5,7 +5,10 @@
       "settings": {
         "show_collection_image": false,
         "show_collection_title": true,
-        "show_collection_description": false
+        "show_collection_description": true,
+        "show_product_count": true,
+        "title": "All Collections",
+        "default_description": "Browse our complete collection catalog"
       }
     },
     "main": {
