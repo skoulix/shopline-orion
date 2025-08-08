@@ -1,4 +1,20 @@
-<div class="hero-banner relative" style="padding-top: {{default section.settings.padding_top 0}}px; padding-bottom: {{default section.settings.padding_bottom 120}}px;">
+<div class="hero-banner relative" style="
+  {{#if section.settings.use_color_scheme}}
+    {{#if (eq section.settings.color_scheme '1')}}
+      background-color: rgb(var(--color-scheme-1-bg));
+    {{else}}
+      {{#if (eq section.settings.color_scheme '2')}}
+        background-color: rgb(var(--color-scheme-2-bg));
+      {{else}}
+        {{#if (eq section.settings.color_scheme '3')}}
+          background-color: rgb(var(--color-scheme-3-bg));
+        {{else}}
+          background-color: rgb(var(--color-scheme-4-bg));
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/if}}
+  padding-top: {{default section.settings.padding_top 0}}px; padding-bottom: {{default section.settings.padding_bottom 120}}px;">
   <div class="relative overflow-hidden min-h-[400px] md:min-h-[600px] lg:min-h-[calc(62vw)] md:max-h-[800px]">
     <!-- Mobile Image (natural height on mobile) -->
     {{#if section.settings.mobile_image}}
@@ -64,13 +80,49 @@
       <div class="flex items-start md:items-center justify-center min-h-[400px] md:min-h-[600px] lg:min-h-[calc(62vw)] md:max-h-[800px]">
         <div class="text-center max-w-[300px] md:max-w-[600px] mx-auto">
           {{#if section.settings.title}}
-            <h1 class="mb-3 md:mb-6 text-[30px] md:text-[50px] lg:text-[70px]">
+            <h1 class="mb-3 md:mb-6 text-[30px] md:text-[50px] lg:text-[70px]" style="
+              {{#if section.settings.use_color_scheme}}
+                {{#if (eq section.settings.color_scheme '1')}}
+                  color: rgb(var(--color-scheme-1-text));
+                {{else}}
+                  {{#if (eq section.settings.color_scheme '2')}}
+                    color: rgb(var(--color-scheme-2-text));
+                  {{else}}
+                    {{#if (eq section.settings.color_scheme '3')}}
+                      color: rgb(var(--color-scheme-3-text));
+                    {{else}}
+                      color: rgb(var(--color-scheme-4-text));
+                    {{/if}}
+                  {{/if}}
+                {{/if}}
+              {{else}}
+                color: {{default section.settings.title_color '#000000'}};
+              {{/if}}
+            ">
               {{section.settings.title}}
             </h1>
           {{/if}}
           
           {{#if section.settings.subtitle}}
-            <p class="font-crossten-book text-base md:text-lg mb-6 md:mb-8 max-w-[300px] md:max-w-[350px] mx-auto">
+            <p class="font-crossten-book text-base md:text-lg mb-6 md:mb-8 max-w-[300px] md:max-w-[350px] mx-auto" style="
+              {{#if section.settings.use_color_scheme}}
+                {{#if (eq section.settings.color_scheme '1')}}
+                  color: rgb(var(--color-scheme-1-text));
+                {{else}}
+                  {{#if (eq section.settings.color_scheme '2')}}
+                    color: rgb(var(--color-scheme-2-text));
+                  {{else}}
+                    {{#if (eq section.settings.color_scheme '3')}}
+                      color: rgb(var(--color-scheme-3-text));
+                    {{else}}
+                      color: rgb(var(--color-scheme-4-text));
+                    {{/if}}
+                  {{/if}}
+                {{/if}}
+              {{else}}
+                color: {{default section.settings.subtitle_color '#666666'}};
+              {{/if}}
+            ">
               {{section.settings.subtitle}}
             </p>
           {{/if}}
@@ -119,6 +171,10 @@
   "class": "section",
   "settings": [
     {
+      "type": "group_header",
+      "label": "Content"
+    },
+    {
       "type": "text",
       "id": "title",
       "default": "Welcome to our store",
@@ -140,6 +196,56 @@
       "type": "url",
       "id": "button_link",
       "label": "t:sections.hero-banner.settings.button_link.label"
+    },
+    {
+      "type": "group_header",
+      "label": "Color Settings"
+    },
+    {
+      "type": "switch",
+      "id": "use_color_scheme",
+      "label": "Use color scheme",
+      "default": false,
+      "info": "Use one of the 4 predefined color schemes for text and background"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Color scheme 1"
+        },
+        {
+          "value": "2",
+          "label": "Color scheme 2"
+        },
+        {
+          "value": "3",
+          "label": "Color scheme 3"
+        },
+        {
+          "value": "4",
+          "label": "Color scheme 4"
+        }
+      ],
+      "info": "Applied when 'Use color scheme' is enabled"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000",
+      "info": "Used when color scheme is disabled"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#666666",
+      "info": "Used when color scheme is disabled"
     },
     {
       "type": "group_header",
@@ -291,6 +397,10 @@
         "button_link": "/collections/all",
         "image_position": 50,
         "mobile_image_position": 50,
+        "use_color_scheme": false,
+        "color_scheme": "1",
+        "title_color": "#000000",
+        "subtitle_color": "#666666",
         "enable_overlay": false,
         "overlay_type": "color",
         "overlay_color": "rgba(0, 0, 0, 0.3)",
