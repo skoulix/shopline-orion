@@ -53,7 +53,7 @@
           </div>
           
           {{#if section.settings.footnote_text}}
-            <div class="mt-10 text-xs leading-relaxed {{#if (eq section.settings.content_alignment 'center')}}text-center{{else}}{{#if (eq section.settings.content_alignment 'right')}}text-right{{else}}text-left{{/if}}{{/if}}">
+            <div class="mt-10 text-xs {{#if (eq section.settings.content_alignment 'center')}}text-center{{else}}{{#if (eq section.settings.content_alignment 'right')}}text-right{{else}}text-left{{/if}}{{/if}}">
               {{section.settings.footnote_text}}
             </div>
           {{/if}}

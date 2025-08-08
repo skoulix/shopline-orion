@@ -3226,14 +3226,6 @@ select {
   border-radius: 0.25rem;
 }
 
-.rounded-2xl {
-  border-radius: 1rem;
-}
-
-.rounded-3xl {
-  border-radius: 1.5rem;
-}
-
 .rounded-full {
   border-radius: 9999px;
 }
@@ -3304,10 +3296,6 @@ select {
 .border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgb(232 229 236 / var(--tw-border-opacity, 1));
-}
-
-.border-gray-200\/30 {
-  border-color: rgb(232 229 236 / 0.3);
 }
 
 .border-gray-300 {
@@ -3485,14 +3473,6 @@ select {
   background-color: rgb(255 255 255 / 0.2);
 }
 
-.bg-white\/30 {
-  background-color: rgb(255 255 255 / 0.3);
-}
-
-.bg-white\/60 {
-  background-color: rgb(255 255 255 / 0.6);
-}
-
 .bg-white\/80 {
   background-color: rgb(255 255 255 / 0.8);
 }
@@ -3595,12 +3575,6 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.from-pink-50 {
-  --tw-gradient-from: #fdf2f8 var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(253 242 248 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
 .from-purple-400 {
   --tw-gradient-from: #c084fc var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(192 132 252 / 0) var(--tw-gradient-to-position);
@@ -3628,11 +3602,6 @@ select {
 .via-gray-50\/30 {
   --tw-gradient-to: rgb(250 249 251 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), rgb(250 249 251 / 0.3) var(--tw-gradient-via-position), var(--tw-gradient-to);
-}
-
-.via-purple-50 {
-  --tw-gradient-to: rgb(250 245 255 / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), #faf5ff var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 
 .via-transparent {
@@ -3674,10 +3643,6 @@ select {
 
 .to-green-600 {
   --tw-gradient-to: #16a34a var(--tw-gradient-to-position);
-}
-
-.to-indigo-50 {
-  --tw-gradient-to: #eef2ff var(--tw-gradient-to-position);
 }
 
 .to-pink-400 {
@@ -4410,12 +4375,6 @@ select {
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-.backdrop-blur-xl {
-  --tw-backdrop-blur: blur(24px);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-}
-
 .backdrop-filter {
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
@@ -4554,24 +4513,47 @@ h3,
   line-height: var(--title-line-height) !important;
 }
 
-/* Default font sizes for headings */
+/* Global heading line-height system with responsive values */
 
 h1,
-.h1 {
+.h1,
+.text-4xl,
+.text-5xl,
+.text-6xl {
   font-size: calc(var(--title-font-size) * 1.5);
-  line-height: var(--title-line-height);
+  line-height: var(--title-line-height, 1.2) !important;
 }
 
 h2,
-.h2 {
+.h2,
+.text-2xl,
+.text-3xl {
   font-size: calc(var(--title-font-size) * 1.25);
-  line-height: var(--title-line-height);
+  line-height: calc(var(--title-line-height, 1.2) * 1.1) !important;
 }
 
 h3,
-.h3 {
+.h3,
+.text-xl,
+.text-lg {
   font-size: var(--title-font-size);
-  line-height: var(--title-line-height);
+  line-height: calc(var(--title-line-height, 1.2) * 1.15) !important;
+}
+
+/* Responsive heading adjustments for better mobile readability */
+
+@media (max-width: 768px) {
+  h1, .h1, .text-4xl, .text-5xl, .text-6xl {
+    line-height: calc(var(--title-line-height, 1.2) * 1.1) !important;
+  }
+
+  h2, .h2, .text-2xl, .text-3xl {
+    line-height: calc(var(--title-line-height, 1.2) * 1.15) !important;
+  }
+
+  h3, .h3, .text-xl, .text-lg {
+    line-height: calc(var(--title-line-height, 1.2) * 1.2) !important;
+  }
 }
 
 /* Medium and smaller headings use body font with bold weight */

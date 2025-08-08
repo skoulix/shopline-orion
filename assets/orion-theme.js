@@ -16104,7 +16104,7 @@ const mE = { class: "product-gallery" }, gE = { class: "main-image-wrapper" }, v
   class: "text-gray-300"
 }, Zw = ["datetime"], ex = { class: "flex-1 mb-6" }, tx = {
   key: 0,
-  class: "text-gray-600 leading-relaxed line-clamp-2"
+  class: "text-gray-600 line-clamp-2"
 }, nx = ["innerHTML"], sx = { class: "mt-auto" }, rx = ["href"];
 function ox(e, t, n, s, r, o) {
   return N(), C("article", {
@@ -16139,7 +16139,7 @@ function ox(e, t, n, s, r, o) {
         }, ee(i), 1))), 128))
       ])) : U("", !0),
       f("h3", {
-        class: "text-xl mb-2 transition-colors duration-300 line-clamp-2 leading-tight",
+        class: "text-xl mb-2 transition-colors duration-300 line-clamp-2",
         onMouseenter: t[0] || (t[0] = (i) => s.titleHovered = !0),
         onMouseleave: t[1] || (t[1] = (i) => s.titleHovered = !1)
       }, [
@@ -16160,7 +16160,7 @@ function ox(e, t, n, s, r, o) {
       f("div", ex, [
         n.excerpt ? (N(), C("p", tx, ee(n.excerpt), 1)) : n.content ? (N(), C("div", {
           key: 1,
-          class: "text-gray-600 leading-relaxed line-clamp-2",
+          class: "text-gray-600 line-clamp-2",
           innerHTML: s.truncatedContent
         }, null, 8, nx)) : U("", !0)
       ]),

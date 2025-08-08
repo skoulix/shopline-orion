@@ -109,7 +109,7 @@
 							{{/if}}
 							
 							<!-- Title -->
-							<h1 class="text-3xl leading-tight">{{product.title}}</h1>
+							<h1 class="text-3xl">{{product.title}}</h1>
 
 							{{#comment}} Apps rendering {{/comment}}
 							{{#with this as |global|}}
@@ -130,11 +130,11 @@
 							<!-- Description -->
 							{{#if section.settings.subtitle}}
 								<div class="max-w-none mb-4">
-									<div class="text-gray-700 leading-relaxed">{{section.settings.subtitle}}</div>
+									<div class="text-gray-700">{{section.settings.subtitle}}</div>
 								</div>
 							{{else}}
 								<div class="max-w-none mb-4">
-									<div class="text-gray-700 leading-relaxed">{{{product.description}}}</div>
+									<div class="text-gray-700">{{{product.description}}}</div>
 								</div>
 							{{/if}}
 							

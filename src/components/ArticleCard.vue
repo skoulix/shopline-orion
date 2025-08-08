@@ -48,7 +48,7 @@
 
       <!-- Title -->
       <h3
-        class="text-xl mb-2 transition-colors duration-300 line-clamp-2 leading-tight"
+        class="text-xl mb-2 transition-colors duration-300 line-clamp-2"
         @mouseenter="titleHovered = true"
         @mouseleave="titleHovered = false"
       >
@@ -80,12 +80,12 @@
 
       <!-- Excerpt -->
       <div class="flex-1 mb-6">
-        <p v-if="excerpt" class="text-gray-600 leading-relaxed line-clamp-2">
+        <p v-if="excerpt" class="text-gray-600 line-clamp-2">
           {{ excerpt }}
         </p>
         <div
           v-else-if="content"
-          class="text-gray-600 leading-relaxed line-clamp-2"
+          class="text-gray-600 line-clamp-2"
           v-html="truncatedContent"
         ></div>
       </div>
