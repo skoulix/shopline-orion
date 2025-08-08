@@ -11,7 +11,7 @@
       {{#unless section.settings.image}}
         <!-- Mobile placeholder when no images are set -->
         <div class="md:hidden w-full h-[400px]">
-          {{render 'placeholder-image'}}
+          {{render 'placeholder-image' seed=section.id}}
         </div>
       {{/unless}}
     {{/if}}
@@ -36,7 +36,7 @@
         {{/unless}}
       {{else}}
         <!-- Placeholder when no image is set -->
-        {{render 'placeholder-image'}}
+        {{render 'placeholder-image' seed=section.id}}
       {{/if}}
     </div>
     
