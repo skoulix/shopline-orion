@@ -7,6 +7,13 @@
         alt="{{section.settings.title}}"
         class="md:hidden w-full h-auto"
       >
+    {{else}}
+      {{#unless section.settings.image}}
+        <!-- Mobile placeholder when no images are set -->
+        <div class="md:hidden w-full h-[400px]">
+          {{render 'placeholder-image'}}
+        </div>
+      {{/unless}}
     {{/if}}
     
     <!-- Desktop Image / Mobile Fallback (absolute positioned) -->
@@ -27,6 +34,9 @@
             style="object-position: center {{default section.settings.mobile_image_position 50}}%;"
           >
         {{/unless}}
+      {{else}}
+        <!-- Placeholder when no image is set -->
+        {{render 'placeholder-image'}}
       {{/if}}
     </div>
     

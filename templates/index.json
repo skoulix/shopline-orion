@@ -9,14 +9,8 @@
         "button_label": "Shop Now",
         "button_link": "{\"value\":\"7103223854210774628\",\"label\":\"Shop\",\"pageType\":3,\"linkType\":\"select\"}",
         "height": "large",
-        "image": {
-          "url": "https://img-va.myshopline.com/image/store/1748460806554/Avvika-Hero.png?w=2400&h=1503",
-          "alt": null
-        },
-        "mobile_image": {
-          "url": "https://img-va.myshopline.com/image/store/1748460806554/Avvika-Hero-Mobile2-0.png?w=860&h=1600",
-          "alt": null
-        }
+        "image": null,
+        "mobile_image": null
       },
       "blocks": {},
       "custom_css": []
@@ -454,10 +448,28 @@
       "custom_css": [
         ".ins-photo-wrap {padding-bottom: 0px !important;}"
       ]
+    },
+    "175464123747012b0be3": {
+      "disabled": false,
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured Products",
+        "title_alignment": "center",
+        "products_to_show": 8,
+        "show_view_all": true,
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "collection": "12270956005236345906792600"
+      },
+      "blocks": {},
+      "block_order": [],
+      "custom_css": []
     }
   },
   "order": [
     "hero",
+    "175464123747012b0be3",
     "1753805909320804c7a1",
     "17538777272332811993",
     "1753882767778b626413",

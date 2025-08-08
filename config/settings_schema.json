@@ -482,13 +482,6 @@
         "info": "t:settings_schema.cards.settings.card_shadow.info"
       },
       {
-        "type": "color",
-        "id": "card_background_color",
-        "label": "t:settings_schema.cards.settings.card_background_color.label",
-        "default": "#ffffff",
-        "info": "t:settings_schema.cards.settings.card_background_color.info"
-      },
-      {
         "type": "group_header",
         "label": "t:settings_schema.cards.settings.group_header__1.label"
       },

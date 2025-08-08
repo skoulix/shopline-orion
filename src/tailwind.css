@@ -701,71 +701,9 @@ header nav a {
   border-color: rgb(var(--button-primary-bg, 227 39 111));
 }
 
-/* Dynamic product grid - DISABLED: Grid columns are now controlled by section settings */
-/* Keeping this commented out in case we need it for other sections */
-/*
-.product-grid {
-  @apply grid gap-6 justify-items-center;
-  @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
-}
-
-.product-grid[data-products-count="1"],
-.product-grid[data-products-count="2"] {
-  @apply grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 max-w-3xl justify-items-center;
-}
-
-.product-grid[data-products-count="3"] {
-  @apply grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 max-w-5xl justify-items-center;
-}
-
-.product-grid[data-products-count="4"] {
-  @apply grid-cols-2 md:grid-cols-2 lg:grid-cols-4 justify-items-center;
-}
-
-.product-grid[data-products-count="5"] {
-  @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-items-center;
-}
-
-.product-grid[data-products-count="6"] {
-  @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 justify-items-center;
-}
-
-.product-grid[data-products-count="7"],
-.product-grid[data-products-count="8"] {
-  @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center;
-}
-
-.product-grid[data-products-count="9"] {
-  @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-3 justify-items-center;
-}
-
-.product-grid[data-products-count="10"] {
-  @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-items-center;
-}
-
-.product-grid[data-products-count="11"],
-.product-grid[data-products-count="12"] {
-  @apply grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center;
-}
-*/
-
 /* Ensure product cards don't get too wide */
 .product-grid .product-card-wrapper {
   @apply w-full max-w-sm;
-}
-
-.wrapper-holes:before {
-  @apply absolute top-1/2 -translate-y-1/2 -left-[20px] md:-left-[30px] w-[40px] md:w-[60px] h-[40px] md:h-[60px] rounded-full border-[3px] z-[5];
-  background-color: var(--section-bg, rgb(var(--color-scheme-3-bg)));
-  content: "";
-  border-color: rgb(var(--color-text));
-}
-
-.wrapper-holes:after {
-  @apply absolute top-1/2 -translate-y-1/2 -right-[20px] md:-right-[30px] w-[40px] md:w-[60px] h-[40px] md:h-[60px] rounded-full border-[3px] z-[5];
-  background-color: var(--section-bg, rgb(var(--color-scheme-3-bg)));
-  content: "";
-  border-color: rgb(var(--color-text));
 }
 
 /* Vue transition classes */
@@ -779,6 +717,10 @@ header nav a {
   opacity: 0;
 }
 
+.pswp__zoom-wrap img {
+  background: #ffffff !important;
+}
+
 /* Templates and pages specific styles */
 /* 
 body.template-index,
@@ -789,7 +731,3 @@ body.page-contact {
   }
 }
 */
-
-.pswp__zoom-wrap img {
-  background: #ffffff !important;
-}
