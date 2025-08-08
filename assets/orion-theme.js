@@ -12274,35 +12274,35 @@ const Jo = (e, t) => {
       ], 10, ay)
     ], 2));
   }
-}, cy = ["data-updating"], uy = { class: "cart-item__content flex gap-3 lg:gap-4" }, dy = { class: "cart-item__image flex-shrink-0" }, fy = ["href"], py = ["src", "alt"], hy = { class: "cart-item__details flex-1 min-w-0" }, my = { class: "cart-item__header flex justify-between gap-4 mb-3" }, gy = { class: "cart-item__info flex-1" }, vy = { class: "cart-item__title text-base lg:text-lg font-medium mb-1" }, yy = ["href"], by = {
+}, cy = ["data-updating"], uy = { class: "flex gap-3 lg:gap-4" }, dy = { class: "flex-shrink-0" }, fy = ["href"], py = ["src", "alt"], hy = { class: "flex-1 min-w-0" }, my = { class: "flex justify-between gap-4 mb-3" }, gy = { class: "flex-1" }, vy = { class: "text-base lg:text-lg font-medium mb-1" }, yy = ["href"], by = {
   key: 0,
-  class: "cart-item__variant text-sm text-gray-600 mb-2"
+  class: "text-sm text-gray-600 mb-2"
 }, _y = {
   key: 1,
-  class: "cart-item__properties space-y-1 mt-2"
-}, Ey = { class: "cart-item__property-key font-medium" }, wy = { class: "cart-item__price cart-item__price--mobile lg:hidden text-right flex-shrink-0" }, xy = { class: "cart-item__price-current text-base font-semibold text-gray-900 whitespace-nowrap" }, Ny = {
+  class: "space-y-1 mt-2"
+}, Ey = { class: "font-medium" }, wy = { class: "lg:hidden text-right flex-shrink-0" }, xy = { class: "text-base font-semibold text-gray-900 whitespace-nowrap" }, Ny = {
   key: 0,
-  class: "cart-item__price-original text-sm text-gray-500 line-through"
+  class: "text-sm text-gray-500 line-through"
 }, Sy = {
   key: 0,
-  class: "cart-item__discounts space-y-2 mb-3"
-}, ky = { class: "cart-item__actions flex items-center justify-between gap-4" }, Cy = { class: "cart-item__actions-left flex items-center gap-3" }, Oy = ["disabled"], Dy = {
+  class: "space-y-2 mb-3"
+}, ky = { class: "flex items-center justify-between gap-4" }, Cy = { class: "flex items-center gap-3" }, Oy = ["disabled"], Dy = {
   key: 0,
-  class: "cart-item__remove-icon w-5 h-5",
+  class: "w-5 h-5",
   fill: "none",
   stroke: "currentColor",
   viewBox: "0 0 24 24"
 }, Ty = {
   key: 1,
-  class: "cart-item__remove-icon cart-item__remove-icon--loading w-5 h-5 animate-spin",
+  class: "w-5 h-5 animate-spin",
   fill: "none",
   viewBox: "0 0 24 24"
-}, Ay = { class: "cart-item__price cart-item__price--desktop hidden lg:block text-right flex-shrink-0" }, $y = { class: "cart-item__price-current text-lg font-semibold text-gray-900 whitespace-nowrap" }, Vy = {
+}, Ay = { class: "hidden lg:block text-right flex-shrink-0" }, $y = { class: "text-lg font-semibold text-gray-900 whitespace-nowrap" }, Vy = {
   key: 0,
-  class: "cart-item__price-original text-sm text-gray-500 line-through"
+  class: "text-sm text-gray-500 line-through"
 }, Iy = {
   key: 1,
-  class: "cart-item__price-savings text-xs text-green-600 font-medium mt-1"
+  class: "text-xs text-green-600 font-medium mt-1"
 }, My = {
   key: 1,
   class: "text-xs text-amber-600 mt-2"
@@ -12365,19 +12365,19 @@ const Jo = (e, t) => {
         r.value = h;
       }
     ), (h, g) => (N(), C("div", {
-      class: "cart-item p-3 lg:p-4 border-b border-gray-200 last:border-b-0 bg-white hover:bg-gray-50 transition-colors",
+      class: "p-3 lg:p-4 border-b border-gray-200 last:border-b-0 bg-white hover:bg-gray-50 transition-colors",
       "data-updating": o.value
     }, [
       f("div", uy, [
         f("div", dy, [
           f("a", {
             href: e.item.url,
-            class: "cart-item__image-link block relative overflow-hidden rounded-lg bg-gray-100"
+            class: "block relative overflow-hidden rounded-lg bg-gray-100"
           }, [
             f("img", {
               src: d.value,
               alt: e.item.product_title,
-              class: "cart-item__image-img w-20 h-20 lg:w-24 lg:h-24 object-cover",
+              class: "w-20 h-20 lg:w-24 lg:h-24 object-cover",
               loading: "lazy"
             }, null, 8, py)
           ], 8, fy)
@@ -12388,14 +12388,14 @@ const Jo = (e, t) => {
               f("h3", vy, [
                 f("a", {
                   href: e.item.url,
-                  class: "cart-item__title-link text-gray-900 hover:text-gray-700 transition-colors"
+                  class: "text-gray-900 hover:text-gray-700 transition-colors"
                 }, ee(e.item.product_title), 9, yy)
               ]),
               e.item.variant_title && e.item.variant_title !== "Default Title" ? (N(), C("p", by, ee(e.item.variant_title), 1)) : U("", !0),
               e.item.properties && Object.keys(e.item.properties).length ? (N(), C("div", _y, [
                 (N(!0), C(ie, null, Ee(e.item.properties, (m, I) => (N(), C("p", {
                   key: I,
-                  class: "cart-item__property text-xs text-gray-600"
+                  class: "text-xs text-gray-600"
                 }, [
                   f("span", Ey, ee(I) + ":", 1),
                   pt(" " + ee(m), 1)
@@ -12410,10 +12410,10 @@ const Jo = (e, t) => {
           e.item.discounts && e.item.discounts.length ? (N(), C("div", Sy, [
             (N(!0), C(ie, null, Ee(e.item.discounts, (m) => (N(), C("div", {
               key: m.id,
-              class: "cart-item__discount flex items-center gap-2 text-sm text-green-700 bg-green-50 px-3 py-1.5 rounded-lg"
+              class: "flex items-center gap-2 text-sm text-green-700 bg-green-50 px-3 py-1.5 rounded-lg"
             }, [
               g[1] || (g[1] = f("svg", {
-                class: "cart-item__discount-icon w-4 h-4 flex-shrink-0",
+                class: "w-4 h-4 flex-shrink-0",
                 fill: "currentColor",
                 viewBox: "0 0 20 20"
               }, [
@@ -12442,7 +12442,7 @@ const Jo = (e, t) => {
               f("button", {
                 type: "button",
                 onClick: p,
-                class: "cart-item__remove p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all",
+                class: "p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all",
                 disabled: o.value,
                 "aria-label": "Remove item from cart"
               }, [
@@ -16001,7 +16001,7 @@ const mE = { class: "product-gallery" }, gE = { class: "main-image-wrapper" }, v
     }
   },
   setup(e) {
-    const t = ne(!1), n = te(() => {
+    const t = ne(!1), n = ne(!1), s = te(() => {
       switch (e.imageRatio) {
         case "square":
           return "aspect-square";
@@ -16010,102 +16010,103 @@ const mE = { class: "product-gallery" }, gE = { class: "main-image-wrapper" }, v
         default:
           return "aspect-[4/3]";
       }
-    }), s = te(() => ({
+    }), r = te(() => ({
       borderRadius: "var(--card-radius, 8px)",
       boxShadow: t.value ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" : "var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1))"
-    })), r = te(() => {
+    })), o = te(() => {
       if (!e.tags) return [];
       if (typeof e.tags == "string")
         try {
-          const a = JSON.parse(e.tags);
-          return Array.isArray(a) ? a : [];
+          const d = JSON.parse(e.tags);
+          return Array.isArray(d) ? d : [];
         } catch {
           return [];
         }
       return Array.isArray(e.tags) ? e.tags : [];
-    }), o = te(() => {
+    }), i = te(() => {
       if (!e.image) return "";
       if (typeof e.image == "string" && e.image.startsWith("{"))
         try {
-          const a = JSON.parse(e.image);
-          return a.mediaUrl || a.url || "";
+          const d = JSON.parse(e.image);
+          return d.mediaUrl || d.url || "";
         } catch {
           return e.image;
         }
       return e.image;
-    }), i = te(() => {
-      var d, c;
+    }), l = te(() => {
+      var c, u;
       if (e.publishedAt && e.publishedAt.trim() && !e.publishedAt.match(/^\d+$/) && // Not just a timestamp
       !e.publishedAt.includes("T") && // Not ISO date format
       !e.publishedAt.match(/^\d{4}-\d{2}-\d{2}/) && // Not YYYY-MM-DD format
       e.publishedAt.length < 20)
         return e.publishedAt;
-      const a = e.rawPublishedAt || e.publishedAt;
-      if (!a) return "";
+      const d = e.rawPublishedAt || e.publishedAt;
+      if (!d) return "";
       try {
-        let u;
-        const p = String(a).trim();
-        if (/^\d+$/.test(p)) {
-          const g = parseInt(p);
-          u = new Date(
-            g > 1e12 ? g : g * 1e3
+        let p;
+        const h = String(d).trim();
+        if (/^\d+$/.test(h)) {
+          const m = parseInt(h);
+          p = new Date(
+            m > 1e12 ? m : m * 1e3
           );
-        } else if (typeof a == "string")
-          u = new Date(a);
+        } else if (typeof d == "string")
+          p = new Date(d);
         else
           return "";
-        if (isNaN(u.getTime()) || u.getFullYear() < 1900 || u.getFullYear() > 2100)
+        if (isNaN(p.getTime()) || p.getFullYear() < 1900 || p.getFullYear() > 2100)
           return console.warn(
             "Invalid or unreasonable date:",
-            a,
+            d,
             "parsed as:",
-            u
+            p
           ), "";
-        const h = typeof window < "u" && typeof window.Shopline < "u" && ((c = (d = window.Shopline) == null ? void 0 : d.locale) == null ? void 0 : c.current) || "en";
-        return new Intl.DateTimeFormat(h, {
+        const g = typeof window < "u" && typeof window.Shopline < "u" && ((u = (c = window.Shopline) == null ? void 0 : c.locale) == null ? void 0 : u.current) || "en";
+        return new Intl.DateTimeFormat(g, {
           year: "numeric",
           month: "short",
           day: "numeric"
-        }).format(u);
-      } catch (u) {
-        return console.warn("Error formatting date:", u, a), "";
+        }).format(p);
+      } catch (p) {
+        return console.warn("Error formatting date:", p, d), "";
       }
-    }), l = te(() => {
+    }), a = te(() => {
       if (!e.content) return "";
-      const a = e.content.replace(/<[^>]*>/g, "");
-      return a.length <= 150 ? a : a.substring(0, 150).trim() + "...";
+      const d = e.content.replace(/<[^>]*>/g, "");
+      return d.length <= 150 ? d : d.substring(0, 150).trim() + "...";
     });
     return {
-      imageAspectClass: n,
-      processedTags: r,
-      processedImage: o,
-      formattedDate: i,
-      truncatedContent: l,
-      cardStyles: s,
-      isHovered: t
+      imageAspectClass: s,
+      processedTags: o,
+      processedImage: i,
+      formattedDate: l,
+      truncatedContent: a,
+      cardStyles: r,
+      isHovered: t,
+      titleHovered: n
     };
   }
 }, zw = ["href"], Ww = ["src", "alt"], Kw = { class: "relative p-6 flex-1 flex flex-col z-10" }, Gw = {
   key: 0,
   class: "flex flex-wrap gap-2 mb-4"
-}, Jw = { class: "text-xl mb-2 group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-tight" }, Yw = ["href"], Xw = {
+}, Jw = ["href"], Yw = {
   key: 1,
   class: "flex items-center gap-2 text-xs text-gray-500 mb-4"
-}, Qw = { key: 0 }, Zw = {
+}, Xw = { key: 0 }, Qw = {
   key: 1,
   class: "text-gray-300"
-}, ex = ["datetime"], tx = { class: "flex-1 mb-6" }, nx = {
+}, Zw = ["datetime"], ex = { class: "flex-1 mb-6" }, tx = {
   key: 0,
   class: "text-gray-600 leading-relaxed line-clamp-2"
-}, sx = ["innerHTML"], rx = { class: "mt-auto" }, ox = ["href"];
-function ix(e, t, n, s, r, o) {
+}, nx = ["innerHTML"], sx = { class: "mt-auto" }, rx = ["href"];
+function ox(e, t, n, s, r, o) {
   return N(), C("article", {
     class: "group relative bg-white overflow-hidden transition-all duration-500 h-full flex flex-col border border-gray-100",
     style: je(s.cardStyles),
-    onMouseenter: t[0] || (t[0] = (i) => s.isHovered = !0),
-    onMouseleave: t[1] || (t[1] = (i) => s.isHovered = !1)
+    onMouseenter: t[4] || (t[4] = (i) => s.isHovered = !0),
+    onMouseleave: t[5] || (t[5] = (i) => s.isHovered = !1)
   }, [
-    t[4] || (t[4] = f("div", { class: "absolute inset-0 bg-gradient-to-br from-white via-gray-50/30 to-gray-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" }, null, -1)),
+    t[8] || (t[8] = f("div", { class: "absolute inset-0 bg-gradient-to-br from-white via-gray-50/30 to-gray-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" }, null, -1)),
     n.showImage && s.processedImage ? (N(), C("div", {
       key: 0,
       class: _e([s.imageAspectClass, "relative overflow-hidden"])
@@ -16120,7 +16121,7 @@ function ix(e, t, n, s, r, o) {
           class: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-700",
           loading: "lazy"
         }, null, 8, Ww),
-        t[2] || (t[2] = f("div", { class: "absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" }, null, -1))
+        t[6] || (t[6] = f("div", { class: "absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" }, null, -1))
       ], 8, zw)
     ], 2)) : U("", !0),
     f("div", Kw, [
@@ -16130,32 +16131,42 @@ function ix(e, t, n, s, r, o) {
           class: "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-sm hover:shadow-md transition-shadow duration-300"
         }, ee(i), 1))), 128))
       ])) : U("", !0),
-      f("h3", Jw, [
+      f("h3", {
+        class: "text-xl mb-2 transition-colors duration-300 line-clamp-2 leading-tight",
+        onMouseenter: t[0] || (t[0] = (i) => s.titleHovered = !0),
+        onMouseleave: t[1] || (t[1] = (i) => s.titleHovered = !1)
+      }, [
         f("a", {
           href: n.url,
-          class: "hover:underline decoration-2 underline-offset-2"
-        }, ee(n.title), 9, Yw)
-      ]),
-      n.showAuthor && n.author || n.showDate && s.formattedDate ? (N(), C("div", Xw, [
-        n.showAuthor && n.author ? (N(), C("span", Qw, ee(n.author), 1)) : U("", !0),
-        n.showAuthor && n.author && n.showDate && s.formattedDate ? (N(), C("span", Zw, "•")) : U("", !0),
+          class: "hover:underline decoration-2 underline-offset-2",
+          style: je(s.titleHovered ? { color: "var(--color-primary, #dc2626)" } : {})
+        }, ee(n.title), 13, Jw)
+      ], 32),
+      n.showAuthor && n.author || n.showDate && s.formattedDate ? (N(), C("div", Yw, [
+        n.showAuthor && n.author ? (N(), C("span", Xw, ee(n.author), 1)) : U("", !0),
+        n.showAuthor && n.author && n.showDate && s.formattedDate ? (N(), C("span", Qw, "•")) : U("", !0),
         n.showDate && s.formattedDate ? (N(), C("time", {
           key: 2,
           datetime: n.rawPublishedAt || n.publishedAt
-        }, ee(s.formattedDate), 9, ex)) : U("", !0)
+        }, ee(s.formattedDate), 9, Zw)) : U("", !0)
       ])) : U("", !0),
-      f("div", tx, [
-        n.excerpt ? (N(), C("p", nx, ee(n.excerpt), 1)) : n.content ? (N(), C("div", {
+      f("div", ex, [
+        n.excerpt ? (N(), C("p", tx, ee(n.excerpt), 1)) : n.content ? (N(), C("div", {
           key: 1,
           class: "text-gray-600 leading-relaxed line-clamp-2",
           innerHTML: s.truncatedContent
-        }, null, 8, sx)) : U("", !0)
+        }, null, 8, nx)) : U("", !0)
       ]),
-      f("div", rx, [
+      f("div", sx, [
         f("a", {
           href: n.url,
-          class: "inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-semibold text-sm group transition-colors duration-300"
-        }, t[3] || (t[3] = [
+          class: "inline-flex items-center gap-2 font-semibold text-sm group transition-all duration-300",
+          style: {
+            color: "var(--color-primary, #dc2626)"
+          },
+          onMouseenter: t[2] || (t[2] = (i) => i.currentTarget.style.opacity = "0.8"),
+          onMouseleave: t[3] || (t[3] = (i) => i.currentTarget.style.opacity = "1")
+        }, t[7] || (t[7] = [
           f("span", null, "Read Article", -1),
           f("svg", {
             class: "w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300",
@@ -16170,12 +16181,12 @@ function ix(e, t, n, s, r, o) {
               d: "M9 5l7 7-7 7"
             })
           ], -1)
-        ]), 8, ox)
+        ]), 40, rx)
       ])
     ])
   ], 36);
 }
-const Lf = /* @__PURE__ */ Jo(qw, [["render", ix]]), lx = {
+const Lf = /* @__PURE__ */ Jo(qw, [["render", ox]]), ix = {
   name: "BlogArticles",
   components: {
     ArticleCard: Lf
@@ -16310,28 +16321,28 @@ const Lf = /* @__PURE__ */ Jo(qw, [["render", ix]]), lx = {
       formatDate: a
     };
   }
-}, ax = { class: "blog-articles-component" }, cx = {
+}, lx = { class: "blog-articles-component" }, ax = {
   key: 0,
   class: "flex flex-wrap justify-center gap-6"
-}, ux = { class: "p-6" }, dx = {
+}, cx = { class: "p-6" }, ux = {
   key: 0,
   class: "flex gap-2 mb-4"
-}, fx = {
+}, dx = {
   key: 1,
   class: "h-4 bg-gray-200 rounded w-1/2 mb-4"
-}, px = {
+}, fx = {
   key: 1,
   class: "text-center py-12"
-}, hx = { class: "text-gray-600" }, mx = {
+}, px = { class: "text-gray-600" }, hx = {
   key: 2,
   class: "flex flex-wrap justify-center gap-6"
-}, gx = ["title", "url", "excerpt", "content", "author", "published-at", "raw-published-at", "image", "image-alt", "tags", "image-ratio", "show-image", "show-author", "show-date"], vx = {
+}, mx = ["title", "url", "excerpt", "content", "author", "published-at", "raw-published-at", "image", "image-alt", "tags", "image-ratio", "show-image", "show-author", "show-date"], gx = {
   key: 3,
   class: "text-center py-12"
 };
-function yx(e, t, n, s, r, o) {
-  return N(), C("div", ax, [
-    s.loading ? (N(), C("div", cx, [
+function vx(e, t, n, s, r, o) {
+  return N(), C("div", lx, [
+    s.loading ? (N(), C("div", ax, [
       (N(!0), C(ie, null, Ee(s.displayLimit, (i) => (N(), C("div", {
         key: `skeleton-${i}`,
         class: "article-skeleton flex-shrink-0 w-full sm:w-auto animate-pulse",
@@ -16341,21 +16352,21 @@ function yx(e, t, n, s, r, o) {
           key: 0,
           class: _e([s.imageAspectClass, "bg-gray-200"])
         }, null, 2)) : U("", !0),
-        f("div", ux, [
-          n.showTags ? (N(), C("div", dx, t[0] || (t[0] = [
+        f("div", cx, [
+          n.showTags ? (N(), C("div", ux, t[0] || (t[0] = [
             f("div", { class: "h-6 w-16 bg-gray-200 rounded-full" }, null, -1),
             f("div", { class: "h-6 w-20 bg-gray-200 rounded-full" }, null, -1)
           ]))) : U("", !0),
           t[1] || (t[1] = f("div", { class: "h-6 bg-gray-200 rounded mb-2" }, null, -1)),
           t[2] || (t[2] = f("div", { class: "h-6 bg-gray-200 rounded w-3/4 mb-4" }, null, -1)),
-          n.showAuthor || n.showDate ? (N(), C("div", fx)) : U("", !0),
+          n.showAuthor || n.showDate ? (N(), C("div", dx)) : U("", !0),
           t[3] || (t[3] = Fs('<div class="space-y-2 mb-6" data-v-d0155edf><div class="h-4 bg-gray-200 rounded" data-v-d0155edf></div><div class="h-4 bg-gray-200 rounded" data-v-d0155edf></div><div class="h-4 bg-gray-200 rounded w-2/3" data-v-d0155edf></div></div><div class="h-6 bg-gray-200 rounded w-24" data-v-d0155edf></div>', 2))
         ])
       ], 4))), 128))
-    ])) : s.error ? (N(), C("div", px, [
+    ])) : s.error ? (N(), C("div", fx, [
       t[4] || (t[4] = f("h3", { class: "text-xl font-semibold text-gray-900 mb-2" }, "Unable to load articles", -1)),
-      f("p", hx, ee(s.error), 1)
-    ])) : s.articles.length > 0 ? (N(), C("div", mx, [
+      f("p", px, ee(s.error), 1)
+    ])) : s.articles.length > 0 ? (N(), C("div", hx, [
       (N(!0), C(ie, null, Ee(s.articles, (i) => {
         var l, a;
         return N(), C("div", {
@@ -16379,37 +16390,37 @@ function yx(e, t, n, s, r, o) {
             "show-author": n.showAuthor,
             "show-date": n.showDate,
             "show-tags": !1
-          }, null, 8, gx)
+          }, null, 8, mx)
         ], 4);
       }), 128))
-    ])) : (N(), C("div", vx, t[5] || (t[5] = [
+    ])) : (N(), C("div", gx, t[5] || (t[5] = [
       f("h3", { class: "text-xl font-semibold text-gray-900 mb-2" }, "No articles found", -1),
       f("p", { class: "text-gray-600" }, "This blog has no articles yet.", -1)
     ])))
   ]);
 }
-const bx = /* @__PURE__ */ Jo(lx, [["render", yx], ["__scopeId", "data-v-d0155edf"]]);
+const yx = /* @__PURE__ */ Jo(ix, [["render", vx], ["__scopeId", "data-v-d0155edf"]]);
 ({
   ...bs,
   props: {
     ...bs.props
   }
 });
-const _x = /* @__PURE__ */ kt(If), Ex = /* @__PURE__ */ kt(wb), wx = /* @__PURE__ */ kt(qb, {
+const bx = /* @__PURE__ */ kt(If), _x = /* @__PURE__ */ kt(wb), Ex = /* @__PURE__ */ kt(qb, {
   shadowRoot: !1
-}), xx = /* @__PURE__ */ kt($f), Nx = /* @__PURE__ */ kt(Mf), Sx = /* @__PURE__ */ kt(P_), kx = /* @__PURE__ */ kt(TE), Cx = /* @__PURE__ */ kt(IE, {
+}), wx = /* @__PURE__ */ kt($f), xx = /* @__PURE__ */ kt(Mf), Nx = /* @__PURE__ */ kt(P_), Sx = /* @__PURE__ */ kt(TE), kx = /* @__PURE__ */ kt(IE, {
   shadowRoot: !1
-}), Ox = /* @__PURE__ */ kt(Vf), Dx = /* @__PURE__ */ kt(iw);
-customElements.define("cart-drawer", _x);
-customElements.define("mobile-menu", Ex);
-customElements.define("product-variant-picker", wx);
-customElements.define("quantity-selector", xx);
-customElements.define("collection-filters", Nx);
-customElements.define("collection-grid", Sx);
-customElements.define("product-gallery", kx);
-customElements.define("reviews-summary", Cx);
-customElements.define("cart-item", Ox);
-customElements.define("cart-summary", Dx);
+}), Cx = /* @__PURE__ */ kt(Vf), Ox = /* @__PURE__ */ kt(iw);
+customElements.define("cart-drawer", bx);
+customElements.define("mobile-menu", _x);
+customElements.define("product-variant-picker", Ex);
+customElements.define("quantity-selector", wx);
+customElements.define("collection-filters", xx);
+customElements.define("collection-grid", Nx);
+customElements.define("product-gallery", Sx);
+customElements.define("reviews-summary", kx);
+customElements.define("cart-item", Cx);
+customElements.define("cart-summary", Ox);
 function _s(e = document) {
   e.querySelectorAll(".cart-drawer-mount").forEach((c) => {
     if (c._vueApp) return;
@@ -16508,7 +16519,7 @@ function _s(e = document) {
       showAuthor: c.getAttribute("show-author") === "true",
       showDate: c.getAttribute("show-date") !== "false",
       showTags: c.getAttribute("show-tags") === "true"
-    }, p = Tt(bx, u);
+    }, p = Tt(yx, u);
     c._vueApp = p, p.mount(c);
   }), e.querySelectorAll("search-overlay").forEach((c) => {
     if (c._vueApp) return;

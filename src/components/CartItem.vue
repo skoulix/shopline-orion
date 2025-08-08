@@ -1,32 +1,32 @@
 <template>
   <div
-    class="cart-item p-3 lg:p-4 border-b border-gray-200 last:border-b-0 bg-white hover:bg-gray-50 transition-colors"
+    class="p-3 lg:p-4 border-b border-gray-200 last:border-b-0 bg-white hover:bg-gray-50 transition-colors"
     :data-updating="updating"
   >
-    <div class="cart-item__content flex gap-3 lg:gap-4">
+    <div class="flex gap-3 lg:gap-4">
       <!-- Product Image -->
-      <div class="cart-item__image flex-shrink-0">
+      <div class="flex-shrink-0">
         <a
           :href="item.url"
-          class="cart-item__image-link block relative overflow-hidden rounded-lg bg-gray-100"
+          class="block relative overflow-hidden rounded-lg bg-gray-100"
         >
           <img
             :src="optimizedImage"
             :alt="item.product_title"
-            class="cart-item__image-img w-20 h-20 lg:w-24 lg:h-24 object-cover"
+            class="w-20 h-20 lg:w-24 lg:h-24 object-cover"
             loading="lazy"
           />
         </a>
       </div>
 
       <!-- Product Details -->
-      <div class="cart-item__details flex-1 min-w-0">
-        <div class="cart-item__header flex justify-between gap-4 mb-3">
-          <div class="cart-item__info flex-1">
-            <h3 class="cart-item__title text-base lg:text-lg font-medium mb-1">
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between gap-4 mb-3">
+          <div class="flex-1">
+            <h3 class="text-base lg:text-lg font-medium mb-1">
               <a
                 :href="item.url"
-                class="cart-item__title-link text-gray-900 hover:text-gray-700 transition-colors"
+                class="text-gray-900 hover:text-gray-700 transition-colors"
               >
                 {{ item.product_title }}
               </a>
@@ -35,7 +35,7 @@
               v-if="
                 item.variant_title && item.variant_title !== 'Default Title'
               "
-              class="cart-item__variant text-sm text-gray-600 mb-2"
+              class="text-sm text-gray-600 mb-2"
             >
               {{ item.variant_title }}
             </p>
@@ -43,33 +43,27 @@
             <!-- Product Properties -->
             <div
               v-if="item.properties && Object.keys(item.properties).length"
-              class="cart-item__properties space-y-1 mt-2"
+              class="space-y-1 mt-2"
             >
               <p
                 v-for="(value, key) in item.properties"
                 :key="key"
-                class="cart-item__property text-xs text-gray-600"
+                class="text-xs text-gray-600"
               >
-                <span class="cart-item__property-key font-medium"
-                  >{{ key }}:</span
-                >
+                <span class="font-medium">{{ key }}:</span>
                 {{ value }}
               </p>
             </div>
           </div>
 
           <!-- Price on mobile -->
-          <div
-            class="cart-item__price cart-item__price--mobile lg:hidden text-right flex-shrink-0"
-          >
-            <p
-              class="cart-item__price-current text-base font-semibold text-gray-900 whitespace-nowrap"
-            >
+          <div class="lg:hidden text-right flex-shrink-0">
+            <p class="text-base font-semibold text-gray-900 whitespace-nowrap">
               {{ formatPrice(item.line_price || item.price * item.quantity) }}
             </p>
             <p
               v-if="item.original_price && item.price < item.original_price"
-              class="cart-item__price-original text-sm text-gray-500 line-through"
+              class="text-sm text-gray-500 line-through"
             >
               {{ formatPrice(item.original_price * item.quantity) }}
             </p>
@@ -79,15 +73,15 @@
         <!-- Discounts -->
         <div
           v-if="item.discounts && item.discounts.length"
-          class="cart-item__discounts space-y-2 mb-3"
+          class="space-y-2 mb-3"
         >
           <div
             v-for="discount in item.discounts"
             :key="discount.id"
-            class="cart-item__discount flex items-center gap-2 text-sm text-green-700 bg-green-50 px-3 py-1.5 rounded-lg"
+            class="flex items-center gap-2 text-sm text-green-700 bg-green-50 px-3 py-1.5 rounded-lg"
           >
             <svg
-              class="cart-item__discount-icon w-4 h-4 flex-shrink-0"
+              class="w-4 h-4 flex-shrink-0"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -104,8 +98,8 @@
         </div>
 
         <!-- Quantity and Actions -->
-        <div class="cart-item__actions flex items-center justify-between gap-4">
-          <div class="cart-item__actions-left flex items-center gap-3">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
             <QuantitySelector
               v-model="localQuantity"
               :min="0"
@@ -118,13 +112,13 @@
             <button
               type="button"
               @click="handleRemove"
-              class="cart-item__remove p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+              class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
               :disabled="updating"
               aria-label="Remove item from cart"
             >
               <svg
                 v-if="!updating"
-                class="cart-item__remove-icon w-5 h-5"
+                class="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -138,7 +132,7 @@
               </svg>
               <svg
                 v-else
-                class="cart-item__remove-icon cart-item__remove-icon--loading w-5 h-5 animate-spin"
+                class="w-5 h-5 animate-spin"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -160,23 +154,19 @@
           </div>
 
           <!-- Price on desktop -->
-          <div
-            class="cart-item__price cart-item__price--desktop hidden lg:block text-right flex-shrink-0"
-          >
-            <p
-              class="cart-item__price-current text-lg font-semibold text-gray-900 whitespace-nowrap"
-            >
+          <div class="hidden lg:block text-right flex-shrink-0">
+            <p class="text-lg font-semibold text-gray-900 whitespace-nowrap">
               {{ formatPrice(item.line_price || item.price * item.quantity) }}
             </p>
             <p
               v-if="item.original_price && item.price < item.original_price"
-              class="cart-item__price-original text-sm text-gray-500 line-through"
+              class="text-sm text-gray-500 line-through"
             >
               {{ formatPrice(item.original_price * item.quantity) }}
             </p>
             <p
               v-if="item.original_price && item.price < item.original_price"
-              class="cart-item__price-savings text-xs text-green-600 font-medium mt-1"
+              class="text-xs text-green-600 font-medium mt-1"
             >
               Save
               {{

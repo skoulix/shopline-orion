@@ -48,11 +48,14 @@
 
       <!-- Title -->
       <h3
-        class="text-xl mb-2 group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-tight"
+        class="text-xl mb-2 transition-colors duration-300 line-clamp-2 leading-tight"
+        @mouseenter="titleHovered = true"
+        @mouseleave="titleHovered = false"
       >
         <a
           :href="url"
           class="hover:underline decoration-2 underline-offset-2"
+          :style="titleHovered ? { color: 'var(--color-primary, #dc2626)' } : {}"
           >{{ title }}</a
         >
       </h3>
@@ -91,7 +94,12 @@
       <div class="mt-auto">
         <a
           :href="url"
-          class="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-semibold text-sm group transition-colors duration-300"
+          class="inline-flex items-center gap-2 font-semibold text-sm group transition-all duration-300"
+          :style="{
+            color: 'var(--color-primary, #dc2626)',
+          }"
+          @mouseenter="(e) => e.currentTarget.style.opacity = '0.8'"
+          @mouseleave="(e) => e.currentTarget.style.opacity = '1'"
         >
           <span>Read Article</span>
           <svg
@@ -183,6 +191,7 @@ export default {
   },
   setup(props) {
     const isHovered = ref(false);
+    const titleHovered = ref(false);
 
     const imageAspectClass = computed(() => {
       switch (props.imageRatio) {
@@ -331,6 +340,7 @@ export default {
       truncatedContent,
       cardStyles,
       isHovered,
+      titleHovered,
     };
   },
 };

@@ -43,7 +43,7 @@
 
     <!-- Featured Image -->
     {{#if article.image}}
-      <div class="mb-12 rounded-2xl overflow-hidden shadow-lg">
+      <div class="mb-12 overflow-hidden shadow-lg" style="border-radius: var(--card-radius, 8px);">
         <img 
           src="{{image_url article.image width=1200}}" 
           alt="{{#if article.image.alt}}{{article.image.alt}}{{else}}{{article.title}}{{/if}}"
