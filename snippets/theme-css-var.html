@@ -42,6 +42,8 @@
     --color-sale: {{ settings.color_sale.red }}, {{ settings.color_sale.green }}, {{settings.color_sale.blue }};
     --color-discount: {{ settings.color_discount.red }}, {{ settings.color_discount.green }}, {{settings.color_discount.blue }};
     --color-entry-line: {{ settings.color_entry_line.red }}, {{ settings.color_entry_line.green }}, {{settings.color_entry_line.blue }};
+    --color-card-background: {{#if settings.color_card_background}}{{ settings.color_card_background.red }}, {{ settings.color_card_background.green }}, {{settings.color_card_background.blue }}{{else}}255, 255, 255{{/if}};
+    --color-card-text: {{#if settings.color_card_text}}{{ settings.color_card_text.red }}, {{ settings.color_card_text.green }}, {{settings.color_card_text.blue }}{{else}}var(--color-text){{/if}};
     /* Button colors moved to dedicated Buttons section below */
     --color-discount-tag-background: {{ settings.color_discount_tag_background.red }}, {{ settings.color_discount_tag_background.green }}, {{settings.color_discount_tag_background.blue }};
     --color-discount-tag-text: {{ settings.color_discount_tag_text.red }}, {{ settings.color_discount_tag_text.green }}, {{settings.color_discount_tag_text.blue }};

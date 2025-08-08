@@ -98,7 +98,7 @@
         "pause_on_hover": true,
         "padding_top": 12,
         "padding_bottom": 8,
-        "font_family": "font-tanmarjorie"
+        "font_family": "title"
       },
       "blocks": {
         "17538777272344cebcdd": {
@@ -148,7 +148,7 @@
         "pause_on_hover": true,
         "padding_top": 12,
         "padding_bottom": 8,
-        "font_family": "font-tanmarjorie"
+        "font_family": "title"
       },
       "blocks": {
         "17538777272344cebcdd": {
@@ -249,7 +249,7 @@
       "disabled": false,
       "type": "ingredients-showcase",
       "settings": {
-        "heading_font": "font-tanmarjorie",
+        "heading_font": "title",
         "heading_color": "#ffffff",
         "text_color": "#ffffff",
         "background_color": "#3d3259",
@@ -343,7 +343,8 @@
         "padding_bottom": 20,
         "background_color": "#3d3259",
         "heading_color": "#ffffff",
-        "text_color": "#ffffff"
+        "text_color": "#ffffff",
+        "heading_font": "title"
       },
       "blocks": {},
       "block_order": [],
@@ -353,12 +354,12 @@
       "disabled": false,
       "type": "icon-columns",
       "settings": {
-        "heading_font": "font-crossten-bold",
-        "title_font": "font-crossten-bold",
-        "heading_color": "#000000",
-        "subheading_color": "#666666",
+        "heading_font": "title",
+        "title_font": "body",
+        "heading_color": "#ffffff",
+        "subheading_color": "#ffffff",
         "title_color": "#ffffff",
-        "description_color": "#666666",
+        "description_color": "#ffffff",
         "icon_size": 100,
         "button_bg_color": "#cf2e27",
         "button_text_color": "#ffffff",
@@ -448,31 +449,8 @@
         "padding_bottom": 0,
         "padding_top": 0
       },
-      "blocks": {
-        "1754050895128cb37683": {
-          "name": "t:appName",
-          "type": "shopline://apps/Instagram Feed/blocks/app-block/7c8cf6f0-6f59-46db-97f0-a2ee9686ab4b",
-          "settings": {
-            "ins_plugin_feeds": "7908",
-            "title": "",
-            "ins_plugin_desktop_module_distance": 100,
-            "ins_plugin_title_font_size": 28,
-            "ins_plugin_color_setting": "themeColor",
-            "ins_plugin_custom_color_bg": "#ffffff",
-            "ins_plugin_custom_color_font": "#000000",
-            "ins_plugin_btn_color_bg": "#000000",
-            "ins_plugin_btn_border_color": "#000000",
-            "ins_plugin_btn_color_font": "#ffffff",
-            "ins_plugin_btn_font_size": 14,
-            "ins_plugin_btn_border_radius": 4
-          },
-          "blockId": "1754050895128cb37683",
-          "custom_css": []
-        }
-      },
-      "block_order": [
-        "1754050895128cb37683"
-      ],
+      "blocks": {},
+      "block_order": [],
       "custom_css": [
         ".ins-photo-wrap {padding-bottom: 0px !important;}"
       ]

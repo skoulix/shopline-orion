@@ -1,6 +1,6 @@
 <template>
-  <div class="product-card group relative bg-white transition-all duration-300 overflow-hidden" 
-       :style="cardStyles"
+  <div class="product-card group relative transition-all duration-300 overflow-hidden" 
+       :style="computedCardStyles"
        @mouseenter="isHovered = true"
        @mouseleave="isHovered = false">
       <!-- Product Image -->
@@ -266,6 +266,13 @@ const cardStyles = computed(() => {
   return {
     borderRadius: baseRadius,
     boxShadow: isHovered.value ? hoverShadow : baseShadow
+  }
+})
+
+const computedCardStyles = computed(() => {
+  return {
+    ...cardStyles.value,
+    backgroundColor: 'rgb(var(--color-card-background, 255, 255, 255))'
   }
 })
 
