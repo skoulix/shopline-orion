@@ -13000,7 +13000,7 @@ const Ot = (e, t) => {
 }, k1 = /* @__PURE__ */ Ot(S1, [["__scopeId", "data-v-73c5b482"]]), C1 = { class: "variant-picker" }, O1 = {
   key: 0,
   class: "single-variant-info mb-6 p-4 bg-gray-50 rounded-lg"
-}, D1 = { class: "font-medium text-gray-900" }, T1 = { key: 1 }, $1 = { class: "text-sm" }, A1 = {
+}, D1 = { class: "font-medium text-gray-900" }, T1 = { key: 1 }, $1 = { class: "mb-2 font-medium text-sm" }, A1 = {
   key: 0,
   class: "flex flex-wrap gap-3"
 }, V1 = ["title", "aria-label", "disabled", "onClick"], I1 = ["src", "alt"], M1 = {

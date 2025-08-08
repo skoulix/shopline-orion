@@ -16,7 +16,7 @@
 				:key="option.name"
 				class="variant-option mb-6"
 			>
-				<div class="text-sm">
+				<div class="mb-2 font-medium text-sm">
 					{{ option.name || 'Option' }}
 				</div>
 
