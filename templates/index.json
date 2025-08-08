@@ -9,10 +9,12 @@
         "button_label": "Shop Now",
         "button_link": "{\"value\":\"7103223854210774628\",\"label\":\"Shop\",\"pageType\":3,\"linkType\":\"select\"}",
         "height": "large",
+        "title_color": "#ffffff",
+        "subtitle_color": "#ffffff",
+        "enable_overlay": true,
         "image": null,
         "mobile_image": null,
-        "title_color": "#ffffff",
-        "subtitle_color": "#ffffff"
+        "overlay_type": "gradient"
       },
       "blocks": {},
       "custom_css": []
@@ -329,7 +331,7 @@
       "disabled": false,
       "type": "rich-text",
       "settings": {
-        "heading": "Lasting Energy, No Crash",
+        "heading": "LASTING ENERGY",
         "text": "<div id=\"shopify-section-template--23143616053570__rich_text_yeLwUf\" class=\"shopify-section rich-text-section\">\n<div class=\"index-section color-scheme-2 text-center \">\n<div class=\"container max-w-4xl mx-auto\">\n<div class=\"theme-block\">\n<div class=\"rte clearfix\">\n<div class=\"enlarge-text\">\n<p>Discover Our Alternative</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>",
         "text_alignment": "center",
         "content_position": "center",

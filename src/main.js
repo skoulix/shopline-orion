@@ -271,38 +271,38 @@ function mountVueComponents(container = document) {
 
   // Initialize sticky header behavior (only once, not per mount)
   if (container === document) {
-    const headers = document.querySelectorAll(".site-header");
+    const headerGroups = document.querySelectorAll(".header-group");
 
-    headers.forEach((header) => {
-      if (header.dataset.sticky === "true" && !header._stickyInitialized) {
+    headerGroups.forEach((headerGroup) => {
+      const header = headerGroup.querySelector(".site-header");
+      if (!header) return;
+      
+      // Check if transparent header is enabled and on homepage (regardless of sticky)
+      const isTransparent = headerGroup.dataset.transparent === "true";
+      const isHomepage = document.body.classList.contains("template-index");
+      
+      // Set initial transparent state on homepage
+      if (isTransparent && isHomepage && window.scrollY === 0) {
+        header.style.backgroundColor = "transparent";
+        header.style.borderBottomColor = "transparent";
+        header.classList.add("transparent-not-scrolled");
+      }
+      
+      if (headerGroup.dataset.sticky === "true" && !header._stickyInitialized) {
         header._stickyInitialized = true;
-
-        // Header already has sticky-header class from HTML
-        // No need to add it dynamically
-
-        // Check if transparent header is enabled and on homepage
-        const isTransparent = header.dataset.transparent === "true";
-        const isHomepage = document.body.classList.contains("template-index");
-
-        // Set initial state on homepage
-        if (isTransparent && isHomepage && window.scrollY === 0) {
-          header.style.backgroundColor = "transparent";
-          header.style.borderBottomColor = "transparent";
-          header.classList.add("transparent-not-scrolled");
-        }
 
         let lastScrollY = 0;
         let ticking = false;
 
         function updateHeader() {
           const currentScrollY = window.scrollY;
-          const hideOnScroll = header.dataset.hideOnScroll === "true";
-          const isTransparent = header.dataset.transparent === "true";
+          const hideOnScroll = headerGroup.dataset.hideOnScroll === "true";
+          const isTransparent = headerGroup.dataset.transparent === "true";
           const isHomepage = document.body.classList.contains("template-index");
 
           // Hide announcement bar immediately on any scroll
           const announcementBar =
-            header.parentElement.querySelector(".announcement-bar");
+            headerGroup.querySelector(".announcement-bar");
           if (announcementBar) {
             if (currentScrollY > 0) {
               if (!announcementBar.classList.contains("hidden")) {
