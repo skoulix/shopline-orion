@@ -3,8 +3,8 @@
     
     {{#if section.settings.heading}}
       <div class="text-center mb-12">
-        <h2 class="{{default section.settings.heading_font 'font-crossten-bold'}} text-3xl sm:text-4xl md:text-4xl uppercase mb-4 font-heading" 
-            style="color: {{default section.settings.heading_color '#000000'}};">
+        <h2 class="text-3xl sm:text-4xl md:text-4xl uppercase mb-4 font-heading" 
+            style="font-family: {{#if (eq section.settings.heading_font 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default section.settings.heading_color '#000000'}};">
           {{section.settings.heading}}
         </h2>
         {{#if section.settings.subheading}}
@@ -35,8 +35,8 @@
           {{/if}}
           
           {{#if settings.title}}
-            <h3 class="{{default ../section.settings.title_font 'font-crossten-bold'}} text-base lg:text-lg uppercase" 
-                style="color: {{default ../section.settings.title_color '#000000'}};">
+            <h3 class="text-base lg:text-lg uppercase" 
+                style="font-family: {{#if (eq ../section.settings.title_font 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default ../section.settings.title_color '#000000'}};">
               {{settings.title}}
             </h3>
           {{/if}}
@@ -120,19 +120,15 @@
       "type": "select",
       "id": "heading_font",
       "label": "Heading font",
-      "default": "font-crossten-bold",
+      "default": "title",
       "options": [
         {
-          "value": "font-crossten-book",
-          "label": "Crossten Book"
+          "value": "title",
+          "label": "Title font"
         },
         {
-          "value": "font-crossten-bold",
-          "label": "Crossten Bold"
-        },
-        {
-          "value": "font-tanmarjorie",
-          "label": "Tan Marjorie Display"
+          "value": "body",
+          "label": "Body font"
         }
       ]
     },
@@ -140,19 +136,15 @@
       "type": "select",
       "id": "title_font",
       "label": "Column title font",
-      "default": "font-crossten-bold",
+      "default": "title",
       "options": [
         {
-          "value": "font-crossten-book",
-          "label": "Crossten Book"
+          "value": "title",
+          "label": "Title font"
         },
         {
-          "value": "font-crossten-bold",
-          "label": "Crossten Bold"
-        },
-        {
-          "value": "font-tanmarjorie",
-          "label": "Tan Marjorie Display"
+          "value": "body",
+          "label": "Body font"
         }
       ]
     },

@@ -24,7 +24,7 @@
       <!-- Accordion Column -->
       <div class="{{#if (eq section.settings.layout 'image_first')}}lg:order-2{{else}}lg:order-1{{/if}} p-8 lg:p-16 flex flex-col justify-center">
         {{#if section.settings.heading}}
-          <h2 class="text-3xl sm:text-4xl md:{{default section.settings.heading_size 'text-3xl'}} {{default section.settings.heading_font 'font-heading'}} mb-6" style="color: {{default section.settings.heading_color '#000000'}}; line-height: 1.2;">
+          <h2 class="text-3xl sm:text-4xl md:{{default section.settings.heading_size 'text-3xl'}} mb-6" style="font-family: {{#if (eq section.settings.heading_font 'title')}}var(--title-font){{else}}var(--body-font){{/if}}; color: {{default section.settings.heading_color '#000000'}}; line-height: 1.2;">
             {{section.settings.heading}}
           </h2>
         {{/if}}
@@ -189,19 +189,15 @@
       "type": "select",
       "id": "heading_font",
       "label": "Heading font",
-      "default": "font-heading",
+      "default": "title",
       "options": [
         {
-          "value": "font-heading",
-          "label": "Display (Tan Marjorie)"
+          "value": "title",
+          "label": "Title font"
         },
         {
-          "value": "font-crossten-book",
-          "label": "Body (Crossten Book)"
-        },
-        {
-          "value": "font-crossten-bold",
-          "label": "Bold (Crossten Bold)"
+          "value": "body",
+          "label": "Body font"
         }
       ]
     },
