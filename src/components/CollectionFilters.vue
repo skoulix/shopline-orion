@@ -300,7 +300,7 @@
             <div class="p-4 border-t">
               <button
                 @click="applyMobileFilters"
-                class="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors font-medium"
+                class="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors"
               >
                 Apply Filters
               </button>

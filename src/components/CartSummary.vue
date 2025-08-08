@@ -67,7 +67,7 @@
             >
             <button
               type="submit"
-              class="px-4 py-2 bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              class="px-4 py-2 bg-gray-900 text-white text-sm hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               :style="{ borderRadius: 'var(--button-radius)' }"
               :disabled="!promoCode.trim() || applyingPromo"
             >
@@ -83,7 +83,7 @@
     <!-- Checkout Button -->
     <button
       @click="handleCheckout"
-      class="w-full py-3 px-6 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+      class="w-full py-3 px-6 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       :style="{
         backgroundColor: isHovered ? 'var(--button-primary-bg-hover)' : 'var(--button-primary-bg)',
         color: 'var(--button-primary-text)',

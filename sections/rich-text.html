@@ -47,28 +47,28 @@
           {{assign "parsed_link" (JSONparse section.settings.button_link)}}
           {{#if parsed_link.pageType}}
             {{#if (eq parsed_link.pageType 3)}}
-              <a href="/pages/{{parsed_link.value}}" class="button button-primary inline-block font-medium transition-colors" style="border-radius: var(--button-radius);">
+              <a href="/pages/{{parsed_link.value}}" class="button button-primary inline-block transition-colors" style="border-radius: var(--button-radius);">
                 {{section.settings.button_label}}
               </a>
             {{else}}
               {{#if (eq parsed_link.pageType 12)}}
-                <a href="/collections/{{parsed_link.value}}" class="button button-primary inline-block font-medium transition-colors" style="border-radius: var(--button-radius);">
+                <a href="/collections/{{parsed_link.value}}" class="button button-primary inline-block transition-colors" style="border-radius: var(--button-radius);">
                   {{section.settings.button_label}}
                 </a>
               {{else}}
                 {{#if (eq parsed_link.pageType 10)}}
-                  <a href="/products/{{parsed_link.value}}" class="button button-primary inline-block font-medium transition-colors" style="border-radius: var(--button-radius);">
+                  <a href="/products/{{parsed_link.value}}" class="button button-primary inline-block transition-colors" style="border-radius: var(--button-radius);">
                     {{section.settings.button_label}}
                   </a>
                 {{else}}
-                  <a href="{{parsed_link.value}}" class="button button-primary inline-block font-medium transition-colors" style="border-radius: var(--button-radius);">
+                  <a href="{{parsed_link.value}}" class="button button-primary inline-block transition-colors" style="border-radius: var(--button-radius);">
                     {{section.settings.button_label}}
                   </a>
                 {{/if}}
               {{/if}}
             {{/if}}
           {{else}}
-            <a href="{{section.settings.button_link}}" class="button button-primary inline-block font-medium transition-colors" style="border-radius: var(--button-radius);">
+            <a href="{{section.settings.button_link}}" class="button button-primary inline-block transition-colors" style="border-radius: var(--button-radius);">
               {{section.settings.button_label}}
             </a>
           {{/if}}

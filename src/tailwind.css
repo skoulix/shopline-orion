@@ -412,18 +412,6 @@ button {
   font-weight: var(--body-bold-font-weight);
 }
 
-/* Custom line-height utilities for fine-tuning display fonts */
-.leading-display-tight {
-  line-height: 0.8;
-}
-
-.leading-display-normal {
-  line-height: 0.9;
-}
-
-.leading-display-relaxed {
-  line-height: 1;
-}
 
 /* Navigation styles */
 .site-header a,

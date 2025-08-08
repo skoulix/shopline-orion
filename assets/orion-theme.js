@@ -14133,7 +14133,7 @@ const Jo = (e, t) => {
               f("div", { class: "p-4 border-t" }, [
                 f("button", {
                   onClick: y,
-                  class: "w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors font-medium"
+                  class: "w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors"
                 }, " Apply Filters ")
               ])
             ])
@@ -15469,7 +15469,7 @@ const mE = { class: "product-gallery" }, gE = { class: "main-image-wrapper" }, v
               ]),
               f("button", {
                 type: "submit",
-                class: "px-4 py-2 bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
+                class: "px-4 py-2 bg-gray-900 text-white text-sm hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
                 style: { borderRadius: "var(--button-radius)" },
                 disabled: !r.value.trim() || l.value
               }, ee(l.value ? "Applying..." : "Apply"), 9, ew)
@@ -15481,7 +15481,7 @@ const mE = { class: "product-gallery" }, gE = { class: "main-image-wrapper" }, v
       ]),
       f("button", {
         onClick: P,
-        class: "w-full py-3 px-6 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2",
+        class: "w-full py-3 px-6 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2",
         style: je({
           backgroundColor: d.value ? "var(--button-primary-bg-hover)" : "var(--button-primary-bg)",
           color: "var(--button-primary-text)",
