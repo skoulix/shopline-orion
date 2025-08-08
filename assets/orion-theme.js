@@ -13000,33 +13000,28 @@ const Ot = (e, t) => {
 }, k1 = /* @__PURE__ */ Ot(S1, [["__scopeId", "data-v-73c5b482"]]), C1 = { class: "variant-picker" }, O1 = {
   key: 0,
   class: "single-variant-info mb-6 p-4 bg-gray-50 rounded-lg"
-}, D1 = { class: "font-medium text-gray-900" }, T1 = { key: 1 }, $1 = { class: "mb-2 font-medium text-sm" }, A1 = {
+}, D1 = { class: "font-medium text-gray-900" }, T1 = { key: 1 }, $1 = { class: "font-medium text-sm mb-32" }, A1 = {
   key: 0,
-  class: "flex flex-wrap gap-3"
+  class: "flex flex-wrap gap-3 mt-2"
 }, V1 = ["title", "aria-label", "disabled", "onClick"], I1 = ["src", "alt"], M1 = {
   key: 1,
   class: "text-xs"
 }, P1 = {
   key: 1,
-  class: "color-swatches-wrapper",
+  class: "color-swatches-wrapper mt-2",
   style: { display: "flex", "flex-wrap": "wrap", gap: "0.75rem" }
 }, R1 = ["title", "aria-label", "disabled", "onClick", "onMouseenter", "onMouseleave"], L1 = { style: { position: "absolute", width: "1px", height: "1px", padding: "0", margin: "-1px", overflow: "hidden", clip: "rect(0, 0, 0, 0)", "white-space": "nowrap", "border-width": "0" } }, F1 = {
   key: 0,
   class: "color-swatch__checkmark",
   style: { position: "absolute", inset: "0", display: "flex", "align-items": "center", "justify-content": "center" }
 }, B1 = {
-  style: { width: "1.25rem", height: "1.25rem", filter: `drop-shadow(
-											1px 1px 1px rgba(0, 0, 0, 0.5)
-										)
-										drop-shadow(
-											-1px -1px 1px
-												rgba(255, 255, 255, 0.5)
-										)` },
+  style: { width: "1.25rem", height: "1.25rem", filter: `drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))
+                    drop-shadow(-1px -1px 1px rgba(255, 255, 255, 0.5))` },
   viewBox: "0 0 20 20",
   fill: "currentColor"
 }, j1 = {
   key: 2,
-  class: "variant-buttons-wrapper",
+  class: "variant-buttons-wrapper mt-2",
   style: { display: "flex", "flex-wrap": "wrap", gap: "0.5rem" }
 }, H1 = ["aria-label", "disabled", "onClick", "onMouseenter", "onMouseleave"], U1 = {
   key: 2,
@@ -13063,9 +13058,7 @@ const Ot = (e, t) => {
   setup(e, { emit: t }) {
     const n = e, s = t, r = (_, P) => {
       const A = document.getElementById("variantPicker");
-      A && A.dispatchEvent(
-        new CustomEvent(_, { detail: P, bubbles: !0 })
-      );
+      A && A.dispatchEvent(new CustomEvent(_, { detail: P, bubbles: !0 }));
     }, o = ne({}), i = ne(null), l = ne(!1), a = () => n.product && n.product.id ? n.product : window.productPageData && window.productPageData.product ? window.productPageData.product : {}, u = ne({}), d = te(() => u.value.variants || []), c = te(() => {
       if (u.value.options && u.value.options.length > 0)
         return u.value.options.map((P, A) => ({
@@ -13076,9 +13069,7 @@ const Ot = (e, t) => {
       if (d.value.length > 0) {
         if (d.value[0].option1) {
           const P = [
-            ...new Set(
-              d.value.map((A) => A.option1).filter(Boolean)
-            )
+            ...new Set(d.value.map((A) => A.option1).filter(Boolean))
           ];
           _.push({
             name: "Size",
@@ -13088,9 +13079,7 @@ const Ot = (e, t) => {
         }
         if (d.value[0].option2) {
           const P = [
-            ...new Set(
-              d.value.map((A) => A.option2).filter(Boolean)
-            )
+            ...new Set(d.value.map((A) => A.option2).filter(Boolean))
           ];
           _.push({
             name: "Color",
@@ -13100,9 +13089,7 @@ const Ot = (e, t) => {
         }
         if (d.value[0].option3) {
           const P = [
-            ...new Set(
-              d.value.map((A) => A.option3).filter(Boolean)
-            )
+            ...new Set(d.value.map((A) => A.option3).filter(Boolean))
           ];
           _.push({
             name: "Option",
@@ -13277,6 +13264,7 @@ const Ot = (e, t) => {
         borderColor: P ? "rgb(17 24 39)" : "rgb(229 231 235)",
         backgroundColor: I,
         position: "relative",
+        flexShrink: "0",
         overflow: "hidden",
         transition: "all 200ms cubic-bezier(0.4, 0, 0.2, 1)",
         cursor: A ? "pointer" : "not-allowed",
@@ -13295,13 +13283,11 @@ const Ot = (e, t) => {
       ])) : c.value.length > 0 ? (E(), S("div", T1, [
         (E(!0), S(ie, null, _e(c.value, (A) => (E(), S("div", {
           key: A.name,
-          class: "variant-option mb-6"
+          class: "variant-option"
         }, [
           f("div", $1, G(A.name || "Option"), 1),
           V(A) ? (E(), S("div", A1, [
-            (E(!0), S(ie, null, _e(w(
-              A
-            ), (I, L) => (E(), S("button", {
+            (E(!0), S(ie, null, _e(w(A), (I, L) => (E(), S("button", {
               key: I.value,
               type: "button",
               class: Ee([
@@ -13363,8 +13349,14 @@ const Ot = (e, t) => {
               "aria-label": `Select ${A.name} ${I}`,
               disabled: !m(A.name, I),
               onClick: zt((L) => M(A.name, I), ["stop"]),
-              onMouseenter: (L) => L.target.style.backgroundColor = N(A.name, I) ? "rgb(31 41 55)" : "rgb(249 250 251)",
-              onMouseleave: (L) => L.target.style.backgroundColor = N(A.name, I) ? "rgb(17 24 39)" : "rgb(255 255 255)"
+              onMouseenter: (L) => L.target.style.backgroundColor = N(
+                A.name,
+                I
+              ) ? "rgb(31 41 55)" : "rgb(249 250 251)",
+              onMouseleave: (L) => L.target.style.backgroundColor = N(
+                A.name,
+                I
+              ) ? "rgb(17 24 39)" : "rgb(255 255 255)"
             }, G(I), 47, H1))), 128))
           ]))
         ]))), 128))

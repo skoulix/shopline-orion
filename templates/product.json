@@ -7,40 +7,23 @@
         "gallery_layout": "thumbnails_left",
         "enable_zoom": true,
         "enable_lightbox": true,
-        "show_vendor": false,
-        "show_sku": false,
-        "show_availability": false,
+        "show_vendor": true,
+        "show_sku": true,
+        "show_availability": true,
         "show_buy_now": true,
         "show_breadcrumb": true,
         "padding_top": 40,
         "padding_bottom": 40,
-        "show_shipping_info": false,
+        "show_shipping_info": true,
         "subtitle": "Exotic Citrus • Juicy Cherry",
-        "background_image": {
-          "url": "https://img-va.myshopline.com/image/store/1748460806554/Tokyo-PDP-Background.jpg?w=2880&h=1684",
-          "alt": {
-            "default": "Illustration of blue sky with clouds."
-          }
-        }
+        "background_image": null
       },
       "blocks": {},
       "block_order": [],
       "custom_css": []
-    },
-    "apps": {
-      "disabled": false,
-      "type": "apps",
-      "settings": {
-        "include_margins": true,
-        "padding_top": 40,
-        "padding_bottom": 40
-      },
-      "blocks": {},
-      "custom_css": []
     }
   },
   "order": [
-    "main",
-    "apps"
+    "main"
   ]
 }
