@@ -87,7 +87,7 @@
                       </p>
                       <Button
                         class="button"
-                        :href="'/pages/shop'"
+                        :href="'/collections'"
                         variant="primary"
                         :full-width="true"
                         size="large"

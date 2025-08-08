@@ -12609,7 +12609,7 @@ const Ot = (e, t) => {
                             g[5] || (g[5] = f("p", { class: "text-sm text-gray-500 text-center mb-8 max-w-xs" }, " Looks like you haven't added anything to your cart yet. Start shopping to find your perfect items! ", -1)),
                             ue(ts, {
                               class: "button",
-                              href: "/pages/shop",
+                              href: "/collections",
                               variant: "primary",
                               "full-width": !0,
                               size: "large"
@@ -12729,7 +12729,7 @@ const Ot = (e, t) => {
       })
     ]));
   }
-}, If = /* @__PURE__ */ Ot(n1, [["__scopeId", "data-v-45fb26a3"]]), s1 = {
+}, If = /* @__PURE__ */ Ot(n1, [["__scopeId", "data-v-d76889ff"]]), s1 = {
   key: 0,
   class: "fixed inset-0 z-[99999] overflow-hidden"
 }, r1 = { class: "absolute inset-0 overflow-hidden" }, o1 = { class: "fixed inset-y-0 left-0 max-w-full flex pointer-events-none" }, i1 = {
