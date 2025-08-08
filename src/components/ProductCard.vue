@@ -1,5 +1,5 @@
 <template>
-  <div class="product-card group relative transition-all duration-300 overflow-hidden" 
+  <div class="product-card group relative transition-all duration-300 overflow-hidden h-full flex flex-col" 
        :style="computedCardStyles"
        @mouseenter="isHovered = true"
        @mouseleave="isHovered = false">
@@ -50,7 +50,7 @@
       </a>
       
       <!-- Product Info -->
-      <div class="p-4">
+      <div class="p-4 flex-1 flex flex-col justify-between">
         <!-- Color Swatches - Improved design -->
         <div v-if="hasColorOptions" class="mb-3">
           <div class="flex gap-1.5 flex-wrap">

@@ -2892,6 +2892,10 @@ select {
   flex-shrink: 0;
 }
 
+.grow {
+  flex-grow: 1;
+}
+
 .border-collapse {
   border-collapse: collapse;
 }
@@ -3027,6 +3031,10 @@ select {
 
 .grid-flow-col {
   grid-auto-flow: column;
+}
+
+.auto-rows-fr {
+  grid-auto-rows: minmax(0, 1fr);
 }
 
 .grid-cols-1 {

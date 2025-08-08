@@ -13395,7 +13395,7 @@ const Ot = (e, t) => {
 }, Z1 = {
   key: 4,
   class: "absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"
-}, eb = { class: "p-4" }, tb = {
+}, eb = { class: "p-4 flex-1 flex flex-col justify-between" }, tb = {
   key: 0,
   class: "mb-3"
 }, nb = { class: "flex gap-1.5 flex-wrap" }, sb = ["onClick", "title"], rb = {
@@ -13559,7 +13559,7 @@ const Ot = (e, t) => {
       }
     };
     return (A, I) => (E(), S("div", {
-      class: "product-card group relative transition-all duration-300 overflow-hidden",
+      class: "product-card group relative transition-all duration-300 overflow-hidden h-full flex flex-col",
       style: je(O.value),
       onMouseenter: I[2] || (I[2] = (L) => d.value = !0),
       onMouseleave: I[3] || (I[3] = (L) => d.value = !1)

@@ -18,23 +18,21 @@
     {{#if section.settings.collection}}
       {{#if section.settings.collection.products}}
         {{!-- Dynamic grid with data attribute for products count --}}
-        <div class="product-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" data-products-count="{{section.settings.products_to_show}}">
+        <div class="product-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-fr" data-products-count="{{section.settings.products_to_show}}">
           {{#each section.settings.collection.products limit=section.settings.products_to_show as |product|}}
-            <div class="product-card-wrapper h-full flex">
-              <product-card
-                product-id="{{product.id}}"
-                variant-id="{{product.variants.[0].id}}"
-                title="{{product.title}}"
-                handle="{{product.handle}}"
-                url="{{product.url}}"
-                vendor="{{product.vendor}}"
-                price="{{product.price}}"
-                compare-at-price="{{product.compare_at_price}}"
-                image="{{image_url product.images.[0] width=800}}"
-                :available="{{#if product.available}}true{{else}}false{{/if}}"
-                class="w-full"
-              ></product-card>
-            </div>
+            <product-card
+              product-id="{{product.id}}"
+              variant-id="{{product.variants.[0].id}}"
+              title="{{product.title}}"
+              handle="{{product.handle}}"
+              url="{{product.url}}"
+              vendor="{{product.vendor}}"
+              price="{{product.price}}"
+              compare-at-price="{{product.compare_at_price}}"
+              image="{{image_url product.images.[0] width=800}}"
+              :available="{{#if product.available}}true{{else}}false{{/if}}"
+              class="h-full"
+            ></product-card>
           {{/each}}
         </div>
         
@@ -57,17 +55,6 @@
   </div>
 </div>
 
-<style>
-  /* Featured collection specific grid overrides */
-  .featured-collection .product-grid.grid {
-    display: grid !important;
-  }
-  
-  /* Override global product card constraints for featured collection */
-  .featured-collection .product-card-wrapper {
-    max-width: none !important;
-  }
-</style>
 
 {{#schema}}
 {
