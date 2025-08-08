@@ -288,6 +288,7 @@ function mountVueComponents(container = document) {
         if (isTransparent && isHomepage && window.scrollY === 0) {
           header.style.backgroundColor = "transparent";
           header.style.borderBottomColor = "transparent";
+          header.classList.add("transparent-not-scrolled");
         }
 
         let lastScrollY = 0;
@@ -325,8 +326,13 @@ function mountVueComponents(container = document) {
           // Apply scrolled state for all pages equally
           if (currentScrollY > 0) {
             header.classList.add("scrolled");
+            header.classList.remove("transparent-not-scrolled");
           } else {
             header.classList.remove("scrolled");
+            // Add transparent-not-scrolled class when at top of page and transparent is enabled
+            if (isTransparent && isHomepage) {
+              header.classList.add("transparent-not-scrolled");
+            }
           }
 
           // Handle transparent header on homepage only - simplified

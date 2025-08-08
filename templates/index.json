@@ -10,7 +10,9 @@
         "button_link": "{\"value\":\"7103223854210774628\",\"label\":\"Shop\",\"pageType\":3,\"linkType\":\"select\"}",
         "height": "large",
         "image": null,
-        "mobile_image": null
+        "mobile_image": null,
+        "title_color": "#ffffff",
+        "subtitle_color": "#ffffff"
       },
       "blocks": {},
       "custom_css": []

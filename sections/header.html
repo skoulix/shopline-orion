@@ -59,56 +59,51 @@
         style="padding-top: {{default section.settings.padding_top 16}}px !important; padding-bottom: {{default section.settings.padding_bottom 16}}px !important;{{#if (and section.settings.transparent_header_homepage (eq request.page_type 'index'))}} background-color: transparent; border-bottom-color: transparent;{{/if}}">
   
   <style>
-    /* Default header text colors */
-    .site-header,
-    .site-header * {
-      color: {{default section.settings.header_text_color '#000000'}} !important;
+    /* CSS Variables for dynamic color switching */
+    .site-header {
+      --current-header-color: {{default section.settings.header_text_color '#000000'}};
     }
+    
+    /* Apply color to all header elements using the variable */
+    .site-header,
     .site-header a,
     .site-header button,
-    .site-header nav a {
-      color: {{default section.settings.header_text_color '#000000'}} !important;
+    .site-header nav a,
+    .site-header nav > div > a,
+    .site-header .group > a,
+    .site-header h1 {
+      color: var(--current-header-color) !important;
     }
     .site-header svg {
-      stroke: {{default section.settings.header_text_color '#000000'}} !important;
+      stroke: var(--current-header-color) !important;
     }
     
-    /* Transparent header text colors (only on homepage) */
+    /* Override variable for transparent state (homepage only, not scrolled) */
     {{#if (and section.settings.transparent_header_homepage (eq request.page_type 'index'))}}
-    .header-group[data-transparent="true"] .site-header,
-    .header-group[data-transparent="true"] .site-header * {
-      color: {{default section.settings.transparent_text_color '#ffffff'}} !important;
+    .site-header.transparent-not-scrolled {
+      --current-header-color: {{default section.settings.transparent_text_color '#ffffff'}};
     }
-    .header-group[data-transparent="true"] .site-header a,
-    .header-group[data-transparent="true"] .site-header button,
-    .header-group[data-transparent="true"] .site-header nav a,
-    .header-group[data-transparent="true"] .site-header nav div a {
-      color: {{default section.settings.transparent_text_color '#ffffff'}} !important;
-    }
-    .header-group[data-transparent="true"] .site-header svg {
-      stroke: {{default section.settings.transparent_text_color '#ffffff'}} !important;
-    }
+    {{/if}}
     
-    /* Text shadow for better readability */
-    {{#if section.settings.enable_text_shadow}}
-    .header-group[data-transparent="true"] .site-header a,
-    .header-group[data-transparent="true"] .site-header button,
-    .header-group[data-transparent="true"] .site-header h1,
-    .header-group[data-transparent="true"] .site-header span {
+    /* Text shadow for better readability - only when transparent and not scrolled */
+    {{#if (and section.settings.enable_text_shadow section.settings.transparent_header_homepage (eq request.page_type 'index'))}}
+    .site-header.transparent-not-scrolled a,
+    .site-header.transparent-not-scrolled button,
+    .site-header.transparent-not-scrolled h1,
+    .site-header.transparent-not-scrolled span {
       text-shadow: {{default section.settings.text_shadow '0 1px 3px rgba(0,0,0,0.5)'}};
     }
     {{/if}}
     
-    /* Optional backdrop blur */
-    {{#if section.settings.enable_backdrop_blur}}
-    .header-group[data-transparent="true"] .site-header {
+    /* Optional backdrop blur - only when transparent and not scrolled */
+    {{#if (and section.settings.enable_backdrop_blur section.settings.transparent_header_homepage (eq request.page_type 'index'))}}
+    .site-header.transparent-not-scrolled {
       backdrop-filter: blur({{default section.settings.backdrop_blur_amount 8}}px);
       -webkit-backdrop-filter: blur({{default section.settings.backdrop_blur_amount 8}}px);
       {{#if section.settings.backdrop_bg_color}}
       background-color: {{section.settings.backdrop_bg_color}};
       {{/if}}
     }
-    {{/if}}
     {{/if}}
   </style>
   

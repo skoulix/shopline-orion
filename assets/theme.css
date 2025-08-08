@@ -2352,16 +2352,16 @@ select {
   z-index: 50;
 }
 
+.z-\[5\] {
+  z-index: 5;
+}
+
 .z-\[99999\] {
   z-index: 99999;
 }
 
 .z-\[9999\] {
   z-index: 9999;
-}
-
-.z-\[5\] {
-  z-index: 5;
 }
 
 .order-1 {
@@ -2661,6 +2661,10 @@ select {
   height: 24rem;
 }
 
+.h-\[400px\] {
+  height: 400px;
+}
+
 .h-\[500px\] {
   height: 500px;
 }
@@ -2679,10 +2683,6 @@ select {
 
 .h-full {
   height: 100%;
-}
-
-.h-\[400px\] {
-  height: 400px;
 }
 
 .max-h-16 {
@@ -3562,6 +3562,12 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-black\/30 {
+  --tw-gradient-from: rgb(0 0 0 / 0.3) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .from-blue-500 {
   --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
@@ -3640,12 +3646,6 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.from-black\/30 {
-  --tw-gradient-from: rgb(0 0 0 / 0.3) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
 .via-gray-50\/30 {
   --tw-gradient-to: rgb(250 249 251 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), rgb(250 249 251 / 0.3) var(--tw-gradient-via-position), var(--tw-gradient-to);
@@ -3659,11 +3659,6 @@ select {
 .via-transparent {
   --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), transparent var(--tw-gradient-via-position), var(--tw-gradient-to);
-}
-
-.via-gray-50 {
-  --tw-gradient-to: rgb(250 249 251 / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), #faf9fb var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 
 .to-black {
@@ -4314,10 +4309,6 @@ select {
 
 .opacity-75 {
   opacity: 0.75;
-}
-
-.opacity-5 {
-  opacity: 0.05;
 }
 
 .shadow {
@@ -5551,10 +5542,6 @@ body.page-contact {
     height: 32rem;
   }
 
-  .md\:h-48 {
-    height: 12rem;
-  }
-
   .md\:max-h-\[800px\] {
     max-height: 800px;
   }
@@ -5565,10 +5552,6 @@ body.page-contact {
 
   .md\:w-auto {
     width: auto;
-  }
-
-  .md\:w-48 {
-    width: 12rem;
   }
 
   .md\:max-w-\[350px\] {
