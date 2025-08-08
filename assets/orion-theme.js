@@ -13401,7 +13401,7 @@ const Jo = (e, t) => {
 }, n1 = {
   key: 1,
   class: "text-xs text-gray-500 uppercase tracking-wider mb-1"
-}, s1 = { class: "text-2xl line-clamp-2 mb-2" }, r1 = ["href"], o1 = {
+}, s1 = { class: "text-lg font-semibold line-clamp-2 mb-2" }, r1 = ["href"], o1 = {
   key: 2,
   class: "flex items-center gap-1 mb-2"
 }, i1 = { class: "flex" }, l1 = { class: "flex items-baseline gap-2 mb-4" }, a1 = { class: "text-xl font-bold text-gray-900" }, c1 = {

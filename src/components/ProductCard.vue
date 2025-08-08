@@ -82,7 +82,7 @@
           </p>
           
           <!-- Title -->
-          <h3 class="text-2xl line-clamp-2 mb-2">
+          <h3 class="text-lg font-semibold line-clamp-2 mb-2">
             <a :href="productUrl" >
               {{ productData.title || 'Untitled' }}
             </a>
