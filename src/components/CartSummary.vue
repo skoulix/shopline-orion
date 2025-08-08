@@ -1,5 +1,5 @@
 <template>
-  <div class="cart-summary bg-gray-50 p-6 lg:sticky lg:top-24" :style="{ borderRadius: 'var(--card-radius, 8px)' }">
+  <div class="bg-gray-50 p-6 lg:sticky lg:top-24 border border-gray-200" :style="{ borderRadius: 'var(--card-radius, 8px)', boxShadow: 'var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1))' }">
     <h2 class="text-lg font-semibold text-gray-900 mb-4">Order Summary</h2>
     
     <!-- Subtotals -->
@@ -256,10 +256,3 @@ const handleCheckout = async () => {
   }
 }
 </script>
-
-<style scoped>
-.cart-summary {
-  @apply border border-gray-200;
-  box-shadow: var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
-}
-</style>

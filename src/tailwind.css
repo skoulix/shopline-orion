@@ -310,6 +310,23 @@ h3,
   text-transform: var(--title-text-transform);
 }
 
+/* Apply title line-height to all Tailwind text sizes when using font-heading */
+.font-heading.text-xs,
+.font-heading.text-sm,
+.font-heading.text-base,
+.font-heading.text-lg,
+.font-heading.text-xl,
+.font-heading.text-2xl,
+.font-heading.text-3xl,
+.font-heading.text-4xl,
+.font-heading.text-5xl,
+.font-heading.text-6xl,
+.font-heading.text-7xl,
+.font-heading.text-8xl,
+.font-heading.text-9xl {
+  line-height: var(--title-line-height) !important;
+}
+
 /* Default font sizes for headings */
 h1,
 .h1 {
@@ -379,6 +396,7 @@ ol {
 .font-body {
   font-family: var(--body-font);
   font-weight: var(--body-font-weight);
+  line-height: var(--body-line-height);
 }
 
 .font-title,
