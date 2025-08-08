@@ -471,12 +471,10 @@ const handleSearchInput = () => {
 const performSearch = async () => {
   try {
     const query = searchQuery.value;
-    console.log('Searching for:', query);
     
     // Use Shopline's search with keyword parameter
     const searchUrl = Shopline?.routes?.search || "/search";
     const fullUrl = `${searchUrl}?keyword=${encodeURIComponent(query)}`;
-    console.log('Search URL:', fullUrl);
     
     const response = await fetch(fullUrl, {
       headers: {
@@ -484,15 +482,12 @@ const performSearch = async () => {
         'X-Requested-With': 'XMLHttpRequest'
       }
     });
-
-    console.log('Response status:', response.status);
     
     if (!response.ok) {
       throw new Error('Search request failed');
     }
 
     const contentType = response.headers.get('content-type');
-    console.log('Response content-type:', contentType);
     
     let data;
     if (contentType && contentType.includes('application/json')) {
@@ -500,7 +495,6 @@ const performSearch = async () => {
     } else {
       // If HTML is returned, parse it to extract products
       const html = await response.text();
-      console.log('Received HTML response, parsing...');
       
       // Try to extract product data from HTML
       const parser = new DOMParser();
@@ -508,7 +502,6 @@ const performSearch = async () => {
       
       // Look for product-card elements (custom elements from search page)
       const productElements = doc.querySelectorAll('product-card');
-      console.log('Found product elements:', productElements.length);
       
       const products = [];
       productElements.forEach(el => {
@@ -532,11 +525,8 @@ const performSearch = async () => {
       data = { products };
     }
     
-    console.log('Search data:', data);
-    
     // Process the search results
     const products = data.products || data.results || [];
-    console.log('Products found:', products.length);
     
     // Map products to expected format
     const formattedProducts = products.map(product => ({
@@ -549,8 +539,6 @@ const performSearch = async () => {
       vendor: product.vendor,
       available: product.available !== false
     })).slice(0, 8); // Limit to 8 results for quick view
-
-    console.log('Formatted products:', formattedProducts);
 
     results.value = {
       products: formattedProducts,

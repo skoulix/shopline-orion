@@ -15883,29 +15883,20 @@ const yw = { class: "product-gallery" }, bw = { class: "main-image-wrapper" }, _
     }, D = async () => {
       var S;
       try {
-        const w = n.value;
-        console.log("Searching for:", w);
-        const N = `${((S = Shopline == null ? void 0 : Shopline.routes) == null ? void 0 : S.search) || "/search"}?keyword=${encodeURIComponent(w)}`;
-        console.log("Search URL:", N);
-        const _ = await fetch(N, {
+        const w = n.value, N = `${((S = Shopline == null ? void 0 : Shopline.routes) == null ? void 0 : S.search) || "/search"}?keyword=${encodeURIComponent(w)}`, _ = await fetch(N, {
           headers: {
             Accept: "application/json",
             "X-Requested-With": "XMLHttpRequest"
           }
         });
-        if (console.log("Response status:", _.status), !_.ok)
+        if (!_.ok)
           throw new Error("Search request failed");
         const y = _.headers.get("content-type");
-        console.log("Response content-type:", y);
         let O;
         if (y && y.includes("application/json"))
           O = await _.json();
         else {
-          const I = await _.text();
-          console.log("Received HTML response, parsing...");
-          const L = new DOMParser().parseFromString(I, "text/html").querySelectorAll("product-card");
-          console.log("Found product elements:", L.length);
-          const Q = [];
+          const I = await _.text(), L = new DOMParser().parseFromString(I, "text/html").querySelectorAll("product-card"), Q = [];
           L.forEach((W) => {
             const he = {
               id: W.getAttribute("product-id"),
@@ -15921,10 +15912,7 @@ const yw = { class: "product-gallery" }, bw = { class: "main-image-wrapper" }, _
             he.title && he.id && Q.push(he);
           }), O = { products: Q };
         }
-        console.log("Search data:", O);
-        const R = O.products || O.results || [];
-        console.log("Products found:", R.length);
-        const E = R.map((I) => ({
+        const E = (O.products || O.results || []).map((I) => ({
           id: I.id,
           url: I.url || `/products/${I.handle}`,
           title: I.title,
@@ -15934,7 +15922,7 @@ const yw = { class: "product-gallery" }, bw = { class: "main-image-wrapper" }, _
           vendor: I.vendor,
           available: I.available !== !1
         })).slice(0, 8);
-        console.log("Formatted products:", E), o.value = {
+        o.value = {
           products: E,
           collections: []
         }, r.value = !1;
