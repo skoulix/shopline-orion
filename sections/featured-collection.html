@@ -18,7 +18,7 @@
     {{#if section.settings.collection}}
       {{#if section.settings.collection.products}}
         {{!-- Dynamic grid with data attribute for products count --}}
-        <div class="product-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-fr" data-products-count="{{section.settings.products_to_show}}">
+        <div class="product-grid flex flex-wrap justify-center gap-6" data-products-count="{{section.settings.products_to_show}}">
           {{#each section.settings.collection.products limit=section.settings.products_to_show as |product|}}
             <product-card
               product-id="{{product.id}}"
@@ -31,7 +31,7 @@
               compare-at-price="{{product.compare_at_price}}"
               image="{{image_url product.images.[0] width=800}}"
               :available="{{#if product.available}}true{{else}}false{{/if}}"
-              class="h-full"
+              class="w-full sm:w-[calc(50%-12px)] md:w-[calc(50%-12px)] lg:w-[calc(50%-12px)] xl:w-[calc(25%-18px)] max-w-sm"
             ></product-card>
           {{/each}}
         </div>
