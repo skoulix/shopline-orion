@@ -16759,8 +16759,8 @@ function ar(e = document) {
     const p = d.dataset.transparent === "true", h = document.body.classList.contains("template-index");
     if (p && h && window.scrollY === 0 && (c.style.backgroundColor = "transparent", c.style.borderBottomColor = "transparent", c.classList.add("transparent-not-scrolled")), d.dataset.sticky === "true" && !c._stickyInitialized) {
       let D = function() {
-        const N = window.scrollY, m = d.dataset.hideOnScroll === "true", k = d.dataset.transparent === "true", O = document.body.classList.contains("template-index"), V = d.querySelector(".announcement-bar");
-        V && (N > 0 ? V.classList.add("hidden") : V.classList.remove("hidden")), N > 0 ? (c.classList.add("scrolled"), c.classList.remove("transparent-not-scrolled")) : (c.classList.remove("scrolled"), k && O && c.classList.add("transparent-not-scrolled")), k && O && (N <= 50 ? (c.style.backgroundColor = "transparent", c.style.borderBottomColor = "transparent") : (c.style.backgroundColor = "", c.style.borderBottomColor = "")), m && (N > 300 && N > g ? (c.classList.add("hide-on-scroll"), c.classList.remove("show-on-scroll")) : (c.classList.remove("hide-on-scroll"), c.classList.add("show-on-scroll"))), g = N, M = !1;
+        const N = window.scrollY, m = d.dataset.hideOnScroll === "true", k = d.dataset.transparent === "true", O = document.body.classList.contains("template-index");
+        N > 0 ? d.classList.add("announcement-hidden") : d.classList.remove("announcement-hidden"), N > 0 ? (c.classList.add("scrolled"), c.classList.remove("transparent-not-scrolled")) : (c.classList.remove("scrolled"), k && O && c.classList.add("transparent-not-scrolled")), k && O && (N <= 50 ? (c.style.backgroundColor = "transparent", c.style.borderBottomColor = "transparent") : (c.style.backgroundColor = "", c.style.borderBottomColor = "")), m && (N > 300 && N > g ? (c.classList.add("hide-on-scroll"), c.classList.remove("show-on-scroll")) : (c.classList.remove("hide-on-scroll"), c.classList.add("show-on-scroll"))), g = N, M = !1;
       };
       var v = D;
       c._stickyInitialized = !0;

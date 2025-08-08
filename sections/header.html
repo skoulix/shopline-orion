@@ -117,6 +117,18 @@
       {{/if}}
     }
     {{/if}}
+    
+    /* Logo filter transition - only for actual images */
+    .site-header img[alt="{{shop.name}}"] {
+      transition: filter 0.3s ease-in-out;
+    }
+    
+    /* Invert logo IMAGE when transparent header - only if logo is selected */
+    {{#if (and section.settings.logo section.settings.invert_logo_when_transparent section.settings.transparent_header_homepage (eq request.page_type 'index'))}}
+    .site-header.transparent-not-scrolled img[alt="{{shop.name}}"] {
+      filter: invert(1);
+    }
+    {{/if}}
   </style>
   
   <div class="container">
@@ -574,6 +586,13 @@
       "label": "Text color when transparent",
       "default": "#ffffff",
       "info": "Color for text and icons when header is transparent"
+    },
+    {
+      "type": "switch",
+      "id": "invert_logo_when_transparent",
+      "default": false,
+      "label": "Invert logo when transparent",
+      "info": "Apply invert filter to logo when header is transparent (useful for light logos on dark backgrounds)"
     },
     {
       "type": "switch",

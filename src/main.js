@@ -300,18 +300,14 @@ function mountVueComponents(container = document) {
           const isTransparent = headerGroup.dataset.transparent === "true";
           const isHomepage = document.body.classList.contains("template-index");
 
-          // Hide announcement bar smoothly on any scroll
-          const announcementBar =
-            headerGroup.querySelector(".announcement-bar");
-          if (announcementBar) {
-            if (currentScrollY > 0) {
-              announcementBar.classList.add("hidden");
-            } else {
-              announcementBar.classList.remove("hidden");
-            }
+          // Hide announcement bar by translating header group up
+          if (currentScrollY > 0) {
+            headerGroup.classList.add("announcement-hidden");
+          } else {
+            headerGroup.classList.remove("announcement-hidden");
           }
 
-          // Apply scrolled state for all pages equally
+          // Apply scrolled state for shadow and color changes
           if (currentScrollY > 0) {
             header.classList.add("scrolled");
             header.classList.remove("transparent-not-scrolled");
