@@ -62,10 +62,9 @@
     {{#if section.settings.show_social_sharing}}
       <div class="mt-20">
         <!-- Section with modern glassmorphism effect -->
-        <div class="relative overflow-hidden rounded-3xl">
-          <!-- Animated gradient background -->
-          <div class="absolute inset-0 bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 opacity-50"></div>
-          <div class="absolute inset-0 backdrop-blur-xl bg-white/30"></div>
+        <div class="relative overflow-hidden" style="border-radius: var(--card-radius, 8px);">
+          <!-- Background -->
+          <div class="absolute inset-0 bg-gray-100"></div>
           
           <!-- Content -->
           <div class="relative px-8 py-12 sm:px-12">
@@ -201,51 +200,48 @@
     {{/if}}
 
     <!-- Modern Navigation -->
-    <nav class="mt-16 relative">
-      <div class="absolute inset-0 bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-200/30"></div>
-      <div class="relative p-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-          {{#if blog.previous_article}}
-            <a href="{{blog.previous_article.url}}" class="group flex items-center gap-4 p-4 bg-white/80 rounded-xl hover:bg-white transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              <div class="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center text-white group-hover:from-red-400 group-hover:to-pink-400 transition-all duration-300">
-                <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">Previous</div>
-                <div class="font-semibold text-gray-900 truncate">{{blog.previous_article.title}}</div>
-              </div>
-            </a>
-          {{else}}
-            <div></div>
-          {{/if}}
-
-          <div class="text-center">
-            <a href="/blogs/news" class="button button-primary inline-flex items-center gap-2 transition-all duration-300" style="border-radius: var(--button-radius);">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+    <nav class="mt-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+        {{#if blog.previous_article}}
+          <a href="{{blog.previous_article.url}}" class="group flex items-center gap-4 p-4 bg-gray-50 hover:bg-white transition-all duration-300 hover:scale-105 hover:shadow-lg border border-gray-200" style="border-radius: var(--card-radius, 8px);">
+            <div class="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center text-white group-hover:from-red-400 group-hover:to-pink-400 transition-all duration-300">
+              <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
               </svg>
-              View All Articles
-            </a>
-          </div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">Previous</div>
+              <div class="font-semibold text-gray-900 truncate">{{blog.previous_article.title}}</div>
+            </div>
+          </a>
+        {{else}}
+          <div></div>
+        {{/if}}
 
-          {{#if blog.next_article}}
-            <a href="{{blog.next_article.url}}" class="group flex items-center gap-4 p-4 bg-white/80 rounded-xl hover:bg-white transition-all duration-300 hover:scale-105 hover:shadow-lg md:justify-end">
-              <div class="flex-1 min-w-0 text-right">
-                <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">Next</div>
-                <div class="font-semibold text-gray-900 truncate">{{blog.next_article.title}}</div>
-              </div>
-              <div class="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center text-white group-hover:from-red-400 group-hover:to-pink-400 transition-all duration-300">
-                <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </div>
-            </a>
-          {{else}}
-            <div></div>
-          {{/if}}
+        <div class="text-center">
+          <a href="/blogs/news" class="button button-primary inline-flex items-center gap-2 transition-all duration-300" style="border-radius: var(--button-radius);">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+            </svg>
+            View All Articles
+          </a>
         </div>
+
+        {{#if blog.next_article}}
+          <a href="{{blog.next_article.url}}" class="group flex items-center gap-4 p-4 bg-gray-50 hover:bg-white transition-all duration-300 hover:scale-105 hover:shadow-lg border border-gray-200 md:justify-end" style="border-radius: var(--card-radius, 8px);">
+            <div class="flex-1 min-w-0 text-right">
+              <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">Next</div>
+              <div class="font-semibold text-gray-900 truncate">{{blog.next_article.title}}</div>
+            </div>
+            <div class="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center text-white group-hover:from-red-400 group-hover:to-pink-400 transition-all duration-300">
+              <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </a>
+        {{else}}
+          <div></div>
+        {{/if}}
       </div>
     </nav>
 

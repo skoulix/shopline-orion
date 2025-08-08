@@ -4701,7 +4701,7 @@ header nav a {
   padding: 0.625rem 1.5rem;
   font-family: var(--body-font);
   font-weight: var(--body-bold-font-weight);
-  text-transform: uppercase;
+  text-transform: uppercase !important;
   letter-spacing: 0.125em;
   font-size: 0.9375rem;
   border-radius: var(--button-radius, 30px);
@@ -4895,28 +4895,6 @@ header nav a {
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(var(--button-primary-bg, 220 38 38));
-}
-
-.button-primary {
-  background-color: rgb(var(--button-primary-bg, 220 38 38));
-  color: rgb(var(--button-primary-text, 255 255 255));
-  border: 1px solid transparent;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-}
-
-.button-primary:hover {
-  background-color: rgb(var(--button-primary-bg-hover, 185 28 28));
-}
-
-.button-secondary {
-  background-color: rgb(var(--button-secondary-bg, 255 255 255));
-  color: rgb(var(--button-secondary-text, 55 65 81));
-  border: 1px solid rgb(var(--button-secondary-border, 209 213 219));
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-}
-
-.button-secondary:hover {
-  background-color: rgb(var(--button-secondary-bg-hover, 249 250 251));
 }
 
 .scrollbar-hide {
