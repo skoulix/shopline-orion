@@ -19,68 +19,6 @@
       "blocks": {},
       "custom_css": []
     },
-    "1753805909320804c7a1": {
-      "disabled": false,
-      "type": "promo-grid",
-      "settings": {
-        "title": "",
-        "full_width": false,
-        "columns": 2,
-        "gutter_size": 6,
-        "background_color": "#b6e0f8",
-        "padding_top": 28,
-        "padding_bottom": 60
-      },
-      "blocks": {
-        "1753805909321b02e79a": {
-          "type": "advanced",
-          "settings": {
-            "title": "TOKYO",
-            "rating": 5,
-            "description": "Exotic Citrus • Juicy Cherry",
-            "button_text": "SHOP NOW",
-            "button_bg": "#cf2e27",
-            "background_color": "#fbd5e0",
-            "button_text_color": "#ffffff",
-            "link": "/products/tokyo",
-            "product_image": {
-              "url": "https://img-va.myshopline.com/image/store/1748460806554/AvvikaTokyoEnergyDrinkCan.png?w=1220&h=1500",
-              "alt": {
-                "default": "Avvika Tokyo Energy Drink Can"
-              }
-            }
-          },
-          "blockId": "1753805909321b02e79a",
-          "custom_css": []
-        },
-        "17538059093213579c40": {
-          "type": "advanced",
-          "settings": {
-            "title": "LOS ANGELES",
-            "rating": 5,
-            "description": "Frozen Berry • Zesty Citrus",
-            "button_text": "SHOP NOW",
-            "button_bg": "#e3276f",
-            "background_color": "#fee084",
-            "button_text_color": "#ffffff",
-            "link": "/products/los-angeles",
-            "product_image": {
-              "url": "https://img-va.myshopline.com/image/store/1748460806554/AvvikaLosAngelesEnergyDrinkCan-92b2c6a0-3bf0-4e6c-a84d-195e11ea6bba.png?w=1220&h=1500",
-              "alt": {
-                "default": "Avvika Los Angeles Energy Drink Can"
-              }
-            }
-          },
-          "blockId": "17538059093213579c40",
-          "custom_css": []
-        }
-      },
-      "block_order": [
-        "1753805909321b02e79a",
-        "17538059093213579c40"
-      ],
-      "custom_css": []
-    },
     "17538777272332811993": {
       "disabled": false,
       "type": "scrolling-text",
@@ -457,14 +395,16 @@
       "disabled": false,
       "type": "featured-collection",
       "settings": {
-        "title": "Featured Products",
+        "title": "FEATURED PRODUCTS",
         "title_alignment": "center",
         "products_to_show": 8,
         "show_view_all": true,
         "background_color": "#ffffff",
         "padding_top": 40,
         "padding_bottom": 40,
-        "collection": "12270956005236345906792600"
+        "collection": "12270956005236345906792600",
+        "title_color": "#113f67",
+        "subtitle_color": "#113f67"
       },
       "blocks": {},
       "block_order": [],
@@ -474,7 +414,6 @@
   "order": [
     "hero",
     "175464123747012b0be3",
-    "1753805909320804c7a1",
     "17538777272332811993",
     "1753882767778b626413",
     "1753882260139f667d12",

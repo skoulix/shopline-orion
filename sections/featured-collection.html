@@ -1,18 +1,27 @@
 <div class="featured-collection bg-white" style="background-color: {{default section.settings.background_color '#ffffff'}}; padding-top: {{default section.settings.padding_top 40}}px !important; padding-bottom: {{default section.settings.padding_bottom 40}}px !important;">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="container">
     {{#if section.settings.title}}
-      <h2 class="text-3xl font-bold text-gray-900 mb-8 {{#if (eq section.settings.title_alignment 'left')}}text-left{{else if (eq section.settings.title_alignment 'right')}}text-right{{else}}text-center{{/if}}">
+      <h2 class="{{default section.settings.title_size 'text-3xl'}} {{default section.settings.heading_font 'font-heading'}} mb-8 {{#if (eq section.settings.title_alignment 'left')}}text-left{{else if (eq section.settings.title_alignment 'right')}}text-right{{else}}text-center{{/if}}" 
+          style="color: {{default section.settings.title_color '#000000'}};">
         {{section.settings.title}}
       </h2>
     {{/if}}
     
+    {{#if section.settings.subtitle}}
+      <div class="mb-8 max-w-3xl {{#if (eq section.settings.title_alignment 'left')}}mx-0{{else if (eq section.settings.title_alignment 'right')}}ml-auto mr-0{{else}}mx-auto{{/if}}">
+        <p class="text-lg" style="color: {{default section.settings.subtitle_color '#666666'}};">
+          {{section.settings.subtitle}}
+        </p>
+      </div>
+    {{/if}}
+    
     {{#if section.settings.collection}}
-      {{!-- Loop through all_collections to find matching ID --}}
-      {{#each all_collections}}
+      {{!-- Find collection by ID in all_collections --}}
+      {{#each collections}}
         {{#if (eq this.id ../section.settings.collection)}}
           {{#if this.products}}
             {{!-- Dynamic grid with data attribute for products count --}}
-            <div class="product-grid max-w-7xl mx-auto" data-products-count="{{@root.section.settings.products_to_show}}">
+            <div class="product-grid" data-products-count="{{@root.section.settings.products_to_show}}">
               {{#each this.products limit=@root.section.settings.products_to_show}}
                 <div class="product-card-wrapper">
                   <product-card
@@ -71,19 +80,38 @@
       "name": "t:sections.featured-collection.presets.presets__0.name",
       "settings": {
         "title": "Featured Products",
+        "subtitle": "",
         "title_alignment": "center",
+        "heading_font": "font-heading",
+        "title_size": "text-3xl",
+        "title_color": "#000000",
+        "subtitle_color": "#666666",
         "collection": null,
         "products_to_show": 8,
-        "show_view_all": true
+        "show_view_all": true,
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     }
   ],
   "settings": [
     {
+      "type": "group_header",
+      "label": "Content"
+    },
+    {
       "type": "text",
       "id": "title",
       "default": "Featured Products",
       "label": "t:sections.featured-collection.settings.title.label"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "",
+      "info": "Optional text to display after the title"
     },
     {
       "type": "select",
@@ -112,7 +140,72 @@
     },
     {
       "type": "group_header",
-      "label": "t:sections.featured-collection.settings.group_header__0.label"
+      "label": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "options": [
+        {
+          "value": "font-heading",
+          "label": "Heading font"
+        },
+        {
+          "value": "font-body",
+          "label": "Body font"
+        }
+      ],
+      "default": "font-heading",
+      "info": "Choose the font family for the heading"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "Title size",
+      "default": "text-3xl",
+      "options": [
+        {
+          "value": "text-xl",
+          "label": "Extra Small"
+        },
+        {
+          "value": "text-2xl",
+          "label": "Small"
+        },
+        {
+          "value": "text-3xl",
+          "label": "Medium"
+        },
+        {
+          "value": "text-4xl",
+          "label": "Large"
+        },
+        {
+          "value": "text-5xl",
+          "label": "Extra Large"
+        },
+        {
+          "value": "text-6xl",
+          "label": "Huge"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#666666"
+    },
+    {
+      "type": "group_header",
+      "label": "Layout"
     },
     {
       "type": "range",
@@ -130,6 +223,10 @@
       "label": "t:sections.featured-collection.settings.show_view_all.label"
     },
     {
+      "type": "group_header",
+      "label": "Appearance"
+    },
+    {
       "type": "color",
       "id": "background_color",
       "default": "#ffffff",
@@ -137,14 +234,14 @@
     },
     {
       "type": "group_header",
-      "label": "t:sections.featured-collection.settings.group_header__1.label"
+      "label": "Section spacing"
     },
     {
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
-      "step": 2,
+      "max": 200,
+      "step": 4,
       "unit": "px",
       "label": "t:sections.featured-collection.settings.padding_top.label",
       "default": 40
@@ -153,8 +250,8 @@
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
-      "step": 2,
+      "max": 200,
+      "step": 4,
       "unit": "px",
       "label": "t:sections.featured-collection.settings.padding_bottom.label",
       "default": 40
