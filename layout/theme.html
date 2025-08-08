@@ -30,8 +30,8 @@
     {{snippet "meta-tags"}}
     {{snippet "theme-css-var"}}
     
-
-		<!-- Preload fonts -->
+		<!-- Custom fonts preload example -->
+		<!--
 		<link
 			rel="preload"
 			href="{{asset_url 'Crossten-Book.woff2'}}"
@@ -53,6 +53,7 @@
 			type="font/woff2"
 			crossorigin
 		/>
+		-->
 
 		<link rel="stylesheet" href="{{asset_url 'theme.css'}}" />
 		<link rel="stylesheet" href="{{asset_url 'style.css'}}" />
@@ -86,25 +87,6 @@
 				font-style: normal;
 				font-display: swap;
 			} */
-
-			@font-face {
-				font-family: 'TANMARJORIE-DISPLAY';
-				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/TANMARJORIE-DISPLAY.woff2?v=1722547152)
-					format('woff2');
-				font-style: normal;
-			}
-			@font-face {
-				font-family: 'Crossten-Book';
-				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/Crossten-Book.woff2?v=1722547570)
-					format('woff2');
-				font-style: normal;
-			}
-			@font-face {
-				font-family: 'Crossten-Bold';
-				src: url(https://cdn.shopify.com/s/files/1/0881/2737/3634/files/Crossten-Bold.woff2?v=1722547570)
-					format('woff2');
-				font-style: bold;
-			}
 		</style>
 
 		<!-- Global JS - Essential for Shopline functionality -->
