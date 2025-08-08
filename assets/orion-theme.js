@@ -13395,33 +13395,33 @@ const Ot = (e, t) => {
 }, Z1 = {
   key: 4,
   class: "absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"
-}, eb = { class: "p-4 flex-1 flex flex-col justify-between" }, tb = {
+}, eb = { class: "p-4 flex-1 flex flex-col" }, tb = { class: "flex-1" }, nb = {
   key: 0,
   class: "mb-3"
-}, nb = { class: "flex gap-1.5 flex-wrap" }, sb = ["onClick", "title"], rb = {
+}, sb = { class: "flex gap-1.5 flex-wrap" }, rb = ["onClick", "title"], ob = {
   key: 0,
   class: "absolute inset-0 flex items-center justify-center"
-}, ob = {
+}, ib = {
   key: 1,
   class: "text-xs text-gray-500 uppercase tracking-wider mb-1"
-}, ib = { class: "text-2xl line-clamp-2 mb-2" }, lb = ["href"], ab = {
+}, lb = { class: "text-2xl line-clamp-2 mb-2" }, ab = ["href"], cb = {
   key: 2,
   class: "flex items-center gap-1 mb-2"
-}, cb = { class: "flex" }, ub = { class: "flex items-baseline gap-2 mb-4" }, db = { class: "text-xl font-bold text-gray-900" }, fb = {
+}, ub = { class: "flex" }, db = { class: "flex items-baseline gap-2 mb-4" }, fb = { class: "text-xl font-bold text-gray-900" }, pb = {
   key: 0,
   class: "text-sm text-gray-400 line-through"
-}, pb = ["disabled"], hb = {
+}, hb = { class: "mt-auto" }, mb = ["disabled"], gb = {
   key: 0,
   class: "w-5 h-5",
   fill: "none",
   stroke: "currentColor",
   viewBox: "0 0 24 24"
-}, mb = { key: 1 }, gb = {
+}, vb = { key: 1 }, yb = {
   key: 2,
   class: "animate-spin w-5 h-5",
   fill: "none",
   viewBox: "0 0 24 24"
-}, vb = {
+}, bb = {
   __name: "ProductCard",
   props: {
     // Support both full product object and individual props
@@ -13611,113 +13611,117 @@ const Ot = (e, t) => {
         ])))
       ], 8, J1),
       f("div", eb, [
-        v.value ? (E(), S("div", tb, [
-          f("div", nb, [
-            (E(!0), S(ie, null, _e(g.value, (L) => (E(), S("button", {
-              key: L.value,
-              onClick: (ee) => R(L),
-              title: L.value,
-              class: Ee([
-                "w-7 h-7 rounded-full border-2 transition-all duration-200 relative",
-                i.value === L.value ? "border-gray-900 scale-110 shadow-md" : "border-gray-200 hover:border-gray-400"
-              ]),
-              style: je({ backgroundColor: C(L.value) })
-            }, [
-              i.value === L.value ? (E(), S("span", rb, I[7] || (I[7] = [
-                f("svg", {
-                  class: "w-4 h-4 text-white drop-shadow",
-                  fill: "currentColor",
-                  viewBox: "0 0 20 20"
-                }, [
-                  f("path", {
-                    "fill-rule": "evenodd",
-                    d: "M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z",
-                    "clip-rule": "evenodd"
-                  })
-                ], -1)
-              ]))) : j("", !0)
-            ], 14, sb))), 128))
-          ])
-        ])) : j("", !0),
-        n.value && c.value.vendor ? (E(), S("p", ob, G(c.value.vendor), 1)) : j("", !0),
-        f("h3", ib, [
-          f("a", { href: p.value }, G(c.value.title || "Untitled"), 9, lb)
-        ]),
-        s.value ? (E(), S("div", ab, [
-          f("div", cb, [
-            (E(), S(ie, null, _e(5, (L) => f("svg", {
-              key: L,
-              class: Ee(["w-4 h-4", L <= 4 ? "text-yellow-400 fill-current" : "text-gray-300 fill-current"]),
-              viewBox: "0 0 20 20"
-            }, I[8] || (I[8] = [
-              f("path", { d: "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" }, null, -1)
-            ]), 2)), 64))
+        f("div", tb, [
+          v.value ? (E(), S("div", nb, [
+            f("div", sb, [
+              (E(!0), S(ie, null, _e(g.value, (L) => (E(), S("button", {
+                key: L.value,
+                onClick: (ee) => R(L),
+                title: L.value,
+                class: Ee([
+                  "w-7 h-7 rounded-full border-2 transition-all duration-200 relative",
+                  i.value === L.value ? "border-gray-900 scale-110 shadow-md" : "border-gray-200 hover:border-gray-400"
+                ]),
+                style: je({ backgroundColor: C(L.value) })
+              }, [
+                i.value === L.value ? (E(), S("span", ob, I[7] || (I[7] = [
+                  f("svg", {
+                    class: "w-4 h-4 text-white drop-shadow",
+                    fill: "currentColor",
+                    viewBox: "0 0 20 20"
+                  }, [
+                    f("path", {
+                      "fill-rule": "evenodd",
+                      d: "M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z",
+                      "clip-rule": "evenodd"
+                    })
+                  ], -1)
+                ]))) : j("", !0)
+              ], 14, rb))), 128))
+            ])
+          ])) : j("", !0),
+          n.value && c.value.vendor ? (E(), S("p", ib, G(c.value.vendor), 1)) : j("", !0),
+          f("h3", lb, [
+            f("a", { href: p.value }, G(c.value.title || "Untitled"), 9, ab)
           ]),
-          I[9] || (I[9] = f("span", { class: "text-xs text-gray-500" }, "(24)", -1))
-        ])) : j("", !0),
-        f("div", ub, [
-          f("span", db, G(w(M.value)), 1),
-          D.value > M.value ? (E(), S("span", fb, G(w(D.value)), 1)) : j("", !0)
+          s.value ? (E(), S("div", cb, [
+            f("div", ub, [
+              (E(), S(ie, null, _e(5, (L) => f("svg", {
+                key: L,
+                class: Ee(["w-4 h-4", L <= 4 ? "text-yellow-400 fill-current" : "text-gray-300 fill-current"]),
+                viewBox: "0 0 20 20"
+              }, I[8] || (I[8] = [
+                f("path", { d: "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" }, null, -1)
+              ]), 2)), 64))
+            ]),
+            I[9] || (I[9] = f("span", { class: "text-xs text-gray-500" }, "(24)", -1))
+          ])) : j("", !0),
+          f("div", db, [
+            f("span", fb, G(w(M.value)), 1),
+            D.value > M.value ? (E(), S("span", pb, G(w(D.value)), 1)) : j("", !0)
+          ])
         ]),
-        c.value.available ? (E(), S("button", {
-          key: 3,
-          onClick: P,
-          disabled: a.value,
-          class: "button w-full px-4 py-3 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2",
-          style: {
-            backgroundColor: "var(--button-primary-bg)",
-            color: "var(--button-primary-text)",
-            borderRadius: "var(--button-radius)"
-          },
-          onMouseenter: I[0] || (I[0] = (L) => L.target.style.backgroundColor = "var(--button-primary-bg-hover)"),
-          onMouseleave: I[1] || (I[1] = (L) => L.target.style.backgroundColor = "var(--button-primary-bg)")
-        }, [
-          a.value ? j("", !0) : (E(), S("svg", hb, I[10] || (I[10] = [
-            f("path", {
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round",
-              "stroke-width": "2",
-              d: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-            }, null, -1)
-          ]))),
-          a.value ? (E(), S("svg", gb, I[11] || (I[11] = [
-            f("circle", {
-              class: "opacity-25",
-              cx: "12",
-              cy: "12",
-              r: "10",
-              stroke: "currentColor",
-              "stroke-width": "4"
-            }, null, -1),
-            f("path", {
-              class: "opacity-75",
-              fill: "currentColor",
-              d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            }, null, -1)
-          ]))) : (E(), S("span", mb, "Add to Cart"))
-        ], 40, pb)) : j("", !0)
+        f("div", hb, [
+          c.value.available ? (E(), S("button", {
+            key: 0,
+            onClick: P,
+            disabled: a.value,
+            class: "button w-full px-4 py-3 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2",
+            style: {
+              backgroundColor: "var(--button-primary-bg)",
+              color: "var(--button-primary-text)",
+              borderRadius: "var(--button-radius)"
+            },
+            onMouseenter: I[0] || (I[0] = (L) => L.target.style.backgroundColor = "var(--button-primary-bg-hover)"),
+            onMouseleave: I[1] || (I[1] = (L) => L.target.style.backgroundColor = "var(--button-primary-bg)")
+          }, [
+            a.value ? j("", !0) : (E(), S("svg", gb, I[10] || (I[10] = [
+              f("path", {
+                "stroke-linecap": "round",
+                "stroke-linejoin": "round",
+                "stroke-width": "2",
+                d: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              }, null, -1)
+            ]))),
+            a.value ? (E(), S("svg", yb, I[11] || (I[11] = [
+              f("circle", {
+                class: "opacity-25",
+                cx: "12",
+                cy: "12",
+                r: "10",
+                stroke: "currentColor",
+                "stroke-width": "4"
+              }, null, -1),
+              f("path", {
+                class: "opacity-75",
+                fill: "currentColor",
+                d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              }, null, -1)
+            ]))) : (E(), S("span", vb, "Add to Cart"))
+          ], 40, mb)) : j("", !0)
+        ])
       ])
     ], 36));
   }
-}, yb = { class: "collection-filters" }, bb = { class: "lg:hidden mb-4" }, _b = { class: "space-y-6" }, Eb = {
+}, _b = { class: "collection-filters" }, Eb = { class: "lg:hidden mb-4" }, wb = { class: "space-y-6" }, xb = {
   key: 0,
   class: "filter-group"
-}, wb = { class: "filter-group" }, xb = { class: "flex items-center" }, Nb = { class: "filter-group" }, Sb = { class: "space-y-2" }, kb = { class: "flex items-center" }, Cb = { class: "flex items-center" }, Ob = { class: "flex items-center" }, Db = { class: "flex items-center" }, Tb = {
+}, Nb = { class: "filter-group" }, Sb = { class: "flex items-center" }, kb = { class: "filter-group" }, Cb = { class: "space-y-2" }, Ob = { class: "flex items-center" }, Db = { class: "flex items-center" }, Tb = { class: "flex items-center" }, $b = { class: "flex items-center" }, Ab = {
   key: 1,
   class: "filter-group"
-}, $b = { class: "space-y-2" }, Ab = ["value"], Vb = { class: "ml-2 text-sm" }, Ib = {
+}, Vb = { class: "space-y-2" }, Ib = ["value"], Mb = { class: "ml-2 text-sm" }, Pb = {
   key: 2,
   class: "filter-group"
-}, Mb = { class: "space-y-2" }, Pb = ["value"], Rb = { class: "ml-2 text-sm" }, Lb = { class: "absolute inset-y-0 left-0 w-full max-w-sm bg-white shadow-xl" }, Fb = { class: "h-full flex flex-col" }, Bb = { class: "flex items-center justify-between p-4 border-b" }, jb = { class: "flex-1 overflow-y-auto p-4" }, Hb = { class: "space-y-6" }, Ub = {
+}, Rb = { class: "space-y-2" }, Lb = ["value"], Fb = { class: "ml-2 text-sm" }, Bb = { class: "absolute inset-y-0 left-0 w-full max-w-sm bg-white shadow-xl" }, jb = { class: "h-full flex flex-col" }, Hb = { class: "flex items-center justify-between p-4 border-b" }, Ub = { class: "flex-1 overflow-y-auto p-4" }, qb = { class: "space-y-6" }, zb = {
   key: 0,
   class: "filter-group"
-}, qb = { class: "filter-group" }, zb = { class: "flex items-center" }, Wb = { class: "filter-group" }, Kb = { class: "space-y-2" }, Gb = { class: "flex items-center" }, Jb = { class: "flex items-center" }, Yb = { class: "flex items-center" }, Xb = { class: "flex items-center" }, Qb = {
+}, Wb = { class: "filter-group" }, Kb = { class: "flex items-center" }, Gb = { class: "filter-group" }, Jb = { class: "space-y-2" }, Yb = { class: "flex items-center" }, Xb = { class: "flex items-center" }, Qb = { class: "flex items-center" }, Zb = { class: "flex items-center" }, e_ = {
   key: 1,
   class: "filter-group"
-}, Zb = { class: "space-y-2" }, e_ = ["value"], t_ = { class: "ml-2 text-sm" }, n_ = {
+}, t_ = { class: "space-y-2" }, n_ = ["value"], s_ = { class: "ml-2 text-sm" }, r_ = {
   key: 2,
   class: "filter-group"
-}, s_ = { class: "space-y-2" }, r_ = ["value"], o_ = { class: "ml-2 text-sm" }, i_ = {
+}, o_ = { class: "space-y-2" }, i_ = ["value"], l_ = { class: "ml-2 text-sm" }, a_ = {
   __name: "CollectionFilters",
   props: {
     products: {
@@ -13806,8 +13810,8 @@ const Ot = (e, t) => {
       d(), window.addEventListener("popstate", c);
     }), Fs(() => {
       window.removeEventListener("popstate", c);
-    }), (V, w) => (E(), S("div", yb, [
-      f("div", bb, [
+    }), (V, w) => (E(), S("div", _b, [
+      f("div", Eb, [
         f("button", {
           onClick: w[0] || (w[0] = (C) => u.value = !0),
           class: "flex items-center justify-between w-full px-4 py-2 bg-white border border-secondary-300 hover:bg-secondary-50 transition-colors",
@@ -13833,8 +13837,8 @@ const Ot = (e, t) => {
         class: "hidden lg:block filters-card",
         style: je(p.value)
       }, [
-        f("div", _b, [
-          e.showSort ? (E(), S("div", Eb, [
+        f("div", wb, [
+          e.showSort ? (E(), S("div", xb, [
             w[22] || (w[22] = f("h3", { class: "font-medium text-secondary-900 mb-3" }, "Sort By", -1)),
             De(f("select", {
               "onUpdate:modelValue": w[1] || (w[1] = (C) => r.value = C),
@@ -13846,9 +13850,9 @@ const Ot = (e, t) => {
               [Ts, r.value]
             ])
           ])) : j("", !0),
-          f("div", wb, [
+          f("div", Nb, [
             w[24] || (w[24] = f("h3", { class: "font-medium text-secondary-900 mb-3" }, "Availability", -1)),
-            f("label", xb, [
+            f("label", Sb, [
               De(f("input", {
                 type: "checkbox",
                 "onUpdate:modelValue": w[2] || (w[2] = (C) => a.value = C),
@@ -13860,10 +13864,10 @@ const Ot = (e, t) => {
               w[23] || (w[23] = f("span", { class: "ml-2 text-sm" }, "In stock only", -1))
             ])
           ]),
-          f("div", Nb, [
+          f("div", kb, [
             w[29] || (w[29] = f("h3", { class: "font-medium text-secondary-900 mb-3" }, "Price", -1)),
-            f("div", Sb, [
-              f("label", kb, [
+            f("div", Cb, [
+              f("label", Ob, [
                 De(f("input", {
                   type: "checkbox",
                   value: "0-50",
@@ -13875,7 +13879,7 @@ const Ot = (e, t) => {
                 ]),
                 w[25] || (w[25] = f("span", { class: "ml-2 text-sm" }, "Under $50", -1))
               ]),
-              f("label", Cb, [
+              f("label", Db, [
                 De(f("input", {
                   type: "checkbox",
                   value: "50-100",
@@ -13887,7 +13891,7 @@ const Ot = (e, t) => {
                 ]),
                 w[26] || (w[26] = f("span", { class: "ml-2 text-sm" }, "$50 - $100", -1))
               ]),
-              f("label", Ob, [
+              f("label", Tb, [
                 De(f("input", {
                   type: "checkbox",
                   value: "100-200",
@@ -13899,7 +13903,7 @@ const Ot = (e, t) => {
                 ]),
                 w[27] || (w[27] = f("span", { class: "ml-2 text-sm" }, "$100 - $200", -1))
               ]),
-              f("label", Db, [
+              f("label", $b, [
                 De(f("input", {
                   type: "checkbox",
                   value: "200+",
@@ -13913,9 +13917,9 @@ const Ot = (e, t) => {
               ])
             ])
           ]),
-          h.value.length > 0 ? (E(), S("div", Tb, [
+          h.value.length > 0 ? (E(), S("div", Ab, [
             w[30] || (w[30] = f("h3", { class: "font-medium text-secondary-900 mb-3" }, "Product Type", -1)),
-            f("div", $b, [
+            f("div", Vb, [
               (E(!0), S(ie, null, _e(h.value, (C) => (E(), S("label", {
                 key: C,
                 class: "flex items-center"
@@ -13926,16 +13930,16 @@ const Ot = (e, t) => {
                   "onUpdate:modelValue": w[7] || (w[7] = (y) => i.value = y),
                   onChange: D,
                   class: "w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
-                }, null, 40, Ab), [
+                }, null, 40, Ib), [
                   [Le, i.value]
                 ]),
-                f("span", Vb, G(C), 1)
+                f("span", Mb, G(C), 1)
               ]))), 128))
             ])
           ])) : j("", !0),
-          v.value.length > 0 ? (E(), S("div", Ib, [
+          v.value.length > 0 ? (E(), S("div", Pb, [
             w[31] || (w[31] = f("h3", { class: "font-medium text-secondary-900 mb-3" }, "Brand", -1)),
-            f("div", Mb, [
+            f("div", Rb, [
               (E(!0), S(ie, null, _e(v.value, (C) => (E(), S("label", {
                 key: C,
                 class: "flex items-center"
@@ -13946,10 +13950,10 @@ const Ot = (e, t) => {
                   "onUpdate:modelValue": w[8] || (w[8] = (y) => l.value = y),
                   onChange: D,
                   class: "w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
-                }, null, 40, Pb), [
+                }, null, 40, Lb), [
                   [Le, l.value]
                 ]),
-                f("span", Rb, G(C), 1)
+                f("span", Fb, G(C), 1)
               ]))), 128))
             ])
           ])) : j("", !0),
@@ -13970,9 +13974,9 @@ const Ot = (e, t) => {
             class: "absolute inset-0 bg-black bg-opacity-50",
             onClick: w[9] || (w[9] = (C) => u.value = !1)
           }),
-          f("div", Lb, [
-            f("div", Fb, [
-              f("div", Bb, [
+          f("div", Bb, [
+            f("div", jb, [
+              f("div", Hb, [
                 w[33] || (w[33] = f("h2", { class: "text-lg" }, "Filters", -1)),
                 f("button", {
                   onClick: w[10] || (w[10] = (C) => u.value = !1),
@@ -13993,9 +13997,9 @@ const Ot = (e, t) => {
                   ], -1)
                 ]))
               ]),
-              f("div", jb, [
-                f("div", Hb, [
-                  e.showSort ? (E(), S("div", Ub, [
+              f("div", Ub, [
+                f("div", qb, [
+                  e.showSort ? (E(), S("div", zb, [
                     w[35] || (w[35] = f("h3", { class: "font-medium text-secondary-900 mb-3" }, "Sort By", -1)),
                     De(f("select", {
                       "onUpdate:modelValue": w[11] || (w[11] = (C) => r.value = C),
@@ -14014,9 +14018,9 @@ const Ot = (e, t) => {
                       [Ts, r.value]
                     ])
                   ])) : j("", !0),
-                  f("div", qb, [
+                  f("div", Wb, [
                     w[37] || (w[37] = f("h3", { class: "font-medium text-secondary-900 mb-3" }, "Availability", -1)),
-                    f("label", zb, [
+                    f("label", Kb, [
                       De(f("input", {
                         type: "checkbox",
                         "onUpdate:modelValue": w[12] || (w[12] = (C) => a.value = C),
@@ -14028,10 +14032,10 @@ const Ot = (e, t) => {
                       w[36] || (w[36] = f("span", { class: "ml-2 text-sm" }, "In stock only", -1))
                     ])
                   ]),
-                  f("div", Wb, [
+                  f("div", Gb, [
                     w[42] || (w[42] = f("h3", { class: "font-medium text-secondary-900 mb-3" }, "Price", -1)),
-                    f("div", Kb, [
-                      f("label", Gb, [
+                    f("div", Jb, [
+                      f("label", Yb, [
                         De(f("input", {
                           type: "checkbox",
                           value: "0-50",
@@ -14043,7 +14047,7 @@ const Ot = (e, t) => {
                         ]),
                         w[38] || (w[38] = f("span", { class: "ml-2 text-sm" }, "Under $50", -1))
                       ]),
-                      f("label", Jb, [
+                      f("label", Xb, [
                         De(f("input", {
                           type: "checkbox",
                           value: "50-100",
@@ -14055,7 +14059,7 @@ const Ot = (e, t) => {
                         ]),
                         w[39] || (w[39] = f("span", { class: "ml-2 text-sm" }, "$50 - $100", -1))
                       ]),
-                      f("label", Yb, [
+                      f("label", Qb, [
                         De(f("input", {
                           type: "checkbox",
                           value: "100-200",
@@ -14067,7 +14071,7 @@ const Ot = (e, t) => {
                         ]),
                         w[40] || (w[40] = f("span", { class: "ml-2 text-sm" }, "$100 - $200", -1))
                       ]),
-                      f("label", Xb, [
+                      f("label", Zb, [
                         De(f("input", {
                           type: "checkbox",
                           value: "200+",
@@ -14081,9 +14085,9 @@ const Ot = (e, t) => {
                       ])
                     ])
                   ]),
-                  h.value.length > 0 ? (E(), S("div", Qb, [
+                  h.value.length > 0 ? (E(), S("div", e_, [
                     w[43] || (w[43] = f("h3", { class: "font-medium text-secondary-900 mb-3" }, "Product Type", -1)),
-                    f("div", Zb, [
+                    f("div", t_, [
                       (E(!0), S(ie, null, _e(h.value, (C) => (E(), S("label", {
                         key: C,
                         class: "flex items-center"
@@ -14094,16 +14098,16 @@ const Ot = (e, t) => {
                           "onUpdate:modelValue": w[17] || (w[17] = (y) => i.value = y),
                           onChange: D,
                           class: "w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
-                        }, null, 40, e_), [
+                        }, null, 40, n_), [
                           [Le, i.value]
                         ]),
-                        f("span", t_, G(C), 1)
+                        f("span", s_, G(C), 1)
                       ]))), 128))
                     ])
                   ])) : j("", !0),
-                  v.value.length > 0 ? (E(), S("div", n_, [
+                  v.value.length > 0 ? (E(), S("div", r_, [
                     w[44] || (w[44] = f("h3", { class: "font-medium text-secondary-900 mb-3" }, "Brand", -1)),
-                    f("div", s_, [
+                    f("div", o_, [
                       (E(!0), S(ie, null, _e(v.value, (C) => (E(), S("label", {
                         key: C,
                         class: "flex items-center"
@@ -14114,10 +14118,10 @@ const Ot = (e, t) => {
                           "onUpdate:modelValue": w[18] || (w[18] = (y) => l.value = y),
                           onChange: D,
                           class: "w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
-                        }, null, 40, r_), [
+                        }, null, 40, i_), [
                           [Le, l.value]
                         ]),
-                        f("span", o_, G(C), 1)
+                        f("span", l_, G(C), 1)
                       ]))), 128))
                     ])
                   ])) : j("", !0),
@@ -14140,40 +14144,40 @@ const Ot = (e, t) => {
       ]))
     ]));
   }
-}, Mf = /* @__PURE__ */ Ot(i_, [["__scopeId", "data-v-633cc769"]]), l_ = { class: "collection-grid" }, a_ = {
+}, Mf = /* @__PURE__ */ Ot(a_, [["__scopeId", "data-v-633cc769"]]), c_ = { class: "collection-grid" }, u_ = {
   key: 0,
   class: "mb-8"
-}, c_ = { class: "text-3xl font-bold text-secondary-900 mb-4" }, u_ = {
+}, d_ = { class: "text-3xl font-bold text-secondary-900 mb-4" }, f_ = {
   key: 0,
   class: "prose prose-sm max-w-none text-secondary-600"
-}, d_ = { class: "mt-4 flex items-center justify-between" }, f_ = { class: "text-sm text-secondary-600" }, p_ = {
+}, p_ = { class: "mt-4 flex items-center justify-between" }, h_ = { class: "text-sm text-secondary-600" }, m_ = {
   key: 0,
   class: "lg:hidden"
-}, h_ = { class: "lg:grid lg:grid-cols-4 lg:gap-8" }, m_ = {
+}, g_ = { class: "lg:grid lg:grid-cols-4 lg:gap-8" }, v_ = {
   key: 0,
   class: "lg:col-span-1"
-}, g_ = ["products"], v_ = {
+}, y_ = ["products"], b_ = {
   key: 1,
   class: "text-center py-12"
-}, y_ = ["product"], b_ = {
+}, __ = ["product"], E_ = {
   key: 3,
   class: "mt-8"
-}, __ = {
+}, w_ = {
   key: 0,
   class: "inline-flex items-center"
-}, E_ = {
+}, x_ = {
   key: 1,
   class: "text-center"
-}, w_ = ["disabled"], x_ = { key: 0 }, N_ = { key: 1 }, S_ = {
+}, N_ = ["disabled"], S_ = { key: 0 }, k_ = { key: 1 }, C_ = {
   key: 2,
   class: "flex items-center justify-between"
-}, k_ = { class: "flex-1 flex justify-between sm:hidden" }, C_ = ["disabled"], O_ = ["disabled"], D_ = { class: "hidden sm:flex-1 sm:flex sm:items-center sm:justify-center" }, T_ = {
+}, O_ = { class: "flex-1 flex justify-between sm:hidden" }, D_ = ["disabled"], T_ = ["disabled"], $_ = { class: "hidden sm:flex-1 sm:flex sm:items-center sm:justify-center" }, A_ = {
   class: "relative z-0 inline-flex rounded-md shadow-sm -space-x-px",
   "aria-label": "Pagination"
-}, $_ = ["disabled"], A_ = ["onClick"], V_ = ["disabled"], I_ = { class: "flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0" }, M_ = {
+}, V_ = ["disabled"], I_ = ["onClick"], M_ = ["disabled"], P_ = { class: "flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0" }, R_ = {
   class: "relative bg-white text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-2xl sm:w-full",
   style: { borderRadius: "var(--button-radius)" }
-}, P_ = { class: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" }, R_ = { class: "text-lg font-medium text-secondary-900" }, L_ = {
+}, L_ = { class: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" }, F_ = { class: "text-lg font-medium text-secondary-900" }, B_ = {
   __name: "CollectionGrid",
   props: {
     products: {
@@ -14329,13 +14333,13 @@ const Ot = (e, t) => {
       w && w.disconnect();
     }), qt(() => t.enableInfiniteScroll, () => {
       C();
-    }), (y, $) => (E(), S("div", l_, [
-      e.showHeader ? (E(), S("div", a_, [
-        f("h1", c_, G(e.collectionTitle), 1),
-        e.collectionDescription ? (E(), S("div", u_, G(e.collectionDescription), 1)) : j("", !0),
-        f("div", d_, [
-          f("p", f_, G(e.totalProducts || c.value.length) + " products ", 1),
-          e.enableSorting ? (E(), S("div", p_, [
+    }), (y, $) => (E(), S("div", c_, [
+      e.showHeader ? (E(), S("div", u_, [
+        f("h1", d_, G(e.collectionTitle), 1),
+        e.collectionDescription ? (E(), S("div", f_, G(e.collectionDescription), 1)) : j("", !0),
+        f("div", p_, [
+          f("p", h_, G(e.totalProducts || c.value.length) + " products ", 1),
+          e.enableSorting ? (E(), S("div", m_, [
             De(f("select", {
               "onUpdate:modelValue": $[0] || ($[0] = (R) => i.value = R),
               onChange: N,
@@ -14349,12 +14353,12 @@ const Ot = (e, t) => {
           ])) : j("", !0)
         ])
       ])) : j("", !0),
-      f("div", h_, [
-        e.enableFiltering && e.filterPosition === "sidebar" ? (E(), S("aside", m_, [
+      f("div", g_, [
+        e.enableFiltering && e.filterPosition === "sidebar" ? (E(), S("aside", v_, [
           f("collection-filters", {
             products: e.products,
             onUpdateFilters: D
-          }, null, 40, g_)
+          }, null, 40, y_)
         ])) : j("", !0),
         f("div", {
           class: Ee(e.enableFiltering && e.filterPosition === "sidebar" ? "lg:col-span-3" : "lg:col-span-4")
@@ -14376,7 +14380,7 @@ const Ot = (e, t) => {
                 f("div", { class: "h-4 bg-secondary-200 rounded w-1/2" })
               ], -1)
             ]))), 64))
-          ], 2)) : c.value.length === 0 ? (E(), S("div", v_, $[7] || ($[7] = [
+          ], 2)) : c.value.length === 0 ? (E(), S("div", b_, $[7] || ($[7] = [
             f("svg", {
               class: "mx-auto h-12 w-12 text-secondary-400",
               fill: "none",
@@ -14401,16 +14405,16 @@ const Ot = (e, t) => {
               product: R,
               onQuickAdd: k,
               onQuickView: O
-            }, null, 40, y_))), 128))
+            }, null, 40, __))), 128))
           ], 2)),
-          !n.value && c.value.length > 0 ? (E(), S("div", b_, [
+          !n.value && c.value.length > 0 ? (E(), S("div", E_, [
             e.enableInfiniteScroll ? (E(), S("div", {
               key: 0,
               ref_key: "loadMoreTrigger",
               ref: u,
               class: "text-center py-4"
             }, [
-              s.value ? (E(), S("div", __, $[8] || ($[8] = [
+              s.value ? (E(), S("div", w_, $[8] || ($[8] = [
                 f("svg", {
                   class: "animate-spin h-5 w-5 text-primary-600 mr-2",
                   fill: "none",
@@ -14432,34 +14436,34 @@ const Ot = (e, t) => {
                 ], -1),
                 Xe(" Loading more products... ", -1)
               ]))) : j("", !0)
-            ], 512)) : v.value ? (E(), S("div", E_, [
+            ], 512)) : v.value ? (E(), S("div", x_, [
               f("button", {
                 onClick: m,
                 disabled: s.value,
                 class: "inline-flex items-center px-6 py-3 border border-secondary-300 text-sm font-medium text-secondary-700 bg-white hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed",
                 style: { borderRadius: "var(--button-radius)" }
               }, [
-                s.value ? (E(), S("span", x_, "Loading...")) : (E(), S("span", N_, "Load More (" + G(g.value) + " remaining)", 1))
-              ], 8, w_)
+                s.value ? (E(), S("span", S_, "Loading...")) : (E(), S("span", k_, "Load More (" + G(g.value) + " remaining)", 1))
+              ], 8, N_)
             ])) : j("", !0),
-            !e.enableInfiniteScroll && h.value > 1 ? (E(), S("nav", S_, [
-              f("div", k_, [
+            !e.enableInfiniteScroll && h.value > 1 ? (E(), S("nav", C_, [
+              f("div", O_, [
                 f("button", {
                   onClick: $[1] || ($[1] = (R) => r.value--),
                   disabled: r.value === 1,
                   class: "relative inline-flex items-center px-4 py-2 border border-secondary-300 text-sm font-medium text-secondary-700 bg-white hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed",
                   style: { borderRadius: "var(--button-radius)" }
-                }, " Previous ", 8, C_),
+                }, " Previous ", 8, D_),
                 f("button", {
                   onClick: $[2] || ($[2] = (R) => r.value++),
                   disabled: r.value === h.value,
                   class: "ml-3 relative inline-flex items-center px-4 py-2 border border-secondary-300 text-sm font-medium text-secondary-700 bg-white hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed",
                   style: { borderRadius: "var(--button-radius)" }
-                }, " Next ", 8, O_)
+                }, " Next ", 8, T_)
               ]),
-              f("div", D_, [
+              f("div", $_, [
                 f("div", null, [
-                  f("nav", T_, [
+                  f("nav", A_, [
                     f("button", {
                       onClick: $[3] || ($[3] = (R) => r.value--),
                       disabled: r.value === 1,
@@ -14477,7 +14481,7 @@ const Ot = (e, t) => {
                           "clip-rule": "evenodd"
                         })
                       ], -1)
-                    ]), 8, $_),
+                    ]), 8, V_),
                     (E(!0), S(ie, null, _e(M.value, (R) => (E(), S("button", {
                       key: R,
                       onClick: (_) => r.value = R,
@@ -14485,7 +14489,7 @@ const Ot = (e, t) => {
                         "relative inline-flex items-center px-4 py-2 border text-sm font-medium",
                         r.value === R ? "z-10 bg-primary-50 border-primary-500 text-primary-600" : "bg-white border-secondary-300 text-secondary-500 hover:bg-secondary-50"
                       ])
-                    }, G(R), 11, A_))), 128)),
+                    }, G(R), 11, I_))), 128)),
                     f("button", {
                       onClick: $[4] || ($[4] = (R) => r.value++),
                       disabled: r.value === h.value,
@@ -14503,7 +14507,7 @@ const Ot = (e, t) => {
                           "clip-rule": "evenodd"
                         })
                       ], -1)
-                    ]), 8, V_)
+                    ]), 8, M_)
                   ])
                 ])
               ])
@@ -14517,12 +14521,12 @@ const Ot = (e, t) => {
           class: "fixed inset-0 z-50 overflow-y-auto",
           onClick: zt(V, ["self"])
         }, [
-          f("div", I_, [
+          f("div", P_, [
             f("div", {
               class: "fixed inset-0 bg-black bg-opacity-50 transition-opacity",
               onClick: V
             }),
-            f("div", M_, [
+            f("div", R_, [
               f("div", { class: "absolute top-0 right-0 pt-4 pr-4" }, [
                 f("button", {
                   onClick: V,
@@ -14544,8 +14548,8 @@ const Ot = (e, t) => {
                   ], -1)
                 ]))
               ]),
-              f("div", P_, [
-                f("h3", R_, G(a.value.title), 1),
+              f("div", L_, [
+                f("h3", F_, G(a.value.title), 1),
                 $[12] || ($[12] = f("p", { class: "mt-2 text-sm text-secondary-500" }, "Quick view functionality would be implemented here", -1))
               ])
             ])
@@ -14554,7 +14558,7 @@ const Ot = (e, t) => {
       ]))
     ]));
   }
-}, F_ = { class: "collection-sort-wrapper" }, B_ = {
+}, j_ = { class: "collection-sort-wrapper" }, H_ = {
   __name: "CollectionSort",
   props: {
     currentSort: {
@@ -14578,7 +14582,7 @@ const Ot = (e, t) => {
     return it(() => {
       const l = s().get("sort_by");
       l && (n.value = l);
-    }), (i, l) => (E(), S("div", F_, [
+    }), (i, l) => (E(), S("div", j_, [
       De(f("select", {
         "onUpdate:modelValue": l[0] || (l[0] = (a) => n.value = a),
         onChange: o,
@@ -14591,19 +14595,19 @@ const Ot = (e, t) => {
       ])
     ]));
   }
-}, j_ = {
+}, U_ = {
   key: 0,
   class: "fixed inset-0 z-50 overflow-hidden"
-}, H_ = { class: "absolute inset-0 overflow-hidden" }, U_ = { class: "fixed inset-y-0 left-0 max-w-full flex pointer-events-none" }, q_ = {
+}, q_ = { class: "absolute inset-0 overflow-hidden" }, z_ = { class: "fixed inset-y-0 left-0 max-w-full flex pointer-events-none" }, W_ = {
   key: 0,
   class: "w-screen max-w-md pointer-events-auto"
-}, z_ = { class: "h-full flex flex-col bg-white shadow-xl transition-shadow duration-300" }, W_ = { class: "flex items-center justify-between px-4 py-6 sm:px-6 border-b border-gray-200" }, K_ = { class: "h-12 flex flex-col justify-between" }, G_ = { class: "flex-1 overflow-y-auto px-4 py-6 sm:px-6" }, J_ = { class: "mb-6" }, Y_ = { class: "flex items-center cursor-pointer" }, X_ = { class: "mb-6" }, Q_ = { class: "space-y-2" }, Z_ = ["value"], eE = { class: "ml-2 text-sm" }, tE = {
+}, K_ = { class: "h-full flex flex-col bg-white shadow-xl transition-shadow duration-300" }, G_ = { class: "flex items-center justify-between px-4 py-6 sm:px-6 border-b border-gray-200" }, J_ = { class: "h-12 flex flex-col justify-between" }, Y_ = { class: "flex-1 overflow-y-auto px-4 py-6 sm:px-6" }, X_ = { class: "mb-6" }, Q_ = { class: "flex items-center cursor-pointer" }, Z_ = { class: "mb-6" }, eE = { class: "space-y-2" }, tE = ["value"], nE = { class: "ml-2 text-sm" }, sE = {
   key: 0,
   class: "mb-6"
-}, nE = { class: "space-y-2" }, sE = ["value"], rE = { class: "ml-2 text-sm" }, oE = {
+}, rE = { class: "space-y-2" }, oE = ["value"], iE = { class: "ml-2 text-sm" }, lE = {
   key: 1,
   class: "mb-6"
-}, iE = { class: "space-y-2" }, lE = ["value"], aE = { class: "ml-2 text-sm" }, cE = {
+}, aE = { class: "space-y-2" }, cE = ["value"], uE = { class: "ml-2 text-sm" }, dE = {
   __name: "CollectionFilterDrawer",
   props: {
     products: {
@@ -14721,8 +14725,8 @@ const Ot = (e, t) => {
       (E(), wt(Fn, { to: "body" }, [
         ue(pt, { name: "drawer" }, {
           default: Pe(() => [
-            n.value ? (E(), S("div", j_, [
-              f("div", H_, [
+            n.value ? (E(), S("div", U_, [
+              f("div", q_, [
                 ue(pt, { name: "fade" }, {
                   default: Pe(() => [
                     n.value ? (E(), S("div", {
@@ -14733,16 +14737,16 @@ const Ot = (e, t) => {
                   ]),
                   _: 1
                 }),
-                f("div", U_, [
+                f("div", z_, [
                   ue(pt, {
                     name: "slide",
                     appear: ""
                   }, {
                     default: Pe(() => [
-                      n.value ? (E(), S("div", q_, [
-                        f("div", z_, [
-                          f("div", W_, [
-                            f("div", K_, [
+                      n.value ? (E(), S("div", W_, [
+                        f("div", K_, [
+                          f("div", G_, [
+                            f("div", J_, [
                               g[6] || (g[6] = f("h2", { class: "text-xl" }, "Filters", -1)),
                               f("p", {
                                 class: Ee(["text-sm text-gray-500 h-5 transition-opacity duration-200", { "opacity-0": l.value === 0, "opacity-100": l.value > 0 }])
@@ -14769,10 +14773,10 @@ const Ot = (e, t) => {
                               ], -1)
                             ]))
                           ]),
-                          f("div", G_, [
-                            f("div", J_, [
+                          f("div", Y_, [
+                            f("div", X_, [
                               g[9] || (g[9] = f("h3", { class: "text-lg mb-3" }, "Availability", -1)),
-                              f("label", Y_, [
+                              f("label", Q_, [
                                 De(f("input", {
                                   type: "checkbox",
                                   "onUpdate:modelValue": g[0] || (g[0] = (M) => s.value.inStock = M),
@@ -14783,9 +14787,9 @@ const Ot = (e, t) => {
                                 g[8] || (g[8] = f("span", { class: "ml-2 text-sm" }, "In stock only", -1))
                               ])
                             ]),
-                            f("div", X_, [
+                            f("div", Z_, [
                               g[10] || (g[10] = f("h3", { class: "text-lg mb-3" }, "Price", -1)),
-                              f("div", Q_, [
+                              f("div", eE, [
                                 (E(), S(ie, null, _e(r, (M) => f("label", {
                                   key: M.value,
                                   class: "flex items-center cursor-pointer"
@@ -14795,16 +14799,16 @@ const Ot = (e, t) => {
                                     value: M.value,
                                     "onUpdate:modelValue": g[1] || (g[1] = (D) => s.value.priceRanges = D),
                                     class: "w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
-                                  }, null, 8, Z_), [
+                                  }, null, 8, tE), [
                                     [Le, s.value.priceRanges]
                                   ]),
-                                  f("span", eE, G(M.label), 1)
+                                  f("span", nE, G(M.label), 1)
                                 ])), 64))
                               ])
                             ]),
-                            o.value.length > 0 ? (E(), S("div", tE, [
+                            o.value.length > 0 ? (E(), S("div", sE, [
                               g[11] || (g[11] = f("h3", { class: "text-lg mb-3" }, "Product Type", -1)),
-                              f("div", nE, [
+                              f("div", rE, [
                                 (E(!0), S(ie, null, _e(o.value, (M) => (E(), S("label", {
                                   key: M,
                                   class: "flex items-center cursor-pointer"
@@ -14814,16 +14818,16 @@ const Ot = (e, t) => {
                                     value: M,
                                     "onUpdate:modelValue": g[2] || (g[2] = (D) => s.value.types = D),
                                     class: "w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
-                                  }, null, 8, sE), [
+                                  }, null, 8, oE), [
                                     [Le, s.value.types]
                                   ]),
-                                  f("span", rE, G(M), 1)
+                                  f("span", iE, G(M), 1)
                                 ]))), 128))
                               ])
                             ])) : j("", !0),
-                            i.value.length > 0 ? (E(), S("div", oE, [
+                            i.value.length > 0 ? (E(), S("div", lE, [
                               g[12] || (g[12] = f("h3", { class: "text-lg mb-3" }, "Brand", -1)),
-                              f("div", iE, [
+                              f("div", aE, [
                                 (E(!0), S(ie, null, _e(i.value, (M) => (E(), S("label", {
                                   key: M,
                                   class: "flex items-center cursor-pointer"
@@ -14833,10 +14837,10 @@ const Ot = (e, t) => {
                                     value: M,
                                     "onUpdate:modelValue": g[3] || (g[3] = (D) => s.value.vendors = D),
                                     class: "w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
-                                  }, null, 8, lE), [
+                                  }, null, 8, cE), [
                                     [Le, s.value.vendors]
                                   ]),
-                                  f("span", aE, G(M), 1)
+                                  f("span", uE, G(M), 1)
                                 ]))), 128))
                               ])
                             ])) : j("", !0)
@@ -14867,23 +14871,23 @@ const Ot = (e, t) => {
       ]))
     ]));
   }
-}, uE = /* @__PURE__ */ Ot(cE, [["__scopeId", "data-v-2b5c3e72"]]);
-function dE(e) {
+}, fE = /* @__PURE__ */ Ot(dE, [["__scopeId", "data-v-2b5c3e72"]]);
+function pE(e) {
   return ll() ? (Lc(e), !0) : !1;
 }
 function Pf(e) {
   return typeof e == "function" ? e() : xr(e);
 }
-const fE = typeof window < "u" && typeof document < "u";
+const hE = typeof window < "u" && typeof document < "u";
 typeof WorkerGlobalScope < "u" && globalThis instanceof WorkerGlobalScope;
-const pE = Object.prototype.toString, hE = (e) => pE.call(e) === "[object Object]", el = () => {
+const mE = Object.prototype.toString, gE = (e) => mE.call(e) === "[object Object]", el = () => {
 };
-function mE(e) {
+function vE(e) {
   var t;
   const n = Pf(e);
   return (t = n == null ? void 0 : n.$el) != null ? t : n;
 }
-const Rf = fE ? window : void 0;
+const Rf = hE ? window : void 0;
 function vi(...e) {
   let t, n, s, r;
   if (typeof e[0] == "string" || Array.isArray(e[0]) ? ([n, s, r] = e, t = Rf) : [t, n, s, r] = e, !t)
@@ -14892,11 +14896,11 @@ function vi(...e) {
   const o = [], i = () => {
     o.forEach((d) => d()), o.length = 0;
   }, l = (d, c, p, h) => (d.addEventListener(c, p, h), () => d.removeEventListener(c, p, h)), a = qt(
-    () => [mE(t), Pf(r)],
+    () => [vE(t), Pf(r)],
     ([d, c]) => {
       if (i(), !d)
         return;
-      const p = hE(c) ? { ...c } : c;
+      const p = gE(c) ? { ...c } : c;
       o.push(
         ...n.flatMap((h) => s.map((v) => l(d, h, v, p)))
       );
@@ -14905,9 +14909,9 @@ function vi(...e) {
   ), u = () => {
     a(), i();
   };
-  return dE(u), u;
+  return pE(u), u;
 }
-function gE(e, t = {}) {
+function yE(e, t = {}) {
   const {
     threshold: n = 50,
     onSwipe: s,
@@ -14921,7 +14925,7 @@ function gE(e, t = {}) {
     u.x = y, u.y = $;
   };
   let k;
-  const O = vE(l == null ? void 0 : l.document);
+  const O = bE(l == null ? void 0 : l.document);
   i ? k = O ? { passive: !0 } : { capture: !1 } : k = O ? { passive: !1, capture: !0 } : { capture: !0 };
   const V = (y) => {
     g.value && (r == null || r(y, M.value)), g.value = !1;
@@ -14952,7 +14956,7 @@ function gE(e, t = {}) {
     stop: () => w.forEach((y) => y())
   };
 }
-function vE(e) {
+function bE(e) {
   if (!e)
     return !1;
   let t = !1;
@@ -14963,16 +14967,16 @@ function vE(e) {
   };
   return e.addEventListener("x", el, n), e.removeEventListener("x", el), t;
 }
-const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _E = ["src", "alt"], EE = {
+const _E = { class: "product-gallery" }, EE = { class: "main-image-wrapper" }, wE = ["src", "alt"], xE = {
   key: 0,
   class: "absolute inset-0 flex items-center justify-center"
-}, wE = {
+}, NE = {
   key: 0,
   class: "thumbnails-wrapper"
-}, xE = ["disabled"], NE = ["onClick", "aria-label"], SE = ["src", "alt"], kE = ["disabled"], CE = {
+}, SE = ["disabled"], kE = ["onClick", "aria-label"], CE = ["src", "alt"], OE = ["disabled"], DE = {
   key: 1,
   class: "swiper-dots"
-}, OE = ["onClick", "aria-label"], DE = ["src", "alt"], TE = { class: "lightbox-counter" }, $E = 80, Hr = 4, kc = 2, AE = {
+}, TE = ["onClick", "aria-label"], $E = ["src", "alt"], AE = { class: "lightbox-counter" }, VE = 80, Hr = 4, kc = 2, IE = {
   __name: "ProductGallery",
   props: {
     images: {
@@ -15033,7 +15037,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
     }, O = (w) => {
       const C = w.currentTarget.getBoundingClientRect();
       c.value = C, u.value = w.clientX - C.left, d.value = w.clientY - C.top;
-    }, { lengthX: V } = gE(
+    }, { lengthX: V } = yE(
       a,
       {
         onSwipeEnd() {
@@ -15051,8 +15055,8 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
       window.addEventListener("resize", w), window.addEventListener("keydown", C), yn(() => {
         window.removeEventListener("resize", w), window.removeEventListener("keydown", C);
       });
-    }), (w, C) => (E(), S("div", yE, [
-      f("div", bE, [
+    }), (w, C) => (E(), S("div", _E, [
+      f("div", EE, [
         f("div", {
           class: "main-image aspect-square bg-gray-100 overflow-hidden relative group cursor-zoom-in",
           style: { borderRadius: "var(--card-radius, 8px)" },
@@ -15066,8 +15070,8 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
             alt: h.value.alt,
             class: Ee(["w-full h-full object-contain transition-opacity duration-300", { "opacity-0": s.value }]),
             onLoad: C[0] || (C[0] = (y) => s.value = !1)
-          }, null, 42, _E),
-          s.value ? (E(), S("div", EE, C[9] || (C[9] = [
+          }, null, 42, wE),
+          s.value ? (E(), S("div", xE, C[9] || (C[9] = [
             f("div", { class: "animate-spin rounded-full h-8 w-8 border-b-2 border-red-600" }, null, -1)
           ]))) : j("", !0),
           C[10] || (C[10] = f("div", { class: "absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-2 shadow-md" }, [
@@ -15097,7 +15101,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
           style: je(g.value)
         }, null, 4)) : j("", !0)
       ]),
-      p.value.length > 1 ? (E(), S("div", wE, [
+      p.value.length > 1 ? (E(), S("div", NE, [
         p.value.length > Hr ? (E(), S("button", {
           key: 0,
           onClick: C[4] || (C[4] = (y) => D("prev")),
@@ -15118,7 +15122,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
               d: "M15 19l-7-7 7-7"
             })
           ], -1)
-        ]), 8, xE)) : j("", !0),
+        ]), 8, SE)) : j("", !0),
         f("div", {
           class: "thumbnails-container",
           ref_key: "thumbnailsContainer",
@@ -15126,7 +15130,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
         }, [
           f("div", {
             class: "thumbnails-track",
-            style: je({ transform: `translateX(-${l.value * ($E + 8)}px)` })
+            style: je({ transform: `translateX(-${l.value * (VE + 8)}px)` })
           }, [
             (E(!0), S(ie, null, _e(p.value, (y, $) => (E(), S("button", {
               key: $,
@@ -15138,8 +15142,8 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                 src: y.thumbnail || y.src,
                 alt: y.alt,
                 class: "w-full h-full object-contain"
-              }, null, 8, SE)
-            ], 10, NE))), 128))
+              }, null, 8, CE)
+            ], 10, kE))), 128))
           ], 4)
         ], 512),
         p.value.length > Hr ? (E(), S("button", {
@@ -15162,15 +15166,15 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
               d: "M9 5l7 7-7 7"
             })
           ], -1)
-        ]), 8, kE)) : j("", !0)
+        ]), 8, OE)) : j("", !0)
       ])) : j("", !0),
-      p.value.length > 1 && i.value ? (E(), S("div", CE, [
+      p.value.length > 1 && i.value ? (E(), S("div", DE, [
         (E(!0), S(ie, null, _e(p.value, (y, $) => (E(), S("button", {
           key: $,
           onClick: (R) => M($),
           class: Ee(["swiper-dot", { active: $ === n.value }]),
           "aria-label": `Go to image ${$ + 1}`
-        }, null, 10, OE))), 128))
+        }, null, 10, TE))), 128))
       ])) : j("", !0),
       (E(), wt(Fn, { to: "body" }, [
         r.value ? (E(), S("div", {
@@ -15226,7 +15230,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
               src: h.value.src,
               alt: h.value.alt,
               class: "lightbox-image"
-            }, null, 8, DE)
+            }, null, 8, $E)
           ]),
           p.value.length > 1 ? (E(), S("button", {
             key: 1,
@@ -15248,48 +15252,48 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
               })
             ], -1)
           ]))) : j("", !0),
-          f("div", TE, G(n.value + 1) + " / " + G(p.value.length), 1)
+          f("div", AE, G(n.value + 1) + " / " + G(p.value.length), 1)
         ])) : j("", !0)
       ]))
     ]));
   }
-}, VE = /* @__PURE__ */ Ot(AE, [["__scopeId", "data-v-abf619cf"]]), IE = { class: "product-info" }, ME = { class: "text-2xl lg:text-3xl font-bold text-gray-900 mb-2" }, PE = {
+}, ME = /* @__PURE__ */ Ot(IE, [["__scopeId", "data-v-abf619cf"]]), PE = { class: "product-info" }, RE = { class: "text-2xl lg:text-3xl font-bold text-gray-900 mb-2" }, LE = {
   key: 0,
   class: "text-sm text-gray-600 mb-4"
-}, RE = { class: "price-wrapper mb-6" }, LE = { class: "flex items-baseline gap-3" }, FE = { class: "text-3xl font-semibold text-gray-900" }, BE = {
+}, FE = { class: "price-wrapper mb-6" }, BE = { class: "flex items-baseline gap-3" }, jE = { class: "text-3xl font-semibold text-gray-900" }, HE = {
   key: 0,
   class: "text-xl text-gray-500 line-through"
-}, jE = {
+}, UE = {
   key: 0,
   class: "text-sm text-red-600 font-medium mt-1"
-}, HE = {
+}, qE = {
   key: 1,
   class: "mb-6"
-}, UE = ["product", "current-variant"], qE = ["value"], zE = { class: "mb-4" }, WE = ["max"], KE = { class: "mb-4" }, GE = {
+}, zE = ["product", "current-variant"], WE = ["value"], KE = { class: "mb-4" }, GE = ["max"], JE = { class: "mb-4" }, YE = {
   key: 0,
   class: "text-red-600 font-medium"
-}, JE = {
+}, XE = {
   key: 1,
   class: "text-amber-600"
-}, YE = {
+}, QE = {
   key: 2,
   class: "text-green-600"
-}, XE = { class: "flex flex-col sm:flex-row gap-3" }, QE = ["disabled"], ZE = {
+}, ZE = { class: "flex flex-col sm:flex-row gap-3" }, ew = ["disabled"], tw = {
   key: 0,
   class: "flex items-center justify-center gap-2"
-}, ew = { key: 1 }, tw = { key: 2 }, nw = {
+}, nw = { key: 1 }, sw = { key: 2 }, rw = {
   key: 2,
   class: "prose prose-sm max-w-none mb-8"
-}, sw = ["innerHTML"], rw = { class: "space-y-4" }, ow = {
+}, ow = ["innerHTML"], iw = { class: "space-y-4" }, lw = {
   key: 0,
   class: "group"
-}, iw = ["innerHTML"], lw = {
+}, aw = ["innerHTML"], cw = {
   key: 1,
   class: "group"
-}, aw = { class: "mt-8 pt-8 border-t" }, cw = { class: "flex gap-3" }, uw = {
+}, uw = { class: "mt-8 pt-8 border-t" }, dw = { class: "flex gap-3" }, fw = {
   key: 0,
   class: "absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap"
-}, dw = {
+}, pw = {
   __name: "ProductInfo",
   props: {
     product: {
@@ -15349,22 +15353,22 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
     };
     return qt(() => n.product.selected_variant, (D) => {
       D && (r.value = D);
-    }), (D, N) => (E(), S("div", IE, [
-      f("h1", ME, G(e.product.title), 1),
-      e.product.vendor ? (E(), S("p", PE, " by " + G(e.product.vendor), 1)) : j("", !0),
-      f("div", RE, [
-        f("div", LE, [
-          f("span", FE, G(d(r.value.price)), 1),
-          r.value.compare_at_price > r.value.price ? (E(), S("span", BE, G(d(r.value.compare_at_price)), 1)) : j("", !0)
+    }), (D, N) => (E(), S("div", PE, [
+      f("h1", RE, G(e.product.title), 1),
+      e.product.vendor ? (E(), S("p", LE, " by " + G(e.product.vendor), 1)) : j("", !0),
+      f("div", FE, [
+        f("div", BE, [
+          f("span", jE, G(d(r.value.price)), 1),
+          r.value.compare_at_price > r.value.price ? (E(), S("span", HE, G(d(r.value.compare_at_price)), 1)) : j("", !0)
         ]),
-        r.value.compare_at_price > r.value.price ? (E(), S("p", jE, " Save " + G(d(r.value.compare_at_price - r.value.price)) + " (" + G(Math.round((1 - r.value.price / r.value.compare_at_price) * 100)) + "% off) ", 1)) : j("", !0)
+        r.value.compare_at_price > r.value.price ? (E(), S("p", UE, " Save " + G(d(r.value.compare_at_price - r.value.price)) + " (" + G(Math.round((1 - r.value.price / r.value.compare_at_price) * 100)) + "% off) ", 1)) : j("", !0)
       ]),
-      e.product.has_only_default_variant ? j("", !0) : (E(), S("div", HE, [
+      e.product.has_only_default_variant ? j("", !0) : (E(), S("div", qE, [
         f("product-variant-picker", {
           product: e.product,
           "current-variant": r.value,
           onVariantChange: c
-        }, null, 40, UE)
+        }, null, 40, zE)
       ])),
       f("form", {
         onSubmit: zt(p, ["prevent"]),
@@ -15374,27 +15378,27 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
           type: "hidden",
           name: "id",
           value: r.value.id
-        }, null, 8, qE),
-        f("div", zE, [
+        }, null, 8, WE),
+        f("div", KE, [
           N[4] || (N[4] = f("label", { class: "block text-sm font-medium text-gray-700 mb-2" }, " Quantity ", -1)),
           De(f("quantity-selector", {
             "onUpdate:modelValue": N[0] || (N[0] = (m) => o.value = m),
             min: 1,
             max: a.value
-          }, null, 8, WE), [
+          }, null, 8, GE), [
             [ls, o.value]
           ])
         ]),
-        f("div", KE, [
-          r.value.available ? r.value.inventory_quantity && r.value.inventory_quantity <= 10 ? (E(), S("p", JE, " Only " + G(r.value.inventory_quantity) + " left in stock ", 1)) : (E(), S("p", YE, " ✓ In Stock ")) : (E(), S("p", GE, " Out of Stock "))
+        f("div", JE, [
+          r.value.available ? r.value.inventory_quantity && r.value.inventory_quantity <= 10 ? (E(), S("p", XE, " Only " + G(r.value.inventory_quantity) + " left in stock ", 1)) : (E(), S("p", QE, " ✓ In Stock ")) : (E(), S("p", YE, " Out of Stock "))
         ]),
-        f("div", XE, [
+        f("div", ZE, [
           f("button", {
             type: "submit",
             class: "btn btn-primary flex-1",
             disabled: !r.value.available || i.value
           }, [
-            i.value ? (E(), S("span", ZE, N[5] || (N[5] = [
+            i.value ? (E(), S("span", tw, N[5] || (N[5] = [
               f("svg", {
                 class: "animate-spin h-5 w-5",
                 viewBox: "0 0 24 24"
@@ -15415,8 +15419,8 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                 })
               ], -1),
               Xe(" Adding... ", -1)
-            ]))) : r.value.available ? (E(), S("span", tw, " Add to Cart ")) : (E(), S("span", ew, " Sold Out "))
-          ], 8, QE),
+            ]))) : r.value.available ? (E(), S("span", sw, " Add to Cart ")) : (E(), S("span", nw, " Sold Out "))
+          ], 8, ew),
           e.showBuyNow ? (E(), wt(ts, {
             key: 0,
             type: "button",
@@ -15433,15 +15437,15 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
           }, 8, ["disabled"])) : j("", !0)
         ])
       ], 32),
-      e.product.description ? (E(), S("div", nw, [
+      e.product.description ? (E(), S("div", rw, [
         N[7] || (N[7] = f("h2", { class: "text-lg font-semibold text-gray-900 mb-3" }, "Description", -1)),
         f("div", {
           innerHTML: e.product.description
-        }, null, 8, sw)
+        }, null, 8, ow)
       ])) : j("", !0),
-      f("div", rw, [
+      f("div", iw, [
         N[10] || (N[10] = Pn('<details class="group" data-v-9e2c3b5c><summary class="flex justify-between items-center cursor-pointer py-3 border-b hover:text-red-600 transition-colors" data-v-9e2c3b5c><span class="font-medium" data-v-9e2c3b5c>Shipping &amp; Returns</span><svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-v-9e2c3b5c><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" data-v-9e2c3b5c></path></svg></summary><div class="py-4 text-sm text-gray-600" data-v-9e2c3b5c><p class="mb-2" data-v-9e2c3b5c>Free shipping on orders over $50.</p><p class="mb-2" data-v-9e2c3b5c>Standard shipping typically takes 3-5 business days.</p><p data-v-9e2c3b5c>30-day return policy. Items must be in original condition.</p></div></details>', 1)),
-        e.product.care_instructions ? (E(), S("details", ow, [
+        e.product.care_instructions ? (E(), S("details", lw, [
           N[8] || (N[8] = f("summary", { class: "flex justify-between items-center cursor-pointer py-3 border-b hover:text-red-600 transition-colors" }, [
             f("span", { class: "font-medium" }, "Care Instructions"),
             f("svg", {
@@ -15461,15 +15465,15 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
           f("div", {
             class: "py-4 text-sm text-gray-600",
             innerHTML: e.product.care_instructions
-          }, null, 8, iw)
+          }, null, 8, aw)
         ])) : j("", !0),
-        u.value ? (E(), S("details", lw, N[9] || (N[9] = [
+        u.value ? (E(), S("details", cw, N[9] || (N[9] = [
           Pn('<summary class="flex justify-between items-center cursor-pointer py-3 border-b hover:text-red-600 transition-colors" data-v-9e2c3b5c><span class="font-medium" data-v-9e2c3b5c>Size Guide</span><svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-v-9e2c3b5c><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" data-v-9e2c3b5c></path></svg></summary><div class="py-4" data-v-9e2c3b5c><table class="w-full text-sm" data-v-9e2c3b5c><thead data-v-9e2c3b5c><tr class="border-b" data-v-9e2c3b5c><th class="text-left py-2" data-v-9e2c3b5c>Size</th><th class="text-left py-2" data-v-9e2c3b5c>Chest</th><th class="text-left py-2" data-v-9e2c3b5c>Length</th></tr></thead><tbody data-v-9e2c3b5c><tr class="border-b" data-v-9e2c3b5c><td class="py-2" data-v-9e2c3b5c>S</td><td class="py-2" data-v-9e2c3b5c>36&quot;</td><td class="py-2" data-v-9e2c3b5c>28&quot;</td></tr><tr class="border-b" data-v-9e2c3b5c><td class="py-2" data-v-9e2c3b5c>M</td><td class="py-2" data-v-9e2c3b5c>40&quot;</td><td class="py-2" data-v-9e2c3b5c>29&quot;</td></tr><tr class="border-b" data-v-9e2c3b5c><td class="py-2" data-v-9e2c3b5c>L</td><td class="py-2" data-v-9e2c3b5c>44&quot;</td><td class="py-2" data-v-9e2c3b5c>30&quot;</td></tr><tr data-v-9e2c3b5c><td class="py-2" data-v-9e2c3b5c>XL</td><td class="py-2" data-v-9e2c3b5c>48&quot;</td><td class="py-2" data-v-9e2c3b5c>31&quot;</td></tr></tbody></table></div>', 2)
         ]))) : j("", !0)
       ]),
-      f("div", aw, [
+      f("div", uw, [
         N[15] || (N[15] = f("p", { class: "text-sm font-medium text-gray-700 mb-3" }, "Share this product", -1)),
-        f("div", cw, [
+        f("div", dw, [
           f("button", {
             onClick: N[1] || (N[1] = (m) => v("facebook")),
             class: "w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-gray-200 transition-colors",
@@ -15527,13 +15531,13 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                 d: "M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
               })
             ], -1)),
-            l.value ? (E(), S("span", uw, " Link copied! ")) : j("", !0)
+            l.value ? (E(), S("span", fw, " Link copied! ")) : j("", !0)
           ])
         ])
       ])
     ]));
   }
-}, fw = /* @__PURE__ */ Ot(dw, [["__scopeId", "data-v-9e2c3b5c"]]), pw = { class: "summary-row" }, hw = { class: "stars" }, mw = { class: "average-score" }, gw = {
+}, hw = /* @__PURE__ */ Ot(pw, [["__scopeId", "data-v-9e2c3b5c"]]), mw = { class: "summary-row" }, gw = { class: "stars" }, vw = { class: "average-score" }, yw = {
   __name: "ProductReviewSummary",
   props: {
     productId: {
@@ -15579,42 +15583,42 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
       class: "review-summary",
       onClick: i
     }, [
-      f("div", pw, [
-        f("span", hw, [
+      f("div", mw, [
+        f("span", gw, [
           (E(), S(ie, null, _e(5, (u) => f("span", {
             key: u,
             class: Ee(["star", { filled: u <= Math.round(n.value.score) }])
           }, "★", 2)), 64))
         ]),
-        f("span", mw, G(n.value.score.toFixed(1)), 1)
+        f("span", vw, G(n.value.score.toFixed(1)), 1)
       ])
     ])) : j("", !0);
   }
-}, vw = {
+}, bw = {
   class: "cart-summary bg-gray-50 p-6 lg:sticky lg:top-24",
   style: { borderRadius: "var(--card-radius, 8px)" }
-}, yw = { class: "space-y-3 mb-4" }, bw = { class: "flex justify-between text-sm" }, _w = { class: "text-gray-600" }, Ew = { class: "font-medium text-gray-900" }, ww = {
+}, _w = { class: "space-y-3 mb-4" }, Ew = { class: "flex justify-between text-sm" }, ww = { class: "text-gray-600" }, xw = { class: "font-medium text-gray-900" }, Nw = {
   key: 0,
   class: "flex justify-between text-sm text-green-600"
-}, xw = {
+}, Sw = {
   key: 1,
   class: "flex justify-between text-sm"
-}, Nw = { class: "text-gray-900" }, Sw = {
+}, kw = { class: "text-gray-900" }, Cw = {
   key: 2,
   class: "flex justify-between text-sm"
-}, kw = { class: "text-gray-900" }, Cw = { class: "border-t pt-4 mb-6" }, Ow = { class: "flex justify-between items-baseline" }, Dw = { class: "text-right" }, Tw = { class: "text-xl font-bold text-gray-900" }, $w = {
+}, Ow = { class: "text-gray-900" }, Dw = { class: "border-t pt-4 mb-6" }, Tw = { class: "flex justify-between items-baseline" }, $w = { class: "text-right" }, Aw = { class: "text-xl font-bold text-gray-900" }, Vw = {
   key: 0,
   class: "text-xs text-green-600 font-medium"
-}, Aw = { class: "mb-6" }, Vw = { class: "group" }, Iw = { class: "mt-3" }, Mw = ["disabled"], Pw = ["disabled"], Rw = {
+}, Iw = { class: "mb-6" }, Mw = { class: "group" }, Pw = { class: "mt-3" }, Rw = ["disabled"], Lw = ["disabled"], Fw = {
   key: 0,
   class: "text-xs text-red-600 mt-2"
-}, Lw = {
+}, Bw = {
   key: 1,
   class: "text-xs text-green-600 mt-2"
-}, Fw = ["disabled"], Bw = {
+}, jw = ["disabled"], Hw = {
   key: 0,
   class: "flex items-center gap-2"
-}, jw = { key: 1 }, Hw = {
+}, Uw = { key: 1 }, qw = {
   __name: "CartSummary",
   props: {
     cart: {
@@ -15667,14 +15671,14 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
         }
       }
     };
-    return (m, k) => (E(), S("div", vw, [
+    return (m, k) => (E(), S("div", bw, [
       k[10] || (k[10] = f("h2", { class: "text-lg font-semibold text-gray-900 mb-4" }, "Order Summary", -1)),
-      f("div", yw, [
-        f("div", bw, [
-          f("span", _w, "Subtotal (" + G(d.value) + " " + G(d.value === 1 ? "item" : "items") + ")", 1),
-          f("span", Ew, G(M(p.value)), 1)
+      f("div", _w, [
+        f("div", Ew, [
+          f("span", ww, "Subtotal (" + G(d.value) + " " + G(d.value === 1 ? "item" : "items") + ")", 1),
+          f("span", xw, G(M(p.value)), 1)
         ]),
-        h.value > 0 ? (E(), S("div", ww, [
+        h.value > 0 ? (E(), S("div", Nw, [
           k[3] || (k[3] = f("span", { class: "flex items-center gap-1" }, [
             f("svg", {
               class: "w-4 h-4",
@@ -15691,26 +15695,26 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
           ], -1)),
           f("span", null, "-" + G(M(h.value)), 1)
         ])) : j("", !0),
-        e.showShipping ? (E(), S("div", xw, [
+        e.showShipping ? (E(), S("div", Sw, [
           k[4] || (k[4] = f("span", { class: "text-gray-600" }, "Estimated Shipping", -1)),
-          f("span", Nw, G(v.value === 0 ? "Free" : M(v.value)), 1)
+          f("span", kw, G(v.value === 0 ? "Free" : M(v.value)), 1)
         ])) : j("", !0),
-        e.showTax ? (E(), S("div", Sw, [
+        e.showTax ? (E(), S("div", Cw, [
           k[5] || (k[5] = f("span", { class: "text-gray-600" }, "Estimated Tax", -1)),
-          f("span", kw, G(M(g.value)), 1)
+          f("span", Ow, G(M(g.value)), 1)
         ])) : j("", !0)
       ]),
-      f("div", Cw, [
-        f("div", Ow, [
+      f("div", Dw, [
+        f("div", Tw, [
           k[6] || (k[6] = f("span", { class: "text-lg font-semibold" }, "Total", -1)),
-          f("div", Dw, [
-            f("span", Tw, G(M(c.value)), 1),
-            h.value > 0 ? (E(), S("p", $w, " You saved " + G(M(h.value)) + "! ", 1)) : j("", !0)
+          f("div", $w, [
+            f("span", Aw, G(M(c.value)), 1),
+            h.value > 0 ? (E(), S("p", Vw, " You saved " + G(M(h.value)) + "! ", 1)) : j("", !0)
           ])
         ])
       ]),
-      f("div", Aw, [
-        f("details", Vw, [
+      f("div", Iw, [
+        f("details", Mw, [
           k[7] || (k[7] = f("summary", { class: "flex justify-between items-center cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900" }, [
             f("span", null, "Have a promo code?"),
             f("svg", {
@@ -15727,7 +15731,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
               })
             ])
           ], -1)),
-          f("div", Iw, [
+          f("div", Pw, [
             f("form", {
               onSubmit: zt(D, ["prevent"]),
               class: "flex gap-2"
@@ -15739,7 +15743,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                 class: "flex-1 px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent",
                 style: { borderRadius: "var(--card-radius, 8px)" },
                 disabled: l.value
-              }, null, 8, Mw), [
+              }, null, 8, Rw), [
                 [ls, r.value]
               ]),
               f("button", {
@@ -15747,10 +15751,10 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                 class: "px-4 py-2 bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
                 style: { borderRadius: "var(--button-radius)" },
                 disabled: !r.value.trim() || l.value
-              }, G(l.value ? "Applying..." : "Apply"), 9, Pw)
+              }, G(l.value ? "Applying..." : "Apply"), 9, Lw)
             ], 32),
-            o.value ? (E(), S("p", Rw, G(o.value), 1)) : j("", !0),
-            i.value ? (E(), S("p", Lw, G(i.value), 1)) : j("", !0)
+            o.value ? (E(), S("p", Fw, G(o.value), 1)) : j("", !0),
+            i.value ? (E(), S("p", Bw, G(i.value), 1)) : j("", !0)
           ])
         ])
       ]),
@@ -15766,7 +15770,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
         onMouseleave: k[2] || (k[2] = (O) => u.value = !1),
         disabled: d.value === 0 || a.value
       }, [
-        a.value ? (E(), S("span", Bw, k[8] || (k[8] = [
+        a.value ? (E(), S("span", Hw, k[8] || (k[8] = [
           f("svg", {
             class: "animate-spin h-5 w-5",
             viewBox: "0 0 24 24"
@@ -15787,7 +15791,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
             })
           ], -1),
           Xe(" Processing... ", -1)
-        ]))) : (E(), S("span", jw, k[9] || (k[9] = [
+        ]))) : (E(), S("span", Uw, k[9] || (k[9] = [
           Xe(" Proceed to Checkout ", -1),
           f("svg", {
             class: "w-5 h-5",
@@ -15803,47 +15807,47 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
             })
           ], -1)
         ])))
-      ], 44, Fw),
+      ], 44, jw),
       k[11] || (k[11] = Pn('<div class="mt-6 space-y-2" data-v-daaa8299><div class="flex items-center gap-2 text-xs text-gray-600" data-v-daaa8299><svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" data-v-daaa8299><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" data-v-daaa8299></path></svg> Secure checkout </div><div class="flex items-center gap-2 text-xs text-gray-600" data-v-daaa8299><svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" data-v-daaa8299><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" data-v-daaa8299></path><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" data-v-daaa8299></path></svg> Free shipping on orders over $50 </div><div class="flex items-center gap-2 text-xs text-gray-600" data-v-daaa8299><svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" data-v-daaa8299><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" data-v-daaa8299></path></svg> 30-day return policy </div></div><div class="mt-6 pt-6 border-t" data-v-daaa8299><p class="text-xs text-gray-600 mb-2" data-v-daaa8299>We accept</p><div class="flex gap-2" data-v-daaa8299><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-daaa8299><path d="M0 0h48v32H0z" fill="#1A1F71" data-v-daaa8299></path><path d="M19.654 12.7l-2.365 7.3h-2.287l2.365-7.3h2.287zm9.524 4.696l1.502-3.862.859 3.862h-2.361zm3.174 2.604h2.115l-1.849-7.3h-1.953c-.44 0-.811.242-1.007.615l-3.545 6.685h2.479l.493-1.277h3.025l.242 1.277zm-6.372-2.383c.011-2.297-3.331-2.424-3.31-3.449.007-.312.32-.644 1.003-.729a4.6 4.6 0 012.172.366l.387-1.703a6.34 6.34 0 00-2.061-.361c-2.178 0-3.71 1.105-3.721 2.688-.013 1.17 1.094 1.824 1.929 2.214.859.4 1.147.656 1.143.1013-.006.547-.685.788-1.318.797a4.746 4.746 0 01-2.194-.494l-.388 1.712a6.922 6.922 0 002.357.416c2.235 0 3.697-1.053 3.701-2.683m-8.813-4.917l-3.849 7.3h-2.491l-1.897-6.776c-.115-.428-.215-.585-.564-.766-.571-.295-1.516-.571-2.345-.743l.056-.265h4.046c.515 0 .979.317 1.097.867l1.002 4.771 2.473-5.638h2.472z" fill="#fff" data-v-daaa8299></path></svg><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-daaa8299><rect width="48" height="32" rx="4" fill="#EB001B" data-v-daaa8299></rect><circle cx="19" cy="16" r="8" fill="#FF5F00" data-v-daaa8299></circle><circle cx="29" cy="16" r="8" fill="#F79E1B" data-v-daaa8299></circle></svg><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-daaa8299><rect width="48" height="32" rx="4" fill="#2E7BC4" data-v-daaa8299></rect><path d="M20 10h8l-1 12h-6z" fill="#fff" data-v-daaa8299></path></svg><svg class="h-6 text-gray-400" viewBox="0 0 48 32" fill="currentColor" data-v-daaa8299><rect width="48" height="32" rx="4" fill="#253B80" data-v-daaa8299></rect><path d="M19 11h10v10H19z" fill="#179BD7" data-v-daaa8299></path></svg></div></div>', 2))
     ]));
   }
-}, Uw = /* @__PURE__ */ Ot(Hw, [["__scopeId", "data-v-daaa8299"]]), qw = {
+}, zw = /* @__PURE__ */ Ot(qw, [["__scopeId", "data-v-daaa8299"]]), Ww = {
   key: 0,
   class: "fixed inset-0 z-[99999] overflow-hidden"
-}, zw = {
+}, Kw = {
   key: 0,
   class: "relative z-10 pointer-events-auto"
-}, Ww = { class: "bg-white transition-all duration-300 border-b border-gray-200" }, Kw = { class: "max-w-6xl mx-auto" }, Gw = { class: "relative" }, Jw = { class: "px-4 py-8 sm:px-6 lg:px-8" }, Yw = { class: "flex items-center gap-4 max-w-3xl mx-auto" }, Xw = { class: "flex-1 relative group" }, Qw = { class: "absolute inset-y-0 right-0 flex items-center pr-4" }, Zw = {
+}, Gw = { class: "bg-white transition-all duration-300 border-b border-gray-200" }, Jw = { class: "max-w-6xl mx-auto" }, Yw = { class: "relative" }, Xw = { class: "px-4 py-8 sm:px-6 lg:px-8" }, Qw = { class: "flex items-center gap-4 max-w-3xl mx-auto" }, Zw = { class: "flex-1 relative group" }, e2 = { class: "absolute inset-y-0 right-0 flex items-center pr-4" }, t2 = {
   key: 0,
   class: "relative"
-}, e2 = {
+}, n2 = {
   key: 0,
   class: "mt-6 max-w-3xl mx-auto"
-}, t2 = { class: "flex flex-wrap gap-2" }, n2 = ["onClick"], s2 = {
+}, s2 = { class: "flex flex-wrap gap-2" }, r2 = ["onClick"], o2 = {
   key: 0,
   class: "border-t border-gray-100"
-}, r2 = { class: "max-h-[60vh] overflow-y-auto custom-scrollbar" }, o2 = {
+}, i2 = { class: "max-h-[60vh] overflow-y-auto custom-scrollbar" }, l2 = {
   key: 0,
   class: "p-6"
-}, i2 = { class: "animate-pulse" }, l2 = { class: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" }, a2 = {
+}, a2 = { class: "animate-pulse" }, c2 = { class: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" }, u2 = {
   key: 1,
   class: "p-6"
-}, c2 = { class: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" }, u2 = ["href"], d2 = { class: "relative overflow-hidden rounded-lg flex-shrink-0" }, f2 = ["src", "alt"], p2 = {
+}, d2 = { class: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" }, f2 = ["href"], p2 = { class: "relative overflow-hidden rounded-lg flex-shrink-0" }, h2 = ["src", "alt"], m2 = {
   key: 1,
   class: "w-20 h-20 bg-gray-100 flex items-center justify-center"
-}, h2 = { class: "flex-1 min-w-0" }, m2 = { class: "text-lg font-heading text-gray-900 group-hover:text-red-600 transition-colors line-clamp-2 pt-2" }, g2 = { class: "mt-2 flex items-center gap-2" }, v2 = { class: "text-sm font-semibold text-gray-900" }, y2 = {
+}, g2 = { class: "flex-1 min-w-0" }, v2 = { class: "text-lg font-heading text-gray-900 group-hover:text-red-600 transition-colors line-clamp-2 pt-2" }, y2 = { class: "mt-2 flex items-center gap-2" }, b2 = { class: "text-sm font-semibold text-gray-900" }, _2 = {
   key: 0,
   class: "text-xs text-gray-400 line-through"
-}, b2 = {
+}, E2 = {
   key: 2,
   class: "p-6 border-t border-gray-100"
-}, _2 = { class: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" }, E2 = ["href"], w2 = { class: "text-sm text-gray-700 group-hover:text-red-600 transition-colors" }, x2 = {
+}, w2 = { class: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" }, x2 = ["href"], N2 = { class: "text-sm text-gray-700 group-hover:text-red-600 transition-colors" }, S2 = {
   key: 3,
   class: "p-12 text-center"
-}, N2 = {
+}, k2 = {
   key: 0,
   class: "border-t border-gray-100 px-6 py-4 bg-gray-50/50"
-}, S2 = ["href"], k2 = {
+}, C2 = ["href"], O2 = {
   __name: "SearchOverlay",
   setup(e) {
     const t = ne(!1), n = ne(""), s = ne(null), r = ne(!1), o = ne({
@@ -15924,7 +15928,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
     }), (N, m) => (E(), wt(Fn, { to: "body" }, [
       ue(pt, { name: "search-overlay" }, {
         default: Pe(() => [
-          t.value ? (E(), S("div", qw, [
+          t.value ? (E(), S("div", Ww, [
             ue(pt, { name: "fade" }, {
               default: Pe(() => [
                 t.value ? (E(), S("div", {
@@ -15942,13 +15946,13 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
               default: Pe(() => {
                 var k, O;
                 return [
-                  t.value ? (E(), S("div", zw, [
-                    f("div", Ww, [
-                      f("div", Kw, [
-                        f("div", Gw, [
-                          f("div", Jw, [
-                            f("div", Yw, [
-                              f("div", Xw, [
+                  t.value ? (E(), S("div", Kw, [
+                    f("div", Gw, [
+                      f("div", Jw, [
+                        f("div", Yw, [
+                          f("div", Xw, [
+                            f("div", Qw, [
+                              f("div", Zw, [
                                 m[4] || (m[4] = f("div", { class: "absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none" }, [
                                   f("svg", {
                                     class: "w-5 h-5 text-gray-400 group-focus-within:text-gray-600 transition-colors",
@@ -15982,8 +15986,8 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                                 }, null, 544), [
                                   [ls, n.value]
                                 ]),
-                                f("div", Qw, [
-                                  r.value ? (E(), S("div", Zw, m[2] || (m[2] = [
+                                f("div", e2, [
+                                  r.value ? (E(), S("div", t2, m[2] || (m[2] = [
                                     f("div", { class: "animate-spin rounded-full h-5 w-5 border-2 border-gray-200" }, null, -1),
                                     f("div", { class: "animate-spin rounded-full h-5 w-5 border-2 border-red-500 border-t-transparent absolute inset-0" }, null, -1)
                                   ]))) : n.value ? (E(), S("button", {
@@ -16028,25 +16032,25 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                                 ], -1)
                               ]))
                             ]),
-                            !n.value && !r.value && d.value ? (E(), S("div", e2, [
+                            !n.value && !r.value && d.value ? (E(), S("div", n2, [
                               m[6] || (m[6] = f("p", { class: "text-sm text-gray-500 mb-3" }, "Popular searches", -1)),
-                              f("div", t2, [
+                              f("div", s2, [
                                 (E(!0), S(ie, null, _e(u.value, (V) => (E(), S("button", {
                                   key: V,
                                   onClick: (w) => {
                                     n.value = V, M();
                                   },
                                   class: "px-4 py-2 text-sm text-gray-600 bg-gray-100/50 hover:bg-gray-200/50 rounded-full transition-colors duration-200"
-                                }, G(V), 9, n2))), 128))
+                                }, G(V), 9, r2))), 128))
                               ])
                             ])) : j("", !0)
                           ]),
-                          a.value ? (E(), S("div", s2, [
-                            f("div", r2, [
-                              r.value ? (E(), S("div", o2, [
-                                f("div", i2, [
+                          a.value ? (E(), S("div", o2, [
+                            f("div", i2, [
+                              r.value ? (E(), S("div", l2, [
+                                f("div", a2, [
                                   m[8] || (m[8] = f("div", { class: "h-4 bg-gray-200 rounded w-20 mb-4" }, null, -1)),
-                                  f("div", l2, [
+                                  f("div", c2, [
                                     (E(), S(ie, null, _e(4, (V) => f("div", {
                                       key: V,
                                       class: "flex items-start space-x-3"
@@ -16059,22 +16063,22 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                                     ]))), 64))
                                   ])
                                 ])
-                              ])) : o.value.products && o.value.products.length > 0 ? (E(), S("div", a2, [
+                              ])) : o.value.products && o.value.products.length > 0 ? (E(), S("div", u2, [
                                 m[10] || (m[10] = f("h3", { class: "text-xl mb-4" }, "Products", -1)),
-                                f("div", c2, [
+                                f("div", d2, [
                                   (E(!0), S(ie, null, _e(o.value.products, (V) => (E(), S("a", {
                                     key: V.id,
                                     href: V.url,
                                     class: "group flex items-start space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-all duration-200 hover:shadow-lg",
                                     onClick: h
                                   }, [
-                                    f("div", d2, [
+                                    f("div", p2, [
                                       V.image ? (E(), S("img", {
                                         key: 0,
                                         src: V.image,
                                         alt: V.title,
                                         class: "w-20 h-20 object-cover group-hover:scale-110 transition-transform duration-300"
-                                      }, null, 8, f2)) : (E(), S("div", p2, m[9] || (m[9] = [
+                                      }, null, 8, h2)) : (E(), S("div", m2, m[9] || (m[9] = [
                                         f("svg", {
                                           class: "w-8 h-8 text-gray-300",
                                           fill: "none",
@@ -16090,26 +16094,26 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                                         ], -1)
                                       ])))
                                     ]),
-                                    f("div", h2, [
-                                      f("p", m2, G(V.title), 1),
-                                      f("div", g2, [
-                                        f("p", v2, G(c(V.price)), 1),
-                                        V.compareAtPrice && V.compareAtPrice > V.price ? (E(), S("p", y2, G(c(V.compareAtPrice)), 1)) : j("", !0)
+                                    f("div", g2, [
+                                      f("p", v2, G(V.title), 1),
+                                      f("div", y2, [
+                                        f("p", b2, G(c(V.price)), 1),
+                                        V.compareAtPrice && V.compareAtPrice > V.price ? (E(), S("p", _2, G(c(V.compareAtPrice)), 1)) : j("", !0)
                                       ])
                                     ])
-                                  ], 8, u2))), 128))
+                                  ], 8, f2))), 128))
                                 ])
                               ])) : j("", !0),
-                              o.value.collections && o.value.collections.length > 0 ? (E(), S("div", b2, [
+                              o.value.collections && o.value.collections.length > 0 ? (E(), S("div", E2, [
                                 m[12] || (m[12] = f("h3", { class: "text-xs font-medium text-gray-500 uppercase tracking-wider mb-4" }, " Collections ", -1)),
-                                f("div", _2, [
+                                f("div", w2, [
                                   (E(!0), S(ie, null, _e(o.value.collections, (V) => (E(), S("a", {
                                     key: V.id,
                                     href: V.url,
                                     class: "group flex items-center justify-between px-4 py-3 bg-gray-50/50 hover:bg-gray-100/50 rounded-xl transition-all duration-200",
                                     onClick: h
                                   }, [
-                                    f("span", w2, G(V.title), 1),
+                                    f("span", N2, G(V.title), 1),
                                     m[11] || (m[11] = f("svg", {
                                       class: "w-4 h-4 text-gray-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all",
                                       fill: "none",
@@ -16123,10 +16127,10 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                                         d: "M9 5l7 7-7 7"
                                       })
                                     ], -1))
-                                  ], 8, E2))), 128))
+                                  ], 8, x2))), 128))
                                 ])
                               ])) : j("", !0),
-                              n.value && !r.value && (!o.value.products || o.value.products.length === 0) && (!o.value.collections || o.value.collections.length === 0) ? (E(), S("div", x2, m[13] || (m[13] = [
+                              n.value && !r.value && (!o.value.products || o.value.products.length === 0) && (!o.value.collections || o.value.collections.length === 0) ? (E(), S("div", S2, m[13] || (m[13] = [
                                 f("div", { class: "w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center" }, [
                                   f("svg", {
                                     class: "w-10 h-10 text-gray-400",
@@ -16146,7 +16150,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                                 f("p", { class: "text-sm text-gray-500" }, " Try searching for something else or check your spelling ", -1)
                               ]))) : j("", !0)
                             ]),
-                            n.value && (((k = o.value.products) == null ? void 0 : k.length) > 0 || ((O = o.value.collections) == null ? void 0 : O.length) > 0) ? (E(), S("div", N2, [
+                            n.value && (((k = o.value.products) == null ? void 0 : k.length) > 0 || ((O = o.value.collections) == null ? void 0 : O.length) > 0) ? (E(), S("div", k2, [
                               f("a", {
                                 href: `${l.value}?keyword=${encodeURIComponent(
                                   n.value
@@ -16168,7 +16172,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
                                     d: "M17 8l4 4m0 0l-4 4m4-4H3"
                                   })
                                 ], -1))
-                              ], 8, S2)
+                              ], 8, C2)
                             ])) : j("", !0)
                           ])) : j("", !0)
                         ])
@@ -16185,7 +16189,7 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
       })
     ]));
   }
-}, C2 = /* @__PURE__ */ Ot(k2, [["__scopeId", "data-v-a35ca94e"]]), O2 = {
+}, D2 = /* @__PURE__ */ Ot(O2, [["__scopeId", "data-v-a35ca94e"]]), T2 = {
   name: "ArticleCard",
   props: {
     title: {
@@ -16328,20 +16332,20 @@ const yE = { class: "product-gallery" }, bE = { class: "main-image-wrapper" }, _
       isHovered: t
     };
   }
-}, D2 = ["href"], T2 = ["src", "alt"], $2 = { class: "relative p-6 flex-1 flex flex-col z-10" }, A2 = {
+}, $2 = ["href"], A2 = ["src", "alt"], V2 = { class: "relative p-6 flex-1 flex flex-col z-10" }, I2 = {
   key: 0,
   class: "flex flex-wrap gap-2 mb-4"
-}, V2 = { class: "text-xl mb-2 group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-tight" }, I2 = ["href"], M2 = {
+}, M2 = { class: "text-xl mb-2 group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-tight" }, P2 = ["href"], R2 = {
   key: 1,
   class: "flex items-center gap-2 text-xs text-gray-500 mb-4"
-}, P2 = { key: 0 }, R2 = {
+}, L2 = { key: 0 }, F2 = {
   key: 1,
   class: "text-gray-300"
-}, L2 = ["datetime"], F2 = { class: "flex-1 mb-6" }, B2 = {
+}, B2 = ["datetime"], j2 = { class: "flex-1 mb-6" }, H2 = {
   key: 0,
   class: "text-gray-600 leading-relaxed line-clamp-2"
-}, j2 = ["innerHTML"], H2 = { class: "mt-auto" }, U2 = ["href"];
-function q2(e, t, n, s, r, o) {
+}, U2 = ["innerHTML"], q2 = { class: "mt-auto" }, z2 = ["href"];
+function W2(e, t, n, s, r, o) {
   return E(), S("article", {
     class: "group relative bg-white overflow-hidden transition-all duration-500 h-full flex flex-col border border-gray-100",
     style: je(s.cardStyles),
@@ -16362,39 +16366,39 @@ function q2(e, t, n, s, r, o) {
           alt: n.imageAlt,
           class: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-700",
           loading: "lazy"
-        }, null, 8, T2),
+        }, null, 8, A2),
         t[2] || (t[2] = f("div", { class: "absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" }, null, -1))
-      ], 8, D2)
+      ], 8, $2)
     ], 2)) : j("", !0),
-    f("div", $2, [
-      n.showTags && s.processedTags.length > 0 ? (E(), S("div", A2, [
+    f("div", V2, [
+      n.showTags && s.processedTags.length > 0 ? (E(), S("div", I2, [
         (E(!0), S(ie, null, _e(s.processedTags.slice(0, 3), (i) => (E(), S("span", {
           key: i,
           class: "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-sm hover:shadow-md transition-shadow duration-300"
         }, G(i), 1))), 128))
       ])) : j("", !0),
-      f("h3", V2, [
+      f("h3", M2, [
         f("a", {
           href: n.url,
           class: "hover:underline decoration-2 underline-offset-2"
-        }, G(n.title), 9, I2)
+        }, G(n.title), 9, P2)
       ]),
-      n.showAuthor && n.author || n.showDate && s.formattedDate ? (E(), S("div", M2, [
-        n.showAuthor && n.author ? (E(), S("span", P2, G(n.author), 1)) : j("", !0),
-        n.showAuthor && n.author && n.showDate && s.formattedDate ? (E(), S("span", R2, "•")) : j("", !0),
+      n.showAuthor && n.author || n.showDate && s.formattedDate ? (E(), S("div", R2, [
+        n.showAuthor && n.author ? (E(), S("span", L2, G(n.author), 1)) : j("", !0),
+        n.showAuthor && n.author && n.showDate && s.formattedDate ? (E(), S("span", F2, "•")) : j("", !0),
         n.showDate && s.formattedDate ? (E(), S("time", {
           key: 2,
           datetime: n.rawPublishedAt || n.publishedAt
-        }, G(s.formattedDate), 9, L2)) : j("", !0)
+        }, G(s.formattedDate), 9, B2)) : j("", !0)
       ])) : j("", !0),
-      f("div", F2, [
-        n.excerpt ? (E(), S("p", B2, G(n.excerpt), 1)) : n.content ? (E(), S("div", {
+      f("div", j2, [
+        n.excerpt ? (E(), S("p", H2, G(n.excerpt), 1)) : n.content ? (E(), S("div", {
           key: 1,
           class: "text-gray-600 leading-relaxed line-clamp-2",
           innerHTML: s.truncatedContent
-        }, null, 8, j2)) : j("", !0)
+        }, null, 8, U2)) : j("", !0)
       ]),
-      f("div", H2, [
+      f("div", q2, [
         f("a", {
           href: n.url,
           class: "inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-semibold text-sm group transition-colors duration-300"
@@ -16413,12 +16417,12 @@ function q2(e, t, n, s, r, o) {
               d: "M9 5l7 7-7 7"
             })
           ], -1)
-        ]), 8, U2)
+        ]), 8, z2)
       ])
     ])
   ], 36);
 }
-const Lf = /* @__PURE__ */ Ot(O2, [["render", q2], ["__scopeId", "data-v-511e0bcf"]]), z2 = {
+const Lf = /* @__PURE__ */ Ot(T2, [["render", W2], ["__scopeId", "data-v-511e0bcf"]]), K2 = {
   name: "BlogArticles",
   components: {
     ArticleCard: Lf
@@ -16553,28 +16557,28 @@ const Lf = /* @__PURE__ */ Ot(O2, [["render", q2], ["__scopeId", "data-v-511e0bc
       formatDate: a
     };
   }
-}, W2 = { class: "blog-articles-component" }, K2 = {
+}, G2 = { class: "blog-articles-component" }, J2 = {
   key: 0,
   class: "flex flex-wrap justify-center gap-6"
-}, G2 = { class: "p-6" }, J2 = {
+}, Y2 = { class: "p-6" }, X2 = {
   key: 0,
   class: "flex gap-2 mb-4"
-}, Y2 = {
+}, Q2 = {
   key: 1,
   class: "h-4 bg-gray-200 rounded w-1/2 mb-4"
-}, X2 = {
+}, Z2 = {
   key: 1,
   class: "text-center py-12"
-}, Q2 = { class: "text-gray-600" }, Z2 = {
+}, ex = { class: "text-gray-600" }, tx = {
   key: 2,
   class: "flex flex-wrap justify-center gap-6"
-}, ex = ["title", "url", "excerpt", "content", "author", "published-at", "raw-published-at", "image", "image-alt", "tags", "image-ratio", "show-image", "show-author", "show-date"], tx = {
+}, nx = ["title", "url", "excerpt", "content", "author", "published-at", "raw-published-at", "image", "image-alt", "tags", "image-ratio", "show-image", "show-author", "show-date"], sx = {
   key: 3,
   class: "text-center py-12"
 };
-function nx(e, t, n, s, r, o) {
-  return E(), S("div", W2, [
-    s.loading ? (E(), S("div", K2, [
+function rx(e, t, n, s, r, o) {
+  return E(), S("div", G2, [
+    s.loading ? (E(), S("div", J2, [
       (E(!0), S(ie, null, _e(s.displayLimit, (i) => (E(), S("div", {
         key: `skeleton-${i}`,
         class: "article-skeleton flex-shrink-0 w-full sm:w-auto animate-pulse",
@@ -16584,21 +16588,21 @@ function nx(e, t, n, s, r, o) {
           key: 0,
           class: Ee([s.imageAspectClass, "bg-gray-200"])
         }, null, 2)) : j("", !0),
-        f("div", G2, [
-          n.showTags ? (E(), S("div", J2, t[0] || (t[0] = [
+        f("div", Y2, [
+          n.showTags ? (E(), S("div", X2, t[0] || (t[0] = [
             f("div", { class: "h-6 w-16 bg-gray-200 rounded-full" }, null, -1),
             f("div", { class: "h-6 w-20 bg-gray-200 rounded-full" }, null, -1)
           ]))) : j("", !0),
           t[1] || (t[1] = f("div", { class: "h-6 bg-gray-200 rounded mb-2" }, null, -1)),
           t[2] || (t[2] = f("div", { class: "h-6 bg-gray-200 rounded w-3/4 mb-4" }, null, -1)),
-          n.showAuthor || n.showDate ? (E(), S("div", Y2)) : j("", !0),
+          n.showAuthor || n.showDate ? (E(), S("div", Q2)) : j("", !0),
           t[3] || (t[3] = Pn('<div class="space-y-2 mb-6" data-v-d0155edf><div class="h-4 bg-gray-200 rounded" data-v-d0155edf></div><div class="h-4 bg-gray-200 rounded" data-v-d0155edf></div><div class="h-4 bg-gray-200 rounded w-2/3" data-v-d0155edf></div></div><div class="h-6 bg-gray-200 rounded w-24" data-v-d0155edf></div>', 2))
         ])
       ], 4))), 128))
-    ])) : s.error ? (E(), S("div", X2, [
+    ])) : s.error ? (E(), S("div", Z2, [
       t[4] || (t[4] = f("h3", { class: "text-xl font-semibold text-gray-900 mb-2" }, "Unable to load articles", -1)),
-      f("p", Q2, G(s.error), 1)
-    ])) : s.articles.length > 0 ? (E(), S("div", Z2, [
+      f("p", ex, G(s.error), 1)
+    ])) : s.articles.length > 0 ? (E(), S("div", tx, [
       (E(!0), S(ie, null, _e(s.articles, (i) => {
         var l, a;
         return E(), S("div", {
@@ -16622,37 +16626,37 @@ function nx(e, t, n, s, r, o) {
             "show-author": n.showAuthor,
             "show-date": n.showDate,
             "show-tags": !1
-          }, null, 8, ex)
+          }, null, 8, nx)
         ], 4);
       }), 128))
-    ])) : (E(), S("div", tx, t[5] || (t[5] = [
+    ])) : (E(), S("div", sx, t[5] || (t[5] = [
       f("h3", { class: "text-xl font-semibold text-gray-900 mb-2" }, "No articles found", -1),
       f("p", { class: "text-gray-600" }, "This blog has no articles yet.", -1)
     ])))
   ]);
 }
-const sx = /* @__PURE__ */ Ot(z2, [["render", nx], ["__scopeId", "data-v-d0155edf"]]);
+const ox = /* @__PURE__ */ Ot(K2, [["render", rx], ["__scopeId", "data-v-d0155edf"]]);
 ({
   ...ts,
   props: {
     ...ts.props
   }
 });
-const rx = /* @__PURE__ */ ht(If), ox = /* @__PURE__ */ ht(k1), ix = /* @__PURE__ */ ht(G1), lx = /* @__PURE__ */ ht(Af), ax = /* @__PURE__ */ ht(Mf), cx = /* @__PURE__ */ ht(L_), ux = /* @__PURE__ */ ht(VE), dx = /* @__PURE__ */ ht(fw), fx = /* @__PURE__ */ ht(gw, {
+const ix = /* @__PURE__ */ ht(If), lx = /* @__PURE__ */ ht(k1), ax = /* @__PURE__ */ ht(G1), cx = /* @__PURE__ */ ht(Af), ux = /* @__PURE__ */ ht(Mf), dx = /* @__PURE__ */ ht(B_), fx = /* @__PURE__ */ ht(ME), px = /* @__PURE__ */ ht(hw), hx = /* @__PURE__ */ ht(yw, {
   shadowRoot: !1
-}), px = /* @__PURE__ */ ht(Vf), hx = /* @__PURE__ */ ht(Uw), mx = /* @__PURE__ */ ht(C2);
-customElements.define("cart-drawer", rx);
-customElements.define("mobile-menu", ox);
-customElements.define("product-variant-picker", ix);
-customElements.define("quantity-selector", lx);
-customElements.define("collection-filters", ax);
-customElements.define("collection-grid", cx);
-customElements.define("product-gallery", ux);
-customElements.define("product-info", dx);
-customElements.define("reviews-summary", fx);
-customElements.define("cart-item", px);
-customElements.define("cart-summary", hx);
-customElements.define("search-overlay", mx);
+}), mx = /* @__PURE__ */ ht(Vf), gx = /* @__PURE__ */ ht(zw), vx = /* @__PURE__ */ ht(D2);
+customElements.define("cart-drawer", ix);
+customElements.define("mobile-menu", lx);
+customElements.define("product-variant-picker", ax);
+customElements.define("quantity-selector", cx);
+customElements.define("collection-filters", ux);
+customElements.define("collection-grid", dx);
+customElements.define("product-gallery", fx);
+customElements.define("product-info", px);
+customElements.define("reviews-summary", hx);
+customElements.define("cart-item", mx);
+customElements.define("cart-summary", gx);
+customElements.define("search-overlay", vx);
 function ar(e = document) {
   e.querySelectorAll(".cart-drawer-mount").forEach((u) => {
     if (u._vueApp) return;
@@ -16671,14 +16675,14 @@ function ar(e = document) {
       compareAtPrice: u.getAttribute("compare-at-price"),
       image: u.getAttribute("image"),
       available: u.getAttribute(":available") === "true"
-    }, c = Rt(vb, d);
+    }, c = Rt(bb, d);
     u._vueApp = c, c.mount(u);
   }), e.querySelectorAll("collection-sort").forEach((u) => {
     if (u._vueApp) return;
     const d = {
       collectionHandle: u.getAttribute("collection-handle"),
       currentSort: u.getAttribute("current-sort") || "manual"
-    }, c = Rt(B_, d);
+    }, c = Rt(H_, d);
     u._vueApp = c, c.mount(u);
   }), e.querySelectorAll("orion-button").forEach((u) => {
     if (u._vueApp) return;
@@ -16706,7 +16710,7 @@ function ar(e = document) {
     const d = {
       collectionHandle: u.getAttribute("collection-handle"),
       products: JSON.parse(u.getAttribute(":products") || "[]")
-    }, c = Rt(uE, d);
+    }, c = Rt(fE, d);
     u._vueApp = c, c.mount(u);
   }), e.querySelectorAll(
     "collection-filter-sidebar"
@@ -16751,7 +16755,7 @@ function ar(e = document) {
       showAuthor: u.getAttribute("show-author") === "true",
       showDate: u.getAttribute("show-date") !== "false",
       showTags: u.getAttribute("show-tags") === "true"
-    }, c = Rt(sx, d);
+    }, c = Rt(ox, d);
     u._vueApp = c, c.mount(u);
   }), e === document && document.querySelectorAll(".header-group").forEach((d) => {
     const c = d.querySelector(".site-header");

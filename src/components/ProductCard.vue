@@ -50,88 +50,93 @@
       </a>
       
       <!-- Product Info -->
-      <div class="p-4 flex-1 flex flex-col justify-between">
-        <!-- Color Swatches - Improved design -->
-        <div v-if="hasColorOptions" class="mb-3">
-          <div class="flex gap-1.5 flex-wrap">
-            <button
-              v-for="color in colorOptions"
-              :key="color.value"
-              @click="selectColor(color)"
-              :title="color.value"
-              :class="[
-                'w-7 h-7 rounded-full border-2 transition-all duration-200 relative',
-                selectedColor === color.value ? 'border-gray-900 scale-110 shadow-md' : 'border-gray-200 hover:border-gray-400'
-              ]"
-              :style="{ backgroundColor: getColorCode(color.value) }"
+      <div class="p-4 flex-1 flex flex-col">
+        <!-- Product Content (grows to fill space) -->
+        <div class="flex-1">
+          <!-- Color Swatches - Improved design -->
+          <div v-if="hasColorOptions" class="mb-3">
+            <div class="flex gap-1.5 flex-wrap">
+              <button
+                v-for="color in colorOptions"
+                :key="color.value"
+                @click="selectColor(color)"
+                :title="color.value"
+                :class="[
+                  'w-7 h-7 rounded-full border-2 transition-all duration-200 relative',
+                  selectedColor === color.value ? 'border-gray-900 scale-110 shadow-md' : 'border-gray-200 hover:border-gray-400'
+                ]"
+                :style="{ backgroundColor: getColorCode(color.value) }"
+              >
+                <span v-if="selectedColor === color.value" class="absolute inset-0 flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white drop-shadow" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Brand (if available and enabled) -->
+          <p v-if="showVendor && productData.vendor" class="text-xs text-gray-500 uppercase tracking-wider mb-1">
+            {{ productData.vendor }}
+          </p>
+          
+          <!-- Title -->
+          <h3 class="text-2xl line-clamp-2 mb-2">
+            <a :href="productUrl" >
+              {{ productData.title || 'Untitled' }}
+            </a>
+          </h3>
+          
+          <!-- Rating (placeholder - shown if enabled) -->
+          <div v-if="showReviews" class="flex items-center gap-1 mb-2">
+            <div class="flex">
+              <svg v-for="i in 5" :key="i" class="w-4 h-4" :class="i <= 4 ? 'text-yellow-400 fill-current' : 'text-gray-300 fill-current'" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            </div>
+            <span class="text-xs text-gray-500">(24)</span>
+          </div>
+          
+          <!-- Price -->
+          <div class="flex items-baseline gap-2 mb-4">
+            <span class="text-xl font-bold text-gray-900">
+              {{ formatPrice(currentPrice) }}
+            </span>
+            <span
+              v-if="compareAtPrice > currentPrice"
+              class="text-sm text-gray-400 line-through"
             >
-              <span v-if="selectedColor === color.value" class="absolute inset-0 flex items-center justify-center">
-                <svg class="w-4 h-4 text-white drop-shadow" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-              </span>
-            </button>
+              {{ formatPrice(compareAtPrice) }}
+            </span>
           </div>
         </div>
         
-        <!-- Brand (if available and enabled) -->
-        <p v-if="showVendor && productData.vendor" class="text-xs text-gray-500 uppercase tracking-wider mb-1">
-          {{ productData.vendor }}
-        </p>
-        
-        <!-- Title -->
-        <h3 class="text-2xl line-clamp-2 mb-2">
-          <a :href="productUrl" >
-            {{ productData.title || 'Untitled' }}
-          </a>
-        </h3>
-        
-        <!-- Rating (placeholder - shown if enabled) -->
-        <div v-if="showReviews" class="flex items-center gap-1 mb-2">
-          <div class="flex">
-            <svg v-for="i in 5" :key="i" class="w-4 h-4" :class="i <= 4 ? 'text-yellow-400 fill-current' : 'text-gray-300 fill-current'" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-          </div>
-          <span class="text-xs text-gray-500">(24)</span>
-        </div>
-        
-        <!-- Price -->
-        <div class="flex items-baseline gap-2 mb-4">
-          <span class="text-xl font-bold text-gray-900">
-            {{ formatPrice(currentPrice) }}
-          </span>
-          <span
-            v-if="compareAtPrice > currentPrice"
-            class="text-sm text-gray-400 line-through"
+        <!-- Add to Cart Button (always at bottom) -->
+        <div class="mt-auto">
+          <button
+            v-if="productData.available"
+            @click="handleAddToCart"
+            :disabled="isAddingToCart"
+            class="button w-full px-4 py-3 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            :style="{
+              backgroundColor: 'var(--button-primary-bg)',
+              color: 'var(--button-primary-text)',
+              borderRadius: 'var(--button-radius)'
+            }"
+            @mouseenter="e => e.target.style.backgroundColor = 'var(--button-primary-bg-hover)'"
+            @mouseleave="e => e.target.style.backgroundColor = 'var(--button-primary-bg)'"
           >
-            {{ formatPrice(compareAtPrice) }}
-          </span>
+            <svg v-if="!isAddingToCart" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span v-if="!isAddingToCart">Add to Cart</span>
+            <svg v-else class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </button>
         </div>
-        
-        <!-- Add to Cart Button -->
-        <button
-          v-if="productData.available"
-          @click="handleAddToCart"
-          :disabled="isAddingToCart"
-          class="button w-full px-4 py-3 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-          :style="{
-            backgroundColor: 'var(--button-primary-bg)',
-            color: 'var(--button-primary-text)',
-            borderRadius: 'var(--button-radius)'
-          }"
-          @mouseenter="e => e.target.style.backgroundColor = 'var(--button-primary-bg-hover)'"
-          @mouseleave="e => e.target.style.backgroundColor = 'var(--button-primary-bg)'"
-        >
-          <svg v-if="!isAddingToCart" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          <span v-if="!isAddingToCart">Add to Cart</span>
-          <svg v-else class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-        </button>
       </div>
   </div>
 </template>
